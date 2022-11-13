@@ -75,6 +75,20 @@ namespace IntegrationAPI.Controllers
             }
         }
 
+        [HttpGet("test")]
+        public ActionResult SendToMQ()
+        {
+            try
+            {
+                _bloodBankService.TestSendToMQ();
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpGet("{id}")]
         public ActionResult GetById(int id)
         {

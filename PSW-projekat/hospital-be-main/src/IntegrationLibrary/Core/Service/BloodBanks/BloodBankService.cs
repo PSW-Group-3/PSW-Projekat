@@ -21,12 +21,17 @@ namespace IntegrationLibrary.Core.Service.BloodBanks
         private readonly APIKeyGenerator _apiKeyGenerator = new APIKeyGenerator();
         private readonly PasswordGenerator _passwordGenerator = new PasswordGenerator();
         private readonly IBloodBankConnection _bloodBankConnection;
+        private readonly IRabbitMQService _rabbitMQService;
 
-        public BloodBankService(IBloodBankRepository bloodBankRepository, IEmailService emailService, IBloodBankConnection bloodBankConnection)
+        public BloodBankService(IBloodBankRepository bloodBankRepository,
+            IEmailService emailService,
+            IBloodBankConnection bloodBankConnection,
+            IRabbitMQService rabbitMQService)
         {
             _bloodBankRepository = bloodBankRepository;
             _emailService = emailService;
             _bloodBankConnection = bloodBankConnection;
+            _rabbitMQService = rabbitMQService;
         }
 
         public void Create(BloodBank entity)
@@ -138,6 +143,16 @@ namespace IntegrationLibrary.Core.Service.BloodBanks
                 return false;
 
             return true;
+        }
+
+        public void TestSendToMQ()
+        {
+            _rabbitMQService.Send();
+        }
+
+        public void TestReciveFromMQ()
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -43,6 +43,7 @@ namespace IntegrationAPI
             services.AddScoped<IEmailService, EmailService>();
             services.AddTransient<IEmailService, EmailService>();
             services.AddScoped<IBloodBankConnection, BloodBankHTTPConnection>();
+            services.AddScoped<IRabbitMQService, RabbitMQService>();
             services.AddHostedService<BloodReportHostedService>();
             services.AddScoped<IReportSettingsRepository, ReportSettingsRepository>();
             services.AddScoped<IReportSettingsService, ReportSettingsService>();

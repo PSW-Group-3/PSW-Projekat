@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Linq;
 
 namespace IntegrationAPITests.Setup
@@ -76,6 +77,7 @@ namespace IntegrationAPITests.Setup
                 AccountStatus = AccountStatus.ACTIVE
             });
 
+<<<<<<< HEAD
             context.ReportSettings.Add(new ReportSettings
             {
                 CalculationDays = 0,
@@ -86,6 +88,15 @@ namespace IntegrationAPITests.Setup
                 DeliveryYears = 0,
                 StartDeliveryDate = System.DateTime.Now
             });
+=======
+            context.Database.ExecuteSqlRaw("TRUNCATE TABLE \"News\";");
+            context.Newses.Add(new News
+            {
+                Id = 1,
+                Name = "Blood donation",
+                DateTime = new DateTime(2022, 01, 01, 9, 15, 0)
+            }); ;
+>>>>>>> 37e4d8567e7e0bda7b1e5b60940f1e566690e561
 
             context.SaveChanges();
         }

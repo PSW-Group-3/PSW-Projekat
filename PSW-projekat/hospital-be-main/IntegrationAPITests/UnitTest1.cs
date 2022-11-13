@@ -47,7 +47,7 @@ namespace IntegrationAPITests
             stubRepo.Setup(m => m.GetById(1)).Returns(b1);
 
 
-            BloodBankService bloodBankService = new BloodBankService(stubRepo.Object, new EmailService(), new BloodBankHTTPConnection() );
+            BloodBankService bloodBankService = new BloodBankService(stubRepo.Object, new EmailService(), new BloodBankHTTPConnection(), new RabbitMQService() );
 
             BloodBank t =  bloodBankService.GetById(2);
             Assert.Null(t);

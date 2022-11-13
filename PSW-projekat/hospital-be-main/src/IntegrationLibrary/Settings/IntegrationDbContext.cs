@@ -14,8 +14,10 @@ namespace IntegrationLibrary.Settings
     public class IntegrationDbContext : DbContext
     {
         public DbSet<BloodBank> BloodBanks { get; set; }
+
         public DbSet<ReportSettings> ReportSettings { get; set; }
-        public DbSet<News> News { get; set; }
+
+        public DbSet<News> Newses { get; set; }
 
         public IntegrationDbContext([NotNull] DbContextOptions options) : base(options)
         {
