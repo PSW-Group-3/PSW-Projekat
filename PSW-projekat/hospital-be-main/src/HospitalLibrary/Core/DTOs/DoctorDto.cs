@@ -1,9 +1,13 @@
-﻿using HospitalLibrary.Core.Model.Enums;
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using HospitalLibrary.Core.Model.Enums;
 
 namespace HospitalLibrary.Core.DTOs
 {
-    public class PatientDto
+    public class DoctorDto
     {
         public int Id { get; set; }
         public String Name { get; set; }
@@ -12,9 +16,9 @@ namespace HospitalLibrary.Core.DTOs
         public String Username { get; set; }
         public Role Role { get; set; }
 
-        public PatientDto() { }
+        public DoctorDto() { }
 
-        public PatientDto(int id, string name, string surname, string email, Role role)
+        public DoctorDto(int id, string name, string surname, string email, Role role)
         {
             Id = id;
             Name = name;

@@ -60,13 +60,13 @@ namespace HospitalAPI.Controllers.PublicApp
             return Ok();
         }
 
-
         [HttpGet("GetAllergiesAndDoctors")]
+
         public ActionResult GetAllergiesAndDoctors()
         {
             return Ok(_doctorService.GetAllergiesAndDoctors());
         }
-
+        */
 
         [HttpPost("CreateManager")]
         public async Task<IActionResult> CreateManager(CreateManagerDto createManagerDto)

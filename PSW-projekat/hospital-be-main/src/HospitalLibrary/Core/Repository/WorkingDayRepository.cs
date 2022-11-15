@@ -18,9 +18,9 @@ namespace HospitalLibrary.Core.Repository
             _context = context;
         }
 
-        public IEnumerable<WorkingDay> GetAllWorkingDaysByUser(int userId)
+        public IEnumerable<WorkingDay> GetAllWorkingDaysByUser(int personId)
         {
-            return _context.WorkingDays.Include(x => x.User).Where(x => x.User.Id == userId && !x.Deleted).ToList();
+            return _context.WorkingDays.Include(x => x.User).Where(x => x.User.Id == personId && !x.Deleted).ToList();
         }
 
         public void Create(WorkingDay entity)

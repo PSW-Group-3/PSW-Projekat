@@ -44,11 +44,15 @@ namespace HospitalLibrary.Core.Service
 
         public void Create(Appointment entity)
         {
+            /*
             if (InWorkingTime(entity, workingDayRepository.GetAllWorkingDaysByUser(3)))
             {
                 entity.Deleted = false;
                 _appointmentRepository.Create(entity);
             }
+            */
+            entity.Deleted = false;
+            _appointmentRepository.Create(entity);
         }
 
         public void Delete(Appointment entity)
@@ -69,7 +73,7 @@ namespace HospitalLibrary.Core.Service
             MailMessage message = new MailMessage();
             message.From = new MailAddress(fromMail);
             message.Subject = "Termin za pregled";
-            message.To.Add(appointment.Patient.Email);
+            message.To.Add(appointment.Patient.Person.Email);
             message.Body = "<html><body> Vas termin: " + appointment.DateTime.ToString() + " za pregled je obrisan.</body></html>";
             message.IsBodyHtml = true;
 
@@ -96,11 +100,11 @@ namespace HospitalLibrary.Core.Service
         public void Update(Appointment entity)
         {
             
-            if (InWorkingTime(entity, workingDayRepository.GetAllWorkingDaysByUser(3)))
+           // if (InWorkingTime(entity, workingDayRepository.GetAllWorkingDaysByUser(2))) 
             {
                 entity.Deleted = false;
                 _appointmentRepository.Update(entity);
-            }
+            } 
 
         }
 
@@ -111,18 +115,35 @@ namespace HospitalLibrary.Core.Service
 
             foreach (Appointment appointment in allAppointments)
             {
+                
                 AppointmentDto appointmentDto = new AppointmentDto();
+
+                
                 PatientDto patientDto = new PatientDto();
-                patientDto.Name = appointment.Patient.Name;
-                patientDto.Surname = appointment.Patient.Surname;
+                patientDto.Id = appointment.Patient.Id;
+                patientDto.Name = appointment.Patient.Person.Name;
+                patientDto.Surname = appointment.Patient.Person.Surname;
 
-                PatientDto doctorDto = new PatientDto();
-                doctorDto.Name = appointment.Doctor.Name;
-                doctorDto.Surname = appointment.Doctor.Surname;
-
+                DoctorDto doctorDto = new DoctorDto();
                 doctorDto.Id = appointment.Doctor.Id;
+                doctorDto.Name = appointment.Doctor.Person.Name;
+                doctorDto.Surname = appointment.Doctor.Person.Surname;
+                
 
-                appointmentDto.Patinet = patientDto;
+                /*
+                Patient patient = new Patient();
+                Doctor doctor = new Doctor();
+
+                patient.Id = appointment.Patient.Id;
+                patient.Person.Name = appointment.Patient.Person.Name;
+                patient.Person.Surname = appointment.Patient.Person.Surname;
+
+                doctor.Id = appointment.Doctor.Id;
+                doctor.Person.Name = appointment.Doctor.Person.Name;
+                doctor.Person.Surname = appointment.Doctor.Person.Surname;
+                */
+
+                appointmentDto.Patient = patientDto;
                 appointmentDto.Doctor = doctorDto;
                 appointmentDto.DateTime = appointment.DateTime;
 

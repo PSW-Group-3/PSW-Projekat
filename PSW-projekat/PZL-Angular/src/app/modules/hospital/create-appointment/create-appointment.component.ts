@@ -5,6 +5,8 @@ import { AppointmentService } from 'src/app/modules/hospital/services/appointmen
 import { Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 import { UserService } from '../services/user.service';
+import { PatientDto } from '../model/patient';
+import { DoctorDto } from '../model/doctor';
 
 
 @Component({
@@ -16,9 +18,10 @@ export class CreateAppointmentComponent implements OnInit {
 
   //ovo ne treba tako!
   public appointment: Appointment = new Appointment(0, false, '', '', Date());
-  public dataSource = new MatTableDataSource<User>();
-  public patients: User[] = [];
-  public doctors: User[] = [];
+  public dataSourceP = new MatTableDataSource<PatientDto>();
+  public dataSourceD = new MatTableDataSource<DoctorDto>();
+  public patients: PatientDto[] = [];
+  public doctors: DoctorDto[] = [];
 
 
   //constructor() { }
@@ -29,30 +32,31 @@ export class CreateAppointmentComponent implements OnInit {
     this.userService.GetAllPatients().subscribe(res => {
       let result = Object.values(JSON.parse(JSON.stringify(res)));
       result.forEach((element: any) => {
-        var app = new User(element.id, element.name, element.surname, element.role);
+        var app = new PatientDto(element.id, element.name, element.surname, element.email, element.username, element.role);
         this.patients.push(app);
       });
-      this.dataSource.data = this.patients;
+      console.log(this.patients);
+      this.dataSourceP.data = this.patients;
     })
 
+    
     this.userService.GetAllDoctors().subscribe(res => {
       let result = Object.values(JSON.parse(JSON.stringify(res)));
       result.forEach((element: any) => {
-        var app = new User(element.id, element.name, element.surname, element.role);
+        var app = new DoctorDto(element.id, element.name, element.surname, element.email, element.username, element.role);
         this.doctors.push(app);
       });
-      this.dataSource.data = this.doctors;
+      console.log(this.doctors);
+      this.dataSourceD.data = this.doctors;
     })
-
-
-   //this.userService.GetAllPatients().subscribe(res=> { this.patients = res; })
-   //this.userService.GetAllDoctors().subscribe(res=> { this.doctors = res; })
 
   }
   
   public createAppointment() {
+    console.log(this.appointment);
     if (!this.isValidInput()) return;
     this.appointmentService.createAppointment(this.appointment).subscribe(res => {
+      //console.log(res,this.appointment);
       this.router.navigate(['/appointments']);
     });
   }

@@ -30,7 +30,9 @@ export class AppointmentService {
   }
 
   updateAppointment(appointment: any): Observable<any> {
-    return this.http.put<any>(this.apiHost + 'api/appointment/' + appointment.id, appointment, {headers: this.headers});
+    console.log(appointment);
+    console.log(appointment.appointmentId);
+    return this.http.put<any>(this.apiHost + 'api/appointment/' + appointment.appointmentId, appointment, {headers: this.headers});
   }
 
   GetAllByDoctor(doctorId: number) : Observable<any> {

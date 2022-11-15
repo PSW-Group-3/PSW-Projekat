@@ -1,6 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { DoctorDto } from '../model/doctor';
+import { PatientDto } from '../model/patient';
 import { User } from '../model/user';
 
 @Injectable({
@@ -13,11 +15,11 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  GetAllPatients(): Observable<User[]> {
-    return this.http.get<User[]>(this.apiHost + 'api/User/patient', {headers: this.headers});
+  GetAllPatients(): Observable<PatientDto[]> {
+    return this.http.get<PatientDto[]>(this.apiHost + 'api/patient', {headers: this.headers});
   }
 
-  GetAllDoctors(): Observable<User[]> {
-    return this.http.get<User[]>(this.apiHost + 'api/User/doctor', {headers: this.headers});
+  GetAllDoctors(): Observable<DoctorDto[]> {
+    return this.http.get<DoctorDto[]>(this.apiHost + 'api/doctor', {headers: this.headers});
   }
 }
