@@ -10,12 +10,11 @@ namespace HospitalLibrary.Core.Service
 {
     public class PatientService : IPatientService
     {
-        private readonly IPatientRepository _patientRepository;
+        private readonly PatientRepository _patientRepository;
 
-        public PatientService(IPatientRepository patientRepository)
+        public PatientService(PatientRepository patientRepository)
         {
             _patientRepository = patientRepository;
-
         }
 
         public void Create(Patient entity)

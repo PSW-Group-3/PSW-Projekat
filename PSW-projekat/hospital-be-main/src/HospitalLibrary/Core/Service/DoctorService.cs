@@ -9,17 +9,10 @@ namespace HospitalLibrary.Core.Service
 {
     public class DoctorService : IDoctorService
     {
-
         private readonly DoctorRepository _doctorRepository;
-        private readonly IDoctorRepository _idoctorRepository;
         private readonly PersonRepository _personRepository;
         private readonly AllergyRepository _allergyRepository;
 
-        public DoctorService(IDoctorRepository idoctorRepository)
-        {
-            _idoctorRepository = idoctorRepository;
-
-        }
         public DoctorService(DoctorRepository doctorRepository, PersonRepository personRepository, AllergyRepository allergyRepository)
         {
             _doctorRepository = doctorRepository;
@@ -39,19 +32,18 @@ namespace HospitalLibrary.Core.Service
 
         public IEnumerable<Doctor> GetAll()
         {
-            return _idoctorRepository.GetAll();
+            return _doctorRepository.GetAll();
         }
 
         public Doctor GetById(int id)
         {
-            return _idoctorRepository.GetById(id);
+            return _doctorRepository.GetById(id);
         }
 
         public void Update(Doctor entity)
         {
             throw new NotImplementedException();
         }
-
 
         public AllergiesAndDoctorsForPatientRegistrationDto GetAllergiesAndDoctors()
         {
@@ -73,7 +65,6 @@ namespace HospitalLibrary.Core.Service
             }
             return allergiesAndDoctors;
         }
-        
 
         public Person getPersonByDoctorId(int id)
         {
@@ -84,6 +75,5 @@ namespace HospitalLibrary.Core.Service
         {
             return _doctorRepository.RegisterDoctor(doctor);
         }
-        
     }
 }

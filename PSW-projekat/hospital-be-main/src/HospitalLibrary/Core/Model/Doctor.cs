@@ -13,6 +13,6 @@ namespace HospitalLibrary.Core.Model
 
         public virtual Person Person { get; set; }
 
-        //public virtual ICollection<Patient> Patients { get; set; }
+        public virtual ICollection<Patient> Patients { get; set; }
     }
 }

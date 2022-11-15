@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HospitalAPI.Controllers.PublicApp
 {
-    //[Authorize]
+    [Authorize]
     [EnableCors]
     [Route("api/[controller]")]
     [ApiController]
@@ -15,9 +15,9 @@ namespace HospitalAPI.Controllers.PublicApp
     {
 
         private readonly UserManager<SecUser> _userManager;
-        private readonly IPersonService _personService;
+        private readonly PersonService _personService;
 
-        public PersonController(IPersonService personService, UserManager<SecUser> userManager)
+        public PersonController(PersonService personService, UserManager<SecUser> userManager)
         {
             _personService = personService;
             _userManager = userManager;

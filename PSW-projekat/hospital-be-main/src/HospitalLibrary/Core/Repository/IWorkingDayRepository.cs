@@ -9,7 +9,7 @@ namespace HospitalLibrary.Core.Repository
 {
     public interface IWorkingDayRepository : IRepository<WorkingDay>
     {
-        IEnumerable<WorkingDay> GetAllWorkingDaysByUser(int personId);
+        IEnumerable<WorkingDay> GetAllWorkingDaysByUser(int userId);
 
     }
 }

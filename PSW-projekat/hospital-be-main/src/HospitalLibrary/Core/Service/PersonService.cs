@@ -11,9 +11,9 @@ namespace HospitalLibrary.Core.Service
 {
     public class PersonService : IPersonService
     {
-        private readonly IPersonRepository _personRepository;
+        private readonly PersonRepository _personRepository;
 
-        public PersonService(IPersonRepository personRepository)
+        public PersonService(PersonRepository personRepository)
         {
             _personRepository = personRepository;
         }
