@@ -3,7 +3,7 @@ using System;
 
 namespace HospitalLibrary.Core.DTOs
 {
-    public class UserDto
+    public class PatientDto
     {
         public int Id { get; set; }
         public String Name { get; set; }

@@ -10,7 +10,7 @@ namespace HospitalLibrary.Core.DTOs
     {
         public int AppointmentId { get; set; }
         public DateTime DateTime { get; set; }
-        public UserDto Patinet { get; set; }
-        public UserDto Doctor { get; set; }
+        public PatientDto Patinet { get; set; }
+        public PatientDto Doctor { get; set; }
     }
 }

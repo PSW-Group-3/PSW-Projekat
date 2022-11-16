@@ -35,4 +35,12 @@ export class WelcomeComponent implements OnInit {
     }
     this.dataSourceFeedbacks = this.feedbacks.slice(0, this.feedbackCount);
   }
+
+  loginUser(){
+    this.router.navigate(['/login']);
+  }
+
+  registerPatient(){
+    this.router.navigate(['/register']);
+  }
 }

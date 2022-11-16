@@ -67,6 +67,95 @@ namespace IntegrationLibrary.Migrations
                         });
                 });
 
+            modelBuilder.Entity("IntegrationLibrary.Core.Model.BloodRequest", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BloodQuantity")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BloodType")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DoctorId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Reason")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("RequestState")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("RequiredForDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BloodRequests");
+                });
+
+            modelBuilder.Entity("IntegrationLibrary.Core.Model.News", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BloodBankId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Text")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("_bloodBankId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("_dateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("_status")
+                        .HasColumnType("int");
+
+                    b.Property<string>("_text")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("_title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Newses");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 2,
+                            BloodBankId = 1,
+                            DateTime = new DateTime(2022, 11, 16, 0, 0, 0, 0, DateTimeKind.Local),
+                            Status = 0,
+                            Text = "Come and give me blood!",
+                            Title = "First blood of the year!",
+                            _bloodBankId = 1,
+                            _dateTime = new DateTime(2022, 11, 16, 0, 0, 0, 0, DateTimeKind.Local),
+                            _status = 0,
+                            _text = "Come and give me blood!",
+                            _title = "First blood of the year!"
+                        });
+                });
+
             modelBuilder.Entity("IntegrationLibrary.Core.Model.ReportSettings", b =>
                 {
                     b.Property<int>("Id")
@@ -109,7 +198,7 @@ namespace IntegrationLibrary.Migrations
                             DeliveryDays = 0,
                             DeliveryMonths = 1,
                             DeliveryYears = 0,
-                            StartDeliveryDate = new DateTime(2022, 11, 7, 0, 0, 0, 0, DateTimeKind.Local)
+                            StartDeliveryDate = new DateTime(2022, 11, 16, 0, 0, 0, 0, DateTimeKind.Local)
                         });
                 });
 #pragma warning restore 612, 618

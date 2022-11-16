@@ -112,11 +112,11 @@ namespace HospitalLibrary.Core.Service
             foreach (Appointment appointment in allAppointments)
             {
                 AppointmentDto appointmentDto = new AppointmentDto();
-                UserDto patientDto = new UserDto();
+                PatientDto patientDto = new PatientDto();
                 patientDto.Name = appointment.Patient.Name;
                 patientDto.Surname = appointment.Patient.Surname;
 
-                UserDto doctorDto = new UserDto();
+                PatientDto doctorDto = new PatientDto();
                 doctorDto.Name = appointment.Doctor.Name;
                 doctorDto.Surname = appointment.Doctor.Surname;
 

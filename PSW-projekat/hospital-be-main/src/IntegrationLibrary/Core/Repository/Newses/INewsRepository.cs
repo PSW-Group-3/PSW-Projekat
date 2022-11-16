@@ -10,5 +10,6 @@ namespace IntegrationLibrary.Core.Repository.Newses
 {
     public interface INewsRepository : ICRUDRepository<News>
     {
+        public IEnumerable<News> GetAllPending();
     }
 }

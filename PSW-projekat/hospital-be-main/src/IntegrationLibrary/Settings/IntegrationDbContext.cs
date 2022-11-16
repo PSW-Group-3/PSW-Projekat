@@ -17,7 +17,11 @@ namespace IntegrationLibrary.Settings
 
         public DbSet<ReportSettings> ReportSettings { get; set; }
 
+
         public DbSet<News> Newses { get; set; }
+
+        public DbSet<BloodRequest> BloodRequests { get; set; }
+
 
         public IntegrationDbContext([NotNull] DbContextOptions options) : base(options)
         {
@@ -41,6 +45,16 @@ namespace IntegrationLibrary.Settings
                     StartDeliveryDate = Microsoft.VisualBasic.DateAndTime.Today
                 }
                 );
+            modelBuilder.Entity<News>().HasData(
+                new News()
+                {
+                    Id = 2,
+                    Status = NewsStatus.PENDING,
+                    Text = "Come and give me blood!",
+                    Title = "First blood of the year!",
+                    BloodBankId = 1,
+                    DateTime = Microsoft.VisualBasic.DateAndTime.Today
+                });
             base.OnModelCreating(modelBuilder);
         }
     }

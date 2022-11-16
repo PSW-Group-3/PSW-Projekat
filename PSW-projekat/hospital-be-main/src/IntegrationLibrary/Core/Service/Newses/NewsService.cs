@@ -80,5 +80,9 @@ namespace IntegrationLibrary.Core.Service.Newses
                 throw;
             }
         }
+        public IEnumerable<News> GetAllPending()
+        {
+            return _newsRepository.GetAllPending();
+       }
     }
 }

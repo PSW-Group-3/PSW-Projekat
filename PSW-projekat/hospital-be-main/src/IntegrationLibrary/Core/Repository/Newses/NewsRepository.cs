@@ -54,5 +54,13 @@ namespace IntegrationLibrary.Core.Repository.Newses
                 throw;
             }
         }
+
+        public IEnumerable<News> GetAllPending()
+        { 
+            return (from newses in _context.Newses
+                    where newses.Status == NewsStatus.PENDING
+                    select newses).ToList();
+                    
+        }
     }
 }

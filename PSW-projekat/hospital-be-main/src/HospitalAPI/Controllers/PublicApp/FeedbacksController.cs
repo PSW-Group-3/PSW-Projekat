@@ -18,9 +18,9 @@ namespace HospitalAPI.Controllers.PublicApp
     public class FeedbacksController : ControllerBase
     {    
         private readonly FeedbackService _feedbackService;
-        private readonly IUserService _userService;
+        private readonly PersonService _userService;
 
-        public FeedbacksController(FeedbackService feedbackService, IUserService userService)
+        public FeedbacksController(FeedbackService feedbackService, PersonService userService)
         {
             _feedbackService = feedbackService;
             _userService = userService;
@@ -52,7 +52,7 @@ namespace HospitalAPI.Controllers.PublicApp
                 return BadRequest(ModelState);
             }
 
-            User user = _userService.GetById(int.Parse(feedbackDto.UserId));
+            Person user = _userService.GetById(int.Parse(feedbackDto.UserId));
 
             Feedback feedback = new Feedback {
                 Description = feedbackDto.Description,

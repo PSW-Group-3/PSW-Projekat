@@ -17,7 +17,7 @@ namespace HospitalLibrary.Core.Model
 
         public DateTime DateCreated { get; set; }
 
-        public virtual User User { get; set; }
+        public virtual Person User { get; set; }
 
         public FeedbackStatus Status { get; set; }
     }

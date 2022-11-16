@@ -7,10 +7,9 @@ using HospitalLibrary.Core.Model;
 
 namespace HospitalLibrary.Core.Repository
 {
-    public interface IUserRepository : IRepository<User>
+    public interface IPersonRepository : IRepository<Person>
     {
-        IEnumerable<User> GetAllDoctors();
-        IEnumerable<User> GetAllPatients();
-
+        IEnumerable<Person> GetAllDoctors();
+        IEnumerable<Person> GetAllPatients();
     }
 }

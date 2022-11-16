@@ -9,6 +9,6 @@ namespace HospitalLibrary.Core.Model
         public Day Day { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
-        public virtual User User { get; set; }
+        public virtual Person User { get; set; }
     }
 }

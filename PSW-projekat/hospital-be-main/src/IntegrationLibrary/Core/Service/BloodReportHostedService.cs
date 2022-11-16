@@ -36,7 +36,7 @@ namespace IntegrationLibrary.Core.Service
 
         private async Task DoWork(Object o)
         {
-            Console.WriteLine("ispisuje se");
+            
         }
     }
 }

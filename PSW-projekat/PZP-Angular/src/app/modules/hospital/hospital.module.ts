@@ -10,6 +10,8 @@ import { UpdateRoomComponent } from "./update-room/update-room.component";
 import { FeedbacksComponent } from './feedbacks/feedbacks.component';
 import { CreateFeedbackComponent } from './create-feedback/create-feedback.component';
 import { WelcomeComponent } from "./welcome/welcome.component";
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 
 const routes: Routes = [
   { path: 'rooms', component: RoomsComponent },
@@ -18,6 +20,8 @@ const routes: Routes = [
   { path: 'rooms/:id/update', component: UpdateRoomComponent },
   { path: 'feedbacks', component: FeedbacksComponent },
   { path: 'feedbacks/add', component: CreateFeedbackComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
 ];
 
 @NgModule({
@@ -28,7 +32,9 @@ const routes: Routes = [
     UpdateRoomComponent,
     FeedbacksComponent,
     CreateFeedbackComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     CommonModule,

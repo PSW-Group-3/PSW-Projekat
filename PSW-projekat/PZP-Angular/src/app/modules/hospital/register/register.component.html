@@ -1,0 +1,199 @@
+<div class="d-flex justify-content-center text-white my-3">
+    <form class="d-flex flex-column bg-dark m-auto p-5 rounded-3 shadow-lg" [formGroup]="registerForm" style="max-width: 80vw; min-width: 56vw; min-height: 800px;">
+        <h2 class="mb-0 mx-auto">Registration</h2>
+        <h3 class="mb-4 mx-auto">Please fill out the form below to get registered</h3>
+        
+        <div class="row justify-content-evenly">
+            <div class="col-md-5">
+                <h3 class="mb-2 mx-auto border-bottom border-white">Personal information</h3>
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" class="form-control" id="name" formControlName="name">
+                    <div *ngIf="registerForm.get('name').invalid && (registerForm.get('name').dirty || registerForm.get('name').touched)" class="text-danger mt-1">
+                        Please enter a name.
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="surname" class="form-label">Surname</label>
+                    <input type="text" class="form-control" id="surname" formControlName="surname">
+                    <div *ngIf="registerForm.get('surname').invalid && (registerForm.get('surname').dirty || registerForm.get('surname').touched)" class="text-danger mt-1">
+                        Please enter a surname.
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="gender" class="form-label">Gender</label>
+                    <div class="input-group">
+                        <span class="input-group-text" id="genderPng">
+                            <img src="../../../../assets/images/gender.png" width="24" height="24"/>
+                        </span>
+                        <select class="form-select" aria-label="gender selector" id="gender" formControlName="gender">
+                            <option selected disabled hidden value="">Choose your gender</option>
+                            <option value="0">Male</option>
+                            <option value="1">Female</option>
+                            <option value="2">Other</option>
+                        </select>      
+                    </div>
+                    <div *ngIf="registerForm.get('gender').invalid && (registerForm.get('gender').dirty || registerForm.get('gender').touched)" class="text-danger mt-1">
+                        Please enter a gender.
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="birthdate" class="form-label">Birthdate</label>
+                    <div class="input-group">
+                        <span class="input-group-text" id="birthdatePng">        
+                            <img src="../../../../assets/images/birthday.png" width="24" height="24"/>
+                        </span>
+                        <input type="date" class="form-control" id="birthdate" aria-describedby="birthdatePng" formControlName="birthDate">
+                    </div>
+                    <div *ngIf="registerForm.get('birthDate').invalid && (registerForm.get('birthDate').dirty || registerForm.get('birthDate').touched)" class="text-danger mt-1">
+                        Please enter a birthdate.
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <div class="input-group">
+                        <span class="input-group-text fw-bold" id="emailPng" style="width: 50px;">
+                            &nbsp;@
+                        </span>
+                        <input type="text" class="form-control" id="email" aria-describedby="emailPng" formControlName="email">
+                    </div>
+                    <div *ngIf="registerForm.get('email').invalid && (registerForm.get('email').dirty || registerForm.get('email').touched)" class="text-danger mt-1">
+                        Please enter a email.
+                    </div>
+                </div>
+                
+                <h3 class="mb-2 mx-auto border-bottom border-white">Address</h3>
+                <div class="row mb-3">
+                    <div class="col-sm-9">
+                        <label for="street" class="form-label">Street</label>
+                        <input type="text" class="form-control" id="street" formControlName="street">    
+                    </div>
+                    <div class="col-sm-3">
+                        <label for="number" class="form-label">Number</label>
+                        <input type="text" class="form-control" id="number" formControlName="number">  
+                    </div>
+                    <div class="col">
+                        <div *ngIf="(registerForm.get('street').invalid && (registerForm.get('street').dirty || registerForm.get('street').touched)) || (registerForm.get('number').invalid && (registerForm.get('number').dirty || registerForm.get('number').touched))" class="text-danger mt-1">
+                            Please enter a street and number.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-sm-6">
+                        <label for="city" class="form-label">City</label>
+                        <input type="text" class="form-control" id="city" formControlName="city">
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="township" class="form-label">Township</label>
+                        <input type="text" class="form-control" id="township" formControlName="township">
+                    </div>
+                    <div class="col">
+                        <div *ngIf="(registerForm.get('city').invalid && (registerForm.get('city').dirty || registerForm.get('city').touched)) || (registerForm.get('township').invalid && (registerForm.get('township').dirty || registerForm.get('township').touched))" class="text-danger mt-1">
+                            Please enter a city and township.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="postCode" class="form-label">Post code</label>
+                    <input type="text" class="form-control" id="postCode" formControlName="postCode">
+                    <div *ngIf="registerForm.get('postCode').invalid && (registerForm.get('postCode').dirty || registerForm.get('postCode').touched)" class="text-danger mt-1">
+                        Please enter a post code.
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-md-5">
+                <h3 class="mb-2 mx-auto border-bottom border-white">Account information</h3>
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <div class="input-group">
+                        <span class="input-group-text" id="userPng">
+                            <img src="../../../../assets/images/user.png" width="24" height="24"/>
+                        </span>
+                        <input type="text" class="form-control" id="username" aria-describedby="userPng" formControlName="username">
+                    </div>
+                    <div *ngIf="registerForm.get('username').invalid && (registerForm.get('username').dirty || registerForm.get('username').touched)" class="text-danger mt-1">
+                        Please enter a username.
+                    </div>
+                    <div *ngIf="usernameIsTaken" class="text-danger mt-1">
+                        Username is taken.
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <div class="input-group">
+                        <span class="input-group-text" id="passwordPng">        
+                            <img src="../../../../assets/images/password.png" width="24" height="24"/>
+                        </span>
+                        <input type="password" class="form-control" id="password" aria-describedby="passwordPng" formControlName="password">
+                    </div>
+                    <div *ngIf="registerForm.get('password').invalid && (registerForm.get('password').dirty || registerForm.get('password').touched)" class="text-danger mt-1">
+                        Please enter a password.
+                    </div>
+                </div>
+
+                <h3 class="mb-2 mx-auto border-bottom border-white">Medical information</h3>
+                <div class="mb-3">
+                    <label for="bloodType" class="form-label">Blood Type</label>
+                    <div class="input-group">
+                        <span class="input-group-text" id="bloodTypePng">        
+                            <img src="../../../../assets/images/bloodtype.png" width="24" height="24"/>
+                        </span>
+                        <select class="form-select" aria-label="blood type selector" id="bloodType" formControlName="bloodType">
+                            <option selected disabled hidden value="">Choose your blood type</option>
+                            <option value="0">A+</option>
+                            <option value="1">B+</option>
+                            <option value="2">AB+</option>
+                            <option value="3">O+</option>
+                            <option value="4">A-</option>
+                            <option value="5">B-</option>
+                            <option value="6">AB-</option>
+                            <option value="7">O-</option>
+                        </select>
+                    </div>
+                    <div *ngIf="registerForm.get('bloodType').invalid && (registerForm.get('bloodType').dirty || registerForm.get('bloodType').touched)" class="text-danger mt-1">
+                        Please choose your blood type.
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="allergies" class="form-label">Allergies</label>
+                    <div class="input-group">
+                        <span class="input-group-text" id="allergies">
+                            <img src="../../../../assets/images/allergy.png" width="24" height="24"/>
+                        </span>
+                        <select class="form-select" aria-label="allergies selector" id="allergies" formControlName="allergies" multiple>
+                            <option *ngFor="let allergy of allergiesAndDoctors.allergies" [ngValue]="allergy">{{allergy.name}}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="doctor" class="form-label">Personal Doctor</label>
+                    <div class="input-group">
+                        <span class="input-group-text" id="doctorPng">        
+                            <img src="../../../../assets/images/doctor.png" width="24" height="24"/>
+                        </span>
+                        <select class="form-select" aria-label="personal doctor selector" id="doctor" formControlName="doctorName">
+                            <option *ngFor="let doctor of allergiesAndDoctors.doctors" [ngValue]="doctor">{{doctor.fullName}}</option>
+                        </select>
+                    </div>
+                    <div *ngIf="registerForm.get('doctorName').invalid && (registerForm.get('doctorName').dirty || registerForm.get('doctorName').touched)" class="text-danger mt-1">
+                        Please choose your doctor.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ms-auto mt-auto">
+            <button class="btn btn-primary btn-lg" type="button" [disabled]="registerForm.invalid" (click)="register()">Register</button>
+        </div>
+    </form>
+</div>

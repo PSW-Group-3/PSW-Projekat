@@ -12,6 +12,11 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using IntegrationLibrary.Core.Repository.Reports;
 using IntegrationLibrary.Core.Service.Reports;
+using IntegrationLibrary.Core.Repository.BloodRequests;
+using IntegrationLibrary.Core.Service.BloodRequests;
+using IntegrationLibrary.Core.Service.Newses;
+
+using IntegrationLibrary.Core.Repository.Newses;
 
 namespace IntegrationAPI
 {
@@ -47,6 +52,10 @@ namespace IntegrationAPI
             services.AddHostedService<BloodReportHostedService>();
             services.AddScoped<IReportSettingsRepository, ReportSettingsRepository>();
             services.AddScoped<IReportSettingsService, ReportSettingsService>();
+            services.AddScoped<IBloodRequestRepository, BloodRequestRepository>();
+            services.AddScoped<IBloodRequestService, BloodRequestService>();
+            services.AddScoped<INewsRepository, NewsRepository>();
+            services.AddScoped<INewsService, NewsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

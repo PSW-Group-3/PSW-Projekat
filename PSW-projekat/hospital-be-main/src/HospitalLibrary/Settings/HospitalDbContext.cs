@@ -10,8 +10,15 @@ namespace HospitalLibrary.Settings
         public DbSet<Room> Rooms { get; set; }
         public DbSet<Feedback> Feedbacks { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
-        public DbSet<User> User { get; set; }
+        public DbSet<Person> Persons { get; set; }
+        public DbSet<Address> Addresses { get; set; }
+        public DbSet<Patient> Patients { get; set; }
         public DbSet<WorkingDay> WorkingDays { get; set; }
+        public DbSet<Allergy> Allergies { get; set; }
+
+        public DbSet<Doctor> Doctors { get; set; }
+
+        public DbSet<PatientAllergies> PatientAllergies { get; set; }
 
 
         public HospitalDbContext(DbContextOptions<HospitalDbContext> options) : base(options) { }
@@ -25,16 +32,23 @@ namespace HospitalLibrary.Settings
                 new Room() { Id = 3, Number = "305B", Floor = 3 }
             );
 
-            modelBuilder.Entity<User>().HasData(
-                new User() { Id = 1, Name = "Milan", Surname = "Milankovic", Role = Role.doctor, Email = "milan@gmail.com", Username = "milan", Password = "123", Deleted = false},
-                new User() { Id = 2, Name = "Pera", Surname = "Petrovic", Role = Role.manager, Email = "pera@gmail.com", Username = "pera", Password = "123", Deleted = false },
-                new User() { Id = 3, Name = "Nikola", Surname = "Nikolic", Role = Role.doctor, Email = "nikola@gmail.com", Username = "nikola", Password = "123", Deleted = false },
-                new User() { Id = 4, Name = "Marko", Surname = "Markovic", Role = Role.doctor, Email = "marko@gmail.com", Username = "marko", Password = "123", Deleted = false },
-                new User() { Id = 5, Name = "Stefan", Surname = "Stefanovic", Role = Role.doctor, Email = "stefan@gmail.com", Username = "stefan", Password = "123", Deleted = false }
+            modelBuilder.Entity<Allergy>().HasData(
+                new Allergy() { Id = 1, Name = "Polen", Deleted = false },
+                new Allergy() { Id = 2, Name = "Prasina", Deleted = false },
+                new Allergy() { Id = 3, Name = "Pas", Deleted = false },
+                new Allergy() { Id = 4, Name = "Macka", Deleted = false },
+                new Allergy() { Id = 5, Name = "Pcela", Deleted = false },
+                new Allergy() { Id = 6, Name = "Ambrozija", Deleted = false },
+                new Allergy() { Id = 7, Name = "Kikiriki", Deleted = false },
+                new Allergy() { Id = 8, Name = "Gluten", Deleted = false },
+                new Allergy() { Id = 9, Name = "Laktoza", Deleted = false },
+                new Allergy() { Id = 10, Name = "Alergija10", Deleted = false },
+                new Allergy() { Id = 11, Name = "Alergija11", Deleted = false },
+                new Allergy() { Id = 12, Name = "Alergija12", Deleted = false },
+                new Allergy() { Id = 13, Name = "Alergija13", Deleted = false }
             );
 
             base.OnModelCreating(modelBuilder);
-
         }
     }
 }

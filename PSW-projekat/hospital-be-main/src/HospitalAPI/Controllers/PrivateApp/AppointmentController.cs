@@ -14,9 +14,9 @@ namespace HospitalAPI.Controllers.PrivateApp
     public class AppointmentController : ControllerBase
     {
         private readonly IAppointmentService _appointmentService;
-        private readonly IUserService _userService;
+        private readonly IPersonService _userService;
 
-        public AppointmentController(IAppointmentService appointmentService, IUserService userService)
+        public AppointmentController(IAppointmentService appointmentService, IPersonService userService)
         {
             _appointmentService = appointmentService;
             _userService = userService;
