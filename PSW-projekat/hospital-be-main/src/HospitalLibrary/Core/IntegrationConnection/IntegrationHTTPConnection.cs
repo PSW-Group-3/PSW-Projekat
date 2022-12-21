@@ -14,6 +14,7 @@ namespace HospitalLibrary.Core.IntegrationConnection
         private static HttpClient client;
         private static LoginUserDto user;
         private static Boolean integrationResponse;
+        private static List<BloodRequestDTO> requests = new List<BloodRequestDTO>();
         public bool CheckIfExists(LoginUserDto _user)
         {
             client = new()
@@ -24,6 +25,18 @@ namespace HospitalLibrary.Core.IntegrationConnection
 
             PostAsync(client).Wait();
             return integrationResponse;
+        }
+
+
+        public List<BloodRequestDTO> GetBloodRequests()
+        {
+            client = new()
+            {
+                BaseAddress = new Uri("http://localhost:5000/")
+            };
+
+            SendGetAsync(client).Wait();
+            return requests;
         }
 
         static async Task<Boolean> PostAsync(HttpClient httpClient)
@@ -37,6 +50,13 @@ namespace HospitalLibrary.Core.IntegrationConnection
             string isSuccessful = await response.Content.ReadAsStringAsync();
             integrationResponse = Boolean.Parse(isSuccessful);
             return integrationResponse;
+        }
+
+        private static async Task SendGetAsync(HttpClient httpClient)
+        {
+            using HttpResponseMessage response = await httpClient.GetAsync("api/BloodRequest");
+            string jsonContent = response.Content.ReadAsStringAsync().Result;
+            requests = JsonConvert.DeserializeObject<List<BloodRequestDTO>>(jsonContent);
         }
     }
 }

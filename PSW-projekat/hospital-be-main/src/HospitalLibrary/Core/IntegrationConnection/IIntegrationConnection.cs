@@ -10,5 +10,6 @@ namespace HospitalLibrary.Core.IntegrationConnection
     public interface IIntegrationConnection
     {
         public bool CheckIfExists(LoginUserDto _user);
+        public List<BloodRequestDTO> GetBloodRequests();
     }
 }
