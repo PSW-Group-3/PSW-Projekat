@@ -12,16 +12,16 @@ using IntegrationLibrary.Protos;
 
 namespace IntegrationLibrary.Core.Service.EmergencyBloodRequests
 {
-    public class EmergencyBloodRequestService : IEmergencyBloodRequestService
+    public class EmergencyBloodRequestServiceGRPC : IEmergencyBloodRequestServiceGRPC
     {
         private readonly IBloodBankRepository _bloodBankRepository;
 
-        public EmergencyBloodRequestService(IBloodBankRepository bloodBankRepository)
+        public EmergencyBloodRequestServiceGRPC(IBloodBankRepository bloodBankRepository)
         {
             _bloodBankRepository = bloodBankRepository;
         }
 
-        public void RequestEmergencyBlood(EmergencyBloodRequest request)
+        public void RequestEmergencyBlood(EmergencyBloodRequestGRPC request)
         {
             BloodBank bloodBank = _bloodBankRepository.GetById(request.BloodBankID);
             if (bloodBank == null)
@@ -52,6 +52,7 @@ namespace IntegrationLibrary.Core.Service.EmergencyBloodRequests
                     int temp = ((int)request.BloodType);
                     using HttpResponseMessage response = hospitalApiClient.GetAsync("/api/Blood/emergency/" + ((int)request.BloodType)+ "/" + request.BloodQuantity).GetAwaiter().GetResult();
                     response.EnsureSuccessStatusCode();
+
                 }
                 else
                 {

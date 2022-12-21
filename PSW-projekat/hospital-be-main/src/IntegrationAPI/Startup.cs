@@ -100,7 +100,7 @@ namespace IntegrationAPI
             services.AddScoped<IBidRepository, BidRepository>();
             services.AddScoped<IBidService, BidService>();
             services.AddScoped<IHospitalConnection, HospitalHTTPConnection>();
-            services.AddScoped<IEmergencyBloodRequestService, EmergencyBloodRequestService>();
+            services.AddScoped<IEmergencyBloodRequestServiceGRPC, EmergencyBloodRequestServiceGRPC>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace IntegrationLibrary.Core.Service.EmergencyBloodRequests
 {
-    public interface IEmergencyBloodRequestService
+    public interface IEmergencyBloodRequestServiceGRPC
     {
-        void RequestEmergencyBlood(EmergencyBloodRequest request);
+        void RequestEmergencyBlood(EmergencyBloodRequestGRPC request);
     }
 }

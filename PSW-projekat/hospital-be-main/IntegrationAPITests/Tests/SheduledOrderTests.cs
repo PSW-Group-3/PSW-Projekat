@@ -13,6 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Text.Json;
 using Xunit;
+using IntegrationLibrary.Core.Service.BloodBanks;
 
 namespace IntegrationAPITests.Tests
 {
@@ -23,7 +24,7 @@ namespace IntegrationAPITests.Tests
         }
         private static ScheduledOrderController SetupSettingsController(IServiceProvider scope)
         {
-            return new ScheduledOrderController(scope.GetRequiredService<IScheduledOrderService>());
+            return new ScheduledOrderController(scope.GetRequiredService<IScheduledOrderService>(), scope.GetRequiredService<IBloodBankService>());
         }
         [Fact]
         public void Create_scheduled_order()
