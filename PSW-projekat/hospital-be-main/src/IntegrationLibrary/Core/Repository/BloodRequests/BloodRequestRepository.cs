@@ -35,6 +35,36 @@ namespace IntegrationLibrary.Core.Repository.BloodRequests
             return _context.BloodRequests.ToList();
         }
 
+        public IEnumerable<BloodRequest> GetAllByType(HospitalLibrary.Core.Model.Enums.BloodType bloodType)
+        {
+            return _context.BloodRequests
+                .Where(x =>  x.BloodType == getBloodType(bloodType) && x.RequestState == RequestState.Accepted).ToList();
+        }
+
+        private BloodType getBloodType(HospitalLibrary.Core.Model.Enums.BloodType type)
+        {
+            switch (type)
+            {
+                case HospitalLibrary.Core.Model.Enums.BloodType.BMinus:
+                    return BloodType.BN;
+                case HospitalLibrary.Core.Model.Enums.BloodType.AMinus:
+                    return BloodType.AN;
+                case HospitalLibrary.Core.Model.Enums.BloodType.ABMinus:
+                    return BloodType.ABN;
+                case HospitalLibrary.Core.Model.Enums.BloodType.OMinus:
+                    return BloodType.ON;
+                case HospitalLibrary.Core.Model.Enums.BloodType.BPlus:
+                    return BloodType.BP;
+                case HospitalLibrary.Core.Model.Enums.BloodType.APlus:
+                    return BloodType.AP;
+                case HospitalLibrary.Core.Model.Enums.BloodType.ABPlus:
+                    return BloodType.ABP;
+                case HospitalLibrary.Core.Model.Enums.BloodType.OPlus:
+                    return BloodType.OP;
+            }
+            throw new Exception("Blood type isn't valid.");
+        }
+
         public BloodRequest GetById(int id)
         {
             return _context.BloodRequests.Find(id); 

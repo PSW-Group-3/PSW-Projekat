@@ -1,4 +1,5 @@
 ﻿using HospitalLibrary.Core.IntegrationConnection;
+using HospitalLibrary.Core.Model.Enums;
 using HospitalLibrary.Core.Service;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
@@ -35,5 +36,18 @@ namespace HospitalAPI.Controllers.PrivateApp
             }
         }
 
+
+        [HttpGet("requests/{bloodType}")]
+        public ActionResult GetAllRequestByType(BloodType bloodType)
+        {
+            try
+            {
+                return Ok(_integrationConnection.GetBloodRequestsByBlood(bloodType));
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
     }
 }
