@@ -104,7 +104,8 @@ const routes: Routes = [
   { path: 'examinations/prescriptionShow', component: MedicalPrescriptionShowComponent},
   { path: 'examinations/finish', component: MedicalExaminationFinish},
   { path: 'bloodConsumption/add', component: BloodConsumptionComponent},
-  { path: 'malicious-patients', component: MaliciousPatientsComponent, canActivate: [ AuthGuardManager ]}
+  { path: 'malicious-patients', component: MaliciousPatientsComponent, canActivate: [ AuthGuardManager ]},
+  { path: 'bloodRequests', component: BloodRequestsComponent },
 
 ];
 
