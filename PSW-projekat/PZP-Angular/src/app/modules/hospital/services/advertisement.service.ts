@@ -13,6 +13,6 @@ export class AdvertisementService {
   constructor(private http: HttpClient) { }
 
   getAllAdvertisements(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiHost + 'api/feedbacks/public', {headers: this.headers});
+    return this.http.get<any[]>(this.apiHost + 'api/news', {headers: this.headers});
   }
 }

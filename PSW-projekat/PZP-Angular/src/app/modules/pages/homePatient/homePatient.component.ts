@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AdvertisementService } from '../../hospital/services/advertisement.service';
 import { LoginService } from '../../hospital/services/login.service';
 
 @Component({
@@ -8,10 +9,14 @@ import { LoginService } from '../../hospital/services/login.service';
 })
 export class HomePatientComponent implements OnInit {
 
-  constructor(private loginService: LoginService) { }
+  constructor(private loginService: LoginService,private advertisementService: AdvertisementService) { }
+
+  advertisements : any[] = []
 
   ngOnInit(): void {
-
+    this.advertisementService.getAllAdvertisements().subscribe(res => {
+      this.advertisements = res;
+    })
   }
 
   logout(){
