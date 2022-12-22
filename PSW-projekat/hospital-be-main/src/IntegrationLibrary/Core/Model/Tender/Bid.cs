@@ -11,22 +11,15 @@ namespace IntegrationLibrary.Core.Model.Tender
     {
         [Required]
         public DateTime DeliveryDate { get; set; }
-        [Required]
-        public long Price { get; set; }
+        public virtual List<Offer> Offers { get; set; }
         [Required]
         public  int TenderOfBidId { get; set; }
         [Required]
         public int BloodBankId { get; set; }
+        [Required]
         public BidStatus Status { get; set; }
 
         public Bid() { }
-        public Bid(DateTime dateTime,long price, int tenderId, int bloodBankId) 
-        {
-            Status = BidStatus.WAITING;
-            DeliveryDate = dateTime;
-            Price = price;
-            TenderOfBidId = tenderId;
-            BloodBankId = bloodBankId;
-        }
+        
     }
 }

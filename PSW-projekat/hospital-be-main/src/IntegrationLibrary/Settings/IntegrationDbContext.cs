@@ -24,6 +24,7 @@ namespace IntegrationLibrary.Settings
         public DbSet<Tender> Tenders { get; set; }
         public DbSet<Demand> Demands { get; set; }
         public DbSet<Bid> Bids { get; set; }
+        public DbSet<Offer> Offers { get; set; }
 
 
         public IntegrationDbContext([NotNull] DbContextOptions options) : base(options)

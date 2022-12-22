@@ -37,11 +37,33 @@ namespace IntegrationAPITests.Tests
             using var scope = Factory.Services.CreateScope();
             BidController bidController = SetupSettingsBidController(scope);
             //BloodBanksController bloodBanksController = SetupSettingsBloodBankController(scope);
+            Offer offer1 = new Offer()
+            {
+                Price = 100,
+                Quantity = 5,
+                BloodType = BloodType.ABN
+            };
 
+            Offer offer2 = new Offer()
+            {
+                Price = 200,
+                Quantity = 6,
+                BloodType = BloodType.ABP
+            };
+            Offer offer3 = new Offer()
+            {
+                Price = 300,
+                Quantity = 7,
+                BloodType = BloodType.AN
+            };
+            List<Offer> offerList = new List<Offer>();
+                offerList.Add(offer1);
+            offerList.Add(offer2);
+            offerList.Add(offer3);
             Bid bid = new Bid()
             {
                 DeliveryDate = DateTime.Now,
-                Price = 2000,
+               Offers = offerList,
                 TenderOfBidId = 1,
                 BloodBankId = 1,
                 Status = BidStatus.WAITING

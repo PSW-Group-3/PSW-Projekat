@@ -14,7 +14,6 @@ namespace IntegrationLibrary.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     DeliveryDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Price = table.Column<long>(type: "bigint", nullable: false),
                     TenderOfBidId = table.Column<int>(type: "int", nullable: false),
                     BloodBankId = table.Column<int>(type: "int", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false)
@@ -139,6 +138,28 @@ namespace IntegrationLibrary.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Offers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    BloodType = table.Column<int>(type: "int", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    Price = table.Column<long>(type: "bigint", nullable: false),
+                    BidId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Offers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Offers_Bids_BidId",
+                        column: x => x.BidId,
+                        principalTable: "Bids",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Demands",
                 columns: table => new
                 {
@@ -163,13 +184,15 @@ namespace IntegrationLibrary.Migrations
                 name: "IX_Demands_TenderId",
                 table: "Demands",
                 column: "TenderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Offers_BidId",
+                table: "Offers",
+                column: "BidId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Bids");
-
             migrationBuilder.DropTable(
                 name: "BloodBanks");
 
@@ -183,6 +206,9 @@ namespace IntegrationLibrary.Migrations
                 name: "Newses");
 
             migrationBuilder.DropTable(
+                name: "Offers");
+
+            migrationBuilder.DropTable(
                 name: "ReportSettings");
 
             migrationBuilder.DropTable(
@@ -190,6 +216,9 @@ namespace IntegrationLibrary.Migrations
 
             migrationBuilder.DropTable(
                 name: "Tenders");
+
+            migrationBuilder.DropTable(
+                name: "Bids");
         }
     }
 }

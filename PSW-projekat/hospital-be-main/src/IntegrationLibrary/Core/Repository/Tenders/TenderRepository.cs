@@ -44,6 +44,8 @@ namespace IntegrationLibrary.Core.Repository.Tenders
                     where tenders.State == TenderState.OPEN
                     select tenders).ToList();
         }
+      
+
 
         public void Update(Tender entity)
         {
@@ -57,5 +59,7 @@ namespace IntegrationLibrary.Core.Repository.Tenders
                 throw;
             }
         }
+
+       
     }
 }

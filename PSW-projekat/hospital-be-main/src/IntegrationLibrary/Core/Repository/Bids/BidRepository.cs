@@ -46,6 +46,13 @@ namespace IntegrationLibrary.Core.Repository.Bids
                     select bids).ToList();
         }
 
+        public IEnumerable<Bid> getFromDateToDate(DateTime start, DateTime end)
+        {
+            return (from bids in _context.Bids
+                    where bids.Status == BidStatus.WIN && bids.DeliveryDate > start && bids.DeliveryDate < end
+                    select bids).ToList();
+        }
+
         public void Update(Bid entity)
         {
             _context.Entry(entity).State = EntityState.Modified;

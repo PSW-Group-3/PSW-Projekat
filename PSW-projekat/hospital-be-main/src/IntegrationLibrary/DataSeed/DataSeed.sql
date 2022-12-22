@@ -22,7 +22,6 @@ SET IDENTITY_INSERT [dbo].[BloodBanks] ON
 INSERT [dbo].[BloodBanks] ([Id], [AccountStatus], [ApiKey], [Email], [Name], [Password], [PasswordResetKey], [ServerAddress], [GRPCServerAddress]) VALUES (1, 1, '4rijtG2K/XHcaesRU2gLHS5LC0QJoqMmKGKQrj4OmNLoxQjsjwUc+w60BFi3fR+0pO/BtrSma8yEJ1+bwAoQHQ==', '{"LocalPart": "bloodymary", "DomainName": "gmail.com"}', 'Bloody Mary', '123', '5lSxho6OJIAMKE2CzURTLcpOPIVeCp5becYHSgj26BIpLcE5DXARRiJFUtPupqpNWdIFqY1EhEFNx1QQsTFxbj', 'http://localhost:8086/', '127.0.0.1:12689')
 INSERT [dbo].[BloodBanks] ([Id], [AccountStatus], [ApiKey], [Email], [Name], [Password], [PasswordResetKey], [ServerAddress], [GRPCServerAddress]) VALUES (2, 1, 'W3QW1vpKFX9NUJ94HF0klON+lRaPBaSgx7mwAgV0b0ml4uVu7t2+2FoNDLqweFKzw4drCuaf0mPRbylQaja3Nw==', '{"LocalPart": "bloodyhell", "DomainName": "gmail.com"}', 'Bloody Hell', '123', '4UHf68tCV7GfsjAyYtCnackqmphU28PzwH7AFNHARy3PnMLuDbFD5Ec3Q2nBX8JW2rkXnQSTCvfeklOOgqwhH7', 'http://localhost:8086/', '127.0.0.1:12689')
 INSERT [dbo].[BloodBanks] ([Id], [AccountStatus], [ApiKey], [Email], [Name], [Password], [PasswordResetKey], [ServerAddress], [GRPCServerAddress]) VALUES (3, 1, 'tLeiJ6w79JdrILqI34F6kYM3UAWENV8RjeZvi0LVtJochrXWJ7mpt0Cdedka8lVWUPnCFLZOhJbcS8ao9VFgwQ==', '{"LocalPart": "newlife", "DomainName": "gmail.com"}', 'New Life', '123', '4UHf68tCV7GfsjAyYtCnackqmphU28PzwH7AFNHARy3PnMLuDbFD5Ec3Q2nBX8JW2rkXnQSTCvfeklOOgqwhH7', 'http://localhost:8086/', '127.0.0.1:12689')
-
 SET IDENTITY_INSERT [dbo].[BloodBanks] OFF
 
 GO
@@ -30,10 +29,9 @@ SET IDENTITY_INSERT [dbo].[Newses] ON
 INSERT [dbo].[Newses] ([Id], [Title], [Text], [Status], [DateTime], [BloodBankId]) VALUES (1, 'sadfasddas', 'sadsdasdasdasda', 0, '2022-11-16 11:30:00', 1)
 SET IDENTITY_INSERT [dbo].[Newses] OFF
 
-
 GO
 SET IDENTITY_INSERT [dbo].[Bids] ON 
-INSERT [dbo].[Bids] ([Id], [DeliveryDate], [Price], [TenderOfBidId], [BloodBankId], [Status]) VALUES(1, '2023-12-12 12:00:00', 2000, 1, 3, 0)
+INSERT [dbo].[Bids] ([Id], [DeliveryDate], [TenderOfBidId], [BloodBankId], [Status]) VALUES(1, '2023-12-12 12:00:00', 1, 3, 0)
 SET IDENTITY_INSERT [dbo].[Bids] OFF
 
 GO
@@ -47,3 +45,10 @@ INSERT [dbo].[Demands] ([Id], [BloodType], [Quantity], [TenderId]) VALUES (1, 0,
 INSERT [dbo].[Demands] ([Id], [BloodType], [Quantity], [TenderId]) VALUES (2, 3, 3, 1)
 INSERT [dbo].[Demands] ([Id], [BloodType], [Quantity], [TenderId]) VALUES (3, 5, 7, 1)
 SET IDENTITY_INSERT [dbo].[Demands] OFF
+
+GO
+SET IDENTITY_INSERT [dbo].[Offers] ON 
+INSERT [dbo].[Offers] ([Id], [BloodType], [Quantity],[Price], [BidId]) VALUES (1, 0, 5,100, 1)
+INSERT [dbo].[Offers] ([Id], [BloodType], [Quantity],[Price], [BidId]) VALUES (2, 3, 3,200, 1)
+INSERT [dbo].[Offers] ([Id], [BloodType], [Quantity],[Price], [BidId]) VALUES (3, 5, 7,300, 1)
+SET IDENTITY_INSERT [dbo].[Offers] OFF

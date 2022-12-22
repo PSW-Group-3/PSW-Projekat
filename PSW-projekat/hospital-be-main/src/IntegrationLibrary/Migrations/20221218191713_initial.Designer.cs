@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IntegrationLibrary.Migrations
 {
     [DbContext(typeof(IntegrationDbContext))]
-    [Migration("20221214133416_initial")]
+    [Migration("20221218191713_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -215,9 +215,6 @@ namespace IntegrationLibrary.Migrations
                     b.Property<DateTime>("DeliveryDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<long>("Price")
-                        .HasColumnType("bigint");
-
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
@@ -252,6 +249,32 @@ namespace IntegrationLibrary.Migrations
                     b.ToTable("Demands");
                 });
 
+            modelBuilder.Entity("IntegrationLibrary.Core.Model.Tender.Offer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BidId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BloodType")
+                        .HasColumnType("int");
+
+                    b.Property<long>("Price")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BidId");
+
+                    b.ToTable("Offers");
+                });
+
             modelBuilder.Entity("IntegrationLibrary.Core.Model.Tender.Tender", b =>
                 {
                     b.Property<int>("Id")
@@ -279,6 +302,22 @@ namespace IntegrationLibrary.Migrations
                         .IsRequired();
 
                     b.Navigation("Tender");
+                });
+
+            modelBuilder.Entity("IntegrationLibrary.Core.Model.Tender.Offer", b =>
+                {
+                    b.HasOne("IntegrationLibrary.Core.Model.Tender.Bid", "Bid")
+                        .WithMany("Offers")
+                        .HasForeignKey("BidId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Bid");
+                });
+
+            modelBuilder.Entity("IntegrationLibrary.Core.Model.Tender.Bid", b =>
+                {
+                    b.Navigation("Offers");
                 });
 
             modelBuilder.Entity("IntegrationLibrary.Core.Model.Tender.Tender", b =>

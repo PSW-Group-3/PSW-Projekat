@@ -48,16 +48,17 @@ namespace IntegrationAPITests.Setup
             context.Database.ExecuteSqlRaw("TRUNCATE TABLE \"BloodRequests\";");
             context.Database.ExecuteSqlRaw("TRUNCATE TABLE \"Demands\";");
             context.Database.ExecuteSqlRaw("DELETE FROM \"Tenders\";");
+            context.Database.ExecuteSqlRaw("TRUNCATE TABLE \"Offers\";");
             context.Database.ExecuteSqlRaw("TRUNCATE TABLE \"Bids\"; ");
 
-            context.Bids.Add(new Bid
-            {
-                DeliveryDate = System.DateTime.Now.AddDays(-1),
-                Price = 2000,
-                TenderOfBidId = 1,
-                BloodBankId = 1,
-                Status = BidStatus.WAITING
-            });
+           // context.Bids.Add(new Bid
+           // {
+           //     DeliveryDate = System.DateTime.Now.AddDays(-1),
+           //     Price = 2000,
+           //     TenderOfBidId = 1,
+           //     BloodBankId = 1,
+           //     Status = BidStatus.WAITING
+           // });
 
 
 
