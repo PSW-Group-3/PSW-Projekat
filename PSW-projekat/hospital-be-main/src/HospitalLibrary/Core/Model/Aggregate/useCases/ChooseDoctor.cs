@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HospitalLibrary.Core.Model.Aggregate
+namespace HospitalLibrary.Core.Model.Aggregate.useCases
 {
     public class ChooseDoctor
     {
@@ -19,7 +19,7 @@ namespace HospitalLibrary.Core.Model.Aggregate
             _systemClock = systemClock;
         }
 
-        public void Execute(String doctorName)
+        public void Execute(string doctorName)
         {
 
         }

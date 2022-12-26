@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace HospitalLibrary.Core.Model.Aggregate
 {
-    public abstract class DomainEvent
+    public abstract class DomainEvent : BaseModel
     {
-        public int Id { get; set; }
+        public virtual ScheduleAppointmentByPatient Aggregate { get; set; }
 
         public DomainEvent()
         {
@@ -16,7 +16,8 @@ namespace HospitalLibrary.Core.Model.Aggregate
         }
         public DomainEvent(int aggregateId)
         {
-            Id = aggregateId;
+            //Aggregate = new ScheduleAppointmentByPatient();
+            //Aggregate.Id = aggregateId;
         }
     }
 }

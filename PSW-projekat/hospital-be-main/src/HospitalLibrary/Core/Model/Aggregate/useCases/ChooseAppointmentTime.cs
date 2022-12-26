@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HospitalLibrary.Core.Model.Aggregate
+namespace HospitalLibrary.Core.Model.Aggregate.useCases
 {
     public class ChooseAppointmentTime
     {

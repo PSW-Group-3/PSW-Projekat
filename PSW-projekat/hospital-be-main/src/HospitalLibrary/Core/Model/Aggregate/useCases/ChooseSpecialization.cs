@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HospitalLibrary.Core.Model.Aggregate
+namespace HospitalLibrary.Core.Model.Aggregate.useCases
 {
-    public  class ChooseSpecialization
+    public class ChooseSpecialization
     {
         private AppointmentRepository _appointmentRepository;
         private ISystemClock _systemClock;
@@ -19,7 +19,7 @@ namespace HospitalLibrary.Core.Model.Aggregate
             _systemClock = systemClock;
         }
 
-        public void Execute(String specialization)
+        public void Execute(string specialization)
         {
 
         }

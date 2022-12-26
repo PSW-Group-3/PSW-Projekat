@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static iTextSharp.text.pdf.events.IndexEvents;
 
 namespace HospitalLibrary.Core.Model.Aggregate
 {
@@ -31,7 +32,9 @@ namespace HospitalLibrary.Core.Model.Aggregate
 
         public void AddAppointmentTimeEvent(ScheduleAppointmentByPatient scheduleAppointmentByPatient)
         {
-            _context.ScheduleAppointmentByPatients.Update(scheduleAppointmentByPatient);
+            //_context.ScheduleAppointmentByPatients.Update(scheduleAppointmentByPatient);
+            //_context.Entry(scheduleAppointmentByPatient);
+            scheduleAppointmentByPatient.Changes[0].Aggregate = scheduleAppointmentByPatient;
             _context.AppointmentSchedulingEvents.Add(scheduleAppointmentByPatient.Changes[0]);
             _context.SaveChanges();
         }
