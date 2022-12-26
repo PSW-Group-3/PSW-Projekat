@@ -19,7 +19,7 @@ namespace HospitalLibrary.Core.Model.Aggregate
             _systemClock = systemClock;
         }
 
-        public void Execute()
+        public void Execute(String doctorName)
         {
 
         }

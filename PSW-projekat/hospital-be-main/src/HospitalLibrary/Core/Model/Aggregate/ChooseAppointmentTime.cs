@@ -8,20 +8,20 @@ using System.Threading.Tasks;
 
 namespace HospitalLibrary.Core.Model.Aggregate
 {
-    public class ChooseAppointmentTIme
+    public class ChooseAppointmentTime
     {
-        private AppointmentRepository _appointmentRepository;
-        private ISystemClock _systemClock;
+        private SchedulingAppointmentEventsRepository _schedulingAppointmentEventsRepository;
 
-        public ChooseAppointmentTIme(AppointmentRepository appointmentRepository, ISystemClock systemClock)
+        public ChooseAppointmentTime(SchedulingAppointmentEventsRepository schedulingAppointmentEventsRepository)
         {
-            _appointmentRepository = appointmentRepository;
-            _systemClock = systemClock;
+            _schedulingAppointmentEventsRepository = schedulingAppointmentEventsRepository;
         }
 
-        public void Execute()
+        public void Execute(int id, DateTime appointmentTime)
         {
+            ScheduleAppointmentByPatient scheduleAppointmentByPatient = _schedulingAppointmentEventsRepository.findById(id);
 
+            scheduleAppointmentByPatient.ChooseAppointmentTime(appointmentTime);
         }
     }
 }

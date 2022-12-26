@@ -9,8 +9,7 @@ namespace HospitalLibrary.Core.Model.Aggregate
     public abstract class EventSourcedAggregate
     {
         public int Id { get; set; }
-        public List<DomainEvent> Changes { get; set; }
-        public int Version { get; set; }
+        public virtual List<DomainEvent> Changes { get; set; }
 
         public EventSourcedAggregate()
         {

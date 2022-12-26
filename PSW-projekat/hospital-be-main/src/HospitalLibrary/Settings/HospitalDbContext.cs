@@ -1,4 +1,5 @@
 ﻿using HospitalLibrary.Core.Model;
+using HospitalLibrary.Core.Model.Aggregate;
 using HospitalLibrary.Core.Model.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -29,6 +30,10 @@ namespace HospitalLibrary.Settings
         public DbSet<Examination> Examinations { get; set; }
 
         public DbSet<DoctorsCouncil> DoctorsCouncils { get; set; }
+
+        public DbSet<ScheduleAppointmentByPatient> ScheduleAppointmentByPatients { get; set; }
+
+        public DbSet<DomainEvent> AppointmentSchedulingEvents { get; set; }
 
         public HospitalDbContext(DbContextOptions<HospitalDbContext> options) : base(options) { }
 
@@ -67,6 +72,10 @@ namespace HospitalLibrary.Settings
             modelBuilder.Entity<Person>().OwnsOne(e => e.Address);
 
             modelBuilder.Entity<Person>().OwnsOne(e => e.Jmbg);
+
+            modelBuilder.Entity<PatientSelectedAppointmentTime>();
+            modelBuilder.Entity<PatientSelectedDoctor>();
+            modelBuilder.Entity<PatientSelectedDoctorSpecialization>();
 
             base.OnModelCreating(modelBuilder);
         }

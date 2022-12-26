@@ -10,12 +10,13 @@ namespace HospitalLibrary.Core.Model.Aggregate
     public class PatientSelectedDoctor : DomainEvent
     {
         public String DoctorName { get; set; }
-        public DateTime AppointmentDoctorSelected { get; set; } //u kom momentu se dogadjaj dogodio
+        public DateTime AppointmentDoctorSelectedEvent { get; set; } //u kom momentu se dogadjaj dogodio
 
-        public PatientSelectedDoctor(int aggregateId, String doctorName, DateTime appointmentDoctorSelected) : base(aggregateId)
+        public PatientSelectedDoctor() { }
+        public PatientSelectedDoctor(int aggregateId, String doctorName, DateTime appointmentDoctorSelectedEvent) : base(aggregateId)
         {
             DoctorName = doctorName;
-            AppointmentDoctorSelected = appointmentDoctorSelected;
+            AppointmentDoctorSelectedEvent = appointmentDoctorSelectedEvent;
         }
     }
 }

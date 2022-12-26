@@ -10,6 +10,10 @@ namespace HospitalLibrary.Core.Model.Aggregate
     {
         public int Id { get; set; }
 
+        public DomainEvent()
+        {
+
+        }
         public DomainEvent(int aggregateId)
         {
             Id = aggregateId;

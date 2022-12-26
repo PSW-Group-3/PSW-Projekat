@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
+using MimeKit.Cryptography;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,20 +10,24 @@ namespace HospitalLibrary.Core.Model.Aggregate
 {
     public class ScheduleAppointmentByPatient : EventSourcedAggregate
     {
-        public SchedulingStage _stage; 
+        public SchedulingStage Stage { get; set; } = SchedulingStage.beginning;
+        public virtual Patient Patient { get; set; }
 
-        
-        public ScheduleAppointmentByPatient()
+        private readonly SchedulingAppointmentEventsRepository _schedulingAppointmentEventsRepository;
+
+        public ScheduleAppointmentByPatient() { }
+
+        public ScheduleAppointmentByPatient(SchedulingAppointmentEventsRepository schedulingAppointmentEventsRepository) 
         {
-            _stage = SchedulingStage.beginning;
+            _schedulingAppointmentEventsRepository = schedulingAppointmentEventsRepository;
         }
 
         //funkcija agregata
-        public void ChooseAppointmentTime()
+        public void ChooseAppointmentTime(DateTime appointmentTime)
         {
             //ubaci se izabrano vreme i onda na osnovu toga se napravi event za to
             //mozda provera da li tad moze da se rezervise termin
-            //Causes() pa neki domainEvent
+            Causes(new PatientSelectedAppointmentTime(Id, appointmentTime, DateTime.Now));
         }
 
         public void ChooseDoctor()
@@ -52,7 +57,8 @@ namespace HospitalLibrary.Core.Model.Aggregate
 
         private void When(PatientSelectedAppointmentTime patientSelectedAppointmentTime)
         {
-            //Ovde kazem tipa dodato je vreme i dodam ga u Appointment
+            this.Changes.Add(patientSelectedAppointmentTime);
+            _schedulingAppointmentEventsRepository.AddAppointmentTimeEvent(this);
         }
 
         private void When(PatientSelectedDoctorSpecialization patientSelectedDoctorSpecialization)
