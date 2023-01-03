@@ -10,18 +10,20 @@ namespace HospitalLibrary.Core.Model.Aggregate.useCases
 {
     public class ChooseSpecialization
     {
-        private AppointmentRepository _appointmentRepository;
-        private ISystemClock _systemClock;
+        private SchedulingAppointmentEventsRepository _schedulingAppointmentEventsRepository;
 
-        public ChooseSpecialization(AppointmentRepository appointmentRepository, ISystemClock systemClock)
+        public ChooseSpecialization(SchedulingAppointmentEventsRepository schedulingAppointmentEventsRepository)
         {
-            _appointmentRepository = appointmentRepository;
-            _systemClock = systemClock;
+            _schedulingAppointmentEventsRepository = schedulingAppointmentEventsRepository;
         }
 
-        public void Execute(string specialization)
+        public void Execute(int id, string specialization)
         {
+            ScheduleAppointmentByPatient scheduleAppointmentByPatient = _schedulingAppointmentEventsRepository.findById(id);
 
+            scheduleAppointmentByPatient.ChooseSpecialization(specialization);
+
+            _schedulingAppointmentEventsRepository.AddAppointmentTimeEvent(scheduleAppointmentByPatient);
         }
     }
 }

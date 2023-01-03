@@ -1,6 +1,7 @@
 ﻿using HospitalLibrary.Core.DTOs;
 using HospitalLibrary.Core.Model;
 using HospitalLibrary.Core.Model.Aggregate;
+using HospitalLibrary.Core.Model.Aggregate.useCases;
 using HospitalLibrary.Core.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
@@ -32,24 +33,30 @@ namespace HospitalAPI.Controllers.PublicApp
         [HttpPost("ChooseAppointmentDate")]
         public ActionResult ChooseAppointmentDate(DateTime date)
         {
-            ScheduleAppointmentByPatient scheduleAppointmentByPatient = new ScheduleAppointmentByPatient(_schedulingAppointmentEventsRepository);
-            scheduleAppointmentByPatient = _schedulingAppointmentEventsRepository.Create(scheduleAppointmentByPatient);
-
             ChooseAppointmentTime chooseAppointmentTime = new ChooseAppointmentTime(_schedulingAppointmentEventsRepository) { };
-            chooseAppointmentTime.Execute(scheduleAppointmentByPatient.Id, date);
+            chooseAppointmentTime.Execute(3, date.ToString());
             
-            return Ok(scheduleAppointmentByPatient);
+            return Ok();
         }
 
         [HttpPost("ChooseDoctorSpecialization")]
         public ActionResult ChooseDoctorSpecialization(String doctorSpecialization)
         {
-            return Ok();
+            ScheduleAppointmentByPatient scheduleAppointmentByPatient = new ScheduleAppointmentByPatient();
+            scheduleAppointmentByPatient = _schedulingAppointmentEventsRepository.Create(scheduleAppointmentByPatient);
+
+            ChooseSpecialization chooseSpecialization = new ChooseSpecialization(_schedulingAppointmentEventsRepository) { };
+            chooseSpecialization.Execute(scheduleAppointmentByPatient.Id, doctorSpecialization);
+
+            return Ok(scheduleAppointmentByPatient.Id);
         }
 
         [HttpPost("ChooseDoctor")]
         public ActionResult ChooseDoctor(String doctorNAme)
         {
+            ChooseDoctor chooseDoctor = new ChooseDoctor(_schedulingAppointmentEventsRepository) { };
+            chooseDoctor.Execute(3, doctorNAme);
+
             return Ok();
         }
     }

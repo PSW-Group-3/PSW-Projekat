@@ -2,6 +2,6 @@
 {
     public enum SchedulingStage
     {
-        beginning, timeChoosen, specChoosen, doctorChoosen, appointmentScheduled
+        beginning, timeChoosen, specChoosen, doctorChoosen, backToTime, backToSpec, backToDoctor, appointmentScheduled
     }
 }

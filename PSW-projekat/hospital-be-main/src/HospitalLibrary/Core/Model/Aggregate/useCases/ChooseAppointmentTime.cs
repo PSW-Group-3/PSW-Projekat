@@ -17,11 +17,13 @@ namespace HospitalLibrary.Core.Model.Aggregate.useCases
             _schedulingAppointmentEventsRepository = schedulingAppointmentEventsRepository;
         }
 
-        public void Execute(int id, DateTime appointmentTime)
+        public void Execute(int id, String appointmentTime)
         {
             ScheduleAppointmentByPatient scheduleAppointmentByPatient = _schedulingAppointmentEventsRepository.findById(id);
 
             scheduleAppointmentByPatient.ChooseAppointmentTime(appointmentTime);
+
+            _schedulingAppointmentEventsRepository.AddAppointmentTimeEvent(scheduleAppointmentByPatient);
         }
     }
 }

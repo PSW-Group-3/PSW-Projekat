@@ -1,5 +1,6 @@
 ﻿using HospitalLibrary.Core.Model;
 using HospitalLibrary.Core.Model.Aggregate;
+using HospitalLibrary.Core.Model.Aggregate.Events;
 using HospitalLibrary.Core.Model.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;

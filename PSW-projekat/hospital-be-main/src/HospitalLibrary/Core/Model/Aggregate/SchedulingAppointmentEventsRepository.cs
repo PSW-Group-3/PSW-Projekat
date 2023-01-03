@@ -19,6 +19,7 @@ namespace HospitalLibrary.Core.Model.Aggregate
 
         public ScheduleAppointmentByPatient Create(ScheduleAppointmentByPatient appointment)
         {
+            appointment.startTime = DateTime.Now;
             _context.ScheduleAppointmentByPatients.Add(appointment);
             _context.SaveChanges();
 
@@ -32,10 +33,7 @@ namespace HospitalLibrary.Core.Model.Aggregate
 
         public void AddAppointmentTimeEvent(ScheduleAppointmentByPatient scheduleAppointmentByPatient)
         {
-            //_context.ScheduleAppointmentByPatients.Update(scheduleAppointmentByPatient);
-            //_context.Entry(scheduleAppointmentByPatient);
-            scheduleAppointmentByPatient.Changes[0].Aggregate = scheduleAppointmentByPatient;
-            _context.AppointmentSchedulingEvents.Add(scheduleAppointmentByPatient.Changes[0]);
+            _context.AppointmentSchedulingEvents.Add(scheduleAppointmentByPatient.Changes.Last());
             _context.SaveChanges();
         }
     }
