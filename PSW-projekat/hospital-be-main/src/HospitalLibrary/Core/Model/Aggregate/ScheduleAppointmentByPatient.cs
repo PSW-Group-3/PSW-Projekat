@@ -35,9 +35,24 @@ namespace HospitalLibrary.Core.Model.Aggregate
             Causes(new PatientSelectedDoctorSpecialization(specialization));
         }
 
+        public void BackToSpecializationChoosing()
+        {
+            Causes(new BackToSpecializationSelection());
+        }
+
+        public void BackToDoctorChoosing()
+        {
+            Causes(new BackToDoctorSelection());
+        }
+
+        public void BackToAppointmentTimeChoosing()
+        {
+            Causes(new BackToAppointentTimeSelection());
+        }
+
         private void Causes(DomainEvent @event)
         {
-            Changes.Add(@event); //dodaje u listu promena
+            Changes.Add(@event);
             Apply(@event);
         }
 
@@ -49,19 +64,37 @@ namespace HospitalLibrary.Core.Model.Aggregate
         private void When(PatientSelectedAppointmentTime patientSelectedAppointmentTime)
         {
             patientSelectedAppointmentTime.Aggregate = this;
-            patientSelectedAppointmentTime.selectionTime = DateTime.Now;
+            this.Stage = SchedulingStage.timeChoosen;
         }
 
         private void When(PatientSelectedDoctorSpecialization patientSelectedDoctorSpecialization)
         {
             patientSelectedDoctorSpecialization.Aggregate = this;
-            patientSelectedDoctorSpecialization.selectionTime = DateTime.Now;
+            this.Stage = SchedulingStage.specChoosen;
         }
 
         private void When(PatientSelectedDoctor patientSelectedDoctor)
         {
             patientSelectedDoctor.Aggregate = this;
-            patientSelectedDoctor.selectionTime = DateTime.Now;
+            this.Stage = SchedulingStage.doctorChoosen;
+        }
+
+        private void When(BackToSpecializationSelection backToSpecializationSelection)
+        {
+            backToSpecializationSelection.Aggregate = this;
+            this.Stage = SchedulingStage.backToSpec;
+        }
+
+        private void When(BackToDoctorSelection backToDoctorSelection)
+        {
+            backToDoctorSelection.Aggregate = this;
+            this.Stage = SchedulingStage.backToDoctor;
+        }
+
+        private void When(BackToAppointentTimeSelection backToAppointentTimeSelection)
+        {
+            backToAppointentTimeSelection.Aggregate = this;
+            this.Stage = SchedulingStage.backToTime;
         }
     }
 }

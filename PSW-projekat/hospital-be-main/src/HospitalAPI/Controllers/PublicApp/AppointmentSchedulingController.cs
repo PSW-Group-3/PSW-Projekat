@@ -52,10 +52,37 @@ namespace HospitalAPI.Controllers.PublicApp
         }
 
         [HttpPost("ChooseDoctor")]
-        public ActionResult ChooseDoctor(String doctorNAme)
+        public ActionResult ChooseDoctor(String doctorName)
         {
             ChooseDoctor chooseDoctor = new ChooseDoctor(_schedulingAppointmentEventsRepository) { };
-            chooseDoctor.Execute(3, doctorNAme);
+            chooseDoctor.Execute(3, doctorName);
+
+            return Ok();
+        }
+
+        [HttpPost("BackToSpecializationChoosing")]
+        public ActionResult BackToSpecializationChoosing()
+        {
+            BackToSpecializationChoosing backToSpecializationChoosing = new BackToSpecializationChoosing(_schedulingAppointmentEventsRepository) { };
+            backToSpecializationChoosing.Execute(3);
+
+            return Ok();
+        }
+
+        [HttpPost("BackToDoctorChoosing")]
+        public ActionResult BackToDoctorChoosing()
+        {
+            BackToDoctorChoosing backToDoctorChoosing = new BackToDoctorChoosing(_schedulingAppointmentEventsRepository) { };
+            backToDoctorChoosing.Execute(3);
+
+            return Ok();
+        }
+
+        [HttpPost("BackToAppointmentTimeChoosing")]
+        public ActionResult BackToAppointmentTimeChoosing()
+        {
+            BackToAppointmentTimeChoosing backToAppointmentTimeChoosing = new BackToAppointmentTimeChoosing(_schedulingAppointmentEventsRepository) { };    
+            backToAppointmentTimeChoosing.Execute(3);
 
             return Ok();
         }

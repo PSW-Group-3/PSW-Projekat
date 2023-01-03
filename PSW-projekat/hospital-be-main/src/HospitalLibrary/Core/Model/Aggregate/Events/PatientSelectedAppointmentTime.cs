@@ -10,12 +10,14 @@ namespace HospitalLibrary.Core.Model.Aggregate.Events
     {
         public PatientSelectedAppointmentTime() {
             phase = SchedulingStage.timeChoosen;
+            selectionTime = DateTime.Now;
         }
 
         public PatientSelectedAppointmentTime(string dateTime)
         {
             phase = SchedulingStage.timeChoosen;
             selectedItem = dateTime;
+            selectionTime = DateTime.Now;
         }
     }
 }

@@ -18,6 +18,10 @@ namespace HospitalLibrary.Core.Model.Aggregate.useCases
         public void Execute(int id)
         {
             ScheduleAppointmentByPatient scheduleAppointmentByPatient = _schedulingAppointmentEventsRepository.findById(id);
+
+            scheduleAppointmentByPatient.BackToAppointmentTimeChoosing();
+
+            _schedulingAppointmentEventsRepository.AddAppointmentTimeEvent(scheduleAppointmentByPatient);
         }
     }
 }

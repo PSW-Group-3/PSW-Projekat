@@ -77,6 +77,9 @@ namespace HospitalLibrary.Settings
             modelBuilder.Entity<PatientSelectedAppointmentTime>();
             modelBuilder.Entity<PatientSelectedDoctor>();
             modelBuilder.Entity<PatientSelectedDoctorSpecialization>();
+            modelBuilder.Entity<BackToDoctorSelection>();
+            modelBuilder.Entity<BackToSpecializationSelection>();
+            modelBuilder.Entity<BackToAppointentTimeSelection>();
 
             base.OnModelCreating(modelBuilder);
         }
