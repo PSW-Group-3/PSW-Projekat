@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using IntegrationLibrary.Core.Model;
 using IntegrationLibrary.Core.Service.BloodRequests;
+using IntegrationLibrary.Core.SFTPConnection;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -48,6 +49,10 @@ namespace IntegrationLibrary.Core.Service.HostedServices
 
             using (var scope = scopeFactory.CreateScope())
             {
+                var SFTPService = scope.ServiceProvider.GetService<ISFTPService>();
+
+                SFTPService.saveReports();
+
                 var bloodRequestService = scope.ServiceProvider.GetService<IBloodRequestService>();
                 try
                 {
