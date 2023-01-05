@@ -9,6 +9,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { AppointmentsService } from '../services/appointments.service';
 import { DateAndDoctorForNewAppointmentDto } from '../model/DateAndDoctorForNewAppointmentDto.model';
 import { LoginService } from '../services/login.service';
+import { EventSourcingService } from '../services/event-sourcing.service';
 
 @Component({
   selector: 'app-schedule-appointment',
@@ -31,7 +32,7 @@ export class ScheduleAppointmentComponent implements OnInit {
 
   stepperOrientation: Observable<StepperOrientation> | undefined;
 
-  constructor(private router: Router, private fb: FormBuilder, private breakpointObserver: BreakpointObserver, private appointmentsService: AppointmentsService, private loginService: LoginService) { }
+  constructor(private router: Router, private fb: FormBuilder, private breakpointObserver: BreakpointObserver, private appointmentsService: AppointmentsService, private loginService: LoginService, private eventSourcingService: EventSourcingService) { }
 
   ngOnInit(): void {
     this.stepperOrientation = this.breakpointObserver
@@ -42,20 +43,24 @@ export class ScheduleAppointmentComponent implements OnInit {
       date: [Date, [Validators.required]]
     });
     this.specializationForm = this.fb.group({
-      specialization: [Specialization, [Validators.required]]
+      specialization: ['', [Validators.required]]
     });
     this.doctorForm = this.fb.group({
-      doctor: [DoctorForPatientRegistrationDto, [Validators.required]]
+      doctor: ['', [Validators.required]]
     });
     this.timeForm  = this.fb.group({
-      time: [Number, [Validators.required]]
+      time: ['', [Validators.required]]
     });
+
+    this.ChooseAppointmentDate();
   }
 
   getDoctors(){
     this.appointmentsService.getAllDoctorsBySpecialization(this.specializationForm.value.specialization).subscribe(res => {
       this.doctors = res;
+      this.ChooseDoctor();
     });
+    
   }
 
   getFreeAppointmentTimes(){
@@ -64,6 +69,7 @@ export class ScheduleAppointmentComponent implements OnInit {
     dto.scheduledDate = this.dateForm.value.date;
     this.appointmentsService.getFreeAppointmentsForDoctor(dto).subscribe(res => {
       this.freeAppointments = res;
+      this.ChooseAppointmentTime();
     });
   }
 
@@ -77,12 +83,39 @@ export class ScheduleAppointmentComponent implements OnInit {
 
     this.appointmentsService.scheduleAppointment(appointmentInfo).subscribe(res => {
       this.router.navigate(['/homePatient']);
+      this.eventSourcingService.AppointmentSchedulingAggregateEndTime();
     });
   }
 
   logout(){
-    this.loginService.logout().subscribe(res => {
-      
-    }) 
+    this.loginService.logout().subscribe(res => {}) 
   }
+
+  //Event Sourcing Functions
+  ChooseAppointmentDate(){
+    this.eventSourcingService.ChooseAppointmentDate();
+  }
+  ChooseDoctorSpecialization(){
+    this.eventSourcingService.ChooseDoctorSpecialization();
+  }
+  ChooseDoctor(){
+    this.eventSourcingService.ChooseDoctor();
+  }
+  ChooseAppointmentTime(){
+    this.eventSourcingService.ChooseAppointmentDate();
+  }
+
+  BackToAppointmentDateChoosing(){
+    this.eventSourcingService.BackToAppointmentDateChoosing();
+  }
+  BackToSpecializationChoosing(){
+    this.eventSourcingService.BackToSpecializationChoosing();
+  }
+  BackToDoctorChoosing(){
+    this.eventSourcingService.BackToDoctorChoosing();
+  }
+  BackToAppointmentTimeChoosing(){
+    this.eventSourcingService.BackToAppointmentTimeChoosing();
+  }
+
 }
