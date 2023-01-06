@@ -12,7 +12,7 @@ export class EventSourcingService {
 
   //Dodati na backu vrv?
   AppointmentSchedulingAggregateStartTime(): Observable<any> {
-    return this.http.post<any>('api/AppointmentSchedulingController/AppointmentSchedulingAggregateStartTime', {headers: this.headers});
+    return this.http.get<any>('api/AppointmentSchedulingController/AppointmentSchedulingAggregateStartTime', {headers: this.headers});
   }
   //Dodati na backu vrv?
   AppointmentSchedulingAggregateEndTime(): Observable<any> {
@@ -30,11 +30,11 @@ export class EventSourcingService {
   ChooseDoctor(): Observable<any> {
     return this.http.post<any>('api/AppointmentSchedulingController/ChooseDoctor', {headers: this.headers});
   }
-
+  //Fali na backu
   ChooseAppointmentTime(): Observable<any> {
     return this.http.post<any>('api/AppointmentSchedulingController/ChooseAppointmentTime', {headers: this.headers});
   }
-
+  //Fali na backu
   BackToAppointmentDateChoosing(): Observable<any> {
     return this.http.post<any>('api/AppointmentSchedulingController/BackToAppointmentDateChoosing', {headers: this.headers});
   }
