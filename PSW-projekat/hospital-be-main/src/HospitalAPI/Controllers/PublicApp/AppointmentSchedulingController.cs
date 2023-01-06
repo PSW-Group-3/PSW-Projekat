@@ -1,4 +1,5 @@
-﻿using HospitalLibrary.Core.DTOs;
+﻿using HospitalAPI.DTO;
+using HospitalLibrary.Core.DTOs;
 using HospitalLibrary.Core.Model;
 using HospitalLibrary.Core.Model.Aggregate;
 using HospitalLibrary.Core.Model.Aggregate.useCases;
@@ -17,72 +18,86 @@ namespace HospitalAPI.Controllers.PublicApp
     [ApiController]
     public class AppointmentSchedulingController : Controller
     {
-        private readonly IAppointmentService _appointmentService;
-        private readonly IDoctorService _doctorService;
-        private readonly IPatientService _patientService;
         private readonly SchedulingAppointmentEventsRepository _schedulingAppointmentEventsRepository;
+        private readonly IPatientService _patientService;
 
-        public AppointmentSchedulingController(IAppointmentService appointmentService, IDoctorService doctorService, IPatientService patientService, SchedulingAppointmentEventsRepository schedulingAppointmentEventsRepository)
+        public AppointmentSchedulingController(SchedulingAppointmentEventsRepository schedulingAppointmentEventsRepository, IPatientService patientService)
         {
-            _appointmentService = appointmentService;
-            _doctorService = doctorService;
-            _patientService = patientService;
             _schedulingAppointmentEventsRepository = schedulingAppointmentEventsRepository;
+            _patientService = patientService;
+        }
+
+        [HttpGet("CreateEventSourcingAggregate")]
+        public ActionResult CreateEventSourcingAggregate(int patientId)
+        {
+            ScheduleAppointmentByPatient scheduleAppointmentByPatient = new ScheduleAppointmentByPatient();
+            scheduleAppointmentByPatient = _schedulingAppointmentEventsRepository.Create(scheduleAppointmentByPatient);
+            scheduleAppointmentByPatient.Patient = _patientService.GetById(patientId);
+            _schedulingAppointmentEventsRepository._context.SaveChanges();
+
+            return Ok(scheduleAppointmentByPatient.Id);
+        }
+
+        [HttpPost("EndEventSourcingAggregate")]
+        public ActionResult EndEventSourcingAggregate(int id)
+        {
+            ScheduleAppointmentByPatient scheduleAppointmentByPatient = _schedulingAppointmentEventsRepository.findById(id);
+            scheduleAppointmentByPatient.endTime = DateTime.Now;
+            _schedulingAppointmentEventsRepository._context.SaveChanges();
+
+            return Ok();
         }
 
         [HttpPost("ChooseAppointmentDate")]
-        public ActionResult ChooseAppointmentDate(DateTime date)
+        public ActionResult ChooseAppointmentDate(AppointmentSchedulingEventDTO appointmentSchedulingEventDTO)
         {
             ChooseAppointmentTime chooseAppointmentTime = new ChooseAppointmentTime(_schedulingAppointmentEventsRepository) { };
-            chooseAppointmentTime.Execute(3, date.ToString());
+            chooseAppointmentTime.Execute(appointmentSchedulingEventDTO.Id, appointmentSchedulingEventDTO.SelectedItem);
             
             return Ok();
         }
 
         [HttpPost("ChooseDoctorSpecialization")]
-        public ActionResult ChooseDoctorSpecialization(String doctorSpecialization)
+        public ActionResult ChooseDoctorSpecialization(AppointmentSchedulingEventDTO appointmentSchedulingEventDTO)
         {
-            ScheduleAppointmentByPatient scheduleAppointmentByPatient = new ScheduleAppointmentByPatient();
-            scheduleAppointmentByPatient = _schedulingAppointmentEventsRepository.Create(scheduleAppointmentByPatient);
-
             ChooseSpecialization chooseSpecialization = new ChooseSpecialization(_schedulingAppointmentEventsRepository) { };
-            chooseSpecialization.Execute(scheduleAppointmentByPatient.Id, doctorSpecialization);
+            chooseSpecialization.Execute(appointmentSchedulingEventDTO.Id, appointmentSchedulingEventDTO.SelectedItem);
 
-            return Ok(scheduleAppointmentByPatient.Id);
+            return Ok();
         }
 
         [HttpPost("ChooseDoctor")]
-        public ActionResult ChooseDoctor(String doctorName)
+        public ActionResult ChooseDoctor(AppointmentSchedulingEventDTO appointmentSchedulingEventDTO)
         {
             ChooseDoctor chooseDoctor = new ChooseDoctor(_schedulingAppointmentEventsRepository) { };
-            chooseDoctor.Execute(3, doctorName);
+            chooseDoctor.Execute(appointmentSchedulingEventDTO.Id, appointmentSchedulingEventDTO.SelectedItem);
 
             return Ok();
         }
 
         [HttpPost("BackToSpecializationChoosing")]
-        public ActionResult BackToSpecializationChoosing()
+        public ActionResult BackToSpecializationChoosing(int id)
         {
             BackToSpecializationChoosing backToSpecializationChoosing = new BackToSpecializationChoosing(_schedulingAppointmentEventsRepository) { };
-            backToSpecializationChoosing.Execute(3);
+            backToSpecializationChoosing.Execute(id);
 
             return Ok();
         }
 
         [HttpPost("BackToDoctorChoosing")]
-        public ActionResult BackToDoctorChoosing()
+        public ActionResult BackToDoctorChoosing(int id)
         {
             BackToDoctorChoosing backToDoctorChoosing = new BackToDoctorChoosing(_schedulingAppointmentEventsRepository) { };
-            backToDoctorChoosing.Execute(3);
+            backToDoctorChoosing.Execute(id);
 
             return Ok();
         }
 
         [HttpPost("BackToAppointmentTimeChoosing")]
-        public ActionResult BackToAppointmentTimeChoosing()
+        public ActionResult BackToAppointmentTimeChoosing(int id)
         {
             BackToAppointmentTimeChoosing backToAppointmentTimeChoosing = new BackToAppointmentTimeChoosing(_schedulingAppointmentEventsRepository) { };    
-            backToAppointmentTimeChoosing.Execute(3);
+            backToAppointmentTimeChoosing.Execute(id);
 
             return Ok();
         }
