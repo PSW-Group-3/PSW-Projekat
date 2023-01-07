@@ -80,10 +80,10 @@ namespace IntegrationLibrary.Core.Service.Tenders
             _tenderRepository.Update(tender);    
         }
 
-        public void CloseTenderWithWinner(int tenderID , Bid winningBid)
+        public void CloseTenderWithWinner(int tenderID , int winningBidId)
         {
             Tender tender = _tenderRepository.GetById(tenderID);
-            tender.CloseTender(winningBid);
+            tender.CloseTender(winningBidId);
             _tenderRepository.Update(tender);
             SendEmailsToParticipants(tender);
         }

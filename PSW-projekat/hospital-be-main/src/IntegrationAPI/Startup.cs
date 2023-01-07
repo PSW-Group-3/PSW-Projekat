@@ -29,6 +29,7 @@ using IntegrationLibrary.Core.Service.EmergencyBloodRequests;
 using IntegrationAPI.Adapters;
 using IntegrationLibrary.Core.Service.HostedServices;
 using IntegrationLibrary.Core.Repository.EmergencyBloodRequests;
+using HospitalLibrary.Settings;
 
 namespace IntegrationAPI
 {

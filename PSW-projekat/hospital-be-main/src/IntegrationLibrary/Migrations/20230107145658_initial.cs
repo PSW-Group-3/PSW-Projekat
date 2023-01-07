@@ -130,17 +130,47 @@ namespace IntegrationLibrary.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     DueDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     State = table.Column<int>(type: "int", nullable: false),
-                    Demands = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Bids = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Demands = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Tenders", x => x.Id);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "Bids",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DeliveryDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Price = table.Column<long>(type: "bigint", nullable: false),
+                    BloodBankId = table.Column<int>(type: "int", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false),
+                    TenderId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Bids", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Bids_Tenders_TenderId",
+                        column: x => x.TenderId,
+                        principalTable: "Tenders",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Bids_TenderId",
+                table: "Bids",
+                column: "TenderId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Bids");
+
             migrationBuilder.DropTable(
                 name: "BloodBanks");
 

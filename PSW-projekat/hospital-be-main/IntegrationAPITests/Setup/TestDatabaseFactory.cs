@@ -31,7 +31,7 @@ namespace IntegrationAPITests.Setup
             var descriptor = services.SingleOrDefault(d => d.ServiceType == typeof(DbContextOptions<IntegrationDbContext>));
             services.Remove(descriptor);
 
-            services.AddDbContext<IntegrationDbContext>(opt => opt.UseSqlServer(CreateConnectionStringForTest()));
+            services.AddDbContext<IntegrationDbContext>(opt => opt.UseSqlServer(CreateConnectionStringForTest()).UseLazyLoadingProxies());
             return services.BuildServiceProvider();
         }
 
@@ -47,16 +47,7 @@ namespace IntegrationAPITests.Setup
             context.Database.ExecuteSqlRaw("TRUNCATE TABLE BloodBanks;");
             context.Database.ExecuteSqlRaw("TRUNCATE TABLE ReportSettings;");
             context.Database.ExecuteSqlRaw("TRUNCATE TABLE BloodRequests;");
-            context.Database.ExecuteSqlRaw("TRUNCATE TABLE Tenders;");
-
-            Tender tender1 = new Tender(DateTime.Now.AddDays(1), new List<Demand>()
-            {
-                new Demand(BloodType.AN, 5),
-                new Demand(BloodType.AP, 9)
-            });
-            tender1.BidOnTender(new Bid(DateTime.MaxValue, 1000, 1));
-            tender1.BidOnTender(new Bid(DateTime.Now, 1000, 2));
-            context.Tenders.Add(tender1);
+            SetupTenderAndBids(context);
 
             context.BloodBanks.Add(new BloodBank("prva", "asdasd@gmail.com", "asdsadsdadas", "https://www.messenger.com/t/100001603572170", "sadfasdads", "asddsadasdsa", null, AccountStatus.ACTIVE));
             context.BloodBanks.Add(new BloodBank("aa", "asdasd@gmail.com", "asdsadsdadas", "https://www.messenger.com/t/100001603572170", "sadfasdads", "asddsadasdsa", null, AccountStatus.ACTIVE));
@@ -183,6 +174,25 @@ namespace IntegrationAPITests.Setup
             });
 
             context.SaveChanges();
+        }
+
+        private static void SetupTenderAndBids(IntegrationDbContext context)
+        {
+            context.Database.ExecuteSqlRaw("TRUNCATE TABLE Bids;");
+            context.Database.ExecuteSqlRaw("ALTER TABLE Bids\n" +
+                "DROP CONSTRAINT FK_Bids_Tenders_TenderId");
+            context.Database.ExecuteSqlRaw("TRUNCATE TABLE Tenders;");
+            context.Database.ExecuteSqlRaw("ALTER TABLE Bids\n" +
+                "ADD CONSTRAINT FK_Bids_Tenders_TenderId FOREIGN KEY (TenderId) REFERENCES Tenders(Id)");
+
+            Tender tender1 = new Tender(DateTime.Now.AddDays(1), new List<Demand>()
+            {
+                new Demand(BloodType.AN, 5),
+                new Demand(BloodType.AP, 9)
+            });
+            tender1.BidOnTender(new Bid(DateTime.MaxValue, 1000, 1));
+            tender1.BidOnTender(new Bid(DateTime.Now, 1000, 2));
+            context.Tenders.Add(tender1);
         }
     }
 }

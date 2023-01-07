@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IntegrationLibrary.Migrations
 {
     [DbContext(typeof(IntegrationDbContext))]
-    [Migration("20221230180649_initial")]
+    [Migration("20230107145658_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -223,15 +223,41 @@ namespace IntegrationLibrary.Migrations
                     b.ToTable("ScheduledOrders");
                 });
 
-            modelBuilder.Entity("IntegrationLibrary.Core.Model.Tender.Tender", b =>
+            modelBuilder.Entity("IntegrationLibrary.Core.Model.Tender.Bid", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Bids")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("BloodBankId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DeliveryDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("Price")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TenderId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TenderId");
+
+                    b.ToTable("Bids");
+                });
+
+            modelBuilder.Entity("IntegrationLibrary.Core.Model.Tender.Tender", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Demands")
                         .HasColumnType("nvarchar(max)");
@@ -245,6 +271,20 @@ namespace IntegrationLibrary.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Tenders");
+                });
+
+            modelBuilder.Entity("IntegrationLibrary.Core.Model.Tender.Bid", b =>
+                {
+                    b.HasOne("IntegrationLibrary.Core.Model.Tender.Tender", "Tender")
+                        .WithMany("Bids")
+                        .HasForeignKey("TenderId");
+
+                    b.Navigation("Tender");
+                });
+
+            modelBuilder.Entity("IntegrationLibrary.Core.Model.Tender.Tender", b =>
+                {
+                    b.Navigation("Bids");
                 });
 #pragma warning restore 612, 618
         }

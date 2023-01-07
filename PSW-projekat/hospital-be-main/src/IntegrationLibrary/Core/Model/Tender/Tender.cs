@@ -50,7 +50,7 @@ namespace IntegrationLibrary.Core.Model.Tender
             }
         }
 
-        public List<Bid> Bids
+        public virtual List<Bid> Bids
         {
             get => _bids;
             private set
@@ -65,7 +65,6 @@ namespace IntegrationLibrary.Core.Model.Tender
 
         public Tender(DateTime dueDate, List<Demand> demands, TenderState state)
         {
-
             DueDate = dueDate;
             Demands = demands;
             State = state;
@@ -77,23 +76,32 @@ namespace IntegrationLibrary.Core.Model.Tender
             Demands = demands;
         }
 
-        public void BidOnTender(Bid bid)
+        
+        public void BidOnTender(Bid newBid)
         {
-            Bids.Add(bid);
+            foreach (Bid bid in Bids)
+            {
+                if (newBid.BloodBankId == bid.BloodBankId)
+                {
+                    bid.IssueNewBid(newBid);
+                    return;
+                }
+            }
+            Bids.Add(newBid);
         }
 
-        public void CloseTender(Bid winningBid)
+        public void CloseTender(int winningBidID)
         {
             State = TenderState.CLOSED;
-            ChangeBidsStatuses(winningBid);
+            ChangeBidsStatuses(winningBidID);
         }
 
-        private void ChangeBidsStatuses(Bid winningBid)
+        private void ChangeBidsStatuses(int winningBidID)
         {
             bool winningBidFound = false;
             foreach (Bid bid in Bids)
             {
-                if (winningBid == bid)
+                if (winningBidID == bid.Id)
                 {
                     bid.SetAsWinningBid();
                     winningBidFound = true;

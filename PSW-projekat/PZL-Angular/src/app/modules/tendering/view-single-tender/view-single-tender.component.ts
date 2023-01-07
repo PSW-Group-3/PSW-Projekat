@@ -59,7 +59,7 @@ export class ViewSingleTenderComponent implements OnInit {
   }
 
   public SelectWiner(bid:Bid){
-    this.tenderService.closeTender(this.tenderService.selectedTender.id, bid).subscribe(res => {
+    this.tenderService.closeTender(this.tenderService.selectedTender.id, bid.id).subscribe(res => {
       this.router.navigate(['view-tenders']);
     },(error) => {
       this.errorMessage = error;

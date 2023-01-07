@@ -53,7 +53,14 @@ namespace IntegrationAPITests.Tests
             using var scope = Factory.Services.CreateScope();
             var controller = SetupSettingsController(scope);
 
-            var result = (OkResult)controller.BidOnTender(1, new Bid(DateTime.Now, 3000, 1));
+
+
+            var result = (OkResult)controller.BidOnTender(1, new BidDTO()
+            {
+                DeliveryDate = DateTime.Now,
+                Price = 3000,
+                BloodBankId = 1
+            });
         }
 
 
@@ -63,7 +70,7 @@ namespace IntegrationAPITests.Tests
             using var scope = Factory.Services.CreateScope();
             var controller = SetupSettingsController(scope);
 
-            var result = (OkResult)controller.CloseTender(1, new Bid(DateTime.MaxValue, 1000, 1));
+            var result = (OkResult)controller.CloseTender(1, 1);
         }
 
         private List<DemandDTO> CreateDemandList()
