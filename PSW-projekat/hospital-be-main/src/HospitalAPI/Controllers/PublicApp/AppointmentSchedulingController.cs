@@ -27,8 +27,8 @@ namespace HospitalAPI.Controllers.PublicApp
             _patientService = patientService;
         }
 
-        [HttpGet("CreateEventSourcingAggregate")]
-        public ActionResult CreateEventSourcingAggregate(int patientId)
+        [HttpGet("AppointmentSchedulingAggregateStartTime")]
+        public ActionResult AppointmentSchedulingAggregateStartTime(int patientId)
         {
             ScheduleAppointmentByPatient scheduleAppointmentByPatient = new ScheduleAppointmentByPatient();
             scheduleAppointmentByPatient = _schedulingAppointmentEventsRepository.Create(scheduleAppointmentByPatient);
@@ -38,22 +38,32 @@ namespace HospitalAPI.Controllers.PublicApp
             return Ok(scheduleAppointmentByPatient.Id);
         }
 
-        [HttpPost("EndEventSourcingAggregate")]
-        public ActionResult EndEventSourcingAggregate(int id)
+        [HttpPost("AppointmentSchedulingAggregateEndTime")]
+        public ActionResult AppointmentSchedulingAggregateEndTime(int id)
         {
             ScheduleAppointmentByPatient scheduleAppointmentByPatient = _schedulingAppointmentEventsRepository.findById(id);
             scheduleAppointmentByPatient.endTime = DateTime.Now;
+            scheduleAppointmentByPatient.Stage = SchedulingStage.appointmentScheduled;
             _schedulingAppointmentEventsRepository._context.SaveChanges();
 
+            return Ok();
+        }
+
+        [HttpPost("ChooseAppointmentTime")]
+        public ActionResult ChooseAppointmentTime(AppointmentSchedulingEventDTO appointmentSchedulingEventDTO)
+        {
+            ChooseAppointmentTime chooseAppointmentTime = new ChooseAppointmentTime(_schedulingAppointmentEventsRepository) { };
+            chooseAppointmentTime.Execute(appointmentSchedulingEventDTO.Id, appointmentSchedulingEventDTO.SelectedItem);
+            
             return Ok();
         }
 
         [HttpPost("ChooseAppointmentDate")]
         public ActionResult ChooseAppointmentDate(AppointmentSchedulingEventDTO appointmentSchedulingEventDTO)
         {
-            ChooseAppointmentTime chooseAppointmentTime = new ChooseAppointmentTime(_schedulingAppointmentEventsRepository) { };
-            chooseAppointmentTime.Execute(appointmentSchedulingEventDTO.Id, appointmentSchedulingEventDTO.SelectedItem);
-            
+            ChooseAppointmentDate chooseAppointmentDate = new ChooseAppointmentDate(_schedulingAppointmentEventsRepository) { };
+            chooseAppointmentDate.Execute(appointmentSchedulingEventDTO.Id, appointmentSchedulingEventDTO.SelectedItem);
+
             return Ok();
         }
 
@@ -98,6 +108,15 @@ namespace HospitalAPI.Controllers.PublicApp
         {
             BackToAppointmentTimeChoosing backToAppointmentTimeChoosing = new BackToAppointmentTimeChoosing(_schedulingAppointmentEventsRepository) { };    
             backToAppointmentTimeChoosing.Execute(id);
+
+            return Ok();
+        }
+
+        [HttpPost("BackToAppointmentDateChoosing")]
+        public ActionResult BackToAppointmentDateChoosing(int id)
+        {
+            BackToAppointmentDateChoosing backToAppointmentDATEChoosing = new BackToAppointmentDateChoosing(_schedulingAppointmentEventsRepository) { };
+            backToAppointmentDATEChoosing.Execute(id);
 
             return Ok();
         }

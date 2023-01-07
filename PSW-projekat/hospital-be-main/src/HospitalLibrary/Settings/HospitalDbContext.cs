@@ -1,6 +1,7 @@
 ﻿using HospitalLibrary.Core.Model;
 using HospitalLibrary.Core.Model.Aggregate;
 using HospitalLibrary.Core.Model.Aggregate.Events;
+using HospitalLibrary.Core.Model.Aggregate.useCases;
 using HospitalLibrary.Core.Model.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -80,6 +81,8 @@ namespace HospitalLibrary.Settings
             modelBuilder.Entity<BackToDoctorSelection>();
             modelBuilder.Entity<BackToSpecializationSelection>();
             modelBuilder.Entity<BackToAppointentTimeSelection>();
+            modelBuilder.Entity<BackToAppointmentDateSelection>();
+            modelBuilder.Entity<PatientSelectedAppointmentDate>();
 
             base.OnModelCreating(modelBuilder);
         }
