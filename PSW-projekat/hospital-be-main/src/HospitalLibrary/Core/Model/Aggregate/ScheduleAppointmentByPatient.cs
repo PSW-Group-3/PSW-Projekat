@@ -30,6 +30,11 @@ namespace HospitalLibrary.Core.Model.Aggregate
             Causes(new PatientSelectedDoctor(doctorName));
         }
 
+        public void ChooseAppointmentDate(String appointmentDate)
+        {
+            Causes(new PatientSelectedAppointmentDate(appointmentDate));
+        }
+
         public void ChooseSpecialization(string specialization)
         {
             Causes(new PatientSelectedDoctorSpecialization(specialization));
@@ -48,6 +53,11 @@ namespace HospitalLibrary.Core.Model.Aggregate
         public void BackToAppointmentTimeChoosing()
         {
             Causes(new BackToAppointentTimeSelection());
+        }
+
+        public void BackToAppointmentDateChoosing()
+        {
+            Causes(new BackToAppointmentDateSelection());
         }
 
         private void Causes(DomainEvent @event)
@@ -95,6 +105,18 @@ namespace HospitalLibrary.Core.Model.Aggregate
         {
             backToAppointentTimeSelection.Aggregate = this;
             this.Stage = SchedulingStage.backToTime;
+        }
+
+        private void When(BackToAppointmentDateSelection backToAppointmentDateSelection)
+        {
+            backToAppointmentDateSelection.Aggregate = this;
+            this.Stage = SchedulingStage.backToDate;
+        }
+
+        private void When(PatientSelectedAppointmentDate patientSelectedAppointmentDate)
+        {
+            patientSelectedAppointmentDate.Aggregate = this;
+            this.Stage = SchedulingStage.dateChoosen;
         }
     }
 }

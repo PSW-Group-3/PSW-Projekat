@@ -10,7 +10,7 @@ namespace HospitalLibrary.Core.Model.Aggregate
 {
     public class SchedulingAppointmentEventsRepository
     {
-        private readonly HospitalDbContext _context;
+        public HospitalDbContext _context;
 
         public SchedulingAppointmentEventsRepository(HospitalDbContext context)
         {
