@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace HospitalLibrary.Core.Model.Aggregate
 {
-    public abstract class EventSourcedAggregate
+    public abstract class EventSourcedAggregate : BaseModel
     {
-        public int Id { get; set; }
         public virtual List<DomainEvent> Changes { get; set; }
 
         public EventSourcedAggregate()
