@@ -96,6 +96,36 @@ namespace IntegrationLibrary.Core.Model.Tender
             ChangeBidsStatuses(winningBidID);
         }
 
+        
+        /// <summary>
+        /// Itterates through bids and finds winning bid
+        /// </summary>
+        /// <returns>Bid if Found, Null if not found</returns>
+        public Bid GetWinningBid()
+        {
+            foreach (Bid bid in Bids)
+            {
+                if (bid.Status == BidStatus.WIN)
+                    return bid;
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Itterates through bids and finds bid of Blood Bank
+        /// </summary>
+        /// <returns>Bid if Found, Null if not found</returns>
+        public Bid GetBidForBloodBank(BloodBank bloodBank)
+        {
+            foreach (Bid bid in Bids)
+            {
+                if (bid.BloodBankId == bloodBank.Id)
+                    return bid;
+            }
+            return null;
+        }
+
+
         private void ChangeBidsStatuses(int winningBidID)
         {
             bool winningBidFound = false;

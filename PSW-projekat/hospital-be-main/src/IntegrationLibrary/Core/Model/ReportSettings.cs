@@ -54,5 +54,29 @@ namespace IntegrationLibrary.Core.Model
         [Required]
         [Range(0, 31)]
         public int CalculationDays { get => _calculationDays; set => _calculationDays = value; }
+
+        public DateTime NextDeliveryDate 
+        {
+            get
+            {
+                DateTime deliveryDate = DateTime.Now;
+                deliveryDate = deliveryDate.AddDays(DeliveryDays);
+                deliveryDate = deliveryDate.AddMonths(DeliveryMonths);
+                deliveryDate = deliveryDate.AddYears(DeliveryYears);
+                return deliveryDate;
+            }
+        }
+
+        public DateTime StartDateCalculation
+        {
+            get
+            {
+                DateTime calculationDate = DateTime.Now;
+                calculationDate = calculationDate.AddDays(-CalculationDays);
+                calculationDate = calculationDate.AddMonths(-CalculationMonths);
+                calculationDate = calculationDate.AddYears(-CalculationYears);
+                return calculationDate;
+            }
+        }
     }
 }

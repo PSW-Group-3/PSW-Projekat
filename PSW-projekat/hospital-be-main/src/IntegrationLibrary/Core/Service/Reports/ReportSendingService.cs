@@ -56,6 +56,7 @@ namespace IntegrationLibrary.Core.Service.Reports
         }
         public async Task<bool> GeneratePDFs()
         {
+            ReportSettings reportSettings = _reportSettingsService.GetFirst();
             bool isSuccess = false;
             foreach (BloodBank bank in (List<BloodBank>)_bloodBankService.GetAll())
             {
@@ -78,7 +79,7 @@ namespace IntegrationLibrary.Core.Service.Reports
                         Headers = new HeaderDictionary(),
                         ContentType = "application/pdf" 
                     });
-                    await _emailService.SendEmailAsync(new BloodBankPDFMailRequest(bank, pdfs));
+                    await _emailService.SendEmailAsync(new BloodBankPDFMailRequest(bank, pdfs, reportSettings));
                 }
             }
             return isSuccess;

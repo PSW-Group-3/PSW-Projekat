@@ -52,5 +52,14 @@ namespace IntegrationLibrary.Core.Model.Tender
             Quantity = quantity;
         }
 
+        public override string ToString()
+        {
+            return @"
+                     { <br/>
+                        &emsp; Blood Type: " + _bloodType.ToString() + @"<br/>
+                        &emsp; Quantity: " + _quantity + @"<br/>
+                     }
+                        ";
+        }
     }
 }
