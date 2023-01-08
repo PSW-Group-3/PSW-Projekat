@@ -39,7 +39,7 @@
             <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
         <div>
-          <button mat-button matStepperNext (click)="ChooseDoctorSpecialization()">Next</button>
+          <button mat-button matStepperNext (click)="ChooseAppointmentDate()">Next</button>
         </div>
       </form>
     </mat-step>
@@ -91,7 +91,7 @@
           </mat-form-field>
           <div>
             <button mat-button matStepperPrevious (click)="BackToDoctorChoosing()">Back</button>
-            <button mat-button matStepperNext>Next</button>
+            <button mat-button matStepperNext (click)="ChooseAppointmentTime()">Next</button>
           </div>
         </form>
     </mat-step>

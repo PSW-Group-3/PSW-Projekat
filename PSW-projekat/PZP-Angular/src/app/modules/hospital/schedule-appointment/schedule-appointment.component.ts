@@ -10,6 +10,7 @@ import { AppointmentsService } from '../services/appointments.service';
 import { DateAndDoctorForNewAppointmentDto } from '../model/DateAndDoctorForNewAppointmentDto.model';
 import { LoginService } from '../services/login.service';
 import { EventSourcingService } from '../services/event-sourcing.service';
+import { AppointmentSchedulingEventDTO } from '../model/appointment-scheduling-event-dto';
 
 @Component({
   selector: 'app-schedule-appointment',
@@ -51,16 +52,14 @@ export class ScheduleAppointmentComponent implements OnInit {
     this.timeForm  = this.fb.group({
       time: ['', [Validators.required]]
     });
-
-    this.ChooseAppointmentDate();
+    this.AppointmentSchedulingAggregateStartTime();
   }
 
   getDoctors(){
     this.appointmentsService.getAllDoctorsBySpecialization(this.specializationForm.value.specialization).subscribe(res => {
       this.doctors = res;
-      this.ChooseDoctor();
     });
-    
+    this.ChooseDoctorSpecialization();
   }
 
   getFreeAppointmentTimes(){
@@ -69,8 +68,8 @@ export class ScheduleAppointmentComponent implements OnInit {
     dto.scheduledDate = this.dateForm.value.date;
     this.appointmentsService.getFreeAppointmentsForDoctor(dto).subscribe(res => {
       this.freeAppointments = res;
-      this.ChooseAppointmentTime();
     });
+    this.ChooseDoctor();
   }
 
   schedule(){
@@ -81,9 +80,10 @@ export class ScheduleAppointmentComponent implements OnInit {
     appointmentInfo.scheduledDate.setHours(this.timeForm.value.time.split(':')[0]);
     appointmentInfo.scheduledDate.setMinutes(this.timeForm.value.time.split(':')[1]);
 
+    this.AppointmentSchedulingAggregateEndTime();
+
     this.appointmentsService.scheduleAppointment(appointmentInfo).subscribe(res => {
       this.router.navigate(['/homePatient']);
-      this.eventSourcingService.AppointmentSchedulingAggregateEndTime();
     });
   }
 
@@ -92,30 +92,49 @@ export class ScheduleAppointmentComponent implements OnInit {
   }
 
   //Event Sourcing Functions
+  AppointmentSchedulingAggregateStartTime(){
+    this.eventSourcingService.AppointmentSchedulingAggregateStartTime().subscribe(res => {
+      localStorage.setItem('aggregateId', res.toString());
+    });
+  }
+  AppointmentSchedulingAggregateEndTime(){
+    let dto: AppointmentSchedulingEventDTO = new AppointmentSchedulingEventDTO(parseInt(localStorage.getItem("aggregateId")!), "");   
+    this.eventSourcingService.AppointmentSchedulingAggregateEndTime(dto).subscribe(res => {});
+  }
+
   ChooseAppointmentDate(){
-    this.eventSourcingService.ChooseAppointmentDate();
+    let dateString: string = this.dateForm.value.date.toString().substr(0,15);
+    let dto: AppointmentSchedulingEventDTO = new AppointmentSchedulingEventDTO(parseInt(localStorage.getItem("aggregateId")!), dateString);   
+    this.eventSourcingService.ChooseAppointmentDate(dto).subscribe(res => {});
   }
   ChooseDoctorSpecialization(){
-    this.eventSourcingService.ChooseDoctorSpecialization();
+    let dto: AppointmentSchedulingEventDTO = new AppointmentSchedulingEventDTO(parseInt(localStorage.getItem("aggregateId")!), this.specializationForm.value.specialization);  
+    this.eventSourcingService.ChooseDoctorSpecialization(dto).subscribe(res => {});
   }
   ChooseDoctor(){
-    this.eventSourcingService.ChooseDoctor();
+    let dto: AppointmentSchedulingEventDTO = new AppointmentSchedulingEventDTO(parseInt(localStorage.getItem("aggregateId")!), this.doctorForm.value.doctor.fullName);   
+    this.eventSourcingService.ChooseDoctor(dto).subscribe(res => {});
   }
   ChooseAppointmentTime(){
-    this.eventSourcingService.ChooseAppointmentDate();
+    let dto: AppointmentSchedulingEventDTO = new AppointmentSchedulingEventDTO(parseInt(localStorage.getItem("aggregateId")!), this.timeForm.value.time);
+    this.eventSourcingService.ChooseAppointmentTime(dto).subscribe(res => {});
   }
 
   BackToAppointmentDateChoosing(){
-    this.eventSourcingService.BackToAppointmentDateChoosing();
+    let dto: AppointmentSchedulingEventDTO = new AppointmentSchedulingEventDTO(parseInt(localStorage.getItem("aggregateId")!), "");   
+    this.eventSourcingService.BackToAppointmentDateChoosing(dto).subscribe(res => {});
   }
   BackToSpecializationChoosing(){
-    this.eventSourcingService.BackToSpecializationChoosing();
+    let dto: AppointmentSchedulingEventDTO = new AppointmentSchedulingEventDTO(parseInt(localStorage.getItem("aggregateId")!), "");   
+    this.eventSourcingService.BackToSpecializationChoosing(dto).subscribe(res => {});
   }
   BackToDoctorChoosing(){
-    this.eventSourcingService.BackToDoctorChoosing();
+    let dto: AppointmentSchedulingEventDTO = new AppointmentSchedulingEventDTO(parseInt(localStorage.getItem("aggregateId")!), "");   
+    this.eventSourcingService.BackToDoctorChoosing(dto).subscribe(res => {});
   }
   BackToAppointmentTimeChoosing(){
-    this.eventSourcingService.BackToAppointmentTimeChoosing();
+    let dto: AppointmentSchedulingEventDTO = new AppointmentSchedulingEventDTO(parseInt(localStorage.getItem("aggregateId")!), "");   
+    this.eventSourcingService.BackToAppointmentTimeChoosing(dto).subscribe(res => {});
   }
 
 }
