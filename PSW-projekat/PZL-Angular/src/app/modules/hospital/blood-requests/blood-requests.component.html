@@ -3,14 +3,14 @@
         <mat-form-field appearance="fill">
             <mat-label>Blood Type</mat-label>
             <mat-select name="bloodTypes" id="bloodTypes" [(ngModel)]="bloodType" (selectionChange)="GetRequests()"  matInput>
-                <mat-option value="AP">A+</mat-option>
-                <mat-option value="AN">A-</mat-option>
-                <mat-option value="BP">B+</mat-option>
-                <mat-option value="BN">B-</mat-option>
-                <mat-option value="ABP">AB+</mat-option>
-                <mat-option value="ABN">AB-</mat-option>
-                <mat-option value="OP">O+</mat-option>
-                <mat-option value="ON">O-</mat-option>
+                <mat-option value="A+">A+</mat-option>
+                <mat-option value="A-">A-</mat-option>
+                <mat-option value="B+">B+</mat-option>
+                <mat-option value="B-">B-</mat-option>
+                <mat-option value="AB+">AB+</mat-option>
+                <mat-option value="AB-">AB-</mat-option>
+                <mat-option value="O+">O+</mat-option>
+                <mat-option value="O-">O-</mat-option>
               </mat-select>
         </mat-form-field>
 
@@ -18,6 +18,11 @@
     </div>
     <table mat-table [dataSource]="dataSource">
         
+        <ng-container matColumnDef="bloodType">
+            <th mat-header-cell *matHeaderCellDef class="cell-center"> Blood Type </th>
+            <td mat-cell *matCellDef="let room" class="cell-center">{{ConvertToString(room.bloodType)}}</td>
+        </ng-container>
+      
         <ng-container matColumnDef="bloodQuantity">
             <th mat-header-cell *matHeaderCellDef class="cell-center"> Quantity </th>
             <td mat-cell *matCellDef="let room" class="cell-center">{{room.bloodQuantity}}</td>
