@@ -33,6 +33,7 @@ import { ShowDoctorsPipe } from './councils/show-doctors.pipe';
 import { CreateDoctorsCouncilComponent } from './create-doctors-council/create-doctors-council.component';
 import { ShowMedicinePipe } from './medical-examination-patient/show-medicine.pipe';
 import { MaliciousPatientsComponent } from './malicious-patients/malicious-patients.component';
+import { ReportsComponent } from './reports/reports.component';
 import { BloodRequestsComponent } from './blood-requests/blood-requests.component';
 
 const routes: Routes = [
@@ -105,6 +106,7 @@ const routes: Routes = [
   { path: 'examinations/finish', component: MedicalExaminationFinish},
   { path: 'bloodConsumption/add', component: BloodConsumptionComponent},
   { path: 'malicious-patients', component: MaliciousPatientsComponent, canActivate: [ AuthGuardManager ]},
+  { path: 'reports', component: ReportsComponent, canActivate: [ AuthGuardDoctor ] },
   { path: 'bloodRequests', component: BloodRequestsComponent },
 
 ];
@@ -135,6 +137,7 @@ const routes: Routes = [
     MedicalPrescriptionShowComponent,
     MedicalExaminationFinish,
     ShowMedicinePipe,
+    ReportsComponent,
     BloodRequestsComponent
   ],
   imports: [

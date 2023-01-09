@@ -110,7 +110,52 @@ namespace HospitalAPI.Controllers.PublicApp
             return File(file, "application/pdf", "report" + ".pdf");
         }
 
+        [HttpGet("report/{personId}")]
+        public ActionResult GetAllExaminationsByDoctor(int personId)
+        {
+            List<ExaminationDto> examinationDto = new List<ExaminationDto>();
 
+            foreach (var examination in _examinationService.GetAllExaminationsByDoctor(personId))
+            {
+                PatientDto patientDto = new PatientDto(examination.Appointment.Patient.Id, examination.Appointment.Patient.Person.Name,
+                  examination.Appointment.Patient.Person.Surname, examination.Appointment.Patient.Person.Email.Adress,
+                  examination.Appointment.Patient.Person.Role);
 
+                DoctorDto doctorDto = new DoctorDto(examination.Appointment.Doctor.Id, examination.Appointment.Doctor.Person.Name,
+                   examination.Appointment.Doctor.Person.Surname, examination.Appointment.Doctor.Person.Email.Adress, examination.Appointment.Doctor.Person.Role);
+
+                AppointmentDto appointmentDto = new AppointmentDto(examination.Appointment.Id, examination.Appointment.DateTime,
+                    (DateTime)examination.Appointment.CancelationDate, patientDto, doctorDto);
+
+                examinationDto.Add(new ExaminationDto(examination.Id, appointmentDto, examination.Prescriptions,
+                    examination.Symptoms, examination.Report));
+
+            }
+            return Ok(examinationDto);
+        }
+
+        [HttpGet("report/search/{searchWord}/{personId}")]
+        public ActionResult GetAllExaminationsBySearchReport(string searchWord, int personId)
+        {
+            List<ExaminationDto> examinationDto = new List<ExaminationDto>();
+
+            foreach (var examination in _examinationService.GetAllExaminationsBySearchReport(searchWord, personId))
+            {
+                PatientDto patientDto = new PatientDto(examination.Appointment.Patient.Id, examination.Appointment.Patient.Person.Name,
+                  examination.Appointment.Patient.Person.Surname, examination.Appointment.Patient.Person.Email.Adress,
+                  examination.Appointment.Patient.Person.Role);
+
+                DoctorDto doctorDto = new DoctorDto(examination.Appointment.Doctor.Id, examination.Appointment.Doctor.Person.Name,
+                   examination.Appointment.Doctor.Person.Surname, examination.Appointment.Doctor.Person.Email.Adress, examination.Appointment.Doctor.Person.Role);
+
+                AppointmentDto appointmentDto = new AppointmentDto(examination.Appointment.Id, examination.Appointment.DateTime,
+                    (DateTime)examination.Appointment.CancelationDate, patientDto, doctorDto);
+
+                examinationDto.Add(new ExaminationDto(examination.Id, appointmentDto, examination.Prescriptions,
+                    examination.Symptoms, examination.Report));
+
+            }
+            return Ok(examinationDto);
+        }
     }
 }
