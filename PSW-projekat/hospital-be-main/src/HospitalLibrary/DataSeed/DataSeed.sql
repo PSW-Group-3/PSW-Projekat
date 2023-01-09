@@ -172,6 +172,15 @@ GO
 SET IDENTITY_INSERT [dbo].[Examinations] ON 
 
 INSERT [dbo].[Examinations] ([Id], [AppointmentId], [Report], [Deleted]) VALUES (1, 1, 'Pacijent je stigao u vrlo losem stanju. Otvoreni prelom butne kosti sa pojacanim krvarenjem.', 0)
+INSERT [dbo].[Examinations] ([Id], [AppointmentId], [Report], [Deleted]) VALUES (2, 2, 'Pacijent je u vrlo lose. Prelom rebara.', 0)
+INSERT [dbo].[Examinations] ([Id], [AppointmentId], [Report], [Deleted]) VALUES (3, 3, 'Pacijent je u solidnom stanju. Napuknuta lakatna kost.', 0)
+INSERT [dbo].[Examinations] ([Id], [AppointmentId], [Report], [Deleted]) VALUES (4, 4, 'Pacijent je primljen nepokretan i bez svesti. Premesten hitno u operacionu salu.', 0)
+INSERT [dbo].[Examinations] ([Id], [AppointmentId], [Report], [Deleted]) VALUES (5, 6, 'Pacijent je stigao sa velikim bolovima. Unutrasnje krvarenje.', 0)
+INSERT [dbo].[Examinations] ([Id], [AppointmentId], [Report], [Deleted]) VALUES (6, 5, 'Pacijent je nepokretan. Premesten u sobu za hitne slucajeve.', 0)
+INSERT [dbo].[Examinations] ([Id], [AppointmentId], [Report], [Deleted]) VALUES (7, 7, 'Pacijent je u bolovima sa dijagnostikovanim "Enteritis salmonellosa".', 0)
+INSERT [dbo].[Examinations] ([Id], [AppointmentId], [Report], [Deleted]) VALUES (8, 8, 'Pacijent je u losem stanju. Uzrokovan "Enteritis campylobacterialis", tj zapaljenjem creva.', 0)
+
+
 SET IDENTITY_INSERT [dbo].[Examinations] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Symptoms] ON 

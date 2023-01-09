@@ -31,4 +31,17 @@ export class ExaminationService {
     }
     return this.http.post<any>(this.apiHost + 'api/examination', examination, requestOptions);
   }
+
+  /*
+  GetAllReportsByDoctor(doctorId: number) : Observable<any> {
+    return this.http.get<string[]>(this.apiHost + 'api/examination/report/' + doctorId, {headers: this.headers});
+  }
+*/
+  GetAllExaminationsByDoctor(doctorId: number) : Observable<any> {
+    return this.http.get<Examination[]>(this.apiHost + 'api/examination/report/' + doctorId, {headers: this.headers});
+  }
+
+  GetAllExaminationsBySearchReport(search: string, personId: number) : Observable<any> {
+    return this.http.get<string[]>(this.apiHost + 'api/examination/report/search/' + search + '/' + personId, {headers: this.headers});
+  }
 }
