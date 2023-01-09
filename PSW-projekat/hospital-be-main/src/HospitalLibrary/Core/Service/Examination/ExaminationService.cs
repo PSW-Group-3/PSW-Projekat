@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using HospitalLibrary.Core.Model;
+﻿using HospitalLibrary.Core.Model;
 using HospitalLibrary.Core.Repository;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using Document = iTextSharp.text.Document;
 
 namespace HospitalLibrary.Core.Service
@@ -192,6 +192,43 @@ namespace HospitalLibrary.Core.Service
                 if (changedReport.ToLower().Contains(searchWord.ToLower()))
                 {
                     examinations.Add(examination);
+                }
+            }
+            return examinations;
+        }
+
+        public List<Examination> GetAllExaminationsBySearchPrescription(string searchWord, int personId)
+        {
+            List<Examination> examinations = new List<Examination>();
+            List<string> split = new List<string>();
+            string phrase = "";
+
+
+            foreach (Examination examination in GetAllExaminationsByDoctor(personId))
+            {
+                foreach (Prescription prescription in examination.Prescriptions)
+                {
+
+                    //ako postoji fraza u izvestaju
+                    if (prescription.Description.Contains('\"'))
+                    {
+                        split = prescription.Description.Split('"').Where((s, i) => i % 2 == 1).ToList();
+                        phrase = split.FirstOrDefault();
+
+                        if (searchWord.ToLower().Equals(phrase.ToLower()))
+                        {
+                            examinations.Add(examination);
+                        }
+                    }
+
+                    string changedDescription = GetReportWithoutWordsInQuotes(prescription.Description);
+
+                    //ovde koristis samo reci koje se ne nalaze u navodnicima
+                    //obicne reci
+                    if (changedDescription.ToLower().Contains(searchWord.ToLower()))
+                    {
+                        examinations.Add(examination);
+                    }
                 }
             }
             return examinations;

@@ -70,5 +70,50 @@ namespace HospitalTests.Integration
             Assert.Equal(200, result.StatusCode);
         }
 
+        [Fact]
+        public void Search_examination_descriptions()
+        {
+            //Arrange
+            using var scope = Factory.Services.CreateScope();
+            var controller = SetupSettingsController(scope);
+
+            //Act
+            string searchWord = "obroka";
+            string searchWord2 = "quaque die ante cibum";
+
+            var result = ((OkObjectResult)controller.GetAllExaminationsBySearchReport(searchWord, 2));
+            var result2 = ((OkObjectResult)controller.GetAllExaminationsBySearchReport(searchWord2, 2));
+
+            List<ExaminationDto> examinationDtos = (List<ExaminationDto>)result.Value;
+            List<ExaminationDto> examinationDtos2 = (List<ExaminationDto>)result2.Value;
+
+            //Assert
+            foreach (ExaminationDto exam in examinationDtos)
+            {
+                foreach(Prescription pre in exam.Prescriptions)
+                {
+                    Assert.NotNull(pre.Description);
+                    Assert.Contains(searchWord, pre.Description);
+                    Assert.DoesNotContain("\"", pre.Description);
+
+                }
+            }
+
+            foreach (ExaminationDto exam in examinationDtos2)
+            {
+                foreach (Prescription pre in exam.Prescriptions)
+                {
+                    Assert.NotNull(pre.Description);
+                    Assert.Contains(searchWord2, pre.Description);
+                    Assert.Contains("\"", pre.Description);
+                }
+            }
+
+            Assert.NotNull(result);
+            Assert.NotNull(result2);
+            Assert.NotEqual(0, result.Value);
+            Assert.Equal(200, result.StatusCode);
+        }
+
     }
 }
