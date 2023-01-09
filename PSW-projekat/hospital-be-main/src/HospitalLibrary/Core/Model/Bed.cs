@@ -8,5 +8,8 @@ namespace HospitalLibrary.Core.Model
         public BedState BedState { get; set; }
         public virtual Patient Patient { get; set; }
         public int Quantity { get; set; }
+
+        public Bed() { }
+
     }
 }

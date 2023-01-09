@@ -181,7 +181,7 @@ namespace HospitalTests.Integration
         static Symptom symptom = new()
         {
             Id = 5,
-            Name = "Polen"
+            //Name = "Polen"
         };
         static ICollection<Symptom> symptoms = new List<Symptom> { symptom };
 
