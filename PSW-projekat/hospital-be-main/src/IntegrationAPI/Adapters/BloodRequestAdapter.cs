@@ -14,7 +14,7 @@ namespace IntegrationAPI.Adapters
             return new BloodRequest()
             {
                 RequiredForDate = entity.RequiredForDate,
-                BloodQuantity = entity.BloodQuantity,
+                BloodQuantity = new Quantity(entity.BloodQuantity),
                 Reason = entity.Reason,
                 DoctorId = entity.DoctorId,
                 RequestState = entity.RequestState,
@@ -29,7 +29,7 @@ namespace IntegrationAPI.Adapters
             return new BloodRequestDTO()
             {
                 RequiredForDate = entity.RequiredForDate,
-                BloodQuantity = entity.BloodQuantity,
+                BloodQuantity = entity.BloodQuantity.Value,
                 Reason = entity.Reason,
                 DoctorId = entity.DoctorId,
                 RequestState = entity.RequestState,

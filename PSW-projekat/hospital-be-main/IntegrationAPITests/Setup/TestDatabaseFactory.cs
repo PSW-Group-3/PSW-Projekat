@@ -67,7 +67,7 @@ namespace IntegrationAPITests.Setup
             context.BloodRequests.Add(new BloodRequest
             {
                 BloodBankId = 1,
-                BloodQuantity = 2,
+                BloodQuantity = new Quantity(2),
                 BloodType = BloodType.ON,
                 Reason = "For operation",
                 RequestState = RequestState.Accepted,
@@ -78,7 +78,7 @@ namespace IntegrationAPITests.Setup
             context.BloodRequests.Add(new BloodRequest
             {
                 BloodBankId = 1,
-                BloodQuantity = 3,
+                BloodQuantity = new Quantity(3),
                 BloodType = BloodType.OP,
                 Reason = "For operation",
                 RequestState = RequestState.Accepted,
@@ -89,7 +89,7 @@ namespace IntegrationAPITests.Setup
 
             context.BloodRequests.Add(new BloodRequest
             {
-                BloodQuantity = 1,
+                BloodQuantity = new Quantity(1),
                 BloodType = BloodType.BP,
                 DoctorId = 4,
                 Reason = "sadasddas",
@@ -100,7 +100,7 @@ namespace IntegrationAPITests.Setup
 
             context.BloodRequests.Add(new BloodRequest
             {
-                BloodQuantity = 5,
+                BloodQuantity = new Quantity(5),
                 BloodType = BloodType.BN,
                 DoctorId = 2,
                 Reason = "asdasddas",
@@ -111,7 +111,7 @@ namespace IntegrationAPITests.Setup
 
             context.BloodRequests.Add(new BloodRequest
             {
-                BloodQuantity = 5,
+                BloodQuantity = new Quantity(5),
                 BloodType = BloodType.BN,
                 DoctorId = 1,
                 Reason = "asdasddas",
@@ -122,7 +122,7 @@ namespace IntegrationAPITests.Setup
 
             context.BloodRequests.Add(new BloodRequest
             {
-                BloodQuantity = 5,
+                BloodQuantity = new Quantity(5),
                 BloodType = BloodType.BN,
                 DoctorId = 3,
                 Reason = "asdasddas",
@@ -133,7 +133,7 @@ namespace IntegrationAPITests.Setup
 
             context.BloodRequests.Add(new BloodRequest
             {
-                BloodQuantity = 5,
+                BloodQuantity = new Quantity(5),
                 BloodType = BloodType.ON,
                 DoctorId = 2,
                 Reason = "asdasddas",
@@ -143,7 +143,7 @@ namespace IntegrationAPITests.Setup
             });
             context.BloodRequests.Add(new BloodRequest
             {
-                BloodQuantity = 2,
+                BloodQuantity = new Quantity(2),
                 BloodType = BloodType.ON,
                 DoctorId = 2,
                 Reason = "asdasddas",
@@ -154,7 +154,7 @@ namespace IntegrationAPITests.Setup
             });
             context.BloodRequests.Add(new BloodRequest
             {
-                BloodQuantity = 2,
+                BloodQuantity = new Quantity(2),
                 BloodType = BloodType.OP,
                 DoctorId = 2,
                 Reason = "asdasddas",
