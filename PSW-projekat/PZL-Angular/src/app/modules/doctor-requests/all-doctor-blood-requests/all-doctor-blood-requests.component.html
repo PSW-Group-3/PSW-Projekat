@@ -5,7 +5,7 @@
   </div>
   <table mat-table [dataSource]="dataSource" *ngIf="!errorMessage">
     <ng-container matColumnDef="Required Until">
-      <th mat-header-cell *matHeaderCellDef class="cell-center">
+      <th mat-header-cell *matHeaderCellDef class="cell-center header-row">
         Required Until
       </th>
       <td
@@ -18,7 +18,7 @@
       </td>
     </ng-container>
     <ng-container matColumnDef="Quantity">
-      <th mat-header-cell *matHeaderCellDef class="cell-center">Quantity</th>
+      <th mat-header-cell *matHeaderCellDef class="cell-center header-row">Quantity</th>
       <td
         mat-cell
         *matCellDef="let request; let i = index"
@@ -30,7 +30,7 @@
       </td>
     </ng-container>
     <ng-container matColumnDef="Blood Type">
-      <th mat-header-cell *matHeaderCellDef class="cell-center">Blood Type</th>
+      <th mat-header-cell *matHeaderCellDef class="cell-center header-row">Blood Type</th>
       <td
         mat-cell
         *matCellDef="let request"
@@ -41,7 +41,7 @@
       </td>
     </ng-container>
     <ng-container matColumnDef="Reason">
-      <th mat-header-cell *matHeaderCellDef class="cell-center">Reason</th>
+      <th mat-header-cell *matHeaderCellDef class="cell-center header-row">Reason</th>
       <td
         mat-cell
         *matCellDef="let request"
@@ -52,7 +52,7 @@
       </td>
     </ng-container>
     <ng-container matColumnDef="Doctor">
-      <th mat-header-cell *matHeaderCellDef class="cell-center">Doctor</th>
+      <th mat-header-cell *matHeaderCellDef class="cell-center header-row">Doctor</th>
       <td
         mat-cell
         *matCellDef="let request"
@@ -63,7 +63,7 @@
       </td>
     </ng-container>
     <ng-container matColumnDef="Status">
-      <th mat-header-cell *matHeaderCellDef class="cell-center">Status</th>
+      <th mat-header-cell *matHeaderCellDef class="cell-center header-row">Status</th>
       <td
         mat-cell
         *matCellDef="let request"
