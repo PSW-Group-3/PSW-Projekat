@@ -44,4 +44,8 @@ export class ExaminationService {
   GetAllExaminationsBySearchReport(search: string, personId: number) : Observable<any> {
     return this.http.get<string[]>(this.apiHost + 'api/examination/report/search/' + search + '/' + personId, {headers: this.headers});
   }
+
+  GetAllExaminationsBySearchPrescription(search: string, personId: number) : Observable<any> {
+    return this.http.get<string[]>(this.apiHost + 'api/examination/prescription/search/' + search + '/' + personId, {headers: this.headers});
+  }
 }

@@ -35,6 +35,9 @@ import { ShowMedicinePipe } from './medical-examination-patient/show-medicine.pi
 import { MaliciousPatientsComponent } from './malicious-patients/malicious-patients.component';
 import { ReportsComponent } from './reports/reports.component';
 import { BloodRequestsComponent } from './blood-requests/blood-requests.component';
+import { PrescriptionsComponent } from './prescriptions/prescriptions.component';
+import { ShowDescriptionsPipe } from './prescriptions/show-descriptions.pipe';
+import { ShowMedicinesPipe } from './prescriptions/show-medicines.pipe';
 
 const routes: Routes = [
   { path: 'rooms', component: RoomsComponent, canActivate: [AuthGuardManager] },
@@ -108,6 +111,7 @@ const routes: Routes = [
   { path: 'malicious-patients', component: MaliciousPatientsComponent, canActivate: [ AuthGuardManager ]},
   { path: 'reports', component: ReportsComponent, canActivate: [ AuthGuardDoctor ] },
   { path: 'bloodRequests', component: BloodRequestsComponent },
+  { path: 'prescriptions', component: PrescriptionsComponent},
 
 ];
 
@@ -138,7 +142,10 @@ const routes: Routes = [
     MedicalExaminationFinish,
     ShowMedicinePipe,
     ReportsComponent,
-    BloodRequestsComponent
+    BloodRequestsComponent,
+    PrescriptionsComponent,
+    ShowDescriptionsPipe,
+    ShowMedicinesPipe
   ],
   imports: [
     CommonModule,

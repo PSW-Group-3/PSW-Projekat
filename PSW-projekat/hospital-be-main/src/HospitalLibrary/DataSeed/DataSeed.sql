@@ -206,15 +206,17 @@ GO
 SET IDENTITY_INSERT [dbo].[Prescriptions] ON 
 
 INSERT [dbo].[Prescriptions] ([Id], [Description], [ExaminationId], [Deleted]) VALUES (1, 'Svaki dan 3x na svakih osam sati, posle obroka.', 1, 0)
-INSERT [dbo].[Prescriptions] ([Id], [Description], [ExaminationId], [Deleted]) VALUES (2, 'Svaki drugi dan 1x na prazan stomak.', 1, 0)
+INSERT [dbo].[Prescriptions] ([Id], [Description], [ExaminationId], [Deleted]) VALUES (2, 'Svaki dan 1x na prazan stomak.', 2, 0)
+INSERT [dbo].[Prescriptions] ([Id], [Description], [ExaminationId], [Deleted]) VALUES (3, '3x na dan, po dve tablete.', 3, 0)
+INSERT [dbo].[Prescriptions] ([Id], [Description], [ExaminationId], [Deleted]) VALUES (4, 'Svaki dan posle obroka. "quaque die ante cibum"', 4, 0)
 SET IDENTITY_INSERT [dbo].[Prescriptions] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Medicines] ON 
 
 INSERT [dbo].[Medicines] ([Id], [Name], [Quantity], [PrescriptionId], [RoomId], [Deleted]) VALUES (1, 'Brufen', 12, 1, 4, 0)
-INSERT [dbo].[Medicines] ([Id], [Name], [Quantity], [PrescriptionId], [RoomId], [Deleted]) VALUES (2, 'Aspirin', 20, 1, 4, 0)
-INSERT [dbo].[Medicines] ([Id], [Name], [Quantity], [PrescriptionId], [RoomId], [Deleted]) VALUES (3, 'Dexomen', 10, 1, 4, 0)
-INSERT [dbo].[Medicines] ([Id], [Name], [Quantity], [PrescriptionId], [RoomId], [Deleted]) VALUES (4, 'Robenan', 5, 1, 4, 0)
+INSERT [dbo].[Medicines] ([Id], [Name], [Quantity], [PrescriptionId], [RoomId], [Deleted]) VALUES (2, 'Aspirin', 20, 2, 4, 0)
+INSERT [dbo].[Medicines] ([Id], [Name], [Quantity], [PrescriptionId], [RoomId], [Deleted]) VALUES (3, 'Dexomen', 10, 3, 4, 0)
+INSERT [dbo].[Medicines] ([Id], [Name], [Quantity], [PrescriptionId], [RoomId], [Deleted]) VALUES (4, 'Robenan', 5, 4, 4, 0)
 INSERT [dbo].[Medicines] ([Id], [Name], [Quantity], [PrescriptionId], [RoomId], [Deleted]) VALUES (5, 'Fervex', 1, 1, 4, 0)
 SET IDENTITY_INSERT [dbo].[Medicines] OFF
 GO
