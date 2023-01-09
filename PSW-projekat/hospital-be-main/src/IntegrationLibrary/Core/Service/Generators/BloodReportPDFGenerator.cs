@@ -29,7 +29,7 @@ namespace IntegrationLibrary.Core.Service.Generators
             byte[] pdfFile = File.ReadAllBytes(path);
             return pdfFile;
         }
-        private String createFileName(String bankName)
+        public String createFileName(String bankName)
         {
             String today = DateTime.Now.ToString("ddMMyyyy");
             String filename = "BloodReportFor" + bankName.Replace(" ", "") + "_" + today + ".pdf";

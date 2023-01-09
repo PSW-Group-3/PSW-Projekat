@@ -11,7 +11,6 @@ using System;
 using System.Collections.Generic;
 namespace HospitalAPI.Controllers.PublicApp
 {
-    [Authorize]
     [EnableCors]
     [Route("api/[controller]")]
     [ApiController]

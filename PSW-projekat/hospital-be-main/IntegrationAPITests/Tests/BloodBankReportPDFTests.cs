@@ -34,7 +34,8 @@ namespace IntegrationAPITests.Tests
             var mockConnection = new Mock<IBloodBankConnection>();
             return new ReportSendingService(mockConnection.Object,
                                 scope.ServiceProvider.GetRequiredService<IReportSettingsService>(),
-                                scope.ServiceProvider.GetRequiredService<IBloodBankService>(), scope.ServiceProvider.GetRequiredService<IBloodRequestService>());
+                                scope.ServiceProvider.GetRequiredService<IBloodBankService>(), scope.ServiceProvider.GetRequiredService<IBloodRequestService>(),
+                                scope.ServiceProvider.GetRequiredService<IEmailService>());
         }
 
         [Fact]

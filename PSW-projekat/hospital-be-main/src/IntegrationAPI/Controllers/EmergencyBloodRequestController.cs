@@ -18,10 +18,10 @@ namespace IntegrationAPI.Controllers
     [ApiController]
     public class EmergencyBloodRequestController : ControllerBase
     {
-        private readonly IEmergencyBloodRequestServiceGRPC _emergencyBloodRequestService;
+        private readonly IEmergencyBloodRequestService _emergencyBloodRequestService;
         private readonly IMapper _mapper;
 
-        public EmergencyBloodRequestController(IEmergencyBloodRequestServiceGRPC emergencyBloodRequestService, IMapper mapper)
+        public EmergencyBloodRequestController(IEmergencyBloodRequestService emergencyBloodRequestService, IMapper mapper)
         {
             _emergencyBloodRequestService = emergencyBloodRequestService;
             _mapper = mapper;
@@ -45,6 +45,18 @@ namespace IntegrationAPI.Controllers
                 return Ok(requestDTO);
             } 
             catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult GetAll()
+        {
+            try
+            {
+                return Ok(_emergencyBloodRequestService.GetAll());
+            } catch(Exception ex)
             {
                 return BadRequest(ex.Message);
             }

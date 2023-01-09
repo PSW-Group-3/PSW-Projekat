@@ -47,6 +47,32 @@ namespace IntegrationAPITests.Tests
             result.ShouldBe(testCase);
         }
 
+        [Fact]
+        public void Bid_on_tender()
+        {
+            using var scope = Factory.Services.CreateScope();
+            var controller = SetupSettingsController(scope);
+
+
+
+            var result = (OkResult)controller.BidOnTender(1, new BidDTO()
+            {
+                DeliveryDate = DateTime.Now,
+                Price = 3000,
+                BloodBankId = 1
+            });
+        }
+
+
+        [Fact]
+        public void Close_tender()
+        {
+            using var scope = Factory.Services.CreateScope();
+            var controller = SetupSettingsController(scope);
+
+            var result = (OkResult)controller.CloseTender(1, 1);
+        }
+
         private List<DemandDTO> CreateDemandList()
         {
             List<DemandDTO> demands = new List<DemandDTO>();

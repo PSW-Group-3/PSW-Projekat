@@ -38,6 +38,18 @@ namespace IntegrationLibrary.Core.Service
             return result;
         }
 
+        public string SendEmail(MailRequest mailRequest)
+        {
+            MimeMessage email = PrepareContentOfEmail(mailRequest);
+            using var smtp = new SmtpClient();
+            smtp.Connect(_mailSettings.Host, _mailSettings.Port,
+                MailKit.Security.SecureSocketOptions.StartTls);
+            smtp.Authenticate(_mailSettings.Mail, _mailSettings.Password);
+            string result = smtp.Send(email);
+            smtp.Disconnect(true);
+            return result;
+        }
+
         private MimeMessage PrepareContentOfEmail(MailRequest mailRequest)
         {
             var email = new MimeMessage();
@@ -46,7 +58,13 @@ namespace IntegrationLibrary.Core.Service
             email.Subject = mailRequest.Subject;
             var builder = new BodyBuilder();
             builder.HtmlBody = mailRequest.Body;
+            AddAttachments(mailRequest, builder);
             email.Body = builder.ToMessageBody();
+            return email;
+        }
+
+        private static void AddAttachments(MailRequest mailRequest, BodyBuilder builder)
+        {
             if (mailRequest.Attachments != null)
             {
                 byte[] fileBytes;
@@ -63,8 +81,6 @@ namespace IntegrationLibrary.Core.Service
                     }
                 }
             }
-
-            return email;
         }
     }
 }

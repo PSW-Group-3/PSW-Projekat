@@ -13,13 +13,7 @@ namespace IntegrationAPI.Adapters
             foreach(DemandDTO demand in entity.Demands)
                 demands.Add(DemandAdapter.FromDTO(demand));
 
-            return new Tender()
-            { 
-                DueDate = entity.DueDate,
-                Demands = demands,
-                State = entity.State,
-                Id = entity.Id,
-            };
+            return new Tender(entity.DueDate, demands, entity.State);
         }
 
         public static TenderDTO ToDTO(Tender entity)

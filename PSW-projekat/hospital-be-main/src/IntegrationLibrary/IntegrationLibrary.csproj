@@ -5,6 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Settings\ValueObjectConverters\**" />
+    <EmbeddedResource Remove="Settings\ValueObjectConverters\**" />
+    <None Remove="Settings\ValueObjectConverters\**" />
+  </ItemGroup>
+
+  <ItemGroup>
 	<PackageReference Include="Google.Protobuf" Version="3.21.9" />
 	<PackageReference Include="Grpc.AspNetCore" Version="2.50.0" />
 	<PackageReference Include="Grpc.AspNetCore.Server" Version="2.50.0" />
@@ -41,7 +47,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\HospitalLibrary\HospitalLibrary.csproj" />
-    <Folder Include="Settings\ValueObjectConverters\" />
   </ItemGroup>
 
 </Project>

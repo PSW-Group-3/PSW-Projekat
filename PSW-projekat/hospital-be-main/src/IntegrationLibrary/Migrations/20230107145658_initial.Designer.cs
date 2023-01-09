@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IntegrationLibrary.Migrations
 {
     [DbContext(typeof(IntegrationDbContext))]
-    [Migration("20221221130454_initial")]
+    [Migration("20230107145658_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -92,6 +92,27 @@ namespace IntegrationLibrary.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("BloodRequests");
+                });
+
+            modelBuilder.Entity("IntegrationLibrary.Core.Model.EmergencyBloodRequest", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BloodBankId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BloodQuantity")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BloodType")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EmergencyBloodRequests");
                 });
 
             modelBuilder.Entity("IntegrationLibrary.Core.Model.News", b =>
@@ -221,35 +242,14 @@ namespace IntegrationLibrary.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<int>("TenderOfBidId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Bids");
-                });
-
-            modelBuilder.Entity("IntegrationLibrary.Core.Model.Tender.Demand", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("BloodType")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TenderId")
+                    b.Property<int?>("TenderId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("TenderId");
 
-                    b.ToTable("Demands");
+                    b.ToTable("Bids");
                 });
 
             modelBuilder.Entity("IntegrationLibrary.Core.Model.Tender.Tender", b =>
@@ -258,6 +258,9 @@ namespace IntegrationLibrary.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Demands")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("DueDate")
                         .HasColumnType("datetime2");
@@ -270,20 +273,18 @@ namespace IntegrationLibrary.Migrations
                     b.ToTable("Tenders");
                 });
 
-            modelBuilder.Entity("IntegrationLibrary.Core.Model.Tender.Demand", b =>
+            modelBuilder.Entity("IntegrationLibrary.Core.Model.Tender.Bid", b =>
                 {
                     b.HasOne("IntegrationLibrary.Core.Model.Tender.Tender", "Tender")
-                        .WithMany("Demands")
-                        .HasForeignKey("TenderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("Bids")
+                        .HasForeignKey("TenderId");
 
                     b.Navigation("Tender");
                 });
 
             modelBuilder.Entity("IntegrationLibrary.Core.Model.Tender.Tender", b =>
                 {
-                    b.Navigation("Demands");
+                    b.Navigation("Bids");
                 });
 #pragma warning restore 612, 618
         }

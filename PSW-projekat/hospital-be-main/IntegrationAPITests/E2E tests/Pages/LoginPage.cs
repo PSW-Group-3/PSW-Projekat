@@ -80,6 +80,12 @@ namespace IntegrationAPITests.E2E_tests.Pages
             wait.Until(condition: ExpectedConditions.VisibilityOfAllElementsLocatedBy(By.Id("ErrorDiv")));
         }
 
+        public void WaitForLoginChangePage()
+        {
+            var wait = new WebDriverWait(driver, new TimeSpan(0, 0, 10));
+            wait.Until(condition: ExpectedConditions.UrlContains("home"));
+        }
+
         public void Navigate() => driver.Navigate().GoToUrl(URI);
 
         public void EnsurePageIsDisplayed()

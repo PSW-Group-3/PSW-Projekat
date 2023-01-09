@@ -155,6 +155,12 @@ namespace IntegrationLibrary.Core.Service.BloodRequests
                 throw new Exception("Blood quantity from response not valid!");
         }
 
+
+        public IEnumerable<BloodRequest> GetAllByType(HospitalLibrary.Core.Model.Enums.BloodType bloodType)
+        {
+            return _bloodRequestRepository.GetAllByType(bloodType);
+        }
+
         private HospitalLibrary.Core.Model.Enums.BloodType getHospitalBloodType(BloodType type)
         {
             switch (type)

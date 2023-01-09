@@ -11,5 +11,7 @@ namespace IntegrationLibrary.Core.Service
     {
         Task<string> SendEmailAsync(MailRequest mailRequest);
 
+        string SendEmail(MailRequest mailRequest);
+
     }
 }

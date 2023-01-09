@@ -8,23 +8,6 @@ namespace IntegrationLibrary.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Bids",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    DeliveryDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Price = table.Column<long>(type: "bigint", nullable: false),
-                    TenderOfBidId = table.Column<int>(type: "int", nullable: false),
-                    BloodBankId = table.Column<int>(type: "int", nullable: false),
-                    Status = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Bids", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "BloodBanks",
                 columns: table => new
                 {
@@ -62,6 +45,21 @@ namespace IntegrationLibrary.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_BloodRequests", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "EmergencyBloodRequests",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    BloodQuantity = table.Column<int>(type: "int", nullable: false),
+                    BloodType = table.Column<int>(type: "int", nullable: false),
+                    BloodBankId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EmergencyBloodRequests", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -131,7 +129,8 @@ namespace IntegrationLibrary.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     DueDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    State = table.Column<int>(type: "int", nullable: false)
+                    State = table.Column<int>(type: "int", nullable: false),
+                    Demands = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -139,29 +138,31 @@ namespace IntegrationLibrary.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Demands",
+                name: "Bids",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    BloodType = table.Column<int>(type: "int", nullable: false),
-                    Quantity = table.Column<int>(type: "int", nullable: false),
-                    TenderId = table.Column<int>(type: "int", nullable: false)
+                    DeliveryDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Price = table.Column<long>(type: "bigint", nullable: false),
+                    BloodBankId = table.Column<int>(type: "int", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false),
+                    TenderId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Demands", x => x.Id);
+                    table.PrimaryKey("PK_Bids", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Demands_Tenders_TenderId",
+                        name: "FK_Bids_Tenders_TenderId",
                         column: x => x.TenderId,
                         principalTable: "Tenders",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Demands_TenderId",
-                table: "Demands",
+                name: "IX_Bids_TenderId",
+                table: "Bids",
                 column: "TenderId");
         }
 
@@ -177,7 +178,7 @@ namespace IntegrationLibrary.Migrations
                 name: "BloodRequests");
 
             migrationBuilder.DropTable(
-                name: "Demands");
+                name: "EmergencyBloodRequests");
 
             migrationBuilder.DropTable(
                 name: "Newses");

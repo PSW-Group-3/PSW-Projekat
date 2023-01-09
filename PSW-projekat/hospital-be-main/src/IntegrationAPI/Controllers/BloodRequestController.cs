@@ -127,6 +127,20 @@ namespace IntegrationAPI.Controllers
             }
         }
 
+
+        [HttpGet("requests/{bloodType}")]
+        public ActionResult GetAllByType(HospitalLibrary.Core.Model.Enums.BloodType bloodType)
+        {
+            try
+            {
+                return Ok(_bloodRequestService.GetAllByType(bloodType));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPut]
         public ActionResult Update(BloodRequestDTO entity)
         {

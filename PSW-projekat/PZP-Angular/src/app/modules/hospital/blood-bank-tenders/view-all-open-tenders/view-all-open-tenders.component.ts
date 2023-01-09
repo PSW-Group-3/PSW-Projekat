@@ -3,7 +3,6 @@ import { Tender } from '../model/tender.model';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { TenderService } from '../services/tender.service';
-import { BidService } from '../services/bid.service';
 import { ToastrService } from 'ngx-toastr';
 import { TenderState } from '../model/tender-state.enum';
 
@@ -19,7 +18,7 @@ export class ViewAllOpenTendersComponent implements OnInit {
   public tenders: Tender[] = [];
   public errorMessage: any;
 
-  constructor(private tenderService: TenderService, private router: Router, private bidService: BidService) { }
+  constructor(private tenderService: TenderService, private router: Router) { }
 
   ngOnInit(): void {
     this.tenderService.getAllOpenTenders().subscribe(res => {
