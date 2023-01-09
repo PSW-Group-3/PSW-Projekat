@@ -18,6 +18,8 @@ namespace IntegrationLibrary.Core.Model
             {
                 Value = value;
             }
+            else
+                throw new Exception("Invalid value");
         }
 
         private bool Validation(int value)
@@ -47,5 +49,13 @@ namespace IntegrationLibrary.Core.Model
             return this;
         }
 
+        public Quantity Add(int value)
+        {
+            if (this.Validation(value))
+            {
+                return new Quantity(Value + value);
+            }
+            return this;
+        }
     }
 }
