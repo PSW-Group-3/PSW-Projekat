@@ -156,7 +156,7 @@ namespace IntegrationLibrary.Core.Service.BloodRequests
         }
 
 
-        public IEnumerable<BloodRequest> GetAllByType(HospitalLibrary.Core.Model.Enums.BloodType bloodType)
+        public IEnumerable<BloodRequest> GetAllByType(BloodType bloodType)
         {
             return _bloodRequestRepository.GetAllByType(bloodType);
         }
