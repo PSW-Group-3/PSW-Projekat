@@ -20,6 +20,6 @@ namespace IntegrationLibrary.Core.Service.BloodRequests
         List<BloodRequest> GetAcceptedRequests();
         List<BloodRequest> GetRequestsThatShouldBeSent();
         public void GetBloodFromBloodBank(BloodRequest request);
-        IEnumerable<BloodRequest> GetAllByType(HospitalLibrary.Core.Model.Enums.BloodType bloodType);
+        IEnumerable<BloodRequest> GetAllByType(BloodType bloodType);
     }
 }

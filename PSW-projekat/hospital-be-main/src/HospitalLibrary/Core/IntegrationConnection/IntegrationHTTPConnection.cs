@@ -39,7 +39,7 @@ namespace HospitalLibrary.Core.IntegrationConnection
             return requests;
         }
 
-        public List<BloodRequestDTO> GetBloodRequestsByBlood(BloodType bloodType)
+        public List<BloodRequestDTO> GetBloodRequestsByBlood(String bloodType)
         {
             client = new()
             {
@@ -72,7 +72,7 @@ namespace HospitalLibrary.Core.IntegrationConnection
             requests = JsonConvert.DeserializeObject<List<BloodRequestDTO>>(jsonContent);
         }
 
-        private static async Task SendGetByTypeAsync(HttpClient httpClient,BloodType bloodType)
+        private static async Task SendGetByTypeAsync(HttpClient httpClient,String bloodType)
         {
             using HttpResponseMessage response = await httpClient.GetAsync("api/BloodRequest/requests/"+ bloodType);
             string jsonContent = response.Content.ReadAsStringAsync().Result;

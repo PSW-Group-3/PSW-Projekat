@@ -6,6 +6,6 @@ namespace IntegrationLibrary.Core.Repository.BloodRequests
 {
     public interface IBloodRequestRepository : ICRUDRepository<BloodRequest>
     {
-        IEnumerable<BloodRequest> GetAllByType(HospitalLibrary.Core.Model.Enums.BloodType bloodType);
+        IEnumerable<BloodRequest> GetAllByType(BloodType bloodType);
     }
 }
