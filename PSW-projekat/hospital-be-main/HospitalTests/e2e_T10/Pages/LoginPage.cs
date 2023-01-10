@@ -101,5 +101,33 @@ namespace HospitalTests.e2e_T10.Pages
                 }
             });
         }
+
+        public bool CheckLocalStorage()
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            var role = (String)js.ExecuteScript("return localStorage.getItem('currentUserRole')");
+            if (role == null)
+                return false;
+            return true;
+        }
+        public void EnsureLoggedIn()
+        {
+            var wait = new WebDriverWait(driver, new TimeSpan(0, 0, 20));
+            wait.Until(condition =>
+            {
+                try
+                {
+                    return CheckLocalStorage();
+                }
+                catch (StaleElementReferenceException)
+                {
+                    return false;
+                }
+                catch (NoSuchElementException)
+                {
+                    return false;
+                }
+            });
+        }
     }
 }
