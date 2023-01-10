@@ -37,11 +37,9 @@ namespace HospitalTests.E2E_tests
             loginPage.InsertUsername("marko");
             loginPage.InsertPassword("123");
             loginPage.SubmitForm();
-            Thread.Sleep(3000);
             loginPage.ErrorDivDisplayed().ShouldBe(false);
             reportSettingsPage = new Pages.DoctorsCouncilPage(driver);
             reportSettingsPage.Navigate();
-            Thread.Sleep(3000);
         }
 
         public void Dispose()
@@ -53,20 +51,19 @@ namespace HospitalTests.E2E_tests
         [Fact]
         public void Not_all_fields_are_selected_failiure()
         {
-            //bilo u konfliktu
-            //reportSettingsPage.ClickShowDoctorsButton();            
-       
             reportSettingsPage.InsertTopic("Tema konzilijuma");
             reportSettingsPage.ClickShowSpecializationsButton();
-          //  reportSettingsPage.InsertSpecializationSelectButton();
-            //reportSettingsPage.InsertDoctorSelectButton()
+            var addButton = reportSettingsPage.GetBut();
+            var title = reportSettingsPage.GetTitle(); 
+            //reportSettingsPage.InsertDoctorSelectButton();
             reportSettingsPage.InsertStartDateField(new DateTime(2022, 12, 12));
             reportSettingsPage.InsertEndDateField(new DateTime(2022, 12, 15));
             reportSettingsPage.InsertDurationFild(20);
             
             reportSettingsPage.SubmitForm();
             reportSettingsPage.WaitForToastDialog();
-            Thread.Sleep(1000);
+            Assert.Equal(title.Text, "Schedule a council");
+            Assert.Equal(addButton.Text, "Submit");
             Assert.Equal(driver.Url, Pages.DoctorsCouncilPage.URI);      // check if same url - page not submitted
 
         }
