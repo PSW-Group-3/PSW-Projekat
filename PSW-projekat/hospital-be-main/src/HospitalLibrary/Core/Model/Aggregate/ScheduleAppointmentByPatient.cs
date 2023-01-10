@@ -118,5 +118,10 @@ namespace HospitalLibrary.Core.Model.Aggregate
             patientSelectedAppointmentDate.Aggregate = this;
             this.Stage = SchedulingStage.dateChoosen;
         }
+
+        public IEnumerable<DomainEvent> GetChanges()
+        {
+            return Changes;
+        }
     }
 }

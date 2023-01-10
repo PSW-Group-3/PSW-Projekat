@@ -82,6 +82,7 @@ namespace HospitalTests.Setup
             context.Patients.Add(patient2);
             context.PatientAllergies.Add(patientAllergy);
 
+            context.ScheduleAppointmentByPatients.Add(new ScheduleAppointmentByPatient() { Id=0, Deleted=false, Stage=0, startTime=DateTime.Now });
 
             context.Appointments.Add(new Appointment() { Doctor = doctor1, Patient = patient1, Deleted = false, CancelationDate = new System.DateTime(2022, 10, 8), DateTime = new System.DateTime(2022, 10, 10) });
             context.Appointments.Add(new Appointment() { Doctor = doctor1, Patient = patient2, Deleted = false, CancelationDate = null, DateTime = new System.DateTime(2023, 2, 2) });
