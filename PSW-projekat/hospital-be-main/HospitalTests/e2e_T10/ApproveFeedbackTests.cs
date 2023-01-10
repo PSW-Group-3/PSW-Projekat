@@ -37,7 +37,7 @@ namespace HospitalTests.e2e_T10
             loginPage.ErrorDivDisplayed().ShouldBe(false);
             feedbacksPage = new Pages.FeedbacksPage(driver);
             feedbacksPage.Navigate();
-            Thread.Sleep(5000);
+            feedbacksPage.EnsurePageIsDisplayed();
 
         }
 
@@ -52,11 +52,23 @@ namespace HospitalTests.e2e_T10
         {
             feedbacksPage.ApproveFeedback();
 
-            feedbacksPage.WaitForApproveButtonToDisapear();      
+            feedbacksPage.EnsureApproveButtonHasDisappeared();      
 
-            bool approveButton = feedbacksPage.ApproveButtonElementDisplayed();
+            bool approveButtonDissapeared = feedbacksPage.RejectButtonElementDisplayed();
 
-            Assert.True(approveButton);      
+            Assert.True(approveButtonDissapeared);      
+        }
+
+        [Fact]
+        public void Test_reject_feedback()
+        {
+            feedbacksPage.RejectFeedback();
+
+            feedbacksPage.EnsureRejectButtonHasDisappeared();
+
+            bool rejectButtonDisappeared = feedbacksPage.ApproveButtonElementDisplayed();
+
+            Assert.True(rejectButtonDisappeared);
         }
     }
 }

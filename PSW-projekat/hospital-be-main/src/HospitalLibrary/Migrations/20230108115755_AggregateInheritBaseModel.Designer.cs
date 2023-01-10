@@ -4,14 +4,16 @@ using HospitalLibrary.Settings;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HospitalLibrary.Migrations
 {
     [DbContext(typeof(HospitalDbContext))]
-    partial class HospitalDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230108115755_AggregateInheritBaseModel")]
+    partial class AggregateInheritBaseModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -529,12 +531,52 @@ namespace HospitalLibrary.Migrations
                     b.Property<bool>("Deleted")
                         .HasColumnType("bit");
 
+                    b.Property<int>("Floor")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Number")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("RoomType")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.ToTable("Rooms");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Deleted = false,
+                            Floor = 1,
+                            Number = "101A",
+                            RoomType = 5
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Deleted = false,
+                            Floor = 2,
+                            Number = "204",
+                            RoomType = 5
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Deleted = false,
+                            Floor = 3,
+                            Number = "305B",
+                            RoomType = 5
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Deleted = false,
+                            Floor = 3,
+                            Number = "STORAGE",
+                            RoomType = 0
+                        });
                 });
 
             modelBuilder.Entity("HospitalLibrary.Core.Model.Symptom", b =>
@@ -1034,49 +1076,6 @@ namespace HospitalLibrary.Migrations
                     b.HasOne("HospitalLibrary.Core.Model.Examination", null)
                         .WithMany("Prescriptions")
                         .HasForeignKey("ExaminationId");
-                });
-
-            modelBuilder.Entity("HospitalLibrary.Core.Model.Room", b =>
-                {
-                    b.OwnsOne("HospitalLibrary.Core.Model.RoomFloor", "Floor", b1 =>
-                        {
-                            b1.Property<int>("RoomId")
-                                .ValueGeneratedOnAdd()
-                                .HasColumnType("int")
-                                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                            b1.Property<int>("Floor")
-                                .HasColumnType("int");
-
-                            b1.HasKey("RoomId");
-
-                            b1.ToTable("Rooms");
-
-                            b1.WithOwner()
-                                .HasForeignKey("RoomId");
-                        });
-
-                    b.OwnsOne("HospitalLibrary.Core.Model.RoomName", "Number", b1 =>
-                        {
-                            b1.Property<int>("RoomId")
-                                .ValueGeneratedOnAdd()
-                                .HasColumnType("int")
-                                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                            b1.Property<string>("Name")
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.HasKey("RoomId");
-
-                            b1.ToTable("Rooms");
-
-                            b1.WithOwner()
-                                .HasForeignKey("RoomId");
-                        });
-
-                    b.Navigation("Floor");
-
-                    b.Navigation("Number");
                 });
 
             modelBuilder.Entity("HospitalLibrary.Core.Model.Symptom", b =>
