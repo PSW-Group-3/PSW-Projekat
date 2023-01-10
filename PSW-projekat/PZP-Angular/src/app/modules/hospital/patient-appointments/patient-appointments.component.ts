@@ -54,10 +54,11 @@ export class PatientAppointmentsComponent implements OnInit {
   }
 
   public getPDF(id: number){
-    console.log("radi: " + id);
     this.examinationService.getPDF(id).subscribe(res => {
-      console.log("radiPDF: " + id);
-    }) 
+      let file = new Blob([res], { type: 'application/pdf' });            
+      var fileURL = URL.createObjectURL(file);
+      window.open(fileURL);
+    })
   }
 
 }

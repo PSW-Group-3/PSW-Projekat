@@ -1,12 +1,19 @@
 ﻿using HospitalLibrary.Core.DTOs;
 using HospitalLibrary.Core.Model;
 using HospitalLibrary.Core.Service;
+using IronPdf;
+using iTextSharp.text.pdf.qrcode;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using Org.BouncyCastle.Utilities;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
+using System.Text;
+using System.Threading.Tasks;
+using static System.Net.WebRequestMethods;
 
 namespace HospitalAPI.Controllers.PublicApp
 {
@@ -185,7 +192,7 @@ namespace HospitalAPI.Controllers.PublicApp
         }
 
         [Authorize(Roles = "Patient")]
-        [HttpPost("GetPDF")]
+        [HttpGet("GetPDF")]
         public ActionResult GetPDF(
             int id
         )
@@ -194,8 +201,7 @@ namespace HospitalAPI.Controllers.PublicApp
             //string filename = "examination_" + id + ".pdf";
             string path = Directory.GetParent(Directory.GetCurrentDirectory()).FullName + @"\HospitalAPI\" + filename;
             byte[] pdfFile = System.IO.File.ReadAllBytes(path);
-            return Ok(pdfFile);
-
+            return File(pdfFile, "application/pdf", filename);
         }
     }
 }
