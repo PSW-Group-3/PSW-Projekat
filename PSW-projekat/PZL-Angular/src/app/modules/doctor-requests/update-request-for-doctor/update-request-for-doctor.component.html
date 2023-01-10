@@ -1,40 +1,116 @@
-<h5>{{errorMessage}}</h5>
-<div class="table-header" *ngIf="!errorMessage">
-    <div class="container">
-        <p class="table-title">Request</p>
-            <mat-form-field appearance="fill">
-                <mat-select name="bloodTypes" id="bloodTypes" 
-                [(ngModel)]="this.request.bloodType" matInput>
-                <mat-option *ngFor="let  bloodType of bloodTypes" [value]="bloodType">{{ConvertToString(bloodType)}}</mat-option>
-                </mat-select>
-            </mat-form-field ><br>
-            
-            <mat-form-field appearance="fill">
-                <!-- <mat-label>{{request.requiredForDate}}</mat-label> -->
-                <input type="text" matInput name="dateControl" [placeholder]="date"
-                onfocus="(this.type='date')" [(ngModel)]="this.request.requiredForDate">
-                <!-- <input type="date" matInput [(ngModel)]="this.request.requiredForDate" name="dateTime" > -->
-            </mat-form-field><br>
-            <mat-form-field appearance="fill"  >
-                <mat-label>Quantity(units - max 10)</mat-label>
-                <input type="number" min="0" max="10" [(ngModel)]="request.bloodQuantity" matInput>
-            </mat-form-field><br>
-            <mat-form-field appearance="fill">
-                <mat-label>Reason:</mat-label>
-                <textarea matInput [(ngModel)]="request.reason" style="resize: none;"></textarea>
-            </mat-form-field><br>
-            <mat-form-field appearance="fill">
-                <mat-label>Comment:</mat-label>
-                <textarea readonly matInput value="{{request.comment}}" style="resize: none;"></textarea>
-            </mat-form-field><br>
-            <mat-form-field appearance="fill">
-                <mat-label>Request state:</mat-label>
-                <input readonly matInput value="{{getStateByValue(request.requestState)}}">
-            </mat-form-field><br>
+<section class="vh-100">
+  <div class="container h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-xl-9">
+
+        <h1 class="text-black mb-4 d-flex justify-content-center table-header">Update Blood Request</h1>
+
+        <div class="card " style="border-radius: 15px;">
+          <div class="card-body ">
             <div>
-                <button class="m-1" mat-stroked-button (click)="send()">
-                    Send Back
-                </button>
-            </div>           
+              <div class="row align-items-center pt-4 pb-3">
+
+                <div class="row align-items-center pt-4 pb-3">
+                  <div class="col-md-3 ps-5">
+                    <h6 class="mb-0" style="font-size: 15px;">
+
+                      Blood Type:</h6>
+                  </div>
+                  <div class="col-md-9 pe-5">
+                    <mat-form-field appearance="fill">
+                      <mat-label>Blood Type:</mat-label>
+                      <mat-select name="bloodTypes" id="bloodTypes" [(ngModel)]="this.request.bloodType" matInput>
+                        <mat-option *ngFor="let  bloodType of bloodTypes"
+                          [value]="bloodType">{{ConvertToString(bloodType)}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="row align-items-center pt-4 pb-3">
+                  <div class="col-md-3 ps-5">
+                    <h6 class="mb-0" style="font-size: 15px;">
+
+                      Required For Date:</h6>
+                  </div>
+                  <div class="col-md-9 pe-5">
+                    <mat-form-field appearance="fill">
+                      <mat-label>Required For Date:</mat-label>
+                      <input type="text" matInput name="dateControl" [placeholder]="date" onfocus="(this.type='date')"
+                        [ngModel]="this.request.requiredForDate | date: 'dd/MM/yyyy'" (ngModelChange)="this.request.requiredForDate=$event">
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="row align-items-center pt-4 pb-3">
+                  <div class="col-md-3 ps-5">
+                    <h6 class="mb-0" style="font-size: 15px;">
+
+                      Quantity:</h6>
+                  </div>
+                  <div class="col-md-9 pe-5">
+                    <mat-form-field appearance="fill">
+                      <mat-label>Quantity(units - max 10)</mat-label>
+                      <input type="number" min="0" max="10" [(ngModel)]="request.bloodQuantity" matInput>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="row align-items-center pt-4 pb-3">
+                  <div class="col-md-3 ps-5">
+                    <h6 class="mb-0" style="font-size: 15px;">
+
+                      Reason:</h6>
+                  </div>
+                  <div class="col-md-9 pe-5">
+                    <mat-form-field appearance="fill">
+                      <mat-label>Reason:</mat-label>
+                      <textarea matInput [(ngModel)]="request.reason" style="resize: none;"></textarea>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="row align-items-center pt-4 pb-3">
+                  <div class="col-md-3 ps-5">
+                    <h6 class="mb-0" style="font-size: 15px;">
+
+                      Comment:</h6>
+                  </div>
+                  <div class="col-md-9 pe-5">
+                    <mat-form-field appearance="fill">
+                      <mat-label>Comment:</mat-label>
+                      <textarea readonly matInput value="{{request.comment}}" style="resize: none;"></textarea>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="row align-items-center pt-4 pb-3">
+                  <div class="col-md-3 ps-5">
+                    <h6 class="mb-0" style="font-size: 15px;">
+
+                      Request State:</h6>
+                  </div>
+                  <div class="col-md-9 pe-5">
+                    <mat-form-field appearance="fill">
+                      <mat-label>Request state:</mat-label>
+                      <input readonly matInput value="{{getStateByValue(request.requestState)}}">
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="row align-items-center pt-4 pb-3">
+                  
+                  <div class="col-md-3 ps-5">
+                    <button class="m-1" mat-stroked-button (click)="send()">
+                      Send Back
+                  </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-</div>
+  </div>
+</section>
