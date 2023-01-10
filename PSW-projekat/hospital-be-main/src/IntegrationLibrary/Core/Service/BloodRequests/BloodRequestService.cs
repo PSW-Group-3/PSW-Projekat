@@ -136,7 +136,7 @@ namespace IntegrationLibrary.Core.Service.BloodRequests
         {
             try
             {
-                return await _bloodBankService.GetBlood(_bloodBankService.GetById(request.BloodBankId), request.BloodType, request.BloodQuantity);
+                return await _bloodBankService.GetBlood(_bloodBankService.GetById(request.BloodBankId), request.BloodType, request.BloodQuantity.Value);
             }
             catch (Exception ex)
             {
@@ -146,7 +146,7 @@ namespace IntegrationLibrary.Core.Service.BloodRequests
 
         private bool StoreBlood(int bloodQuanitity, BloodRequest request)
         {
-            if (request.BloodQuantity == bloodQuanitity)
+            if (request.BloodQuantity.Value == bloodQuanitity)
             {
                 Blood blood = new Blood(-1,getHospitalBloodType(request.BloodType), bloodQuanitity);
                 return _hospitalConnection.StoreBlood(blood);
@@ -156,7 +156,7 @@ namespace IntegrationLibrary.Core.Service.BloodRequests
         }
 
 
-        public IEnumerable<BloodRequest> GetAllByType(HospitalLibrary.Core.Model.Enums.BloodType bloodType)
+        public IEnumerable<BloodRequest> GetAllByType(BloodType bloodType)
         {
             return _bloodRequestRepository.GetAllByType(bloodType);
         }

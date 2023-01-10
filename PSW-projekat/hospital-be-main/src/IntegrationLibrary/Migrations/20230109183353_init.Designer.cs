@@ -4,14 +4,16 @@ using IntegrationLibrary.Settings;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace IntegrationLibrary.Migrations
 {
     [DbContext(typeof(IntegrationDbContext))]
-    partial class IntegrationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230109183353_init")]
+    partial class init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -63,6 +65,9 @@ namespace IntegrationLibrary.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("BloodBankId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BloodQuantity")
                         .HasColumnType("int");
 
                     b.Property<int>("BloodType")
@@ -122,9 +127,6 @@ namespace IntegrationLibrary.Migrations
 
                     b.Property<DateTime>("DateTime")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("Image")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
@@ -269,30 +271,6 @@ namespace IntegrationLibrary.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Tenders");
-                });
-
-            modelBuilder.Entity("IntegrationLibrary.Core.Model.BloodRequest", b =>
-                {
-                    b.OwnsOne("IntegrationLibrary.Core.Model.Quantity", "BloodQuantity", b1 =>
-                        {
-                            b1.Property<int>("BloodRequestId")
-                                .ValueGeneratedOnAdd()
-                                .HasColumnType("int")
-                                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                            b1.Property<int>("Value")
-                                .HasColumnType("int");
-
-                            b1.HasKey("BloodRequestId");
-
-                            b1.ToTable("BloodRequests");
-
-                            b1.WithOwner()
-                                .HasForeignKey("BloodRequestId");
-                        });
-
-                    b.Navigation("BloodQuantity")
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("IntegrationLibrary.Core.Model.Tender.Bid", b =>

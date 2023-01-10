@@ -58,7 +58,7 @@ namespace IntegrationAPI.Controllers
                     return NotFound();
                 }
 
-                return Ok(bloodRequest);
+                return Ok(BloodRequestAdapter.ToDTO(bloodRequest));
             }
             catch
             {
@@ -119,7 +119,13 @@ namespace IntegrationAPI.Controllers
         {
             try
             {
-                return Ok(_bloodRequestService.GetAll());
+                List<BloodRequestDTO> blood = new List<BloodRequestDTO>();
+                foreach (BloodRequest b in _bloodRequestService.GetAll())
+                {
+                    blood.Add(BloodRequestAdapter.ToDTO(b));
+                }
+
+                return Ok(blood);
             }
             catch (Exception ex)
             {
@@ -129,16 +135,45 @@ namespace IntegrationAPI.Controllers
 
 
         [HttpGet("requests/{bloodType}")]
-        public ActionResult GetAllByType(HospitalLibrary.Core.Model.Enums.BloodType bloodType)
+        public ActionResult GetAllByType(String bloodType)
         {
             try
             {
-                return Ok(_bloodRequestService.GetAllByType(bloodType));
+                List<BloodRequestDTO> blood = new List<BloodRequestDTO>();
+                foreach (BloodRequest b in _bloodRequestService.GetAllByType(getBloodType(bloodType)))
+                {
+                    blood.Add(BloodRequestAdapter.ToDTO(b));
+                }
+                return Ok(blood);
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
+        }
+
+        private BloodType getBloodType(String type)
+        {
+            switch (type)
+            {
+                case "BMinus":
+                    return BloodType.BN;
+                case "AMinus":
+                    return BloodType.AN;
+                case "ABMinus":
+                    return BloodType.ABN;
+                case "OMinus":
+                    return BloodType.ON;
+                case "BPlus":
+                    return BloodType.BP;
+                case "APlus":
+                    return BloodType.AP;
+                case "ABPlus":
+                    return BloodType.ABP;
+                case "OPlus":
+                    return BloodType.OP;
+            }
+            throw new Exception("Blood type isn't valid.");
         }
 
         [HttpPut]
@@ -182,7 +217,12 @@ namespace IntegrationAPI.Controllers
         {
             try
             {
-                return Ok(_bloodRequestService.GetReturnedRequestsForDoctor(id));
+                List<BloodRequestDTO> blood = new List<BloodRequestDTO>();
+                foreach (BloodRequest b in _bloodRequestService.GetReturnedRequestsForDoctor(id))
+                {
+                    blood.Add(BloodRequestAdapter.ToDTO(b));
+                }
+                return Ok(blood);
             }
             catch
             {

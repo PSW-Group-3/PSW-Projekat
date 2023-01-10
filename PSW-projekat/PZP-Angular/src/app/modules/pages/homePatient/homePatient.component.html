@@ -29,3 +29,18 @@
       </div>
     </nav>
 </div>
+<div style="padding-left: 200px;padding-right: 200px;padding-top: 10px;" *ngIf="hasLoaded">
+  <mdb-carousel [controls]="true" [indicators]="true" [animation]="'slide'">
+    <mdb-carousel-item *ngFor="let ad of advertisements">
+      <img
+        src={{ad.image}}
+        class="d-block w-100"
+        alt="..."
+      />
+      <div class="carousel-caption d-none d-md-block">
+        <h5>{{ad.title}}</h5>
+        <p>{{ad.text}}</p>
+      </div>
+    </mdb-carousel-item>
+  </mdb-carousel>
+</div>

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IntegrationLibrary.Migrations
 {
     [DbContext(typeof(IntegrationDbContext))]
-    [Migration("20230107145658_initial")]
-    partial class initial
+    [Migration("20230109204310_quantityVO")]
+    partial class quantityVO
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -65,9 +65,6 @@ namespace IntegrationLibrary.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("BloodBankId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("BloodQuantity")
                         .HasColumnType("int");
 
                     b.Property<int>("BloodType")
@@ -271,6 +268,27 @@ namespace IntegrationLibrary.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Tenders");
+                });
+
+            modelBuilder.Entity("IntegrationLibrary.Core.Model.BloodRequest", b =>
+                {
+                    b.OwnsOne("IntegrationLibrary.Core.Model.Quantity", "BloodQuantity", b1 =>
+                        {
+                            b1.Property<int>("BloodRequestId")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("int")
+                                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                            b1.HasKey("BloodRequestId");
+
+                            b1.ToTable("BloodRequests");
+
+                            b1.WithOwner()
+                                .HasForeignKey("BloodRequestId");
+                        });
+
+                    b.Navigation("BloodQuantity")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("IntegrationLibrary.Core.Model.Tender.Bid", b =>

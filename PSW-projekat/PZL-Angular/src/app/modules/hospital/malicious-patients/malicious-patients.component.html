@@ -56,10 +56,10 @@
             <th mat-header-cell *matHeaderCellDef class="cell-center header-row"> Block </th>
             <td mat-cell *matCellDef="let patient" class="cell-center">
                 <div *ngIf="patient.isBlocked=='Blocked'">
-                    <button mat-button (click)="unblockPatient(patient.id)" id="{{patient.id}}" class="button-updateStatus">Unblock</button>
+                    <button mat-button (click)="unblockPatient(patient.id)" id="{{patient.id}}Unblock" class="button-updateStatus">Unblock</button>
                 </div> 
                 <div *ngIf="patient.isBlocked=='Not blocked'">
-                <button mat-button (click)="blockPatient(patient.id)" id="{{patient.id}}" class="button-updateStatus">Block</button>
+                <button mat-button (click)="blockPatient(patient.id)" id="{{patient.id}}Block" class="button-updateStatus">Block</button>
             </div> 
             </td>
         </ng-container>

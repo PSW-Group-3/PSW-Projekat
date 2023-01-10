@@ -5,12 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HospitalLibrary.Core.Model
+namespace IntegrationLibrary.Core.Model
 {
     [Owned]
     public class Quantity : ValueObject
     {
-        public int Value { get; }
+        public int Value { get; private set; }
         public Quantity() { }
         public Quantity(int value)
         {
@@ -20,7 +20,6 @@ namespace HospitalLibrary.Core.Model
             }
             else
                 throw new Exception("Invalid value");
-
         }
 
         private bool Validation(int value)

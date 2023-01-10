@@ -12,6 +12,6 @@ namespace HospitalLibrary.Core.IntegrationConnection
     {
         public bool CheckIfExists(LoginUserDto _user);
         public List<BloodRequestDTO> GetBloodRequests();
-        public List<BloodRequestDTO> GetBloodRequestsByBlood(BloodType bloodType);
+        public List<BloodRequestDTO> GetBloodRequestsByBlood(String bloodType);
     }
 }

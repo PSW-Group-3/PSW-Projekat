@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace HospitalTests.E2E_tests.Pages
 {
@@ -30,7 +31,16 @@ namespace HospitalTests.E2E_tests.Pages
         private IWebElement DoctorSelectButton => driver.FindElement(By.Id("doctorSelect"));
         private IWebElement SubmitButton => driver.FindElement(By.Id("submit"));
         private IWebElement toast => driver.FindElement(By.CssSelector(".toast-message"));
+        private IWebElement Title => driver.FindElement(By.Id("title"));
 
+        public IWebElement GetTitle()
+        {
+            return Title;
+        }
+
+        public IWebElement GetBut() {
+            return SubmitButton;
+        }
         public DoctorsCouncilPage(IWebDriver driver)
         {
             this.driver = driver;
@@ -38,19 +48,21 @@ namespace HospitalTests.E2E_tests.Pages
 
         public void InsertDoctorSelectButton()
         {
+            ShowDoctorsButton.Click();
 
-
-            DoctorSelectButton.Click();
         }
 
         public void InsertSpecializationSelectButton()
         {
             SpecializationSelectButton.Click();
+        
             driver.FindElement(By.Id("general")).Click();
+            
             driver.FindElement(By.Id("neurologist")).Click();
-            SpecializationSelectButton.Click();
+           
+           // ClickShowSpecializationsButton();
 
-           // DoctorSelectButton.getFirstSelectedOptions();
+            // DoctorSelectButton.getFirstSelectedOptions();
         }
 
 

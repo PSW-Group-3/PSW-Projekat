@@ -42,7 +42,7 @@ namespace HospitalAPI.Controllers.PrivateApp
         {
             try
             {
-                return Ok(_integrationConnection.GetBloodRequestsByBlood(bloodType));
+                return Ok(_integrationConnection.GetBloodRequestsByBlood(bloodType.ToString()));
             }
             catch
             {
