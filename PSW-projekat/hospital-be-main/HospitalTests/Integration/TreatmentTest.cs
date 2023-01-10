@@ -67,7 +67,8 @@ namespace HospitalTests.Integration
             Blood blood = new Blood(1, false, BloodType.APlus, 2);
             //a id u terapiji?
             Therapy therapy = new Therapy(medicine, blood, 1, 1);
-            RoomDto roomDto = new RoomDto(1, "101A", 1, RoomType.rehabilitationRoom, null);
+
+            RoomDto roomDto = new RoomDto(1, new RoomName("101A"), new RoomFloor(1), RoomType.rehabilitationRoom, null);
 
             //Act
             TreatmentDto testCase = new TreatmentDto()
@@ -102,7 +103,7 @@ namespace HospitalTests.Integration
             Medicine medicine = new Medicine(2, false, "Aspirin", 20);
             Blood blood = new Blood(1, false, BloodType.APlus, 2);
             Therapy therapy = new Therapy(medicine, blood, 1, 1);
-            RoomDto roomDto = new RoomDto(1, "101A", 1, RoomType.rehabilitationRoom, null);
+            RoomDto roomDto = new RoomDto(1, new RoomName("101A"), new RoomFloor(1), RoomType.rehabilitationRoom, null);
 
             TreatmentDto testCase = new TreatmentDto()
             {

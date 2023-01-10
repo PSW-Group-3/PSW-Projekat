@@ -5,10 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HospitalLibrary.Core.Model
 {
-    [Owned]
     public class Symptom : BaseModel
     {
-        public String Name { get; }
+        public String Name { get; set; }
 
         public Symptom() { }
 

@@ -43,7 +43,7 @@ namespace HospitalTests.E2E_tests.Pages
         public void PatientSelectButtonDisplayed()
         {
             PatientSelectButton.Click();
-            driver.FindElement(By.Id("mikica")).Click();
+            //driver.FindElement(By.Id("mikica")).Click();
         }
 
         public void DateTimeFieldDisplayed(DateTime date)

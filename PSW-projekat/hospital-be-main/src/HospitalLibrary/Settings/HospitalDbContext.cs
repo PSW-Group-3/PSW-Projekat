@@ -34,7 +34,7 @@ namespace HospitalLibrary.Settings
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
+            /*
             modelBuilder.Entity<Room>().HasData(
                 new Room() { Id = 1, Number = "101A", RoomType = RoomType.rehabilitationRoom, Floor = 1, Deleted = false },
                 new Room() { Id = 2, Number = "204", RoomType = RoomType.rehabilitationRoom, Floor = 2, Deleted = false },
@@ -42,6 +42,7 @@ namespace HospitalLibrary.Settings
                 new Room() { Id = 4, Number = "STORAGE", RoomType = RoomType.storage, Floor = 3, Deleted = false }
 
             );
+            */
 
             modelBuilder.Entity<Doctor>().OwnsMany(
                 d => d.DoctorSchedules, ds =>
