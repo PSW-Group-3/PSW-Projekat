@@ -46,7 +46,7 @@ namespace HospitalLibrary.Core.Model.Aggregate
             {
                 allTime += e.endTime.Subtract(e.startTime).TotalSeconds;
             }
-            return allTime/ allAggregates.Count();
+            return Math.Round(allTime / allAggregates.Count(),2);
         }
 
         public List<int> GetNumberOfLinearAndNonlinearSchedulings()
@@ -127,7 +127,39 @@ namespace HospitalLibrary.Core.Model.Aggregate
             return unfinishedSchedulingsPerDay;
         }
 
-        public double GetAvarageNumberOfStepForSuccessfulScheduling()
+        public List<double> GetAvarageNumberOfEachStepForSuccessfulScheduling()
+        {
+            var allFinishedAggregateIds = _context.ScheduleAppointmentByPatients.Where(e => e.Stage == SchedulingStage.appointmentScheduled).Select(e => e.Id).ToList();
+            var allGroups = _context.AppointmentSchedulingEvents.Where(e => allFinishedAggregateIds.Contains(e.Aggregate.Id)).Select(e => new { e.Aggregate.Id, e.phase}).AsEnumerable().GroupBy(e => e);
+            
+            var numberOfSchedulings = allFinishedAggregateIds.Count();
+            var stepsCount = new List<int>{ 0,0,0,0, numberOfSchedulings };
+            foreach (var group in allGroups)
+            {
+                foreach(var @event in group)
+                {
+                    switch (@event.phase)
+                    {
+                        case SchedulingStage.dateChoosen:
+                            stepsCount[0]++; break;
+                        case SchedulingStage.specChoosen:
+                            stepsCount[1]++; break;
+                        case SchedulingStage.doctorChoosen:
+                            stepsCount[2]++; break;
+                        case SchedulingStage.timeChoosen:
+                            stepsCount[3]++; break;
+                        case SchedulingStage.backToTime:
+                            stepsCount[4]++; break;
+                    }
+                }
+            }
+
+            var avarageNumberOfEachStep = new List<double> { Math.Round((double)stepsCount[0] / numberOfSchedulings,2), Math.Round((double)stepsCount[1] / numberOfSchedulings, 2), Math.Round((double)stepsCount[2] / numberOfSchedulings, 2), Math.Round((double)stepsCount[3] / numberOfSchedulings, 2), Math.Round((double)stepsCount[4] / numberOfSchedulings,2) };
+
+            return avarageNumberOfEachStep;
+        }
+
+        public double GetAvarageNumberOfStepsForSuccessfulScheduling()
         {
             var allFinishedAggregateIds = _context.ScheduleAppointmentByPatients.Where(e => e.Stage == SchedulingStage.appointmentScheduled).Select(e => e.Id).ToList();
             var allGroups = _context.AppointmentSchedulingEvents.Where(e => allFinishedAggregateIds.Contains(e.Aggregate.Id)).Select(e => e.Aggregate.Id).AsEnumerable().GroupBy(e => e);
@@ -138,7 +170,7 @@ namespace HospitalLibrary.Core.Model.Aggregate
                 eventCount += group.Count();
             }
 
-            return Math.Round((double)eventCount/allFinishedAggregateIds.Count(),2);
+            return Math.Round((double)eventCount / allFinishedAggregateIds.Count(), 2);
         }
 
         public List<NumberOfFinishedAndUnfinishedSchedulingForPatient> GetNumberOfFinishedAndUnfinishedSchedulingForAllPatients()

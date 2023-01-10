@@ -12,7 +12,8 @@ namespace HospitalLibrary.Core.DTOs
         public int NonlinearSchedulingNumber { get; set; }
         public List<int> FinishedSchedulingsPerDay { get; set; }
         public List<int> UnfinishedSchedulingsPerDay { get; set; }
-        public double AvarageNumberOfStepForSuccessfulScheduling { get; set; }
+        public double AvarageNumberOfStepsForSuccessfulScheduling { get; set; }
+        public List<double> AvarageNumberOfEachStepForSuccessfulScheduling { get; set; }
         public List<NumberOfFinishedAndUnfinishedSchedulingForPatient> NumberOfFinishedAndUnfinishedSchedulingForAllPatients { get; set; }
 
 
@@ -24,6 +25,7 @@ namespace HospitalLibrary.Core.DTOs
             List<int> finishedSchedulingsPerDay,
             List<int> unfinishedSchedulingsPerDay,
             double avarageNumberOfStepForSuccessfulScheduling,
+            List<double> avarageNumberOfEachStepForSuccessfulScheduling,
             List<NumberOfFinishedAndUnfinishedSchedulingForPatient> numberOfFinishedAndUnfinishedSchedulingForAllPatients
         )
         {
@@ -32,7 +34,8 @@ namespace HospitalLibrary.Core.DTOs
             NonlinearSchedulingNumber = nonlinearSchedulingNumber;
             FinishedSchedulingsPerDay = finishedSchedulingsPerDay;
             UnfinishedSchedulingsPerDay = unfinishedSchedulingsPerDay;
-            AvarageNumberOfStepForSuccessfulScheduling = avarageNumberOfStepForSuccessfulScheduling;
+            AvarageNumberOfStepsForSuccessfulScheduling = avarageNumberOfStepForSuccessfulScheduling;
+            AvarageNumberOfEachStepForSuccessfulScheduling = avarageNumberOfEachStepForSuccessfulScheduling;
             NumberOfFinishedAndUnfinishedSchedulingForAllPatients = numberOfFinishedAndUnfinishedSchedulingForAllPatients;
         } 
     }

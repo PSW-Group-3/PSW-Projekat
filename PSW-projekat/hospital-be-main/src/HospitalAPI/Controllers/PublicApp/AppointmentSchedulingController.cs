@@ -19,13 +19,11 @@ namespace HospitalAPI.Controllers.PublicApp
     public class AppointmentSchedulingController : Controller
     {
         private readonly SchedulingAppointmentEventsRepository _schedulingAppointmentEventsRepository;
-        private readonly SchedulingStatisticsService _schedulingStatisticsService;
         private readonly IPatientService _patientService;
 
-        public AppointmentSchedulingController(SchedulingAppointmentEventsRepository schedulingAppointmentEventsRepository, SchedulingStatisticsService schedulingStatisticsService, IPatientService patientService)
+        public AppointmentSchedulingController(SchedulingAppointmentEventsRepository schedulingAppointmentEventsRepository, IPatientService patientService)
         {
             _schedulingAppointmentEventsRepository = schedulingAppointmentEventsRepository;
-            _schedulingStatisticsService = schedulingStatisticsService;
             _patientService = patientService;
         }
 
@@ -122,13 +120,5 @@ namespace HospitalAPI.Controllers.PublicApp
 
             return Ok();
         }
-
-        [HttpGet("GetAllEventStatistics")]
-        public ActionResult GetAllEventStatistics()
-        {
-            SchedulingStatisticsDTO dto = _schedulingStatisticsService.GetAllEventStatistics();
-            return Ok(dto);
-        }
-
     }
 }

@@ -25,7 +25,8 @@ namespace HospitalLibrary.Core.Model.Aggregate
             List<int> numberOfLinearAndNonlinearSchedulings = GetNumberOfLinearAndNonlinearSchedulings();
             List<int> finishedSchedulingsPerDay = GetNumberOfFinishedSchedulingsPerDay();
             List<int> unfinishedSchedulingsPerDay = GetNumberOfUnfinishedSchedulingsPerDay();
-            double avarageNumberOfStepForSuccessfulScheduling = GetAvarageNumberOfStepForSuccessfulScheduling();
+            double avarageNumberOfStepsForSuccessfulScheduling = GetAvarageNumberOfStepsForSuccessfulScheduling();
+            List<double> avarageNumberOfEachStepForSuccessfulScheduling = GetAvarageNumberOfEachStepForSuccessfulScheduling();
             List<NumberOfFinishedAndUnfinishedSchedulingForPatient> numberOfFinishedAndUnfinishedSchedulingForAllPatients = GetNumberOfFinishedAndUnfinishedSchedulingForAllPatients();
 
             SchedulingStatisticsDTO dto = new SchedulingStatisticsDTO
@@ -35,7 +36,8 @@ namespace HospitalLibrary.Core.Model.Aggregate
                     numberOfLinearAndNonlinearSchedulings[1],
                     finishedSchedulingsPerDay,
                     unfinishedSchedulingsPerDay,
-                    avarageNumberOfStepForSuccessfulScheduling,
+                    avarageNumberOfStepsForSuccessfulScheduling,
+                    avarageNumberOfEachStepForSuccessfulScheduling,
                     numberOfFinishedAndUnfinishedSchedulingForAllPatients
                 );
 
@@ -62,9 +64,13 @@ namespace HospitalLibrary.Core.Model.Aggregate
             return _schedulingAppointmentEventsRepository.GetNumberOfUnfinishedSchedulingsPerDay();
         }
 
-        private double GetAvarageNumberOfStepForSuccessfulScheduling()
+        private double GetAvarageNumberOfStepsForSuccessfulScheduling()
         {
-            return _schedulingAppointmentEventsRepository.GetAvarageNumberOfStepForSuccessfulScheduling();
+            return _schedulingAppointmentEventsRepository.GetAvarageNumberOfStepsForSuccessfulScheduling();
+        }
+        private List<double> GetAvarageNumberOfEachStepForSuccessfulScheduling()
+        {
+            return _schedulingAppointmentEventsRepository.GetAvarageNumberOfEachStepForSuccessfulScheduling();
         }
 
         private List<NumberOfFinishedAndUnfinishedSchedulingForPatient> GetNumberOfFinishedAndUnfinishedSchedulingForAllPatients()
