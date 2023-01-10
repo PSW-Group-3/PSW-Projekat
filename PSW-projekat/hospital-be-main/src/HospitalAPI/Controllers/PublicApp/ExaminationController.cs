@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
+
 namespace HospitalAPI.Controllers.PublicApp
 {
     [Authorize]
@@ -103,11 +105,11 @@ namespace HospitalAPI.Controllers.PublicApp
 
             byte[] file = _examinationService.GeneratePdf(examination, symptoms, report, medication);
             Guid uniqueSuffix = Guid.NewGuid();
-            System.IO.File.WriteAllBytes("report" + ".pdf", file);
+            System.IO.File.WriteAllBytes("examination_" + examination.Appointment.Id + ".pdf", file);
 
             _examinationService.Create(examination);
             //return Ok();
-            return File(file, "application/pdf", "report" + ".pdf");
+            return File(file, "application/pdf", "examination_" + examination.Appointment.Id + ".pdf");
         }
 
         [HttpGet("report/{personId}")]
@@ -180,6 +182,20 @@ namespace HospitalAPI.Controllers.PublicApp
 
             }
             return Ok(examinationDto);
+        }
+
+        [Authorize(Roles = "Patient")]
+        [HttpPost("GetPDF")]
+        public ActionResult GetPDF(
+            int id
+        )
+        {
+            string filename = "report.pdf";
+            //string filename = "examination_" + id + ".pdf";
+            string path = Directory.GetParent(Directory.GetCurrentDirectory()).FullName + @"\HospitalAPI\" + filename;
+            byte[] pdfFile = System.IO.File.ReadAllBytes(path);
+            return Ok(pdfFile);
+
         }
     }
 }

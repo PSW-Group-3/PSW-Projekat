@@ -51,7 +51,16 @@
                 <button id="{{appointment.appointmentId}}" mat-button (click)="cancelAppointment(appointment.appointmentId)" class="button-updateStatus">Cancel</button>
             </div> 
         </td>
-    </ng-container>
+      </ng-container>
+      <ng-container matColumnDef="Info">
+          <th mat-header-cell *matHeaderCellDef class="cell-center header-row"> Info </th>
+          <td *matCellDef="let appointment">
+            <button *ngIf="appointment.appointmentStatus=='Finished'" (click)="getPDF(appointment.appointmentId)">
+              PDF
+            </button>
+          </td>
+      </ng-container>
+
       <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
