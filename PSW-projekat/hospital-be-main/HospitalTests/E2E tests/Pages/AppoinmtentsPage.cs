@@ -15,11 +15,11 @@ namespace HospitalTests.E2E_tests.Pages
         private readonly IWebDriver driver;
         public const string URI = "http://localhost:4200/appointments";
         private IWebElement Table => driver.FindElement(By.Id("appoitmentsTable"));
-        private ReadOnlyCollection<IWebElement> Rows => driver.FindElements(By.XPath("//table[@id='productsTable']/tbody/tr"));
-        private IWebElement LastRowName => driver.FindElement(By.XPath("//table[@id='productsTable']/tbody/tr[last()]/td[1]"));
-        private IWebElement LastRowColor => driver.FindElement(By.XPath("//table[@id='productsTable']/tbody/tr[last()]/td[2]"));
-        private IWebElement LastRowPrice => driver.FindElement(By.XPath("//table[@id='productsTable']/tbody/tr[last()]/td[3]"));
-        private IWebElement Link => driver.FindElement(By.Id("createProduct"));
+        private ReadOnlyCollection<IWebElement> Rows => driver.FindElements(By.XPath("//table[@id='appoitmentsTable']/tbody/tr"));
+        private IWebElement LastRowDateAndTime => driver.FindElement(By.XPath("//table[@id='appoitmentsTable']/tbody/tr[last()]/td[1]"));
+        private IWebElement LastRowPatientName => driver.FindElement(By.XPath("//table[@id='appoitmentsTable']/tbody/tr[last()]/td[2]"));
+        private IWebElement LastRowPatientSurname => driver.FindElement(By.XPath("//table[@id='appoitmentsTable']/tbody/tr[last()]/td[3]"));
+        private IWebElement Link => driver.FindElement(By.Id("createAppoitment"));
         public string Title => driver.Title;
         public void EnsurePageIsDisplayed()
         {
@@ -41,6 +41,22 @@ namespace HospitalTests.E2E_tests.Pages
             });
         }
 
+        public bool ErrorDivDisplayed()
+        {
+            try
+            {
+                return driver.FindElement(By.Id("ErrorDiv")).Displayed;
+            }
+            catch (StaleElementReferenceException)
+            {
+                return false;
+            }
+            catch (NoSuchElementException)
+            {
+                return false;
+            }
+        }
+
         public bool LinkDisplayed()
         {
             return Link.Displayed;
@@ -50,30 +66,29 @@ namespace HospitalTests.E2E_tests.Pages
             Link.Click();
         }
 
-        /*
-        public ProductsPage(IWebDriver driver)
+        public AppoinmtentsPage(IWebDriver driver)
         {
             this.driver = driver;
         }
-        */
+        
         public int ProductsCount()
         {
             return Rows.Count;
         }
 
-        public string GetLastRowName()
+        public string GetLastRowDateAndTime()
         {
-            return LastRowName.Text;
+            return LastRowDateAndTime.Text;
         }
 
-        public string GetLastRowColor()
+        public string GetLastRowPatientName()
         {
-            return LastRowColor.Text;
+            return LastRowPatientName.Text;
         }
 
-        public string GetLastRowPrice()
+        public string GetLastRowPatientSurname()
         {
-            return LastRowPrice.Text;
+            return LastRowPatientSurname.Text;
         }
 
         public void Navigate() => driver.Navigate().GoToUrl(URI);
