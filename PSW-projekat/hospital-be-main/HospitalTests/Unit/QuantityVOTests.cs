@@ -1,5 +1,6 @@
 ﻿using HospitalAPI;
 using HospitalLibrary.Core.Model;
+using HospitalLibrary.Core.Model.Enums;
 using HospitalTests.Setup;
 using System;
 using System.Collections.Generic;
@@ -89,6 +90,64 @@ namespace HospitalTests.Unit
 
             // Assert
             Assert.Equal(quantity1.Value, 1);
+        }
+
+
+        [Fact]
+        public void Valid_council()
+        {
+            // Arrange
+            String topic = "danas";
+            DateTime start = DateTime.Now;
+            DateTime end = DateTime.Now;
+            start = start.AddHours(2);
+            end = end.AddHours(4);
+            int duration = 10;
+            ICollection<Doctor> doctors = new List<Doctor>();
+            ICollection<Specialization> specializations = new List<Specialization>();
+
+
+            // Act
+            DoctorsCouncil quantity = new DoctorsCouncil(topic,start, end, duration, doctors, specializations);
+
+            // Assert
+            Assert.NotNull(quantity);
+        }
+
+        [Fact]
+        public void Wrong_council()
+        {
+            // Arrange
+            String topic = "danas";
+            DateTime start = DateTime.Now;
+            DateTime end = DateTime.Now;
+            start = start.AddHours(2);
+            end = end.AddHours(1);
+            int duration = 10;
+            ICollection<Doctor> doctors = new List<Doctor>();
+            ICollection<Specialization> specializations = new List<Specialization>();
+
+
+            // Assert
+            Assert.Throws<Exception>(() => new DoctorsCouncil(topic, start, end, duration, doctors, specializations));
+        }
+
+        [Fact]
+        public void Wrong_council_duration()
+        {
+            // Arrange
+            String topic = "danas";
+            DateTime start = DateTime.Now;
+            DateTime end = DateTime.Now;
+            start = start.AddHours(2);
+            end = end.AddHours(1);
+            int duration = -10;
+            ICollection<Doctor> doctors = new List<Doctor>();
+            ICollection<Specialization> specializations = new List<Specialization>();
+
+
+            // Assert
+            Assert.Throws<Exception>(() => new DoctorsCouncil(topic, start, end, duration, doctors, specializations));
         }
     }
 }
