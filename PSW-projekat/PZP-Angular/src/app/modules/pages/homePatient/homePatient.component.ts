@@ -11,11 +11,13 @@ export class HomePatientComponent implements OnInit {
 
   constructor(private loginService: LoginService,private advertisementService: AdvertisementService) { }
 
-  advertisements : any[] = []
+  public advertisements : any[] = []
+  public hasLoaded = false
 
   ngOnInit(): void {
     this.advertisementService.getAllAdvertisements().subscribe(res => {
       this.advertisements = res;
+      this.hasLoaded = true;
     })
   }
 

@@ -29,7 +29,7 @@
       </div>
     </nav>
 </div>
-<div style="padding-left: 200px;padding-right: 200px;padding-top: 10px;">
+<div style="padding-left: 200px;padding-right: 200px;padding-top: 10px;" *ngIf="hasLoaded">
   <mdb-carousel [controls]="true" [indicators]="true" [animation]="'slide'">
     <mdb-carousel-item *ngFor="let ad of advertisements">
       <img
