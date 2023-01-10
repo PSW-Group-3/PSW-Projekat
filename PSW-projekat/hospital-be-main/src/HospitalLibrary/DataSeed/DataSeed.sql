@@ -114,10 +114,11 @@ INSERT [dbo].[__EFMigrationsHistory] ([MigrationId], [ProductVersion]) VALUES (N
 GO
 SET IDENTITY_INSERT [dbo].[Rooms] ON 
 
-INSERT [dbo].[Rooms] ([Id], [Number], [RoomType], [Floor], [Deleted]) VALUES (1, N'101A', 5,  1, 0)
-INSERT [dbo].[Rooms] ([Id], [Number], [RoomType], [Floor], [Deleted]) VALUES (2, N'204', 5, 2, 0)
-INSERT [dbo].[Rooms] ([Id], [Number], [RoomType], [Floor], [Deleted]) VALUES (3, N'305B', 5, 3, 0)
-INSERT [dbo].[Rooms] ([Id], [Number], [RoomType], [Floor], [Deleted]) VALUES (4, N'STORAGE', 0, 3, 0)
+INSERT [dbo].[Rooms] ([Id], [Number_Name], [RoomType], [Floor_Floor], [Deleted]) VALUES (1, N'101A', 5,  1, 0)
+INSERT [dbo].[Rooms] ([Id], [Number_Name], [RoomType], [Floor_Floor], [Deleted]) VALUES (2, N'204C', 5, 2, 0)
+INSERT [dbo].[Rooms] ([Id], [Number_Name], [RoomType], [Floor_Floor], [Deleted]) VALUES (3, N'305B', 5, 3, 0)
+INSERT [dbo].[Rooms] ([Id], [Number_Name], [RoomType], [Floor_Floor], [Deleted]) VALUES (4, N'STORAGE', 0, 3, 0)
+
 SET IDENTITY_INSERT [dbo].[Rooms] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Appointments] ON 

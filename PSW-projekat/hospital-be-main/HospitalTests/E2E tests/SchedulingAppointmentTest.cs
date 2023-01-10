@@ -10,9 +10,14 @@ namespace HospitalTests.E2E_tests
 {
     public class SchedulingAppointmentTest : IDisposable
     {
+        private int appointmentsCount = 0;
+
         private readonly IWebDriver driver;
         private Pages.LoginPage loginPage;
+        private Pages.AppoinmtentsPage appoinmtentsPage;
         private Pages.SchedulingAppointmentPage schedulingAppointmentPage;
+        private Pages.ReschedulingAppointmentPage reschedulingAppointmentPage;
+
 
         public SchedulingAppointmentTest()
         {
@@ -28,6 +33,7 @@ namespace HospitalTests.E2E_tests
 
             driver = new ChromeDriver(options);
 
+
             loginPage = new Pages.LoginPage(driver);
             loginPage.Navigate();
             loginPage.EnsurePageIsDisplayed();
@@ -38,9 +44,7 @@ namespace HospitalTests.E2E_tests
 
             schedulingAppointmentPage = new Pages.SchedulingAppointmentPage(driver);
             schedulingAppointmentPage.Navigate();
-
-            Assert.True(schedulingAppointmentPage.PatientSelectButtonDisplayedOnScreen());          
-            Assert.True(schedulingAppointmentPage.DateTimeFieldDisplayedOnScreen());
+            schedulingAppointmentPage.EnsurePageIsDisplayed();
             
         }
         public void Dispose()
@@ -49,40 +53,23 @@ namespace HospitalTests.E2E_tests
             driver.Dispose();
         }
 
-        /*
-        [Fact]
-        public void TestInvalidDateTime()
-        {
-            bool pom = true;
-            schedulingAppointmentPage.PatientSelectButtonDisplayed();  //insert patient except date time
-            schedulingAppointmentPage.SubmitForm();
-
-            schedulingAppointmentPage.WaitForAlertDialog();         // wait for alert dialog
-            Assert.Equal(Pages.SchedulingAppointmentPage.InvalidDateTimeMessage, schedulingAppointmentPage.GetDialogMessage());     // check if alert message expected
-            schedulingAppointmentPage.ResolveAlertDialog();         // accept dialog
-            Assert.Equal(Pages.SchedulingAppointmentPage.URI, driver.Url);      // check if same url - page not submitted
-            Assert.True(pom);
-        }
-        */
-
         [Fact]
         public void Test_succesfull_submit()
         {
+            DateTime dateTime = new DateTime(2022, 12, 12);
             schedulingAppointmentPage.PatientSelectButtonDisplayed();
-            schedulingAppointmentPage.DateTimeFieldDisplayed(new DateTime(2022, 12, 12));
-            schedulingAppointmentPage.SubmitForm();
-        }
-
-        [Fact]
-        public void Test_selected_failed_patient()
-        {
-            //test pada zbog dateTime
-            schedulingAppointmentPage.PatientSelectButtonDisplayed();
-            schedulingAppointmentPage.DateTimeFieldDisplayed(new DateTime(0, 10, 2));
+            schedulingAppointmentPage.DateTimeFieldDisplayed(dateTime);
             schedulingAppointmentPage.SubmitForm();
 
-        }
+            Assert.True(schedulingAppointmentPage.PatientSelectButtonDisplayedOnScreen());
+            Assert.True(schedulingAppointmentPage.DateTimeFieldDisplayedOnScreen());
+            Assert.True(schedulingAppointmentPage.SubmitButtonElementDisplayed());
 
+            Assert.Equal("Mikica Mikicovic", schedulingAppointmentPage.GetSelectedPatient());
+            Assert.Equal(dateTime, schedulingAppointmentPage.GetDateTime(dateTime));
+
+            Assert.Equal(Pages.SchedulingAppointmentPage.URI, driver.Url);
+        }
     }
 }
 

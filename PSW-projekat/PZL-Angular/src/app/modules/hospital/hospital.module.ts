@@ -61,12 +61,13 @@ const routes: Routes = [
     component: FeedbacksComponent,
     canActivate: [AuthGuardManager],
   },
+  /*
   {
     path: 'appointments',
     component: AppointmentsComponent,
     canActivate: [AuthGuardDoctor],
   }
-  ,
+  */
   {
     path: 'appointments/doctor/:id',
     component: AppointmentsComponent,
@@ -90,7 +91,7 @@ const routes: Routes = [
   { path: 'rooms/:id', component: RoomDetailComponent, canActivate: [ AuthGuardManager ] },
   { path: 'rooms/:id/update', component: UpdateRoomComponent, canActivate: [ AuthGuardManager ] },
   { path: 'feedbacks', component: FeedbacksComponent, canActivate: [ AuthGuardManager ] },
-  { path: 'appointments', component: AppointmentsComponent, canActivate: [ AuthGuardDoctor ] },
+  { path: 'appointments', component: AppointmentsComponent},
   { path: 'appointments/doctor/:id', component: AppointmentsComponent, canActivate: [ AuthGuardDoctor ] },
   //{ path: 'appointments/add', component: CreateAppointmentComponent, canActivate: [ AuthGuardDoctor ] },
   //{ path: 'appointments/:id/update', component: UpdateAppointmentComponent, canActivate: [ AuthGuardDoctor ] },

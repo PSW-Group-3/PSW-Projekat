@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HospitalAPI.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [EnableCors]
     [Route("api/[controller]")]
     [ApiController]
@@ -30,7 +30,6 @@ namespace HospitalAPI.Controllers
 
             foreach (var room in _roomService.GetAll()) 
             {
-
                 if (room.RoomType.Equals(RoomType.storage)) continue;
 
 
@@ -57,7 +56,7 @@ namespace HospitalAPI.Controllers
 
                 }
 
-                RoomDto roomDto = new RoomDto(room.Id,room.Number, room.Floor, room.RoomType, bedDtos);   
+                RoomDto roomDto = new RoomDto(room.Id, room.Number, room.Floor, room.RoomType, bedDtos);   
                 roomDtos.Add(roomDto);
             }
 
@@ -87,7 +86,7 @@ namespace HospitalAPI.Controllers
             }
 
             _roomService.Create(room);
-            return CreatedAtAction("GetById", new { id = room.Id }, room);
+            return Ok();
         }
 
         // PUT api/rooms/2

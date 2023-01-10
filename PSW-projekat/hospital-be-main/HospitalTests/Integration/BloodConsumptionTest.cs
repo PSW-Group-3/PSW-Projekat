@@ -71,9 +71,9 @@ namespace HospitalTests.Integration
             Room r1 = new Room
             {
                 Id = 4,
-                Number = "Storage",
+                Number = new RoomName("Storage"),
                 Beds = new List<Bed>(),
-                Floor = 1,
+                Floor = new RoomFloor(1),
                 Deleted = false,
                 Medicines = new List<Medicine>(),
                 RoomType = 0,
@@ -122,9 +122,9 @@ namespace HospitalTests.Integration
             Room r1 = new Room
             {
                 Id = 4,
-                Number = "Storage",
+                Number = new RoomName("Storage"),
                 Beds = new List<Bed>(),
-                Floor = 1,
+                Floor = new RoomFloor(1),
                 Deleted = false,
                 Medicines = new List<Medicine>(),
                 RoomType = 0,
