@@ -23,6 +23,7 @@ export class ViewTendersComponent implements OnInit {
   ngOnInit(): void {
     if(localStorage.getItem("currentUserRole") == 'Manager'){
       this.getTenders();
+      console.log("Dobro je");
       
     }
     else{
@@ -32,7 +33,7 @@ export class ViewTendersComponent implements OnInit {
   public getTenders(){
     this.tenderService.getTenders().subscribe(res => {
         this.dataSource.data = res;
-        //console.log(res)
+        console.log(res)
       }, (error) => {
         this.errorMessage = error;
       });

@@ -1,0 +1,62 @@
+<section class="vh-100" style="background-color: #2779e2;">
+    <div class="container h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-xl-9">
+  
+          <h1 class="text-white mb-4">View tender statistics</h1>
+  
+          <div class="card" style="border-radius: 15px;">
+            <div class="card-body">
+                Start date:
+                <div class="col-md-9 pe-5">
+                    <div id="date-picker-example" class="md-form md-outline input-with-post-icon datepicker" inline="true">
+                        <input placeholder="Select date" type="date" id="example" [(ngModel)]="this.startDate" class="form-control">
+                    </div>
+                    End date:
+                    <div id="date-picker-example" class="md-form md-outline input-with-post-icon datepicker" inline="true">
+                        <input placeholder="Select date" type="date" id="example" [(ngModel)]="this.endDate" class="form-control">
+                    </div>
+                </div>
+            
+                    <hr class="mx-n3">
+                    <div class="px-5 py-4">
+                      <button type="submit" class="btn btn-primary btn-lg" (click)="createTenderStatistcs()">Create tender statistcs</button>
+                    </div>
+      
+      
+                  </div>
+                </div>
+
+                <div class="card" style="border-radius: 15px;" [hidden]="this.isHidden">
+                    <div class="card-body">
+                       <label>A +  :</label>
+                       <label >{{this.blood[0]}}</label>
+                       <br>
+                       <label>B +  :</label>
+                       <label >{{this.blood[1]}}</label>
+                       <br>
+                       <label>AB+ :</label>
+                       <label >{{this.blood[2]}}</label>
+                       <br>
+                       <label>0 +  :</label>
+                       <label >{{this.blood[3]}}</label>
+                       <br>
+                       <label>A -  :</label>
+                       <label >{{this.blood[4]}}</label>
+                       <br>
+                       <label>B -  :</label>
+                       <label >{{this.blood[5]}}</label>
+                       <br>
+                       <label>AB- :</label>
+                       <label >{{this.blood[6]}}</label>
+                       <br>
+                       <label>0 -  :</label>
+                       <label >{{this.blood[7]}}</label>
+                       <br>
+                    </div>
+                </div>
+        
+              </div>
+            </div>
+          </div>
+        </section>

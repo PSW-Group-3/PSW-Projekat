@@ -121,5 +121,42 @@ namespace IntegrationAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet("Blood/{Start}/{End}")]
+        public ActionResult CreateStatisticsOfBloodType(DateTime Start, DateTime End)
+        {
+            try 
+            {
+                return Ok(_tenderService.CreateStatisticsOfBloodType(Start, End));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("BloodBanks/{Start}/{End}")]
+        public ActionResult GetBloodBankWinners(DateTime Start, DateTime End)
+        {
+            try
+            {
+                return Ok(_tenderService.GetBloodBankWinners(Start, End));
+            }catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpGet("BloodBanksStatistics/{Start}/{End}")]
+        public ActionResult CreateStatisticsOfBloodBank(DateTime Start, DateTime End)
+        {
+            try
+            {
+                return Ok(_tenderService.CreateStatisticsOfBloodBank(Start, End));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

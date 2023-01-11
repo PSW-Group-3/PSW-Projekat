@@ -19,18 +19,21 @@ import { ToastrModule } from 'ngx-toastr';
 import { ViewSingleTenderComponent } from './view-single-tender/view-single-tender.component';
 import { CreateTenderComponent } from './create-tender/create-tender.component';
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { TenderStatisticsComponent } from './tender-statistics/tender-statistics.component';
 
 const routes: Routes = [
   { path: 'view-tenders', component: ViewTendersComponent },
   { path: 'view-tender/:id', component: ViewSingleTenderComponent },
   { path: 'create-tender', component: CreateTenderComponent },
+  { path: 'tender-statistics', component: TenderStatisticsComponent}
 ];
 
 @NgModule({
   declarations: [
     ViewTendersComponent,
     ViewSingleTenderComponent,
-    CreateTenderComponent
+    CreateTenderComponent,
+    TenderStatisticsComponent
   ],
   imports: [
     CommonModule,
