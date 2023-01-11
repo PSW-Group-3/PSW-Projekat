@@ -93,6 +93,7 @@ namespace IntegrationLibrary.Core.Model.Tender
         public void CloseTender(int winningBidID)
         {
             State = TenderState.CLOSED;
+            DueDate = DateTime.Now;
             ChangeBidsStatuses(winningBidID);
         }
 
