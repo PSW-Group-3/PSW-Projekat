@@ -1,0 +1,101 @@
+<div class="col-md-9 pe-5">
+  <p>Start</p>
+  <div
+    id="date-picker-example"
+    class="md-form md-outline input-with-post-icon datepicker"
+    inline="true"
+  >
+    <input
+      placeholder="Select date"
+      type="date"
+      id="example"
+      [(ngModel)]="this.dates.StartDate"
+      class="form-control"
+    />
+  </div>
+</div>
+<div class="col-md-9 pe-5">
+  <p>End</p>
+  <div
+    id="date-picker-example"
+    class="md-form md-outline input-with-post-icon datepicker"
+    inline="true"
+  >
+    <input
+      placeholder="Select date"
+      type="date"
+      id="example"
+      [(ngModel)]="this.dates.EndDate"
+      class="form-control"
+    />
+  </div>
+</div>
+
+<button class="m-1" mat-stroked-button (click)="accept()">Send</button>
+<h1>Requests:</h1>
+<h2>Blood ammounts:</h2>
+<h3 *ngIf="this.report.bloodAmmounts.AN">
+  AN: {{ this.report.bloodAmmounts.AN }} L
+</h3>
+<h3 *ngIf="this.report.bloodAmmounts.AP">
+  AP: {{ this.report.bloodAmmounts.AP }}L
+</h3>
+<h3 *ngIf="this.report.bloodAmmounts.BN">
+  BN: {{ this.report.bloodAmmounts.BN }}L
+</h3>
+<h3 *ngIf="this.report.bloodAmmounts.BP">
+  BP: {{ this.report.bloodAmmounts.BP }}L
+</h3>
+<h3 *ngIf="this.report.bloodAmmounts.ABN">
+  ABN: {{ this.report.bloodAmmounts.ABN }}L
+</h3>
+<h3 *ngIf="this.report.bloodAmmounts.ABP">
+  ABP: {{ this.report.bloodAmmounts.ABP }}L
+</h3>
+<h3 *ngIf="this.report.bloodAmmounts.ON">
+  ON: {{ this.report.bloodAmmounts.ON }}L
+</h3>
+<h3 *ngIf="this.report.bloodAmmounts.OP">
+  OP: {{ this.report.bloodAmmounts.OP }}L
+</h3>
+<h2>Blood ammounts by bank:</h2>
+
+<h3 *ngIf="(this.report.abnBanks | json) != '{}'">ABNBanks:</h3>
+<span *ngFor="let field of this.report.abnBanks | keyvalue; last as last">
+  {{ field.key }}: {{ field.value }}L<span *ngIf="!last">, </span>
+</span>
+<p></p>
+<h3 *ngIf="(this.report.abpBanks | json) != '{}'">ABPBanks:</h3>
+<span *ngFor="let field of this.report.abpBanks | keyvalue; last as last">
+  {{ field.key }}: {{ field.value }}L<span *ngIf="!last">, </span>
+</span>
+<p></p>
+<h3 *ngIf="(this.report.anBanks | json) != '{}'">ANBanks:</h3>
+<span *ngFor="let field of this.report.anBanks | keyvalue; last as last">
+  {{ field.key }}: {{ field.value }}L<span *ngIf="!last">, </span>
+</span>
+<p></p>
+<h3 *ngIf="(this.report.apBanks | json) != '{}'">APBanks:</h3>
+<span *ngFor="let field of this.report.apBanks | keyvalue; last as last">
+  {{ field.key }}: {{ field.value }}L<span *ngIf="!last">, </span>
+</span>
+<p></p>
+<h3 *ngIf="(this.report.bnBanks | json) != '{}'">BNBanks:</h3>
+<span *ngFor="let field of this.report.bnBanks | keyvalue; last as last">
+  {{ field.key }}: {{ field.value }}L<span *ngIf="!last">, </span>
+</span>
+<p></p>
+<h3 *ngIf="(this.report.bpBanks | json) != '{}'">BPBanks:</h3>
+<span *ngFor="let field of this.report.bpBanks | keyvalue; last as last">
+  {{ field.key }}: {{ field.value }}L<span *ngIf="!last">, </span>
+</span>
+<p></p>
+<h3 *ngIf="(this.report.onBanks | json) != '{}'">ONBanks:</h3>
+<span *ngFor="let field of this.report.onBanks | keyvalue; last as last">
+  {{ field.key }}: {{ field.value }}L<span *ngIf="!last">, </span>
+</span>
+<p></p>
+<h3 *ngIf="(this.report.opBanks | json) != '{}'">OPBanks:</h3>
+<span *ngFor="let field of this.report.opBanks | keyvalue; last as last">
+  {{ field.key }}: {{ field.value }}L<span *ngIf="!last">, </span>
+</span>

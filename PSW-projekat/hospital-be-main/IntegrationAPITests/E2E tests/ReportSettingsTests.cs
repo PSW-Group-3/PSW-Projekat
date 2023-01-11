@@ -63,7 +63,7 @@ namespace IntegrationAPITests.E2E_tests
         {
             reportSettingsPage.SelectCustomCalculationPeriod();
             reportSettingsPage.SelectCustomDeliveryPeriod();
-            reportSettingsPage.InsertCustomDeliveryPeriod(DateTime.Today, "5", "3", "1");
+            reportSettingsPage.InsertCustomDeliveryPeriod(new DateTime(2021, 11, 12), "5", "3", "1");
             reportSettingsPage.InsertCustomCalculationPeriod("2", "3", "1");
             reportSettingsPage.SubmitForm();
             reportSettingsPage.ToastSuccessfullDialog();
