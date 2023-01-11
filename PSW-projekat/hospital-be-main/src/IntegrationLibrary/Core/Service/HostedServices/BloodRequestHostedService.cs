@@ -49,10 +49,6 @@ namespace IntegrationLibrary.Core.Service.HostedServices
 
             using (var scope = scopeFactory.CreateScope())
             {
-                var SFTPService = scope.ServiceProvider.GetService<ISFTPService>();
-
-                SFTPService.saveReports();
-
                 var bloodRequestService = scope.ServiceProvider.GetService<IBloodRequestService>();
                 try
                 {
