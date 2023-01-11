@@ -105,6 +105,9 @@ namespace IntegrationLibrary.Migrations
                     b.Property<int>("BloodType")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
 
                     b.ToTable("EmergencyBloodRequests");

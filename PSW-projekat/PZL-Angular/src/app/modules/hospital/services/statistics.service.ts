@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ExaminationsStatisticsDTO } from '../model/examinationStatisticDTO';
+import { SchedulingStatisticsDTO } from '../model/scheduling-statistics-dto';
 import { StatisticsDto } from '../model/statisticsdto.model';
 
 @Injectable({
@@ -22,4 +23,8 @@ export class StatisticsService {
     return this.http.get<ExaminationsStatisticsDTO>('api/ExaminationStatistic/GetAllExaminationEventStatistics', {headers: this.headers});
   }
 
+
+  GetAllEventStatistics(): Observable<SchedulingStatisticsDTO> {
+    return this.http.get<SchedulingStatisticsDTO>('api/Statistics/GetAllEventStatistics', {headers: this.headers});
+  }
 }

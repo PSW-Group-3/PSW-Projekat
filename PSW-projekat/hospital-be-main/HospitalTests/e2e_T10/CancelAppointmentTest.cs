@@ -1,5 +1,7 @@
-﻿using OpenQA.Selenium;
+﻿using HospitalTests.e2e_T10.Pages;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.DevTools.V106.Network;
 using Shouldly;
 using System;
 using System.Threading;
@@ -32,10 +34,11 @@ namespace HospitalTests.e2e_T10
             loginPage.InsertUsername("nevena");
             loginPage.InsertPassword("123");
             loginPage.SubmitForm();
-            Thread.Sleep(3000);
+            loginPage.EnsureLoggedIn();
             loginPage.ErrorDivDisplayed().ShouldBe(false);
             cancelAppointmentPage = new Pages.CancelAppointmentPage(driver);
             cancelAppointmentPage.Navigate();
+            cancelAppointmentPage.EnsurePageIsDisplayed();
         }
 
         public void Dispose()
@@ -47,14 +50,11 @@ namespace HospitalTests.e2e_T10
         [Fact]
         public void Cancel_appointment_successfully()
         {
-
             cancelAppointmentPage.SubmitCancel();
-            try
-            {
-                cancelAppointmentPage.WaitForToastDialog();
-            }
-            catch (WebDriverTimeoutException) { }
+            cancelAppointmentPage.EnsureCanceled();
+            Assert.Equal("Cancelled", cancelAppointmentPage.Status.Text);
         }
+
 
     }
 }

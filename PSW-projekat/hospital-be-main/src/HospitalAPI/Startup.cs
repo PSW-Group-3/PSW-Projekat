@@ -22,6 +22,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
 using HospitalLibrary.Core.AggregatDoctor;
+using HospitalLibrary.Core.Model.Aggregate;
 
 namespace HospitalAPI
 {
@@ -152,6 +153,10 @@ namespace HospitalAPI
             services.AddScoped<DoctorExaminationEventsRepository>();
             services.AddScoped<ExaminationStatisticService>();
 
+
+
+            services.AddScoped<SchedulingAppointmentEventsRepository>();
+            services.AddScoped<SchedulingStatisticsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

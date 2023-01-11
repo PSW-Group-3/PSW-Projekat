@@ -57,5 +57,12 @@ namespace IntegrationLibrary.Core.Repository.Tenders
                 throw;
             }
         }
+
+        public List<Tender> GetAllClosed()
+        {
+            return (from tenders in _context.Tenders
+                    where tenders.State == TenderState.CLOSED
+                    select tenders).ToList();
+        }
     }
 }

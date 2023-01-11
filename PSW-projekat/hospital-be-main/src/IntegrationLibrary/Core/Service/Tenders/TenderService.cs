@@ -1,4 +1,5 @@
-﻿using IntegrationLibrary.Core.Model.MailRequests;
+﻿using IntegrationLibrary.Core.Model;
+using IntegrationLibrary.Core.Model.MailRequests;
 using IntegrationLibrary.Core.Model.Tender;
 using IntegrationLibrary.Core.Repository.BloodBanks;
 using IntegrationLibrary.Core.Repository.Tenders;
@@ -109,5 +110,174 @@ namespace IntegrationLibrary.Core.Service.Tenders
                 }
             }
         }
+
+        private List<Tender> GetTendersInRange(List<Tender> tenders, DateTime start, DateTime end) {
+            List<Tender> tendersInRange = new List<Tender>();
+            foreach (Tender tender in tenders)
+            {
+                if (tender.DueDate > start || tender.DueDate < end)
+                {
+                    tendersInRange.Add(tender);
+                }
+            }
+            return tendersInRange;
+        }
+
+        public List<int> CreateStatisticsOfBloodType(DateTime start, DateTime end)
+        {
+            List<Tender> tenders = _tenderRepository.GetAllClosed();
+            List<Tender> tendersInRange = GetTendersInRange(tenders, start, end);
+            List<int> blood = new List<int>() { 0, 0, 0, 0, 0, 0, 0, 0 };
+            foreach (Tender tender in tendersInRange)
+            {
+                addBloodToListFromBid(blood, tender);
+            }
+            int A_PLUS = blood[0];
+            int B_PLUS = blood[1];
+            int AB_PLUS = blood[2];
+            int O_PLUS = blood[3];
+            int A_MINUS = blood[4];
+            int B_MINUS = blood[5];
+            int AB_MINUS = blood[6];
+            int O_MINUS = blood[7];
+            return blood;
+
+        }
+
+        private void addBloodToListFromBid(List<int> list, Tender tender)
+        {
+            foreach (Demand demand in tender.Demands)
+            {
+                addBloodToListFromOffer(list, demand);
+            }
+        }
+
+        private void addBloodToListFromOffer(List<int> list, Demand demand)
+        {
+            switch (demand.BloodType)
+            {
+                case Model.BloodType.AP:
+                    list[0] += demand.Quantity;
+                    break;
+                case Model.BloodType.BP:
+                    list[1] += demand.Quantity;
+                    break;
+                case Model.BloodType.ABP:
+                    list[2] += demand.Quantity;
+                    break;
+                case Model.BloodType.OP:
+                    list[3] += demand.Quantity;
+                    break;
+                case Model.BloodType.AN:
+                    list[4] += demand.Quantity;
+                    break;
+                case Model.BloodType.BN:
+                    list[5] += demand.Quantity;
+                    break;
+                case Model.BloodType.ABN:
+                    list[6] += demand.Quantity;
+                    break;
+                case Model.BloodType.ON:
+                    list[7] += demand.Quantity;
+                    break;
+            }
+        }
+
+        public List<BloodBank> GetBloodBankWinners(DateTime Start, DateTime End)
+        {
+            List<BloodBank> bloodBanks = new List<BloodBank>();
+            List<Tender> tenders = _tenderRepository.GetAllClosed();
+            List<Tender> tendersInRange = GetTendersInRange(tenders, Start, End);
+            List<Bid> WinningBids = new List<Bid>();
+            foreach (Tender tender in tendersInRange)
+            {
+                foreach (Bid bid in tender.Bids)
+                {
+                    if (bid.IsWinningBid())
+                    {
+                        WinningBids.Add(bid);
+                    }
+                }
+            }
+
+            bloodBanks.Add(_bloodBankRepository.GetById(WinningBids[0].BloodBankId));
+            foreach (Bid bid in WinningBids)
+            {
+                if (!isBankExistInList(bloodBanks, bid))
+                {
+                    bloodBanks.Add(_bloodBankRepository.GetById(bid.BloodBankId));
+                }
+            }
+            return bloodBanks;
+        }
+
+        public List<List<int>> CreateStatisticsOfBloodBank(DateTime Start, DateTime End)
+        {
+            List<BloodBank> bloodBanks = new List<BloodBank>();
+            List<Tender> tenders = _tenderRepository.GetAllClosed();
+            List<Tender> tendersInRange = GetTendersInRange(tenders, Start, End);
+            List<Bid> WinningBids = new List<Bid>();
+            foreach (Tender tender in tendersInRange) 
+            {
+                foreach(Bid bid in tender.Bids)
+                {
+                    if (bid.IsWinningBid())
+                    {
+                        WinningBids.Add(bid);
+                    }
+                }
+            }
+
+            bloodBanks.Add(_bloodBankRepository.GetById(WinningBids[0].BloodBankId));
+            foreach (Bid bid in WinningBids)
+            {
+                if (!isBankExistInList(bloodBanks, bid))
+                {
+                    bloodBanks.Add(_bloodBankRepository.GetById(bid.BloodBankId));
+                }
+            }
+
+
+            List<List<int>> bloods = new List<List<int>>();
+            List<int> counters = new List<int>();
+            foreach (BloodBank bank in bloodBanks)
+            {
+                //koliko je tendera pobedila banka
+                int counter = 0;
+                //koliko je krvi koje vrste dala banka
+                List<int> blood = new List<int>() { 0, 0, 0, 0, 0, 0, 0, 0 };
+
+                foreach (Bid bid in WinningBids)
+                {
+                    if (bid.BloodBankId == bank.Id)
+                    {
+                        counter++;
+                        addBloodToListFromBid(blood, bid.Tender);
+                    }
+
+                }
+                counters.Add(counter);
+                bloods.Add(blood);
+            }
+
+            return bloods;
+
+        }
+
+
+
+        private bool isBankExistInList(List<BloodBank> banks, Bid bid)
+        {
+            foreach (BloodBank bloodBank in banks)
+            {
+                if (bloodBank.Id == bid.BloodBankId)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+
     }
 }

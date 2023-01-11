@@ -236,7 +236,39 @@ namespace HospitalTests.Integration
 
         }
 
+        // test - Galic Ivan T10
+        [Fact]
+        public void Retrive_pdf_fail()
+        {
+            //Arrange
+            using var scope = Factory.Services.CreateScope();
+            var controller = SetupSettingsController(scope);
 
+            int appointmentID = 1;
+
+            //Act
+            var res = controller.GetPDF(appointmentID);
+
+            //Assert
+            Assert.True(res is BadRequestObjectResult);
+        }
+
+        // test - Galic Ivan T10
+        [Fact]
+        public void Retrive_pdf_success()
+        {
+            //Arrange
+            using var scope = Factory.Services.CreateScope();
+            var controller = SetupSettingsController(scope);
+
+            int appointmentID = 13;
+
+            //Act
+            var res = controller.GetPDF(appointmentID);
+
+            //Assert
+            Assert.NotNull(res);
+        }
     }
 
 }

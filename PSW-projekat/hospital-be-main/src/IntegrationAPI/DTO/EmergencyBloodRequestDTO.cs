@@ -1,5 +1,6 @@
 ﻿using IntegrationLibrary.Core.Model;
 using IntegrationLibrary.Protos;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace IntegrationAPI.DTO

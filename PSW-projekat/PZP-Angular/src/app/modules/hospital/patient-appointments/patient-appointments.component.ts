@@ -1,3 +1,4 @@
+import { ExaminationService } from './../services/examination.service';
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
@@ -13,13 +14,13 @@ import { LoginService } from '../services/login.service';
 export class PatientAppointmentsComponent implements OnInit {
 
   public dataSource = new MatTableDataSource<PatientAppointment>();
-  displayedColumns: string[] = ['AppointmentTime', 'Doctor', 'Status', 'Cancel'];
+  displayedColumns: string[] = ['AppointmentTime', 'Doctor', 'Status', 'Cancel', 'Info'];
   public appointments: PatientAppointment[] = [];
 
-  constructor(private appointmentService: AppointmentsService, private router: Router, private loginService: LoginService) { }
+  constructor(private appointmentService: AppointmentsService, private router: Router, private loginService: LoginService, private examinationService: ExaminationService) { }
 
   ngOnInit(): void {
-    this.appointmentService.getAppointmentsForPatient(9).subscribe(res => {
+    this.appointmentService.getAppointmentsForPatient(parseInt(localStorage.getItem("currentUserId")!)).subscribe(res => {
       let result = Object.values(JSON.parse(JSON.stringify(res)));
           this.appointments = []
           result.forEach((element: any) => {
@@ -51,5 +52,14 @@ export class PatientAppointmentsComponent implements OnInit {
       
     }) 
   }
+
+  public getPDF(id: number){
+    this.examinationService.getPDF(id).subscribe(res => {
+      let file = new Blob([res], { type: 'application/pdf' });            
+      var fileURL = URL.createObjectURL(file);
+      window.open(fileURL);
+    })
+  }
+
 }
 

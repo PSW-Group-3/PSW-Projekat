@@ -1,6 +1,10 @@
-﻿using HospitalLibrary.Core.AggregatDoctor;
+using HospitalLibrary.Core.AggregatDoctor;
 using HospitalLibrary.Core.AggregatDoctor.Events;
 using HospitalLibrary.Core.Model;
+﻿using HospitalLibrary.Core.Model;
+using HospitalLibrary.Core.Model.Aggregate;
+using HospitalLibrary.Core.Model.Aggregate.Events;
+using HospitalLibrary.Core.Model.Aggregate.useCases;
 using HospitalLibrary.Core.Model.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -34,8 +38,12 @@ namespace HospitalLibrary.Settings
 
         public DbSet<DoctorExamination> DoctorExaminations { get; set; }
 
-        public DbSet<DomainEvent> DoctorExaminationEvents { get; set; }
+        public DbSet<HospitalLibrary.Core.AggregatDoctor.DomainEvent> DoctorExaminationEvents { get; set; }
 
+
+        public DbSet<ScheduleAppointmentByPatient> ScheduleAppointmentByPatients { get; set; }
+
+        public DbSet<HospitalLibrary.Core.Model.Aggregate.DomainEvent> AppointmentSchedulingEvents { get; set; }
 
         public HospitalDbContext(DbContextOptions<HospitalDbContext> options) : base(options) { }
 
@@ -82,6 +90,15 @@ namespace HospitalLibrary.Settings
             modelBuilder.Entity<BackToSymptomsSelection>();
             modelBuilder.Entity<BackToReportWritten>();
             modelBuilder.Entity<BackToPrescriptionsSelection>();
+            modelBuilder.Entity<PatientSelectedAppointmentTime>();
+            modelBuilder.Entity<PatientSelectedDoctor>();
+            modelBuilder.Entity<PatientSelectedDoctorSpecialization>();
+            modelBuilder.Entity<BackToDoctorSelection>();
+            modelBuilder.Entity<BackToSpecializationSelection>();
+            modelBuilder.Entity<BackToAppointentTimeSelection>();
+            modelBuilder.Entity<BackToAppointmentDateSelection>();
+            modelBuilder.Entity<PatientSelectedAppointmentDate>();
+
 
             base.OnModelCreating(modelBuilder);
         }

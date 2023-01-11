@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace IntegrationLibrary.Migrations
 {
-    public partial class init : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -34,7 +34,7 @@ namespace IntegrationLibrary.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     RequiredForDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    BloodQuantity = table.Column<int>(type: "int", nullable: false),
+                    BloodQuantity_Value = table.Column<int>(type: "int", nullable: false),
                     Reason = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DoctorId = table.Column<int>(type: "int", nullable: false),
                     RequestState = table.Column<int>(type: "int", nullable: false),
@@ -55,7 +55,8 @@ namespace IntegrationLibrary.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     BloodQuantity = table.Column<int>(type: "int", nullable: false),
                     BloodType = table.Column<int>(type: "int", nullable: false),
-                    BloodBankId = table.Column<int>(type: "int", nullable: false)
+                    BloodBankId = table.Column<int>(type: "int", nullable: false),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -72,7 +73,8 @@ namespace IntegrationLibrary.Migrations
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Status = table.Column<int>(type: "int", nullable: false),
                     DateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    BloodBankId = table.Column<int>(type: "int", nullable: false)
+                    BloodBankId = table.Column<int>(type: "int", nullable: false),
+                    Image = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
