@@ -33,7 +33,7 @@ namespace HospitalTests.e2e_T10
             loginPage.InsertUsername("pera");
             loginPage.InsertPassword("123");
             loginPage.SubmitForm();
-            Thread.Sleep(5000);
+            loginPage.EnsureLoggedIn();
             loginPage.ErrorDivDisplayed().ShouldBe(false);
             feedbacksPage = new Pages.FeedbacksPage(driver);
             feedbacksPage.Navigate();
