@@ -1,4 +1,5 @@
-﻿using IntegrationLibrary.Core.Model.Tender;
+﻿using IntegrationLibrary.Core.Model;
+using IntegrationLibrary.Core.Model.Tender;
 using IntegrationLibrary.Core.Service.CRUD;
 using System;
 using System.Collections.Generic;
@@ -12,8 +13,12 @@ namespace IntegrationLibrary.Core.Service.Tenders
     {
         public IEnumerable<Tender> GetAllOpen();
 
-        public void CloseTenderWithWinner(int tenderID, Bid winningBid);
+        public void CloseTenderWithWinner(int tenderID, int winningBidId);
 
         public void BidOnTender(int tenderID, Bid bid);
+
+        public List<int> CreateStatisticsOfBloodType(DateTime Start, DateTime End);
+        public List<BloodBank> GetBloodBankWinners(DateTime Start, DateTime End);
+        public List<List<int>> CreateStatisticsOfBloodBank(DateTime Start, DateTime End);
     }
 }

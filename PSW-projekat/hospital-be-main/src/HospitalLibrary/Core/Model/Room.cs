@@ -7,9 +7,9 @@ namespace HospitalLibrary.Core.Model
 {
     public class Room : BaseModel
     {
-        public string Number { get; set; }
-        [Range(1, 10)]
-        public int Floor { get; set; }
+        public RoomName Number { get; set; }
+        //[Range(1, 10)]
+        public RoomFloor Floor { get; set; }
         public RoomType RoomType { get; set; }
         public virtual ICollection<Medicine> Medicines { get; set; }
         public virtual ICollection<Blood> Bloods { get; set; }

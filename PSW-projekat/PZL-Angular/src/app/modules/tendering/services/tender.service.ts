@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { Bid } from '../model/bid.model';
@@ -27,8 +27,11 @@ export class TenderService {
     return this.http.post<any>(this.integrationApiHost + 'api/Tender/',tender, {headers: this.headers}).pipe(catchError(this.handleError))
   }
 
-  closeTender(tenderID: number, bid: Bid): Observable<any>{
-    return this.http.post<any>(this.integrationApiHost + 'api/Tender/CloseTender/' + tenderID, bid, {headers: this.headers}).pipe(catchError(this.handleError))
+  closeTender(tenderId: number, winningBidId: number): Observable<any>{
+    var httpParams = new HttpParams()
+      .set('tenderId', tenderId)
+      .set('winningBidId', winningBidId)
+    return this.http.get<any>(this.integrationApiHost + 'api/Tender/CloseTender', {headers: this.headers, params: httpParams}).pipe(catchError(this.handleError))
   }
 
   bidOnTender(tenderID: number, bid: Bid): Observable<any>{

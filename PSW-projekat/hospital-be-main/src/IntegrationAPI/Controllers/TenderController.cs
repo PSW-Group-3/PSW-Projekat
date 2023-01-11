@@ -85,8 +85,8 @@ namespace IntegrationAPI.Controllers
             }
         }
 
-        [HttpPost("CloseTender/{tenderID}")]
-        public ActionResult CloseTender(int tenderID, Bid winningBid)
+        [HttpGet("CloseTender")]
+        public ActionResult CloseTender(int tenderId, int winningBidId)
         {
             if (!ModelState.IsValid)
             {
@@ -94,7 +94,7 @@ namespace IntegrationAPI.Controllers
             }
             try
             {
-                _tenderService.CloseTenderWithWinner(tenderID, winningBid);
+                _tenderService.CloseTenderWithWinner(tenderId, winningBidId);
                 return Ok();
             }
             catch (Exception ex)
@@ -104,7 +104,7 @@ namespace IntegrationAPI.Controllers
         }
 
         [HttpPost("Bid/{tenderID}")]
-        public ActionResult BidOnTender(int tenderID, Bid bid)
+        public ActionResult BidOnTender(int tenderID, BidDTO bidDTO)
         {
             if (!ModelState.IsValid)
             {
@@ -112,8 +112,46 @@ namespace IntegrationAPI.Controllers
             }
             try
             {
+                Bid bid = new Bid(bidDTO.DeliveryDate, bidDTO.Price, bidDTO.BloodBankId);
                 _tenderService.BidOnTender(tenderID, bid);
                 return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("Blood/{Start}/{End}")]
+        public ActionResult CreateStatisticsOfBloodType(DateTime Start, DateTime End)
+        {
+            try 
+            {
+                return Ok(_tenderService.CreateStatisticsOfBloodType(Start, End));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("BloodBanks/{Start}/{End}")]
+        public ActionResult GetBloodBankWinners(DateTime Start, DateTime End)
+        {
+            try
+            {
+                return Ok(_tenderService.GetBloodBankWinners(Start, End));
+            }catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpGet("BloodBanksStatistics/{Start}/{End}")]
+        public ActionResult CreateStatisticsOfBloodBank(DateTime Start, DateTime End)
+        {
+            try
+            {
+                return Ok(_tenderService.CreateStatisticsOfBloodBank(Start, End));
             }
             catch (Exception ex)
             {

@@ -1,4 +1,5 @@
-﻿using HospitalLibrary.Core.Model;
+﻿using Grpc.Core;
+using HospitalLibrary.Core.Model;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -9,14 +10,13 @@ using System.Threading.Tasks;
 
 namespace IntegrationLibrary.Core.Model.Tender
 {
-    public class Bid : ValueObject
+    public class Bid : EntityClass
     {
         private DateTime _deliveryDate;
         private long _price;
         private int _bloodBankId;
         private BidStatus _status = BidStatus.WAITING;
 
-        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)]
         public DateTime DeliveryDate
         {
             get => _deliveryDate;
@@ -28,7 +28,6 @@ namespace IntegrationLibrary.Core.Model.Tender
             }
         }
 
-        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)]
         public long Price
         {
             get => _price;
@@ -40,7 +39,6 @@ namespace IntegrationLibrary.Core.Model.Tender
             }
         }
 
-        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)]
         public int BloodBankId
         {
             get => _bloodBankId;
@@ -52,7 +50,6 @@ namespace IntegrationLibrary.Core.Model.Tender
             }
         }
 
-        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)]
         public BidStatus Status
         {
             get => _status;
@@ -64,13 +61,7 @@ namespace IntegrationLibrary.Core.Model.Tender
             }
         }
 
-        protected override IEnumerable<object> GetEqualityComponents()
-        {
-            yield return BloodBankId;
-            yield return Price;
-            yield return Status;
-            yield return DeliveryDate;
-        }
+        public virtual Tender Tender { get; private set; }
 
         public Bid() { }
 
@@ -102,6 +93,14 @@ namespace IntegrationLibrary.Core.Model.Tender
         public bool IsWinningBid()
         {
             return Status == BidStatus.WIN;
+        }
+
+        public void IssueNewBid(Bid bid)
+        {
+            if (BloodBankId != bid.BloodBankId)
+                throw new ArgumentException("Passed Blood Bank ID isn't the same as changed Bid");
+            DeliveryDate = bid.DeliveryDate;
+            Price = bid.Price;
         }
     }
 }

@@ -30,6 +30,7 @@ using IntegrationAPI.Adapters;
 using IntegrationLibrary.Core.Service.HostedServices;
 using IntegrationLibrary.Core.Repository.EmergencyBloodRequests;
 using IntegrationLibrary.Core.SFTPConnection;
+using HospitalLibrary.Settings;
 
 namespace IntegrationAPI
 {

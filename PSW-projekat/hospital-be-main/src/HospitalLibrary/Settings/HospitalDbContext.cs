@@ -1,4 +1,7 @@
 ﻿using HospitalLibrary.Core.Model;
+using HospitalLibrary.Core.Model.Aggregate;
+using HospitalLibrary.Core.Model.Aggregate.Events;
+using HospitalLibrary.Core.Model.Aggregate.useCases;
 using HospitalLibrary.Core.Model.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -30,11 +33,15 @@ namespace HospitalLibrary.Settings
 
         public DbSet<DoctorsCouncil> DoctorsCouncils { get; set; }
 
+        public DbSet<ScheduleAppointmentByPatient> ScheduleAppointmentByPatients { get; set; }
+
+        public DbSet<DomainEvent> AppointmentSchedulingEvents { get; set; }
+
         public HospitalDbContext(DbContextOptions<HospitalDbContext> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
+            /*
             modelBuilder.Entity<Room>().HasData(
                 new Room() { Id = 1, Number = "101A", RoomType = RoomType.rehabilitationRoom, Floor = 1, Deleted = false },
                 new Room() { Id = 2, Number = "204", RoomType = RoomType.rehabilitationRoom, Floor = 2, Deleted = false },
@@ -42,6 +49,7 @@ namespace HospitalLibrary.Settings
                 new Room() { Id = 4, Number = "STORAGE", RoomType = RoomType.storage, Floor = 3, Deleted = false }
 
             );
+            */
 
             modelBuilder.Entity<Doctor>().OwnsMany(
                 d => d.DoctorSchedules, ds =>
@@ -67,6 +75,15 @@ namespace HospitalLibrary.Settings
             modelBuilder.Entity<Person>().OwnsOne(e => e.Address);
 
             modelBuilder.Entity<Person>().OwnsOne(e => e.Jmbg);
+
+            modelBuilder.Entity<PatientSelectedAppointmentTime>();
+            modelBuilder.Entity<PatientSelectedDoctor>();
+            modelBuilder.Entity<PatientSelectedDoctorSpecialization>();
+            modelBuilder.Entity<BackToDoctorSelection>();
+            modelBuilder.Entity<BackToSpecializationSelection>();
+            modelBuilder.Entity<BackToAppointentTimeSelection>();
+            modelBuilder.Entity<BackToAppointmentDateSelection>();
+            modelBuilder.Entity<PatientSelectedAppointmentDate>();
 
             base.OnModelCreating(modelBuilder);
         }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { Chart } from 'chart.js';
+import { SchedulingStatisticsDTO } from '../model/scheduling-statistics-dto';
 import { DoctorStat, StatisticsDto } from '../model/statisticsdto.model';
 import { LoginService } from '../services/login.service';
 import { StatisticsService } from '../services/statistics.service';
@@ -18,6 +19,8 @@ export class StatisticsComponent implements OnInit {
   public bloodTypeChart : any;
   public genderAgeChart : any;
   public ageDoctorChart : any;
+  public schedulingsPerDayChart : any;
+  public avarageNumberOfEachStep : any;
 
   public maleAgeGroupValues : any;
   public femaleAgeGroupValues : any;
@@ -34,6 +37,13 @@ export class StatisticsComponent implements OnInit {
 
   public dataSource = new MatTableDataSource<DoctorStat>();
   public displayedColumns = ['Doctor','0-18','18-30','30-45','45-60','60-80','80+'];
+
+  public schedulingAppointmentEventsStatistic : SchedulingStatisticsDTO;
+  public linearAndNonlinearSchedulingsLables = ['Linear', 'Nonlinear'];
+  public linearAndNonlinearSchedulingsData : any;
+  public avarageNumberOfSteps : number;
+  public avarageSchedulingDuration: number;
+
   
   ngOnInit(): void {
     this.statisticsService.getStatistics().subscribe( res =>{
@@ -42,7 +52,15 @@ export class StatisticsComponent implements OnInit {
       
       this.createBloodTypeChart();
       this.createGenderAgeChart();
-    });  
+    }); 
+    
+    this.statisticsService.GetAllEventStatistics().subscribe( res =>{
+      this.schedulingAppointmentEventsStatistic = res;
+      this.setSchedulingEventsFields();
+
+      this.createSchedulingsPerDayChart();
+      this.createAvarageNumberOfEachStep();
+    });
     
   }
 
@@ -107,6 +125,56 @@ export class StatisticsComponent implements OnInit {
           }
         ]
       },
+    });
+  }
+
+  setSchedulingEventsFields(){
+    let array = [this.schedulingAppointmentEventsStatistic.linearSchedulingNumber, this.schedulingAppointmentEventsStatistic.nonlinearSchedulingNumber]     
+    this.linearAndNonlinearSchedulingsData = [{ data: array, label: "Schedulings" }];
+    this.avarageNumberOfSteps = this.schedulingAppointmentEventsStatistic.avarageNumberOfStepsForSuccessfulScheduling;
+    this.avarageSchedulingDuration = this.schedulingAppointmentEventsStatistic.avarageSchedulingDuration;
+  }
+
+  createSchedulingsPerDayChart(){
+    this.schedulingsPerDayChart = new Chart("schedulingsPerDayChart", {
+      type: 'bar',
+      data: {
+        labels: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'], 
+	      datasets: [
+          {
+            data: this.schedulingAppointmentEventsStatistic.finishedSchedulingsPerDay,
+            backgroundColor: '#7fff5c',
+            label: 'Finished'
+          },
+          {
+            data: this.schedulingAppointmentEventsStatistic.unfinishedSchedulingsPerDay,
+            backgroundColor: '#ffa09e',
+            label: 'Unfinished'
+          } 
+        ]
+      },
+      options: {
+        aspectRatio:2.5       
+      }
+    });
+  }
+
+  createAvarageNumberOfEachStep(){
+    this.avarageNumberOfEachStep = new Chart("avarageNumberOfEachStep", {
+      type: 'bar',
+      data: {
+        labels: ['Date', 'Specialization', 'Doctor', 'Time', 'Review'], 
+	      datasets: [
+          {
+            data: this.schedulingAppointmentEventsStatistic.avarageNumberOfEachStepForSuccessfulScheduling,
+            backgroundColor: 'lightblue',
+            label: 'Steps'
+          }
+        ]
+      },
+      options: {
+        aspectRatio:2.5       
+      }
     });
   }
 

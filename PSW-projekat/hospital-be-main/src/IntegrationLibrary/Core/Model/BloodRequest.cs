@@ -13,7 +13,7 @@ namespace IntegrationLibrary.Core.Model
         [Required]
         public DateTime RequiredForDate { get; set; }
         [Required]
-        public int BloodQuantity { get; set; }
+        public Quantity BloodQuantity { get; set; }
         [Required]
         public string Reason { get; set; }
         [Required]
@@ -27,7 +27,7 @@ namespace IntegrationLibrary.Core.Model
 
         public int BloodBankId { get; set; }
 
-        public BloodRequest(DateTime requiredForDat, int bloodQuantity, string reason, int doctorId, RequestState state, BloodType bloodType, int bloodBankId, string comment)
+        public BloodRequest(DateTime requiredForDat, Quantity bloodQuantity, string reason, int doctorId, RequestState state, BloodType bloodType, int bloodBankId, string comment)
         {
             this.RequiredForDate = requiredForDat;
             this.BloodQuantity = bloodQuantity;

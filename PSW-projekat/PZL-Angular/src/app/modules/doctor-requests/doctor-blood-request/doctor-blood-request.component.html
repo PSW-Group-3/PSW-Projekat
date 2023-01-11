@@ -1,133 +1,171 @@
-<div class="table-header">
-  <div
-    class="container"
-    [hidden]="bloodRequest == undefined || bloodRequest.bloodType == undefined"
-  >
-    <p class="table-title">Request</p>
-    <mat-form-field appearance="fill">
-      <mat-label>Doctor:</mat-label>
-      <input readonly matInput value="{{ doctorName }}" /> </mat-form-field
-    ><br />
-    <mat-form-field appearance="fill">
-      <mat-label>Blood Type:</mat-label>
-      <input
-        readonly
-        matInput
-        value="{{ getBloodByValue(bloodRequest.bloodType) }}"
-      /> </mat-form-field
-    ><br />
-    <mat-form-field appearance="fill">
-      <mat-label>Blood Quantity:</mat-label>
-      <input
-        readonly
-        matInput
-        value="{{ bloodRequest.bloodQuantity }}"
-      /> </mat-form-field
-    ><br />
-    <mat-form-field appearance="fill">
-      <mat-label>Reason:</mat-label>
-      <textarea
-        readonly
-        matInput
-        value="{{ bloodRequest.reason }}"
-      ></textarea></mat-form-field
-    ><br />
-    <mat-form-field appearance="fill">
-      <mat-label>Request state:</mat-label>
-      <input
-        readonly
-        matInput
-        value="{{ getStateByValue(bloodRequest.requestState) }}"
-      /> </mat-form-field
-    ><br />
+<section class="vh-100">
+  <div class="container h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-xl-9">
 
-    <div *ngIf="bloodRequest.requestState != 3" [hidden]="!isBankOptionVisible">
-      <mat-form-field appearance="fill">
-        <mat-label>*Select a blood bank</mat-label>
-        <mat-select
-          name="bloodBanks"
-          id="select-blood-bank"
-          matInput
-          [(ngModel)]="bloodRequest.bloodBankId"
-          (selectionChange)="checkIfBankHasBlood()"
-        >
-          <mat-option
-            *ngFor="let item of bloodBanks; let i = index"
-            id="{{ 'bank-' + i }}"
-            [value]="item.id"
-            >{{ item.name }}</mat-option
-          >
-        </mat-select>
-        <mat-spinner
-          [diameter]="30"
-          matSuffix
-          style="display: inline-flex"
-          [hidden]="!isLoading"
-        ></mat-spinner>
-      </mat-form-field>
-    </div>
-    <br />
+        <h1 class="text-black mb-4 d-flex justify-content-center">Blood Request</h1>
 
-    <div
-      *ngIf="bloodRequest.requestState != 3 && bloodRequest.requestState != 4"
-    >
-      <button
-        [hidden]="isBankOptionVisible"
-        class="m-1"
-        id="accept-request-button"
-        mat-stroked-button
-        (click)="accept()"
-      >
-        Accept
-      </button>
-      <button
-        [hidden]="!isBankOptionVisible"
-        class="m-1"
-        id="send-request-button"
-        mat-stroked-button
-        (click)="sendRequest()"
-        [disabled]="!canOrder"
-      >
-        Send request
-      </button>
-      <button
-        class="m-1"
-        id="decline-request-button"
-        mat-stroked-button
-        (click)="decline()"
-        [disabled]="isLoading"
-      >
-        Decline
-      </button>
-      <button
-        class="m-1"
-        id="return-back-request-button"
-        mat-stroked-button
-        (click)="returnBack = !returnBack"
-        [disabled]="isLoading"
-      >
-        Return Back
-      </button>
-    </div>
-    <br />
-    <div *ngIf="returnBack || bloodRequest.requestState == 2">
-      <mat-form-field appearance="fill">
-        <mat-label>Reason why it is going back:</mat-label>
-        <textarea
-          id="reason-return-back-text"
-          matInput
-          [(ngModel)]="bloodRequest.comment"
-        ></textarea>
-      </mat-form-field>
-      <br />
-      <button
-        class="m-1"
-        id="submit-return-button"
-        mat-stroked-button
-        (click)="sendBack()"
-      >
-        Submit reason and update request
-      </button>
+        <div class="card " style="border-radius: 15px;">
+          <div class="card-body ">
+            <div [hidden]="bloodRequest == undefined || bloodRequest.bloodType == undefined">
+              <div class="row align-items-center pt-4 pb-3">
+                <div class="col-md-3 ps-5">
+                  <h6 class="mb-0" style="font-size: 15px;">
+
+                    Doctor:</h6>
+                </div>
+                <div class="col-md-9 pe-5">
+                  <mat-form-field appearance="fill">
+                    <mat-label>Doctor:</mat-label>
+                    <input readonly matInput value="{{ doctorName }}" />
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="row align-items-center pt-4 pb-3">
+                <div class="col-md-3 ps-5">
+                  <h6 class="mb-0" style="font-size: 15px;">
+
+                    Required For Date:</h6>
+                </div>
+                <div class="col-md-9 pe-5">
+                  <mat-form-field appearance="fill">
+                    <mat-label>Required For Date</mat-label>
+                    <input type="text" readonly matInput name="dateControl" 
+                      [ngModel]="this.bloodRequest.requiredForDate | date: 'dd/MM/yyyy'">
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="row align-items-center pt-4 pb-3">
+                <div class="col-md-3 ps-5">
+                  <h6 class="mb-0" style="font-size: 15px;">
+
+                    Blood Type:</h6>
+                </div>
+                <div class="col-md-9 pe-5">
+                  <mat-form-field appearance="fill">
+                    <mat-label>Blood Type:</mat-label>
+                    <input readonly matInput value="{{ getBloodByValue(bloodRequest.bloodType) }}" />
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="row align-items-center pt-4 pb-3">
+                <div class="col-md-3 ps-5">
+                  <h6 class="mb-0" style="font-size: 15px;">
+
+                    Blood Quantity:</h6>
+                </div>
+                <div class="col-md-9 pe-5">
+                  <mat-form-field appearance="fill">
+                    <mat-label>Blood Quantity:</mat-label>
+                    <input readonly matInput value="{{ bloodRequest.bloodQuantity }}" />
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="row align-items-center pt-4 pb-3">
+                <div class="col-md-3 ps-5">
+                  <h6 class="mb-0" style="font-size: 15px;">
+
+                    Reason:</h6>
+                </div>
+                <div class="col-md-9 pe-5">
+                  <mat-form-field appearance="fill">
+                    <mat-label>Reason:</mat-label>
+                    <textarea readonly matInput value="{{ bloodRequest.reason }}"></textarea>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="row align-items-center pt-4 pb-3">
+                <div class="col-md-3 ps-5">
+                  <h6 class="mb-0" style="font-size: 15px;">
+
+                    Request State:</h6>
+                </div>
+                <div class="col-md-9 pe-5">
+                  <mat-form-field appearance="fill">
+                    <mat-label>Request state:</mat-label>
+                    <input readonly matInput value="{{ getStateByValue(bloodRequest.requestState) }}" />
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+
+            <div *ngIf="returnBack || bloodRequest.requestState == 2">
+              <hr class="mx-n3">
+              <div class="row align-items-center pt-4 pb-3">
+                <div class="col-md-3 ps-5">
+                  <h6 class="mb-0" style="font-size: 15px;">Blood type:</h6>
+                </div>
+                <div class="col-md-9 pe-5">
+                  <mat-form-field appearance="fill">
+                    <mat-label>Reason why it is going back:</mat-label>
+                    <textarea id="reason-return-back-text" matInput [(ngModel)]="bloodRequest.comment"></textarea>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row align-items-center pt-4 pb-3">
+                <div class="col-md-3 ps-5">
+                  <h6 class="mb-0" style="font-size: 15px;">&ensp;</h6>
+                </div>
+                <div class="col-md-9 pe-5">
+                  <button class="m-1" id="submit-return-button" mat-stroked-button (click)="sendBack()">
+                    Submit reason and update request
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div *ngIf="bloodRequest.requestState != 3" [hidden]="!isBankOptionVisible">
+              <hr class="mx-n3">
+              <div class="row align-items-center pt-4 pb-3">
+                <div class="col-md-3 ps-5">
+                  <h6 class="mb-0" style="font-size: 15px;">Select a blood bank:</h6>
+                </div>
+                <div class="col-md-9 pe-5">
+                  <mat-form-field appearance="fill">
+                    <mat-label>*Select a blood bank</mat-label>
+                    <mat-select name="bloodBanks" id="select-blood-bank" matInput [(ngModel)]="bloodRequest.bloodBankId"
+                      (selectionChange)="checkIfBankHasBlood()">
+                      <mat-option *ngFor="let item of bloodBanks; let i = index" id="{{ 'bank-' + i }}"
+                        [value]="item.id">{{
+                        item.name }}</mat-option>
+                    </mat-select>
+                    <mat-spinner [diameter]="30" matSuffix style="display: inline-flex"
+                      [hidden]="!isLoading"></mat-spinner>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <hr class="mx-n3">
+          <div class="px-5 py-4 d-flex" *ngIf="bloodRequest.requestState != 3 && bloodRequest.requestState != 4">
+            <button [hidden]="isBankOptionVisible" class="m-1" id="accept-request-button" mat-stroked-button
+              (click)="accept()">
+              Accept
+            </button>
+            <button [hidden]="!isBankOptionVisible" class="m-1" id="send-request-button" mat-stroked-button
+              (click)="sendRequest()" [disabled]="!canOrder">
+              Send request
+            </button>
+            <button class="m-1" id="decline-request-button" mat-stroked-button (click)="decline()"
+              [disabled]="isLoading">
+              Decline
+            </button>
+            <button class="m-1" id="return-back-request-button" mat-stroked-button (click)="returnBack = !returnBack"
+              [disabled]="isLoading">
+              Return Back
+            </button>
+          </div>
+
+        </div>
+      </div>
+
     </div>
   </div>
-</div>
+</section>

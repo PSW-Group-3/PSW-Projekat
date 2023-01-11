@@ -32,11 +32,11 @@ namespace HospitalTests.e2e_T10
             loginPage.InsertUsername("pera");
             loginPage.InsertPassword("123");
             loginPage.SubmitForm();
-            Thread.Sleep(3000);
+            loginPage.EnsureLoggedIn();
             loginPage.ErrorDivDisplayed().ShouldBe(false);
             blockMaliciousPatientsPage = new Pages.BlockMaliciousPatientsPage(driver);
             blockMaliciousPatientsPage.Navigate();
-            Thread.Sleep(3000);
+            blockMaliciousPatientsPage.EnsurePageIsDisplayed();
         }
 
         public void Dispose()
@@ -49,7 +49,7 @@ namespace HospitalTests.e2e_T10
         public void Block_successfully()
         {
             blockMaliciousPatientsPage.SubmitBlock();
-            Thread.Sleep(1000);
+            blockMaliciousPatientsPage.EnsureBlockButtonHasDisappeared();
             Assert.Equal("Blocked", blockMaliciousPatientsPage.isBlockedFirst.Text);
         }
 
@@ -57,7 +57,7 @@ namespace HospitalTests.e2e_T10
         public void Unblock_successfully()
         {
             blockMaliciousPatientsPage.SubmitUnblock();
-            Thread.Sleep(1000);
+            blockMaliciousPatientsPage.EnsureUnblockButtonHasDisappeared();
             Assert.Equal("Not blocked", blockMaliciousPatientsPage.isBlockedLast.Text);
         }
 

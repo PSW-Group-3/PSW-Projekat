@@ -1,11 +1,20 @@
 ﻿using HospitalLibrary.Core.DTOs;
 using HospitalLibrary.Core.Model;
 using HospitalLibrary.Core.Service;
+using IronPdf;
+using iTextSharp.text.pdf.qrcode;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using Org.BouncyCastle.Utilities;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Net;
+using System.Text;
+using System.Threading.Tasks;
+using static System.Net.WebRequestMethods;
+
 namespace HospitalAPI.Controllers.PublicApp
 {
     [Authorize]
@@ -103,14 +112,102 @@ namespace HospitalAPI.Controllers.PublicApp
 
             byte[] file = _examinationService.GeneratePdf(examination, symptoms, report, medication);
             Guid uniqueSuffix = Guid.NewGuid();
-            System.IO.File.WriteAllBytes("report" + ".pdf", file);
+            System.IO.File.WriteAllBytes("examination_" + examination.Appointment.Id + ".pdf", file);
 
             _examinationService.Create(examination);
             //return Ok();
-            return File(file, "application/pdf", "report" + ".pdf");
+            return File(file, "application/pdf", "examination_" + examination.Appointment.Id + ".pdf");
         }
 
+        [HttpGet("report/{personId}")]
+        public ActionResult GetAllExaminationsByDoctor(int personId)
+        {
+            List<ExaminationDto> examinationDto = new List<ExaminationDto>();
 
+            foreach (var examination in _examinationService.GetAllExaminationsByDoctor(personId))
+            {
+                PatientDto patientDto = new PatientDto(examination.Appointment.Patient.Id, examination.Appointment.Patient.Person.Name,
+                  examination.Appointment.Patient.Person.Surname, examination.Appointment.Patient.Person.Email.Adress,
+                  examination.Appointment.Patient.Person.Role);
 
+                DoctorDto doctorDto = new DoctorDto(examination.Appointment.Doctor.Id, examination.Appointment.Doctor.Person.Name,
+                   examination.Appointment.Doctor.Person.Surname, examination.Appointment.Doctor.Person.Email.Adress, examination.Appointment.Doctor.Person.Role);
+
+                AppointmentDto appointmentDto = new AppointmentDto(examination.Appointment.Id, examination.Appointment.DateTime,
+                    (DateTime)examination.Appointment.CancelationDate, patientDto, doctorDto);
+
+                examinationDto.Add(new ExaminationDto(examination.Id, appointmentDto, examination.Prescriptions,
+                    examination.Symptoms, examination.Report));
+
+            }
+            return Ok(examinationDto);
+        }
+
+        [HttpGet("report/search/{searchWord}/{personId}")]
+        public ActionResult GetAllExaminationsBySearchReport(string searchWord, int personId)
+        {
+            List<ExaminationDto> examinationDto = new List<ExaminationDto>();
+
+            foreach (var examination in _examinationService.GetAllExaminationsBySearchReport(searchWord, personId))
+            {
+                PatientDto patientDto = new PatientDto(examination.Appointment.Patient.Id, examination.Appointment.Patient.Person.Name,
+                  examination.Appointment.Patient.Person.Surname, examination.Appointment.Patient.Person.Email.Adress,
+                  examination.Appointment.Patient.Person.Role);
+
+                DoctorDto doctorDto = new DoctorDto(examination.Appointment.Doctor.Id, examination.Appointment.Doctor.Person.Name,
+                   examination.Appointment.Doctor.Person.Surname, examination.Appointment.Doctor.Person.Email.Adress, examination.Appointment.Doctor.Person.Role);
+
+                AppointmentDto appointmentDto = new AppointmentDto(examination.Appointment.Id, examination.Appointment.DateTime,
+                    (DateTime)examination.Appointment.CancelationDate, patientDto, doctorDto);
+
+                examinationDto.Add(new ExaminationDto(examination.Id, appointmentDto, examination.Prescriptions,
+                    examination.Symptoms, examination.Report));
+
+            }
+            return Ok(examinationDto);
+        }
+
+        [HttpGet("prescription/search/{searchWord}/{personId}")]
+        public ActionResult GetAllExaminationsBySearchPrescription(string searchWord, int personId)
+        {
+            List<ExaminationDto> examinationDto = new List<ExaminationDto>();
+
+            foreach (var examination in _examinationService.GetAllExaminationsBySearchPrescription(searchWord, personId))
+            {
+                PatientDto patientDto = new PatientDto(examination.Appointment.Patient.Id, examination.Appointment.Patient.Person.Name,
+                  examination.Appointment.Patient.Person.Surname, examination.Appointment.Patient.Person.Email.Adress,
+                  examination.Appointment.Patient.Person.Role);
+
+                DoctorDto doctorDto = new DoctorDto(examination.Appointment.Doctor.Id, examination.Appointment.Doctor.Person.Name,
+                   examination.Appointment.Doctor.Person.Surname, examination.Appointment.Doctor.Person.Email.Adress, examination.Appointment.Doctor.Person.Role);
+
+                AppointmentDto appointmentDto = new AppointmentDto(examination.Appointment.Id, examination.Appointment.DateTime,
+                    (DateTime)examination.Appointment.CancelationDate, patientDto, doctorDto);
+
+                examinationDto.Add(new ExaminationDto(examination.Id, appointmentDto, examination.Prescriptions,
+                    examination.Symptoms, examination.Report));
+
+            }
+            return Ok(examinationDto);
+        }
+
+        [Authorize(Roles = "Patient")]
+        [HttpGet("GetPDF/{appointmentID}")]
+        public ActionResult GetPDF(int appointmentID)
+        {
+            string filename = "examination_" + appointmentID + ".pdf";
+            string path = Directory.GetParent(Directory.GetCurrentDirectory()).FullName + @"\HospitalAPI\" + filename;
+            byte[] pdfFile;
+            try
+            {
+                pdfFile = System.IO.File.ReadAllBytes(path);
+            }
+            catch
+            {
+                return BadRequest("File not found");
+            }
+            
+            return File(pdfFile, "application/pdf", filename);
+        }
     }
 }

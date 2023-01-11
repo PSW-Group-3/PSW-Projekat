@@ -1,27 +1,74 @@
-<h5>{{errorMessage}}</h5>
-<div class="table-header" *ngIf="!errorMessage">
-    <div class="container">
-        <p class="table-title">Request</p>
-        <mat-form-field appearance="fill">
-            <mat-label>Blood Amount:</mat-label>
-            <input matInput type="number" [(ngModel)]="this.request.bloodQuantity">
-        </mat-form-field><br>
-        <mat-form-field appearance="fill">
-            <mat-label>Blood Type:</mat-label>
-            <mat-select name="bloodTypes" id="bloodTypes" [(ngModel)]="this.request.bloodType" matInput>
-                <mat-option *ngFor="let bloodType of bloodTypes" [value]="bloodType">{{ConvertToString(bloodType)}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field><br>
-        <mat-form-field appearance="fill">
-            <mat-label>Blood Bank</mat-label>
-            <mat-select name="bloodRequest.bloodBankID" [(ngModel)]="this.request.bloodBankID" matInput>
-                <mat-option *ngFor="let item of bloodBanks" [value]="item.id">{{item.name}}</mat-option>
-              </mat-select>
-        </mat-form-field ><br>
-        <button class="m-1" mat-stroked-button (click)="accept()">
-            Send
-        </button>
-        <br>
+<section class="vh-100" >
+    <div class="container h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-xl-9">
+
+                <h1 class="text-black mb-4 d-flex justify-content-center">Emergency Blood Request</h1>
+
+                <div class="card " style="border-radius: 15px;">
+                    <div class="card-body ">
+
+                        <div class="row align-items-center pt-4 pb-3">
+                            <div class="col-md-3 ps-5">
+                                <h6 class="mb-0" style="font-size: 15px;">
+
+                                    Blood Bank:</h6>
+                            </div>
+                            <div class="col-md-9 pe-5">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Blood Bank</mat-label>
+                                    <mat-select name="bloodRequest.bloodBankID" [(ngModel)]="this.request.bloodBankID"
+                                        matInput>
+                                        <mat-option *ngFor="let item of bloodBanks"
+                                            [value]="item.id">{{item.name}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <hr class="mx-n3">
+                        <div class="row align-items-center pt-4 pb-3">
+                            <div class="col-md-3 ps-5">
+                                <h6 class="mb-0" style="font-size: 15px;">Blood type:</h6>
+                            </div>
+                            <div class="col-md-9 pe-5">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Blood Type:</mat-label>
+                                    <mat-select name="bloodTypes" id="bloodTypes" [(ngModel)]="this.request.bloodType"
+                                        matInput>
+                                        <mat-option *ngFor="let bloodType of bloodTypes"
+                                            [value]="bloodType">{{ConvertToString(bloodType)}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="row align-items-center pt-4 pb-3">
+                            <div class="col-md-3 ps-5">
+                                <h6 class="mb-0" style="font-size: 15px;">Blood Amount:</h6>
+                            </div>
+                            <div class="col-md-9 pe-5">
+                                <mat-form-field appearance="fill" >
+                                    <mat-label>Blood Amount:</mat-label>
+                                    <input matInput type="number" [(ngModel)]="this.request.bloodQuantity">
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <hr class="mx-n3">
+                    <div class="px-5 py-4 d-flex ">
+                        <button class="m-1" style="width: 15%;" mat-stroked-button (click)="accept()">
+                            Send
+                        </button>
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
     </div>
-</div>
+</section>

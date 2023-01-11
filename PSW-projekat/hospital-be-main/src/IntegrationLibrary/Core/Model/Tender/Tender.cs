@@ -50,7 +50,7 @@ namespace IntegrationLibrary.Core.Model.Tender
             }
         }
 
-        public List<Bid> Bids
+        public virtual List<Bid> Bids
         {
             get => _bids;
             private set
@@ -65,7 +65,6 @@ namespace IntegrationLibrary.Core.Model.Tender
 
         public Tender(DateTime dueDate, List<Demand> demands, TenderState state)
         {
-
             DueDate = dueDate;
             Demands = demands;
             State = state;
@@ -77,23 +76,63 @@ namespace IntegrationLibrary.Core.Model.Tender
             Demands = demands;
         }
 
-        public void BidOnTender(Bid bid)
+        
+        public void BidOnTender(Bid newBid)
         {
-            Bids.Add(bid);
+            foreach (Bid bid in Bids)
+            {
+                if (newBid.BloodBankId == bid.BloodBankId)
+                {
+                    bid.IssueNewBid(newBid);
+                    return;
+                }
+            }
+            Bids.Add(newBid);
         }
 
-        public void CloseTender(Bid winningBid)
+        public void CloseTender(int winningBidID)
         {
             State = TenderState.CLOSED;
-            ChangeBidsStatuses(winningBid);
+            DueDate = DateTime.Now;
+            ChangeBidsStatuses(winningBidID);
         }
 
-        private void ChangeBidsStatuses(Bid winningBid)
+        
+        /// <summary>
+        /// Itterates through bids and finds winning bid
+        /// </summary>
+        /// <returns>Bid if Found, Null if not found</returns>
+        public Bid GetWinningBid()
+        {
+            foreach (Bid bid in Bids)
+            {
+                if (bid.Status == BidStatus.WIN)
+                    return bid;
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Itterates through bids and finds bid of Blood Bank
+        /// </summary>
+        /// <returns>Bid if Found, Null if not found</returns>
+        public Bid GetBidForBloodBank(BloodBank bloodBank)
+        {
+            foreach (Bid bid in Bids)
+            {
+                if (bid.BloodBankId == bloodBank.Id)
+                    return bid;
+            }
+            return null;
+        }
+
+
+        private void ChangeBidsStatuses(int winningBidID)
         {
             bool winningBidFound = false;
             foreach (Bid bid in Bids)
             {
-                if (winningBid == bid)
+                if (winningBidID == bid.Id)
                 {
                     bid.SetAsWinningBid();
                     winningBidFound = true;

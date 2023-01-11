@@ -33,6 +33,11 @@ import { ShowDoctorsPipe } from './councils/show-doctors.pipe';
 import { CreateDoctorsCouncilComponent } from './create-doctors-council/create-doctors-council.component';
 import { ShowMedicinePipe } from './medical-examination-patient/show-medicine.pipe';
 import { MaliciousPatientsComponent } from './malicious-patients/malicious-patients.component';
+import { ReportsComponent } from './reports/reports.component';
+import { BloodRequestsComponent } from './blood-requests/blood-requests.component';
+import { PrescriptionsComponent } from './prescriptions/prescriptions.component';
+import { ShowDescriptionsPipe } from './prescriptions/show-descriptions.pipe';
+import { ShowMedicinesPipe } from './prescriptions/show-medicines.pipe';
 
 const routes: Routes = [
   { path: 'rooms', component: RoomsComponent, canActivate: [AuthGuardManager] },
@@ -56,12 +61,13 @@ const routes: Routes = [
     component: FeedbacksComponent,
     canActivate: [AuthGuardManager],
   },
+  /*
   {
     path: 'appointments',
     component: AppointmentsComponent,
     canActivate: [AuthGuardDoctor],
   }
-  ,
+  */
   {
     path: 'appointments/doctor/:id',
     component: AppointmentsComponent,
@@ -85,7 +91,7 @@ const routes: Routes = [
   { path: 'rooms/:id', component: RoomDetailComponent, canActivate: [ AuthGuardManager ] },
   { path: 'rooms/:id/update', component: UpdateRoomComponent, canActivate: [ AuthGuardManager ] },
   { path: 'feedbacks', component: FeedbacksComponent, canActivate: [ AuthGuardManager ] },
-  { path: 'appointments', component: AppointmentsComponent, canActivate: [ AuthGuardDoctor ] },
+  { path: 'appointments', component: AppointmentsComponent},
   { path: 'appointments/doctor/:id', component: AppointmentsComponent, canActivate: [ AuthGuardDoctor ] },
   //{ path: 'appointments/add', component: CreateAppointmentComponent, canActivate: [ AuthGuardDoctor ] },
   //{ path: 'appointments/:id/update', component: UpdateAppointmentComponent, canActivate: [ AuthGuardDoctor ] },
@@ -103,7 +109,10 @@ const routes: Routes = [
   { path: 'examinations/prescriptionShow', component: MedicalPrescriptionShowComponent},
   { path: 'examinations/finish', component: MedicalExaminationFinish},
   { path: 'bloodConsumption/add', component: BloodConsumptionComponent},
-  { path: 'malicious-patients', component: MaliciousPatientsComponent, canActivate: [ AuthGuardManager ]}
+  { path: 'malicious-patients', component: MaliciousPatientsComponent, canActivate: [ AuthGuardManager ]},
+  { path: 'reports', component: ReportsComponent, canActivate: [ AuthGuardDoctor ] },
+  { path: 'bloodRequests', component: BloodRequestsComponent },
+  { path: 'prescriptions', component: PrescriptionsComponent},
 
 ];
 
@@ -132,7 +141,12 @@ const routes: Routes = [
     MedicalReportComponent,
     MedicalPrescriptionShowComponent,
     MedicalExaminationFinish,
-    ShowMedicinePipe
+    ShowMedicinePipe,
+    ReportsComponent,
+    BloodRequestsComponent,
+    PrescriptionsComponent,
+    ShowDescriptionsPipe,
+    ShowMedicinesPipe
   ],
   imports: [
     CommonModule,

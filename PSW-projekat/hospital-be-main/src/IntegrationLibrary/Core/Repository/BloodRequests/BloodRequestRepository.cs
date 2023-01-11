@@ -35,6 +35,13 @@ namespace IntegrationLibrary.Core.Repository.BloodRequests
             return _context.BloodRequests.ToList();
         }
 
+        public IEnumerable<BloodRequest> GetAllByType(BloodType bloodType)
+        {
+            return _context.BloodRequests
+                .Where(x =>  x.BloodType == bloodType && x.RequestState == RequestState.Accepted).ToList();
+        }
+
+
         public BloodRequest GetById(int id)
         {
             return _context.BloodRequests.Find(id); 

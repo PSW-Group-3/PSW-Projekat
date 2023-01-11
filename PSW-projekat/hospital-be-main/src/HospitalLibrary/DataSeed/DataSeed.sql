@@ -114,10 +114,11 @@ INSERT [dbo].[__EFMigrationsHistory] ([MigrationId], [ProductVersion]) VALUES (N
 GO
 SET IDENTITY_INSERT [dbo].[Rooms] ON 
 
-INSERT [dbo].[Rooms] ([Id], [Number], [RoomType], [Floor], [Deleted]) VALUES (1, N'101A', 5,  1, 0)
-INSERT [dbo].[Rooms] ([Id], [Number], [RoomType], [Floor], [Deleted]) VALUES (2, N'204', 5, 2, 0)
-INSERT [dbo].[Rooms] ([Id], [Number], [RoomType], [Floor], [Deleted]) VALUES (3, N'305B', 5, 3, 0)
-INSERT [dbo].[Rooms] ([Id], [Number], [RoomType], [Floor], [Deleted]) VALUES (4, N'STORAGE', 0, 3, 0)
+INSERT [dbo].[Rooms] ([Id], [Number_Name], [RoomType], [Floor_Floor], [Deleted]) VALUES (1, N'101A', 5,  1, 0)
+INSERT [dbo].[Rooms] ([Id], [Number_Name], [RoomType], [Floor_Floor], [Deleted]) VALUES (2, N'204C', 5, 2, 0)
+INSERT [dbo].[Rooms] ([Id], [Number_Name], [RoomType], [Floor_Floor], [Deleted]) VALUES (3, N'305B', 5, 3, 0)
+INSERT [dbo].[Rooms] ([Id], [Number_Name], [RoomType], [Floor_Floor], [Deleted]) VALUES (4, N'STORAGE', 0, 3, 0)
+
 SET IDENTITY_INSERT [dbo].[Rooms] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Appointments] ON 
@@ -172,6 +173,15 @@ GO
 SET IDENTITY_INSERT [dbo].[Examinations] ON 
 
 INSERT [dbo].[Examinations] ([Id], [AppointmentId], [Report], [Deleted]) VALUES (1, 1, 'Pacijent je stigao u vrlo losem stanju. Otvoreni prelom butne kosti sa pojacanim krvarenjem.', 0)
+INSERT [dbo].[Examinations] ([Id], [AppointmentId], [Report], [Deleted]) VALUES (2, 2, 'Pacijent je u vrlo lose. Prelom rebara.', 0)
+INSERT [dbo].[Examinations] ([Id], [AppointmentId], [Report], [Deleted]) VALUES (3, 3, 'Pacijent je u solidnom stanju. Napuknuta lakatna kost.', 0)
+INSERT [dbo].[Examinations] ([Id], [AppointmentId], [Report], [Deleted]) VALUES (4, 4, 'Pacijent je primljen nepokretan i bez svesti. Premesten hitno u operacionu salu.', 0)
+INSERT [dbo].[Examinations] ([Id], [AppointmentId], [Report], [Deleted]) VALUES (5, 6, 'Pacijent je stigao sa velikim bolovima. Unutrasnje krvarenje.', 0)
+INSERT [dbo].[Examinations] ([Id], [AppointmentId], [Report], [Deleted]) VALUES (6, 5, 'Pacijent je nepokretan. Premesten u sobu za hitne slucajeve.', 0)
+INSERT [dbo].[Examinations] ([Id], [AppointmentId], [Report], [Deleted]) VALUES (7, 7, 'Pacijent je u bolovima sa dijagnostikovanim "Enteritis salmonellosa".', 0)
+INSERT [dbo].[Examinations] ([Id], [AppointmentId], [Report], [Deleted]) VALUES (8, 8, 'Pacijent je u losem stanju. Uzrokovan "Enteritis campylobacterialis", tj zapaljenjem creva.', 0)
+
+
 SET IDENTITY_INSERT [dbo].[Examinations] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Symptoms] ON 
@@ -197,15 +207,17 @@ GO
 SET IDENTITY_INSERT [dbo].[Prescriptions] ON 
 
 INSERT [dbo].[Prescriptions] ([Id], [Description], [ExaminationId], [Deleted]) VALUES (1, 'Svaki dan 3x na svakih osam sati, posle obroka.', 1, 0)
-INSERT [dbo].[Prescriptions] ([Id], [Description], [ExaminationId], [Deleted]) VALUES (2, 'Svaki drugi dan 1x na prazan stomak.', 1, 0)
+INSERT [dbo].[Prescriptions] ([Id], [Description], [ExaminationId], [Deleted]) VALUES (2, 'Svaki dan 1x na prazan stomak.', 2, 0)
+INSERT [dbo].[Prescriptions] ([Id], [Description], [ExaminationId], [Deleted]) VALUES (3, '3x na dan, po dve tablete.', 3, 0)
+INSERT [dbo].[Prescriptions] ([Id], [Description], [ExaminationId], [Deleted]) VALUES (4, 'Svaki dan posle obroka. "quaque die ante cibum"', 4, 0)
 SET IDENTITY_INSERT [dbo].[Prescriptions] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Medicines] ON 
 
 INSERT [dbo].[Medicines] ([Id], [Name], [Quantity], [PrescriptionId], [RoomId], [Deleted]) VALUES (1, 'Brufen', 12, 1, 4, 0)
-INSERT [dbo].[Medicines] ([Id], [Name], [Quantity], [PrescriptionId], [RoomId], [Deleted]) VALUES (2, 'Aspirin', 20, 1, 4, 0)
-INSERT [dbo].[Medicines] ([Id], [Name], [Quantity], [PrescriptionId], [RoomId], [Deleted]) VALUES (3, 'Dexomen', 10, 1, 4, 0)
-INSERT [dbo].[Medicines] ([Id], [Name], [Quantity], [PrescriptionId], [RoomId], [Deleted]) VALUES (4, 'Robenan', 5, 1, 4, 0)
+INSERT [dbo].[Medicines] ([Id], [Name], [Quantity], [PrescriptionId], [RoomId], [Deleted]) VALUES (2, 'Aspirin', 20, 2, 4, 0)
+INSERT [dbo].[Medicines] ([Id], [Name], [Quantity], [PrescriptionId], [RoomId], [Deleted]) VALUES (3, 'Dexomen', 10, 3, 4, 0)
+INSERT [dbo].[Medicines] ([Id], [Name], [Quantity], [PrescriptionId], [RoomId], [Deleted]) VALUES (4, 'Robenan', 5, 4, 4, 0)
 INSERT [dbo].[Medicines] ([Id], [Name], [Quantity], [PrescriptionId], [RoomId], [Deleted]) VALUES (5, 'Fervex', 1, 1, 4, 0)
 SET IDENTITY_INSERT [dbo].[Medicines] OFF
 GO
@@ -229,3 +241,36 @@ INSERT INTO [dbo].[WorkingDays]([Id], [Day],[StartTime],[EndTime],[DoctorId],[De
 INSERT INTO [dbo].[WorkingDays]([Id], [Day],[StartTime],[EndTime],[DoctorId],[Deleted]) VALUES(6, 2,'2022-12-12 08:00:00.0000000','2022-12-12 18:00:00.0000000',2,0)
 SET IDENTITY_INSERT [dbo].[WorkingDays] OFF
 GO
+SET IDENTITY_INSERT [dbo].[DoctorSchedule] ON 
+
+INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (1, 1, 1, 8, 0, 12, 0)
+INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (1, 2, 2, 8, 0, 12, 0)
+INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (1, 3, 3, 8, 0, 12, 0)
+INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (1, 4, 4, 8, 0, 12, 0)
+INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (1, 5, 5, 8, 0, 12, 0)
+
+INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (2, 6, 1, 8, 0, 12, 0)
+INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (2, 7, 2, 8, 0, 12, 0)
+INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (2, 8, 3, 8, 0, 12, 0)
+INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (2, 9, 4, 8, 0, 12, 0)
+INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (2, 10, 5, 8, 0, 12, 0)
+
+INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (3, 11, 1, 8, 0, 12, 0)
+INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (3, 12, 2, 8, 0, 12, 0)
+INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (3, 13, 3, 8, 0, 12, 0)
+INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (3, 14, 4, 8, 0, 12, 0)
+INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (3, 15, 5, 8, 0, 12, 0)
+
+INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (4, 16, 1, 8, 0, 12, 0)
+INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (4, 17, 2, 8, 0, 12, 0)
+INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (4, 18, 3, 8, 0, 12, 0)
+INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (4, 19, 4, 8, 0, 12, 0)
+INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (4, 20, 5, 8, 0, 12, 0)
+
+INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (5, 21, 1, 8, 0, 12, 0)
+INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (5, 22, 2, 8, 0, 12, 0)
+
+INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (6, 23, 3, 8, 0, 12, 0)
+INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (6, 24, 4, 8, 0, 12, 0)
+
+SET IDENTITY_INSERT [dbo].[Patients] OFF

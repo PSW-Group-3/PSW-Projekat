@@ -14,7 +14,7 @@ namespace IntegrationLibrary.Core.Service
         public RabbitMQService() {}
         public void Send()
         {
-            News n1 = new News("Title 1", "Text1", DateTime.Now, 2);
+            News n1 = new News("Title 1", "Text1", DateTime.Now, 2,"");
             var factory = new ConnectionFactory
             {
                 Uri = new Uri("amqp://guest:guest@localhost:5672")

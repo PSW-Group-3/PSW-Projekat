@@ -17,9 +17,10 @@ namespace HospitalTests.e2e_T10.Pages
         public static bool Err { get; set; } = true;
 
         private IWebElement PatientsTable => driver.FindElement(By.Id("patientsTable"));
-        private IWebElement BlockButton => driver.FindElement(By.Id("9"));
-
-        private IWebElement UnblockButton => driver.FindElement(By.Id("10"));
+        private IWebElement BlockButton => driver.FindElement(By.Id("9Block"));
+        private IWebElement UnblockButton => driver.FindElement(By.Id("10Unblock"));
+        private IWebElement NewBlockButton => driver.FindElement(By.Id("9Unblock"));
+        private IWebElement NewUnblockButton => driver.FindElement(By.Id("10Block"));
 
         public IWebElement isBlockedFirst => driver.FindElement(By.XPath("//table[@id='patientsTable']/tbody/tr[1]/td[3]"));
         public IWebElement isBlockedLast => driver.FindElement(By.XPath("//table[@id='patientsTable']/tbody/tr[last()]/td[3]"));
@@ -42,6 +43,16 @@ namespace HospitalTests.e2e_T10.Pages
         public void SubmitUnblock()
         {
             UnblockButton.Click();
+        }
+
+        public Boolean BlockButtonHasDisappeared()
+        {
+            return NewBlockButton.Enabled;
+        }
+
+        public Boolean UnblockButtonHasDisappeared()
+        {
+            return NewUnblockButton.Enabled;
         }
 
         public void Navigate() => driver.Navigate().GoToUrl(URI);
@@ -70,6 +81,46 @@ namespace HospitalTests.e2e_T10.Pages
         {
             var wait = new WebDriverWait(driver, new TimeSpan(0, 0, 3));
             wait.Until(condition: ExpectedConditions.PresenceOfAllElementsLocatedBy(By.CssSelector(".toast-message")));
+        }
+
+        public void EnsureBlockButtonHasDisappeared()
+        {
+            var wait = new WebDriverWait(driver, new TimeSpan(0, 0, 20));
+            wait.Until(condition =>
+            {
+                try
+                {
+                    return BlockButtonHasDisappeared();
+                }
+                catch (StaleElementReferenceException)
+                {
+                    return false;
+                }
+                catch (NoSuchElementException)
+                {
+                    return false;
+                }
+            });
+        }
+
+        public void EnsureUnblockButtonHasDisappeared()
+        {
+            var wait = new WebDriverWait(driver, new TimeSpan(0, 0, 20));
+            wait.Until(condition =>
+            {
+                try
+                {
+                    return UnblockButtonHasDisappeared();
+                }
+                catch (StaleElementReferenceException)
+                {
+                    return false;
+                }
+                catch (NoSuchElementException)
+                {
+                    return false;
+                }
+            });
         }
     }
 }
