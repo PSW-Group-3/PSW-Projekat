@@ -9,11 +9,12 @@ import { DoctorExaminationDTO } from '../model/doctorExaminationDTO';
 export class DoctorExaminationEventService {
 
   headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
+  apiHost: string = 'http://localhost:16177/';
 
   constructor(private http: HttpClient) { }
 
   DoctorExaminationAggregateStartTime(): Observable<number> {
-    return this.http.get<number>('api/DoctorExaminationEvent/DoctorExaminationAggregateStartTime/' + localStorage.getItem("currentUserId"), {headers: this.headers});
+    return this.http.get<number>(this.apiHost+ 'api/DoctorExaminationEvent/DoctorExaminationAggregateStartTime/' + localStorage.getItem("currentUserId"), {headers: this.headers});
   }
 
   DoctorExaminationAggregateEndTime(dto: DoctorExaminationDTO): Observable<DoctorExaminationDTO> {

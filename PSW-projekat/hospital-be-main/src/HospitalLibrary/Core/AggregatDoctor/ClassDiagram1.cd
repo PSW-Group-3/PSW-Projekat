@@ -61,7 +61,7 @@
       <FileName>Core\AggregatDoctor\Events\BackToSymptomsSelection.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="HospitalLibrary.Core.AggregatDoctor.Events.DoctorSelectedPrescriptions" Collapsed="true">
+  <Class Name="HospitalLibrary.Core.AggregatDoctor.Events.DoctorSelectedPrescriptions">
     <Position X="16.5" Y="7.25" Width="1.5" />
     <Compartments>
       <Compartment Name="Methods" Collapsed="true" />
@@ -94,14 +94,14 @@
   <Class Name="HospitalLibrary.Core.Model.Symptom" Collapsed="true">
     <Position X="25.25" Y="7" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAACAAAAQAIAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAgAACAAAAQAIAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Core\Model\Symptom.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="HospitalLibrary.Core.Model.Prescription" Collapsed="true">
+  <Class Name="HospitalLibrary.Core.Model.Prescription">
     <Position X="27" Y="8.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAACAA=</HashCode>
+      <HashCode>AAAAAAAAAAAgAAgAAAAAAAAAAAAAAAAAAAAAAAAACAA=</HashCode>
       <FileName>Core\Model\Prescription.cs</FileName>
     </TypeIdentifier>
   </Class>

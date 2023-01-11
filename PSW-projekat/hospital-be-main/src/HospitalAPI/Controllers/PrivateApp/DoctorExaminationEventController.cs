@@ -25,7 +25,7 @@ namespace HospitalAPI.Controllers.PrivateApp
             _doctorService = doctorService;
         }
 
-        [HttpGet("DoctorExaminationAggregateStartTime")]
+        [HttpGet("DoctorExaminationAggregateStartTime/{doctorId}")]
         public ActionResult DoctorExaminationAggregateStartTime(int doctorId)
         {
             DoctorExamination doctorExamination = new DoctorExamination();

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HospitalLibrary.Core.AggregatDoctor;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,7 @@ namespace HospitalLibrary.Core.Model
     {
         public virtual ICollection<Medicine> Medicines { get; set; }
         public String Description { get; set; }
+        public virtual List<DomainEvent> Changes { get; set; }
 
         public Prescription() { }
 

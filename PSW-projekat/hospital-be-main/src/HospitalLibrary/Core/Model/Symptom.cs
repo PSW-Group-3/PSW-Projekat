@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using HospitalLibrary.Core.AggregatDoctor;
 using Microsoft.EntityFrameworkCore;
 
 namespace HospitalLibrary.Core.Model
@@ -8,6 +9,8 @@ namespace HospitalLibrary.Core.Model
     public class Symptom : BaseModel
     {
         public String Name { get; set; }
+        public virtual List<DomainEvent> Changes { get; set; }
+
 
         public Symptom() { }
 
