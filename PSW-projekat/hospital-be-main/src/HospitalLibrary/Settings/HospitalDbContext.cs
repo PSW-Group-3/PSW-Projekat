@@ -1,4 +1,6 @@
-﻿using HospitalLibrary.Core.Model;
+﻿using HospitalLibrary.Core.AggregatDoctor;
+using HospitalLibrary.Core.AggregatDoctor.Events;
+using HospitalLibrary.Core.Model;
 using HospitalLibrary.Core.Model.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -30,9 +32,9 @@ namespace HospitalLibrary.Settings
 
         public DbSet<DoctorsCouncil> DoctorsCouncils { get; set; }
 
-        public DbSet<HospitalLibrary.Core.AggregatDoctor.DoctorExamination> DoctorExaminations { get; set; }
+        public DbSet<DoctorExamination> DoctorExaminations { get; set; }
 
-        public DbSet<HospitalLibrary.Core.AggregatDoctor.DomainEvent> DoctorExaminationEvents { get; set; }
+        public DbSet<DomainEvent> DoctorExaminationEvents { get; set; }
 
 
         public HospitalDbContext(DbContextOptions<HospitalDbContext> options) : base(options) { }
@@ -73,6 +75,13 @@ namespace HospitalLibrary.Settings
             modelBuilder.Entity<Person>().OwnsOne(e => e.Address);
 
             modelBuilder.Entity<Person>().OwnsOne(e => e.Jmbg);
+
+            modelBuilder.Entity<DoctorSelectedSymptoms>();
+            modelBuilder.Entity<DoctorSelectedPrescriptions>();
+            modelBuilder.Entity<DoctorWriteReport>();
+            modelBuilder.Entity<BackToSymptomsSelection>();
+            modelBuilder.Entity<BackToReportWritten>();
+            modelBuilder.Entity<BackToPrescriptionsSelection>();
 
             base.OnModelCreating(modelBuilder);
         }
