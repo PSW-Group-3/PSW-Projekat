@@ -11,6 +11,7 @@ namespace IntegrationAPI.DTO
         public DateTime DueDate { get; set; }
         [Required]
         public List<DemandDTO> Demands { get; set; }
+
         [Required]
         public TenderState State { get; set; }
     }

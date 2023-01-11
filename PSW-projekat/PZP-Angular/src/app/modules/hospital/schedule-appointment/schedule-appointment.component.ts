@@ -9,6 +9,8 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { AppointmentsService } from '../services/appointments.service';
 import { DateAndDoctorForNewAppointmentDto } from '../model/DateAndDoctorForNewAppointmentDto.model';
 import { LoginService } from '../services/login.service';
+import { EventSourcingService } from '../services/event-sourcing.service';
+import { AppointmentSchedulingEventDTO } from '../model/appointment-scheduling-event-dto';
 
 @Component({
   selector: 'app-schedule-appointment',
@@ -31,7 +33,7 @@ export class ScheduleAppointmentComponent implements OnInit {
 
   stepperOrientation: Observable<StepperOrientation> | undefined;
 
-  constructor(private router: Router, private fb: FormBuilder, private breakpointObserver: BreakpointObserver, private appointmentsService: AppointmentsService, private loginService: LoginService) { }
+  constructor(private router: Router, private fb: FormBuilder, private breakpointObserver: BreakpointObserver, private appointmentsService: AppointmentsService, private loginService: LoginService, private eventSourcingService: EventSourcingService) { }
 
   ngOnInit(): void {
     this.stepperOrientation = this.breakpointObserver
@@ -42,20 +44,22 @@ export class ScheduleAppointmentComponent implements OnInit {
       date: [Date, [Validators.required]]
     });
     this.specializationForm = this.fb.group({
-      specialization: [Specialization, [Validators.required]]
+      specialization: ['', [Validators.required]]
     });
     this.doctorForm = this.fb.group({
-      doctor: [DoctorForPatientRegistrationDto, [Validators.required]]
+      doctor: ['', [Validators.required]]
     });
     this.timeForm  = this.fb.group({
-      time: [Number, [Validators.required]]
+      time: ['', [Validators.required]]
     });
+    this.AppointmentSchedulingAggregateStartTime();
   }
 
   getDoctors(){
     this.appointmentsService.getAllDoctorsBySpecialization(this.specializationForm.value.specialization).subscribe(res => {
       this.doctors = res;
     });
+    this.ChooseDoctorSpecialization();
   }
 
   getFreeAppointmentTimes(){
@@ -65,6 +69,7 @@ export class ScheduleAppointmentComponent implements OnInit {
     this.appointmentsService.getFreeAppointmentsForDoctor(dto).subscribe(res => {
       this.freeAppointments = res;
     });
+    this.ChooseDoctor();
   }
 
   schedule(){
@@ -75,14 +80,61 @@ export class ScheduleAppointmentComponent implements OnInit {
     appointmentInfo.scheduledDate.setHours(this.timeForm.value.time.split(':')[0]);
     appointmentInfo.scheduledDate.setMinutes(this.timeForm.value.time.split(':')[1]);
 
+    this.AppointmentSchedulingAggregateEndTime();
+
     this.appointmentsService.scheduleAppointment(appointmentInfo).subscribe(res => {
       this.router.navigate(['/homePatient']);
     });
   }
 
   logout(){
-    this.loginService.logout().subscribe(res => {
-      
-    }) 
+    this.loginService.logout().subscribe(res => {}) 
   }
+
+  //Event Sourcing Functions
+  AppointmentSchedulingAggregateStartTime(){
+    this.eventSourcingService.AppointmentSchedulingAggregateStartTime().subscribe(res => {
+      localStorage.setItem('aggregateId', res.toString());
+    });
+  }
+  AppointmentSchedulingAggregateEndTime(){
+    let dto: AppointmentSchedulingEventDTO = new AppointmentSchedulingEventDTO(parseInt(localStorage.getItem("aggregateId")!), "");   
+    this.eventSourcingService.AppointmentSchedulingAggregateEndTime(dto).subscribe(res => {});
+  }
+
+  ChooseAppointmentDate(){
+    let dateString: string = this.dateForm.value.date.toString().substr(0,15);
+    let dto: AppointmentSchedulingEventDTO = new AppointmentSchedulingEventDTO(parseInt(localStorage.getItem("aggregateId")!), dateString);   
+    this.eventSourcingService.ChooseAppointmentDate(dto).subscribe(res => {});
+  }
+  ChooseDoctorSpecialization(){
+    let dto: AppointmentSchedulingEventDTO = new AppointmentSchedulingEventDTO(parseInt(localStorage.getItem("aggregateId")!), this.specializationForm.value.specialization);  
+    this.eventSourcingService.ChooseDoctorSpecialization(dto).subscribe(res => {});
+  }
+  ChooseDoctor(){
+    let dto: AppointmentSchedulingEventDTO = new AppointmentSchedulingEventDTO(parseInt(localStorage.getItem("aggregateId")!), this.doctorForm.value.doctor.fullName);   
+    this.eventSourcingService.ChooseDoctor(dto).subscribe(res => {});
+  }
+  ChooseAppointmentTime(){
+    let dto: AppointmentSchedulingEventDTO = new AppointmentSchedulingEventDTO(parseInt(localStorage.getItem("aggregateId")!), this.timeForm.value.time);
+    this.eventSourcingService.ChooseAppointmentTime(dto).subscribe(res => {});
+  }
+
+  BackToAppointmentDateChoosing(){
+    let dto: AppointmentSchedulingEventDTO = new AppointmentSchedulingEventDTO(parseInt(localStorage.getItem("aggregateId")!), "");   
+    this.eventSourcingService.BackToAppointmentDateChoosing(dto).subscribe(res => {});
+  }
+  BackToSpecializationChoosing(){
+    let dto: AppointmentSchedulingEventDTO = new AppointmentSchedulingEventDTO(parseInt(localStorage.getItem("aggregateId")!), "");   
+    this.eventSourcingService.BackToSpecializationChoosing(dto).subscribe(res => {});
+  }
+  BackToDoctorChoosing(){
+    let dto: AppointmentSchedulingEventDTO = new AppointmentSchedulingEventDTO(parseInt(localStorage.getItem("aggregateId")!), "");   
+    this.eventSourcingService.BackToDoctorChoosing(dto).subscribe(res => {});
+  }
+  BackToAppointmentTimeChoosing(){
+    let dto: AppointmentSchedulingEventDTO = new AppointmentSchedulingEventDTO(parseInt(localStorage.getItem("aggregateId")!), "");   
+    this.eventSourcingService.BackToAppointmentTimeChoosing(dto).subscribe(res => {});
+  }
+
 }

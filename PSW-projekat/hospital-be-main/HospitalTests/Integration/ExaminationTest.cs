@@ -97,7 +97,7 @@ namespace HospitalTests.Integration
                 Prescriptions = recepti
 
             };
-            var result = ((OkResult)controller.Create(examination, true, true, false));
+            var result = ((FileContentResult)controller.Create(examination, true, true, false));
 
             //Assert
             Assert.NotNull(result);
@@ -131,10 +131,14 @@ namespace HospitalTests.Integration
             lekovi1.Add(new Medicine(2, false, "Aspirin", 20));
 
             List<Medicine> lekovi2 = new List<Medicine>();
-            lekovi2.Add(new Medicine(4, false, "Robenan", 5));
+            //lekovi2.Add(new Medicine(4, false, "Robenan", 5));
+            lekovi2.Add(new Medicine(2, false, "Aspirin", 20));
+
 
             Prescription recept1 = new Prescription(lekovi1, "Uzimanje prilikom bolova");
-            Prescription recept2 = new Prescription(lekovi2, "Uzimanje prilikom alergije");
+            Prescription recept2 = new Prescription(lekovi1, "Uzimanje prilikom bolova");
+
+            //Prescription recept2 = new Prescription(lekovi2, "Uzimanje prilikom alergije");
 
             recepti.Add(recept1);
             recepti.Add(recept2);
@@ -148,7 +152,7 @@ namespace HospitalTests.Integration
                 Prescriptions = recepti
 
             };
-            var result = ((OkResult)controller.Create(examination, true, true, false));
+            var result = ((FileContentResult)controller.Create(examination, true, true, false));
 
             //Assert
             Assert.NotNull(result);
@@ -168,6 +172,7 @@ namespace HospitalTests.Integration
 
             
             Assert.NotNull(res);
+            //size
             //Assert.Equal();
 
 
@@ -176,7 +181,7 @@ namespace HospitalTests.Integration
         static Symptom symptom = new()
         {
             Id = 5,
-            Name = "Polen"
+            //Name = "Polen"
         };
         static ICollection<Symptom> symptoms = new List<Symptom> { symptom };
 

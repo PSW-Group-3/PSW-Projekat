@@ -2,7 +2,7 @@
     <div>
         <mat-form-field appearance="fill">
             <mat-label>Date and Time</mat-label>
-            <input type="datetime-local" matInput [(ngModel)]="appointment.dateTime" >
+            <input type="datetime-local" id="dateTime" matInput [(ngModel)]="appointment.dateTime" >
         </mat-form-field><br>
         <mat-form-field appearance="fill">
             <mat-label>Name</mat-label>
@@ -12,7 +12,7 @@
             <mat-label>Surname</mat-label>
             <input matInput [(ngModel)]="appointment.patient.surname" disabled>
         </mat-form-field>
-        <button mat-stroked-button (click)="updateAppointment()">
+        <button id="submitButton" mat-stroked-button (click)="updateAppointment()">
             Submit
         </button>
     </div>

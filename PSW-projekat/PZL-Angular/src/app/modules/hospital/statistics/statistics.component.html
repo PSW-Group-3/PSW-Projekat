@@ -34,12 +34,14 @@
         </ul>
       </div>
     </nav>
-  </div>
-<div class="row p-5 mx-3 justify-content-evenly">
-    <div class="col-lg-5 ms-2 table-responsive">
-        <h2 class="mb-2 ms-1">Age distribution by doctor</h2>
-        <table class="table table-secondary table-hover mt-auto">
-            <thead class="border-bottom border-dark">
+</div>
+<div class="d-flex flex-column w-100">
+  <div class="d-flex mx-4 ps-2 mt-5 fs-2 fw-bold pb-3 border-dark border-bottom border-3"><span>Patients Statistics</span></div>
+  <div class="d-flex flex-wrap justify-content-evenly mx-4">
+    <div class="mt-4 bg-light p-4 rounded mx-2 shadow-lg flex-fill" style="max-width:max(47%, 430px)">
+        <span class="fs-5 fw-bold">Age distribution by doctor</span>
+        <table class="table table-bordered table-hover mt-3">
+            <thead>
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Name</th>
@@ -65,24 +67,87 @@
             </tbody>
         </table>
     </div>
-    <div class="col-lg-5 me-2 bg-light">
-        <h2 class="mb-2 ms-1">Age distribution by gender</h2>
-        <canvas id="genderAgeChart">{{ genderAgeChart }}</canvas>
-    </div>        
-</div>
-<div class="row p-5 mx-3 justify-content-evenly">
-    <div class="col-lg-5 ms-2">
-        <h2 class="mb-2 ms-1">Allergy popularity</h2>
-        <canvas  baseChart 
+    <div class="mt-4 bg-light p-4 rounded mx-2 shadow-lg flex-fill" style="max-width:max(47%, 430px); aspect-ratio: 2  / 1">
+      <span class="fs-5 fw-bold">Age distribution by gender</span>
+      <canvas id="genderAgeChart" class="mt-3">{{ genderAgeChart }}</canvas>
+    </div>
+  </div>        
+  <div class="d-flex flex-wrap justify-content-evenly mx-4">
+    <div class="mt-4 bg-light p-4 rounded mx-2 shadow-lg flex-fill" style="max-width:max(47%, 430px); aspect-ratio: 2  / 1">
+      <span class="fs-5 fw-bold">Allergy popularity</span>
+      <canvas  baseChart 
         [title]="barChartLegend"
         [type]="'pie'"
         [datasets]="allergyValues"
         [labels]="allergyNames"
         [options]="barChartOptions"> 
-    </canvas>
+      </canvas>
     </div>
-    <div class="col-lg-5 me-2">
-        <h2 class="mb-2 ms-1">Bloodtype popularity</h2>
-        <canvas id="bloodTypeChart" class="bg-light">{{ bloodTypeChart }}</canvas>
+    <div class="mt-4 bg-light p-4 rounded mx-2 shadow-lg flex-fill" style="max-width:max(47%, 430px); aspect-ratio: 2  / 1">
+      <span class="fs-5 fw-bold">Bloodtype popularity</span>
+      <canvas id="bloodTypeChart" class="bg-light">{{ bloodTypeChart }}</canvas>
     </div>
+  </div>
+
+  <div class="d-flex mx-4 ps-2 mt-5 fs-2 fw-bold pb-3 border-dark border-bottom border-3"><span>Scheduling Appointments Statistics</span></div>
+  <div class="d-flex flex-wrap justify-content-evenly mx-4">
+    <div class="mt-4 bg-light p-4 rounded mx-2 shadow-lg flex-fill" style="max-width:max(47%, 430px); aspect-ratio: 2  / 1">
+      <span class="fs-5 fw-bold">Ratio of linear and nonlinear schdulings</span>
+      <canvas  baseChart 
+        [title]="'Ratio of linear and nonlinear schdulings'"
+        [type]="'pie'"
+        [datasets]="linearAndNonlinearSchedulingsData"
+        [labels]="linearAndNonlinearSchedulingsLables"
+        [options]="barChartOptions"
+        class="mt-3"> 
+      </canvas>
+    </div>
+    <div class="mt-4 bg-light p-4 rounded mx-2 shadow-lg flex-fill" style="max-width:max(47%, 430px); aspect-ratio: 2  / 1">
+      <span class="fs-5 fw-bold">Finished and unfinished schedulings per day</span>
+      <canvas id="schedulingsPerDayChart" class="mt-3">{{ schedulingsPerDayChart }}</canvas>
+    </div>
+  </div>
+
+  <div class="d-flex flex-wrap justify-content-evenly mx-4">
+    <div class="mt-4 bg-light p-4 rounded mx-2 shadow-lg flex-fill" style="max-width:max(47%, 430px)">
+      <span class="fs-5 fw-bold">Average number of steps for successful scheduling: {{avarageNumberOfSteps}}</span>
+    </div>
+    <div class="mt-4 bg-light p-4 rounded mx-2 shadow-lg flex-fill" style="max-width:max(47%, 430px)">
+      <span class="fs-5 fw-bold">Average time for successful scheduling: {{ avarageSchedulingDuration }} seconds</span>
+    </div>
+  </div>
+
+  <div class="d-flex flex-wrap justify-content-evenly mx-4">
+    <div class="mt-4 bg-light p-4 rounded mx-2 shadow-lg flex-fill" style="max-width:max(47%, 430px); aspect-ratio: 2  / 1">
+      <span class="fs-5 fw-bold">Average number of views for each steps</span>
+      <canvas id="avarageNumberOfEachStep" class="mt-3">{{ avarageNumberOfEachStep }}</canvas>
+    </div>
+    <div class="mt-4 bg-light p-4 rounded mx-2 shadow-lg flex-fill" style="max-width:max(47%, 430px); aspect-ratio: 2 / 1">
+      <span class="fs-5 fw-bold">Average time for each step in successful schedulings:</span>
+    </div>
+  </div>
+
+  <div class="d-flex flex-wrap justify-content-evenly mx-4 mb-5">
+    <div class="mt-4 bg-light p-4 rounded shadow-lg flex-fill" style="max-width:max(96.4%, 430px)">
+      <span class="fs-5 fw-bold">Number of finished and unfinished schedulings per patient</span>
+      <table class="table table-bordered table-hover mt-3">
+          <thead>
+              <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Full Name</th>
+                  <th scope="col">Number of scheduled appointments</th>
+                  <th scope="col">Number of interuped atempts</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let row of schedulingAppointmentEventsStatistic.numberOfFinishedAndUnfinishedSchedulingForAllPatients; index as i">
+                  <th scope="row">{{i+1}}</th>
+                  <td>{{ row.fullName }}</td>
+                  <td>{{ row.numberOfFinishedSchedulings }}</td>
+                  <td>{{ row.numberOfUnfinishedSchedulings }}</td>
+              </tr>
+          </tbody>
+      </table>
+    </div>
+  </div>
 </div>

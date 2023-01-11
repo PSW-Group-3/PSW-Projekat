@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace IntegrationAPITests.Setup
@@ -30,7 +31,7 @@ namespace IntegrationAPITests.Setup
             var descriptor = services.SingleOrDefault(d => d.ServiceType == typeof(DbContextOptions<IntegrationDbContext>));
             services.Remove(descriptor);
 
-            services.AddDbContext<IntegrationDbContext>(opt => opt.UseSqlServer(CreateConnectionStringForTest()));
+            services.AddDbContext<IntegrationDbContext>(opt => opt.UseSqlServer(CreateConnectionStringForTest()).UseLazyLoadingProxies());
             return services.BuildServiceProvider();
         }
 
@@ -43,60 +44,10 @@ namespace IntegrationAPITests.Setup
         {
             context.Database.EnsureCreated();
 
-            context.Database.ExecuteSqlRaw("TRUNCATE TABLE \"BloodBanks\";");
-            context.Database.ExecuteSqlRaw("TRUNCATE TABLE \"ReportSettings\";");
-            context.Database.ExecuteSqlRaw("TRUNCATE TABLE \"BloodRequests\";");
-            context.Database.ExecuteSqlRaw("TRUNCATE TABLE \"Demands\";");
-            context.Database.ExecuteSqlRaw("DELETE FROM \"Tenders\";");
-            context.Database.ExecuteSqlRaw("TRUNCATE TABLE \"Bids\"; ");
-
-            context.Bids.Add(new Bid
-            {
-                DeliveryDate = System.DateTime.Now.AddDays(-1),
-                Price = 2000,
-                TenderOfBidId = 1,
-                BloodBankId = 1,
-                Status = BidStatus.WAITING
-            });
-
-
-
-            //context.BloodBanks.Add(new BloodBank {
-            //    Name = "prva",
-            //    Email = "prva@gmail.com",
-            //    Password = "prva",
-            //    ApiKey = "sadfasdads",
-            //    ServerAddress = "https://www.messenger.com/t/100001603572170",
-            //    AccountStatus = AccountStatus.ACTIVE,
-            //    GRPCServerAddress = "aaa"
-            //});
-            //context.BloodBanks.Add(new BloodBank {
-            //    Name = "druga",
-            //    Email = "druga@gmail.com",
-            //    Password = "druga",
-            //    ApiKey = "sadfasdads",
-            //    ServerAddress = "https://www.messenger.com/t/100001603572170",
-            //    AccountStatus = AccountStatus.ACTIVE,
-            //    GRPCServerAddress = "aaa"
-            //});
-            //context.BloodBanks.Add(new BloodBank {
-            //    Name = "treca",
-            //    Email = "treca@gmail.com",
-            //    Password = "treca",
-            //    ApiKey = "sadfasdads",
-            //    ServerAddress = "https://www.messenger.com/t/100001603572170",
-            //    AccountStatus = AccountStatus.ACTIVE,
-            //    GRPCServerAddress = "aaa"
-            //});
-            //context.BloodBanks.Add(new BloodBank {
-            //    Name = "cetrvta",
-            //    Email = "cetrvta@gmail.com",
-            //    Password = "cetrvta",
-            //    ApiKey = "sadfasdads",
-            //    ServerAddress = "https://www.messenger.com/t/100001603572170",
-            //    AccountStatus = AccountStatus.ACTIVE,
-            //    GRPCServerAddress = "aaa"
-            //});
+            context.Database.ExecuteSqlRaw("TRUNCATE TABLE BloodBanks;");
+            context.Database.ExecuteSqlRaw("TRUNCATE TABLE ReportSettings;");
+            context.Database.ExecuteSqlRaw("TRUNCATE TABLE BloodRequests;");
+            SetupTenderAndBids(context);
 
             context.BloodBanks.Add(new BloodBank("prva", "asdasd@gmail.com", "asdsadsdadas", "https://www.messenger.com/t/100001603572170", "sadfasdads", "asddsadasdsa", null, AccountStatus.ACTIVE));
             context.BloodBanks.Add(new BloodBank("aa", "asdasd@gmail.com", "asdsadsdadas", "https://www.messenger.com/t/100001603572170", "sadfasdads", "asddsadasdsa", null, AccountStatus.ACTIVE));
@@ -116,7 +67,7 @@ namespace IntegrationAPITests.Setup
             context.BloodRequests.Add(new BloodRequest
             {
                 BloodBankId = 1,
-                BloodQuantity = 2,
+                BloodQuantity = new Quantity(2),
                 BloodType = BloodType.ON,
                 Reason = "For operation",
                 RequestState = RequestState.Accepted,
@@ -127,7 +78,7 @@ namespace IntegrationAPITests.Setup
             context.BloodRequests.Add(new BloodRequest
             {
                 BloodBankId = 1,
-                BloodQuantity = 3,
+                BloodQuantity = new Quantity(3),
                 BloodType = BloodType.OP,
                 Reason = "For operation",
                 RequestState = RequestState.Accepted,
@@ -138,7 +89,7 @@ namespace IntegrationAPITests.Setup
 
             context.BloodRequests.Add(new BloodRequest
             {
-                BloodQuantity = 1,
+                BloodQuantity = new Quantity(1),
                 BloodType = BloodType.BP,
                 DoctorId = 4,
                 Reason = "sadasddas",
@@ -149,7 +100,7 @@ namespace IntegrationAPITests.Setup
 
             context.BloodRequests.Add(new BloodRequest
             {
-                BloodQuantity = 5,
+                BloodQuantity = new Quantity(5),
                 BloodType = BloodType.BN,
                 DoctorId = 2,
                 Reason = "asdasddas",
@@ -160,7 +111,7 @@ namespace IntegrationAPITests.Setup
 
             context.BloodRequests.Add(new BloodRequest
             {
-                BloodQuantity = 5,
+                BloodQuantity = new Quantity(5),
                 BloodType = BloodType.BN,
                 DoctorId = 1,
                 Reason = "asdasddas",
@@ -171,7 +122,7 @@ namespace IntegrationAPITests.Setup
 
             context.BloodRequests.Add(new BloodRequest
             {
-                BloodQuantity = 5,
+                BloodQuantity = new Quantity(5),
                 BloodType = BloodType.BN,
                 DoctorId = 3,
                 Reason = "asdasddas",
@@ -182,7 +133,7 @@ namespace IntegrationAPITests.Setup
 
             context.BloodRequests.Add(new BloodRequest
             {
-                BloodQuantity = 5,
+                BloodQuantity = new Quantity(5),
                 BloodType = BloodType.ON,
                 DoctorId = 2,
                 Reason = "asdasddas",
@@ -192,7 +143,7 @@ namespace IntegrationAPITests.Setup
             });
             context.BloodRequests.Add(new BloodRequest
             {
-                BloodQuantity = 2,
+                BloodQuantity = new Quantity(2),
                 BloodType = BloodType.ON,
                 DoctorId = 2,
                 Reason = "asdasddas",
@@ -203,7 +154,7 @@ namespace IntegrationAPITests.Setup
             });
             context.BloodRequests.Add(new BloodRequest
             {
-                BloodQuantity = 2,
+                BloodQuantity = new Quantity(2),
                 BloodType = BloodType.OP,
                 DoctorId = 2,
                 Reason = "asdasddas",
@@ -220,9 +171,28 @@ namespace IntegrationAPITests.Setup
                 Text = " Come and give me blood",
                 DateTime = new DateTime(2022, 01, 01, 9, 15, 0),
                 BloodBankId = 1,
-            }); 
+            });
 
             context.SaveChanges();
+        }
+
+        private static void SetupTenderAndBids(IntegrationDbContext context)
+        {
+            context.Database.ExecuteSqlRaw("TRUNCATE TABLE Bids;");
+            context.Database.ExecuteSqlRaw("ALTER TABLE Bids\n" +
+                "DROP CONSTRAINT FK_Bids_Tenders_TenderId");
+            context.Database.ExecuteSqlRaw("TRUNCATE TABLE Tenders;");
+            context.Database.ExecuteSqlRaw("ALTER TABLE Bids\n" +
+                "ADD CONSTRAINT FK_Bids_Tenders_TenderId FOREIGN KEY (TenderId) REFERENCES Tenders(Id)");
+
+            Tender tender1 = new Tender(DateTime.Now.AddDays(1), new List<Demand>()
+            {
+                new Demand(BloodType.AN, 5),
+                new Demand(BloodType.AP, 9)
+            });
+            tender1.BidOnTender(new Bid(DateTime.MaxValue, 1000, 1));
+            tender1.BidOnTender(new Bid(DateTime.Now, 1000, 2));
+            context.Tenders.Add(tender1);
         }
     }
 }

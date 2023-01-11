@@ -6,7 +6,6 @@ import { BloodBankService } from '../../blood-banks/services/blood-bank.service'
 import { Bid } from '../model/bid.model';
 import { TenderState } from '../model/tender-state.enum';
 import { Tender } from '../model/tender.model';
-import { BidService } from '../services/bid.service';
 import { TenderService } from '../services/tender.service';
 
 @Component({
@@ -16,7 +15,7 @@ import { TenderService } from '../services/tender.service';
 })
 export class ViewSingleTenderComponent implements OnInit {
 
-  constructor(private bloodBankService: BloodBankService,private tenderService: TenderService,private bidService: BidService, private router: Router) { }
+  constructor(private bloodBankService: BloodBankService,private tenderService: TenderService, private router: Router) { }
 
   public banks: BloodBank[] = [];
   public dataSourceBids = new MatTableDataSource<Bid>();
@@ -28,11 +27,9 @@ export class ViewSingleTenderComponent implements OnInit {
   public errorMessage: any;
 
   ngOnInit(): void {
-    this.bidService.getBidsForTender(this.tenderService.selectedTender.id).subscribe(res => {
-      this.dataSourceBids.data = res;
-      this.bids = res;
-      console.log(res);
-      
+    this.tenderService.getTender(this.tenderService.selectedTender.id).subscribe(res => {
+      this.dataSourceBids.data = res.bids;
+      this.bids = res.bids;
     })
 
     this.bloodBankService.getBloodBanks().subscribe(res => {
@@ -62,13 +59,10 @@ export class ViewSingleTenderComponent implements OnInit {
   }
 
   public SelectWiner(bid:Bid){
-    //TODO:
-    this.bidService.SelectWinner(bid).subscribe(res => {
-      console.log(res);
+    this.tenderService.closeTender(this.tenderService.selectedTender.id, bid.id).subscribe(res => {
       this.router.navigate(['view-tenders']);
     },(error) => {
       this.errorMessage = error;
-    }
-    )
+    })
   }
 }

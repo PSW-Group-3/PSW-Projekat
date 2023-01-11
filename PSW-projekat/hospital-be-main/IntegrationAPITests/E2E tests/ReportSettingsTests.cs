@@ -16,8 +16,6 @@ namespace IntegrationAPITests.E2E_tests
         private readonly IWebDriver driver;
         private Pages.LoginPage loginPage;
         private Pages.ReportSettingsPage reportSettingsPage;
-        //private Pages.CreateProductPage createProductPage;
-        //private int productsCount = 0;
 
         public ReportSettingsTests()
         {
@@ -38,11 +36,11 @@ namespace IntegrationAPITests.E2E_tests
             loginPage.InsertUsername("pera");
             loginPage.InsertPassword("123");
             loginPage.SubmitForm();
-            Thread.Sleep(3000);
-            loginPage.ErrorDivDisplayed().ShouldBe(false);
+            loginPage.WaitForLoginChangePage();
             reportSettingsPage = new Pages.ReportSettingsPage(driver);
             reportSettingsPage.Navigate();
-            Thread.Sleep(3000);
+            reportSettingsPage.WaitForStart();
+            Thread.Sleep(300);
         }
 
         public void Dispose()
@@ -57,10 +55,7 @@ namespace IntegrationAPITests.E2E_tests
             reportSettingsPage.Select6MonthsDeliveryPeriod();
             reportSettingsPage.Select6MonthsCalculationPeriod();
             reportSettingsPage.SubmitForm();
-            try
-            {
-                 reportSettingsPage.WaitForToastDialog();
-            } catch (WebDriverTimeoutException) { }
+            reportSettingsPage.ToastSuccessfullDialog();
         }
 
         [Fact]
@@ -71,23 +66,18 @@ namespace IntegrationAPITests.E2E_tests
             reportSettingsPage.InsertCustomDeliveryPeriod(DateTime.Today, "5", "3", "1");
             reportSettingsPage.InsertCustomCalculationPeriod("2", "3", "1");
             reportSettingsPage.SubmitForm();
-            try
-            {
-                reportSettingsPage.WaitForToastDialog();
-                Assert.False(true);
-            }
-            catch (WebDriverTimeoutException) { }
+            reportSettingsPage.ToastSuccessfullDialog();
         }
 
         [Fact]
         public void Select_custom_period_failiure()
         {
-            reportSettingsPage.SelectCustomCalculationPeriod();
             reportSettingsPage.SelectCustomDeliveryPeriod();
+            reportSettingsPage.SelectCustomCalculationPeriod();
             reportSettingsPage.InsertCustomDeliveryPeriod(DateTime.Today, "40", "3", "1");
             reportSettingsPage.InsertCustomCalculationPeriod("39", "3", "1");
             reportSettingsPage.SubmitForm();
-            reportSettingsPage.WaitForToastDialog();
+            reportSettingsPage.ToastErrorDialog();
         }
     }
 }

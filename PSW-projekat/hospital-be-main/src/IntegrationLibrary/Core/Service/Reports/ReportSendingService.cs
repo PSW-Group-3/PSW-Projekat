@@ -1,10 +1,13 @@
 ﻿using IntegrationLibrary.Core.BloodBankConnection;
 using IntegrationLibrary.Core.Model;
+using IntegrationLibrary.Core.Model.MailRequests;
 using IntegrationLibrary.Core.Service.BloodBanks;
 using IntegrationLibrary.Core.Service.BloodRequests;
 using IntegrationLibrary.Core.Service.Generators;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,15 +20,17 @@ namespace IntegrationLibrary.Core.Service.Reports
         private readonly IReportSettingsService _reportSettingsService;
         private readonly IBloodBankService _bloodBankService;
         private readonly IBloodRequestService _bloodRequestService;
+        private readonly IEmailService _emailService;
         private readonly BloodReportPDFGenerator bloodReportPDFGenerator = new BloodReportPDFGenerator();
 
         public ReportSendingService(IBloodBankConnection bloodBankConnection, IReportSettingsService reportSettingsService,
-                                    IBloodBankService bloodBankService, IBloodRequestService bloodRequestService)
+                                    IBloodBankService bloodBankService, IBloodRequestService bloodRequestService, IEmailService emailService)
         {
             _bloodBankConnection = bloodBankConnection;
             _reportSettingsService = reportSettingsService;
             _bloodBankService = bloodBankService;
             _bloodRequestService = bloodRequestService;
+            _emailService = emailService;
         }
 
         public bool ReportShouldBeSent()
@@ -51,6 +56,7 @@ namespace IntegrationLibrary.Core.Service.Reports
         }
         public async Task<bool> GeneratePDFs()
         {
+            ReportSettings reportSettings = _reportSettingsService.GetFirst();
             bool isSuccess = false;
             foreach (BloodBank bank in (List<BloodBank>)_bloodBankService.GetAll())
             {
@@ -63,7 +69,18 @@ namespace IntegrationLibrary.Core.Service.Reports
                 {
                     bloodReportPDFGenerator.DeleteMadeFiles(bank.Name);
                     return isSuccess;
-                }     
+                } 
+                else
+                {
+                    List<IFormFile> pdfs = new List<IFormFile>();
+                    MemoryStream stream = new MemoryStream(pdfFile);
+                    pdfs.Add(new FormFile(stream, 0, pdfFile.Length, bloodReportPDFGenerator.createFileName(bank.Name), bloodReportPDFGenerator.createFileName(bank.Name)) 
+                    {
+                        Headers = new HeaderDictionary(),
+                        ContentType = "application/pdf" 
+                    });
+                    await _emailService.SendEmailAsync(new BloodBankPDFMailRequest(bank, pdfs, reportSettings));
+                }
             }
             return isSuccess;
         }

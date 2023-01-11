@@ -11,7 +11,7 @@
             <a class="nav-link" href="/homeDoctor"><div class="h3 m-1">Profile</div></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/appointments"><div class="h3 m-1">My appointments</div></a>
+            <a class="nav-link" id="appointmentButton" href="/appointments"><div class="h3 m-1">My appointments</div></a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/returned-requests"><div class="h3 m-1">Returned requests</div></a>
@@ -34,27 +34,45 @@
 
     </nav>
 
-    <div class="divPregled">
+    <div id="wrapper">
 
+      <div id="div1">
       <button class="dugmePregled">
         <a href="/treatments/add">
           <img class="slikaPregled" src="https://cdn-icons-png.flaticon.com/512/1934/1934407.png" alt="buttonpng" border="0"/>
         </a>
       </button>
-
-      <p class="imePregled"> <b>Admission of the patient</b></p>
+      <p class="imeParagraf"> <b>Admission of the patient</b></p>
       <p class="imeDrugiPregled"> <b>for treatment</b></p>
+      </div>
 
-      <div class="divTermin">
+      <div id="div2">
+      <button class="dugmeTermin">
+        <a href="/reports">
+          <img class="slikaIzvestaj" src="https://icons.veryicon.com/png/o/miscellaneous/effevo/daily-report.png" alt="buttonpng" border="0"/>
+        </a>
+      </button>
+      <p class="imeParagraf"> <b>Reports</b></p>
+      </div>
+
+      <div id="div3">
+        <button class="dugmeTermin">
+          <a href="/prescriptions">
+            <img class="slikaIzvestaj" src="https://icons.veryicon.com/png/o/healthcate-medical/medical-related-series/medicine-9.png" alt="buttonpng" border="0"/>
+          </a>
+        </button>
+        <p class="imeParagraf"> <b>Prescriptions</b></p>
+        </div>
+
+    </div>
+
+    <div class="divAppointments">
       <button class="dugmeTermin">
         <a href="/appointments">
           <img class="slikaPregled" src="https://www.nicepng.com/png/detail/207-2073800_calendar-event-schedule-month-appointment-comments-appointment-icon.png" alt="buttonpng" border="0"/>
         </a>
       </button>
-
-      <p class="imeTermin"> <b>Appointments</b></p>
-      </div>
-
+      <p class="imeParagraf"> <b>Appointments</b></p>
     </div>
 
   </div>

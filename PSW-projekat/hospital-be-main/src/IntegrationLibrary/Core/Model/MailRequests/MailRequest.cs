@@ -1,4 +1,5 @@
 ﻿using IntegrationLibrary.Core.Exceptions;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -14,5 +15,6 @@ namespace IntegrationLibrary.Core.Model.MailRequests
         public string Subject { get; set; }
         public string Body { get; set; }
         public MailAddress ToEmail { get; set; }
+        public List<IFormFile> Attachments { get; set; }
     }
 }

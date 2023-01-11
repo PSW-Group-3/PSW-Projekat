@@ -32,7 +32,7 @@ export class ReportSettingsComponent implements OnInit {
     this.setCalculationResult();
     this.setDeliveryResult();
     this.reportSettingsService.updateSettings(this.settings).subscribe(res => {
-
+      this.toastr.success("Successfully changed settings");
     }, (error) => {
       this.errorMessage = error;
       this.toastError();

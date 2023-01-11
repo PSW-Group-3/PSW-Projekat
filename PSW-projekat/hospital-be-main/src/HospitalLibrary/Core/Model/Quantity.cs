@@ -12,10 +12,15 @@ namespace HospitalLibrary.Core.Model
     {
         public int Value { get; }
         public Quantity() { }
-        public Quantity(int value) {
-            if (Validation(value)) {
+        public Quantity(int value)
+        {
+            if (Validation(value))
+            {
                 Value = value;
             }
+            else
+                throw new Exception("Invalid value");
+
         }
 
         private bool Validation(int value)
@@ -26,20 +31,32 @@ namespace HospitalLibrary.Core.Model
         {
             yield return Value;
         }
-        
-        public bool IsEquals(int value) {
+
+        public bool IsEquals(int value)
+        {
             return Value == value;
         }
 
-        public bool IsGreater(int value) {
+        public bool IsGreater(int value)
+        {
             return Value > value;
         }
-        public Quantity Reduce(int value) {
-            if (this.IsGreater(value)) {
-                return new Quantity(Value-value);
+        public Quantity Reduce(int value)
+        {
+            if (this.IsGreater(value))
+            {
+                return new Quantity(Value - value);
             }
             return this;
         }
 
+        public Quantity Add(int value)
+        {
+            if (this.Validation(value))
+            {
+                return new Quantity(Value + value);
+            }
+            return this;
+        }
     }
 }

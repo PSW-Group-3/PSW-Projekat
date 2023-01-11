@@ -65,7 +65,8 @@ namespace IntegrationAPI.Controllers
             try
             {
                 return Ok(_tenderService.GetAllOpen());
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -77,6 +78,43 @@ namespace IntegrationAPI.Controllers
             try
             {
                 return Ok(_tenderService.GetAll());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("CloseTender")]
+        public ActionResult CloseTender(int tenderId, int winningBidId)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            try
+            {
+                _tenderService.CloseTenderWithWinner(tenderId, winningBidId);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("Bid/{tenderID}")]
+        public ActionResult BidOnTender(int tenderID, BidDTO bidDTO)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            try
+            {
+                Bid bid = new Bid(bidDTO.DeliveryDate, bidDTO.Price, bidDTO.BloodBankId);
+                _tenderService.BidOnTender(tenderID, bid);
+                return Ok();
             }
             catch (Exception ex)
             {

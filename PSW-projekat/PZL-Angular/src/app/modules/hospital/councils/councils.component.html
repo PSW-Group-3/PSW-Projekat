@@ -1,6 +1,9 @@
 <div class="container">
     <div class="table-header">
         <p class="table-title">All councils</p>
+        <button class="add-button" mat-mini-fab matTooltip="New council" matTooltipPosition="right" (click)="addCouncil()">
+            <mat-icon>add</mat-icon>
+        </button>
     </div>
     <table mat-table [dataSource]="dataSource">
         <ng-container matColumnDef="Topic">

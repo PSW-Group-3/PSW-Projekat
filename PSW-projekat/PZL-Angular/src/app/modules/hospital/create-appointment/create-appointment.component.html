@@ -1,17 +1,35 @@
+<head>
+    <title>Create appointment</title>
+</head>
 <div class="container">
     <div>
+        
+        <mat-form-field appearance="fill">
+            <mat-label>Patient</mat-label>
+            <mat-select id="patientSelect" matInput>
+                <mat-option id="nevena" value=0>Nevena Nevic</mat-option>
+                <mat-option id="milos" value=1>Milos Milic</mat-option>
+                <mat-option id="nada" value=2>Nada Nadic</mat-option>
+                <mat-option id="mikica" value=3>Mikica Mikicovic</mat-option>
+              </mat-select>
+        </mat-form-field>
+        
+        <!-- 
+
         <mat-form-field appearance="fill">
             <mat-label>Patient</mat-label>
             <mat-select [(ngModel)]="appointment.patient" >
                 <mat-option *ngFor="let patient of patients" [value]="patient">{{patient.name}} {{patient.surname}}</mat-option>
             </mat-select>
         </mat-form-field>
+        -->
+
     
         <mat-form-field appearance="fill">
             <mat-label>Date and time</mat-label>
-            <input type="datetime-local" matInput [(ngModel)]="appointment.dateTime" name="dateTime">
+            <input id="dateTime" type="datetime-local" matInput [(ngModel)]="appointment.dateTime" name="dateTime">
         </mat-form-field><br>
-        <button mat-stroked-button (click)="createAppointment()">
+        <button id="submitButton" mat-stroked-button (click)="createAppointment()">
             Submit
         </button>
     </div>

@@ -17,14 +17,14 @@ namespace HospitalLibrary.Core.Service
             _treatmentRepository = treatmentRepository;
 
         }
+        
         public void Create(Treatment treatment)
         {
             treatment.Deleted = false;
             treatment.TreatmentState.Equals("open");
-
             _treatmentRepository.Create(treatment);
         }
-
+        
         public void Delete(Treatment treatment)
         {
             treatment.Deleted = true;

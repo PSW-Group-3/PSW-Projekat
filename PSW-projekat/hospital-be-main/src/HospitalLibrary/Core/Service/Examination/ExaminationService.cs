@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
-using HospitalLibrary.Core.Model;
+﻿using HospitalLibrary.Core.Model;
 using HospitalLibrary.Core.Repository;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using Document = iTextSharp.text.Document;
 
 namespace HospitalLibrary.Core.Service
@@ -81,7 +78,7 @@ namespace HospitalLibrary.Core.Service
         {
             using (MemoryStream ms = new MemoryStream())
             {
-                                
+
                 Document document = new Document(PageSize.A4, 25, 25, 30, 30);
 
                 PdfWriter writer = PdfWriter.GetInstance(document, ms);
@@ -96,7 +93,8 @@ namespace HospitalLibrary.Core.Service
                 document.Add(para1);
 
 
-                if (symptoms) {
+                if (symptoms)
+                {
                     document.Add(new Paragraph("Symptoms: ", new Font(Font.FontFamily.TIMES_ROMAN, 15, Font.BOLD)));
                     foreach (Symptom symptom in examination.Symptoms)
                     {
@@ -111,7 +109,7 @@ namespace HospitalLibrary.Core.Service
 
                 if (report)
                 {
-                    document.Add(new Paragraph("Report: " , new Font(Font.FontFamily.TIMES_ROMAN, 15, Font.BOLD)));
+                    document.Add(new Paragraph("Report: ", new Font(Font.FontFamily.TIMES_ROMAN, 15, Font.BOLD)));
                     document.Add(new Paragraph(examination.Report, new Font(Font.FontFamily.TIMES_ROMAN, 15)));
                 }
 
@@ -138,9 +136,102 @@ namespace HospitalLibrary.Core.Service
                 var constant = ms.ToArray();
 
                 return constant;
-
-
             }
+        }
+
+        public List<Examination> GetAllExaminationsByDoctor(int personId)
+        {
+            return _examinationRepository.GetAllExaminationsByDoctor(personId);
+        }
+
+        public string GetReportWithoutWordsInQuotes(string report)
+        {
+            int letterIndex;
+            string s2 = "";
+            bool quotesOpened = false;
+
+            for (letterIndex = 0; letterIndex < report.Length; letterIndex++)
+            {
+                if (report[letterIndex] == '"')
+                {
+                    quotesOpened = !quotesOpened;
+                }
+                else
+                {
+                    if (!quotesOpened)
+                        s2 = s2 + report[letterIndex];
+                }
+            }
+            return s2;
+        }
+
+        public List<Examination> GetAllExaminationsBySearchReport(string searchWord, int personId)
+        {
+            List<Examination> examinations = new List<Examination>();
+            List<string> split = new List<string>();
+            string phrase = "";
+
+            foreach (Examination examination in GetAllExaminationsByDoctor(personId))
+            {
+                //ako postoji fraza u izvestaju
+                if (examination.Report.Contains('\"'))
+                {
+                    split = examination.Report.Split('"').Where((s, i) => i % 2 == 1).ToList();
+                    phrase = split.FirstOrDefault();
+
+                    if (searchWord.ToLower().Equals(phrase.ToLower()))
+                    {
+                        examinations.Add(examination);
+                    }
+                }
+
+                string changedReport = GetReportWithoutWordsInQuotes(examination.Report);
+
+                //ovde koristis samo reci koje se ne nalaze u navodnicima
+                //obicne reci
+                if (changedReport.ToLower().Contains(searchWord.ToLower()))
+                {
+                    examinations.Add(examination);
+                }
+            }
+            return examinations;
+        }
+
+        public List<Examination> GetAllExaminationsBySearchPrescription(string searchWord, int personId)
+        {
+            List<Examination> examinations = new List<Examination>();
+            List<string> split = new List<string>();
+            string phrase = "";
+
+
+            foreach (Examination examination in GetAllExaminationsByDoctor(personId))
+            {
+                foreach (Prescription prescription in examination.Prescriptions)
+                {
+
+                    //ako postoji fraza u izvestaju
+                    if (prescription.Description.Contains('\"'))
+                    {
+                        split = prescription.Description.Split('"').Where((s, i) => i % 2 == 1).ToList();
+                        phrase = split.FirstOrDefault();
+
+                        if (searchWord.ToLower().Equals(phrase.ToLower()))
+                        {
+                            examinations.Add(examination);
+                        }
+                    }
+
+                    string changedDescription = GetReportWithoutWordsInQuotes(prescription.Description);
+
+                    //ovde koristis samo reci koje se ne nalaze u navodnicima
+                    //obicne reci
+                    if (changedDescription.ToLower().Contains(searchWord.ToLower()))
+                    {
+                        examinations.Add(examination);
+                    }
+                }
+            }
+            return examinations;
         }
 
     }

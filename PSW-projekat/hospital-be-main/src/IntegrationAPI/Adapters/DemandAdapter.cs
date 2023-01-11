@@ -7,11 +7,7 @@ namespace IntegrationAPI.Adapters
     {
         public static Demand FromDTO(DemandDTO entity)
         {
-            return new Demand()
-            {
-                BloodType = entity.BloodType,
-                Quantity = entity.BloodQuantity
-            };
+            return new Demand(entity.BloodType, entity.BloodQuantity);
         }
 
         public static DemandDTO ToDTO(Demand entity)

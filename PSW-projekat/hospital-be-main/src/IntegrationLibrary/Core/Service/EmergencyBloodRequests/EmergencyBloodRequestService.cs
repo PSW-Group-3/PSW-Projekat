@@ -5,7 +5,10 @@ using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Castle.Core.Internal;
 using Grpc.Core;
+using IntegrationLibrary.Core.BloodBankConnection;
+using IntegrationLibrary.Core.Exceptions;
 using IntegrationLibrary.Core.Model;
 using IntegrationLibrary.Core.Repository.BloodBanks;
 using IntegrationLibrary.Core.Repository.EmergencyBloodRequests;
@@ -24,15 +27,49 @@ namespace IntegrationLibrary.Core.Service.EmergencyBloodRequests
             _emergencyBloodRequestRepository = emergencyBloodRequestRepository;
         }
 
-        public void RequestEmergencyBlood(EmergencyBloodRequestGRPC request)
+        public  void RequestEmergencyBlood(EmergencyBloodRequestGRPC request)
+        {
+            BloodBank bloodBank = GettingBloodBank(request);
+            if(bloodBank.GRPCServerAddress == null || bloodBank.GRPCServerAddress.Equals(""))
+            {
+                CommunicateThroughHTTPS(request, bloodBank);
+            } 
+            else
+            {
+                CommunicateThroughGRPC(request, bloodBank);
+            }
+        }
+
+        public IEnumerable<EmergencyBloodRequest> GetAll()
+        {
+            return _emergencyBloodRequestRepository.GetAll();
+        }
+
+        private void SavingRequest(EmergencyBloodRequestGRPC request)
+        {
+            EmergencyBloodRequest emergencyBloodRequest = new EmergencyBloodRequest()
+            {
+                BloodBankId = request.BloodBankID,
+                BloodQuantity = request.BloodQuantity,
+                BloodType = ProtoBloodTypeToBloodType(request.BloodType),
+            };
+            _emergencyBloodRequestRepository.Create(emergencyBloodRequest);
+        }
+
+        private BloodBank GettingBloodBank(EmergencyBloodRequestGRPC request)
         {
             BloodBank bloodBank = _bloodBankRepository.GetById(request.BloodBankID);
             if (bloodBank == null)
             {
                 throw new Exception("BloodBank doesnt exist");
             }
+
+            return bloodBank;
+        }
+
+        private void CommunicateThroughGRPC(EmergencyBloodRequestGRPC request, BloodBank bloodBank)
+        {
             Channel channel = new Channel(bloodBank.GRPCServerAddress, ChannelCredentials.Insecure);
-            HttpClient hospitalApiClient = new HttpClient();
             try
             {
                 EmergencyRequestGrpcService.EmergencyRequestGrpcServiceClient client =
@@ -42,41 +79,65 @@ namespace IntegrationLibrary.Core.Service.EmergencyBloodRequests
                     BloodQuantity = request.BloodQuantity,
                     BloodType = request.BloodType
                 };
-                DateTime deadline = DateTime.UtcNow.AddSeconds(10);
                 CheckResponse checkResponse = client.checkIfBloodIsAvailable(checkRequest);
-
                 if (checkResponse.Availability == BloodAvailability.Available)
                 {
                     RequestEmergencyBlood(client, checkRequest);
-                    hospitalApiClient = new HttpClient()
-                    {
-                        BaseAddress = new Uri("http://localhost:16177/")
-                    };
-                    int temp = ((int)request.BloodType);
-                    using HttpResponseMessage response = hospitalApiClient.GetAsync("/api/Blood/emergency/" + ((int)request.BloodType) + "/" + request.BloodQuantity).GetAwaiter().GetResult();
-                    response.EnsureSuccessStatusCode();
-                    EmergencyBloodRequest emergencyBloodRequest = new EmergencyBloodRequest()
-                    {
-                        BloodBankId = request.BloodBankID,
-                        BloodQuantity = request.BloodQuantity,
-                        BloodType = ProtoBloodTypeToBloodType(request.BloodType),
-                    };
-                    _emergencyBloodRequestRepository.Create(emergencyBloodRequest);
+                    SaveReceivedBlood(request);
+                    SavingRequest(request);
 
                 }
                 else
                 {
-                    throw new Exception("Blood is not available");
+                    throw new EmergencyBloodNotAvailableException("Blood is not available");
                 }
-                
-
-            } 
+            }
             finally
             {
                 channel.ShutdownAsync();
+            }
+        }
+
+        private void CommunicateThroughHTTPS(EmergencyBloodRequestGRPC request, BloodBank bloodBank)
+        {
+            BloodBankHTTPConnection connection = new BloodBankHTTPConnection();
+            connection.GetEmergencyBlood(bloodBank, request.BloodType.ToString(), request.BloodQuantity).GetAwaiter().GetResult();
+            SaveReceivedBlood(request);
+            SavingRequest(request);
+        }
+
+        private void RequestEmergencyBlood(EmergencyRequestGrpcService.EmergencyRequestGrpcServiceClient client, CheckRequest checkRequest)
+        {
+            EmergencyResponse emergencyResponse = client.requestBlood(
+                                new EmergencyRequest()
+                                {
+                                    Request = checkRequest,
+                                }
+                                );
+            if (emergencyResponse.Status == SendStatus.Denied)
+            {
+                throw new Exception("Blood request was denied");
+            }
+        }
+
+        private static void SaveReceivedBlood(EmergencyBloodRequestGRPC request)
+        {
+            HttpClient hospitalApiClient = new HttpClient();
+            try
+            {
+                hospitalApiClient = new HttpClient()
+                {
+                    BaseAddress = new Uri("http://localhost:16177/")
+                };
+                HttpResponseMessage response = hospitalApiClient.GetAsync("/api/Blood/emergency/" + ((int)request.BloodType) + "/" + request.BloodQuantity).GetAwaiter().GetResult();
+                response.EnsureSuccessStatusCode();
+            }
+            finally
+            {
                 hospitalApiClient.Dispose();
             }
         }
+
         private BloodType ProtoBloodTypeToBloodType(BloodTypeProto bloodType)
         {
             if (bloodType == BloodTypeProto.Ap)
@@ -107,28 +168,7 @@ namespace IntegrationLibrary.Core.Service.EmergencyBloodRequests
             {
                 return BloodType.ABP;
             }
-                return BloodType.ABN;
-        }
-
-
-        private void RequestEmergencyBlood(EmergencyRequestGrpcService.EmergencyRequestGrpcServiceClient client, CheckRequest checkRequest)
-        {
-            DateTime deadline = DateTime.UtcNow.AddSeconds(10);
-            EmergencyResponse emergencyResponse = client.requestBlood(
-                                new EmergencyRequest()
-                                {
-                                    Request = checkRequest,
-                                }
-                                );
-            if (emergencyResponse.Status == SendStatus.Denied)
-            {
-                throw new Exception("Blood request was denied");
-            }
-        }
-
-        public IEnumerable<EmergencyBloodRequest> GetAll()
-        {
-            return _emergencyBloodRequestRepository.GetAll();
+            return BloodType.ABN;
         }
         public EmergencyBloodReport GetEmergencyBloodReportDT0(EmergencyBloodReportParams reportParams)
         {

@@ -1,6 +1,7 @@
 ﻿using HospitalLibrary.Core.Model;
 using HospitalLibrary.Core.Model.Enums;
 using HospitalLibrary.Settings;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,5 +41,15 @@ namespace HospitalLibrary.Core.Repository
         {
             throw new NotImplementedException();
         }
+
+        public List<Examination> GetAllExaminationsByDoctor(int personId)
+        {
+            List<string> reports = new List<string>();
+            IEnumerable<Examination> examinations = _context.Examinations.Include(x => x.Appointment.Doctor).Where(x => x.Appointment.Doctor.Person.Id == personId && !x.Deleted).ToList();
+       
+            List<Examination> result = (List<Examination>)examinations;
+            return result;
+        }
+
     }
 }

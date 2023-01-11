@@ -1,49 +1,69 @@
 ﻿USE [IntegrationDb]
 GO
+TRUNCATE TABLE [dbo].[BloodRequests];
+TRUNCATE TABLE [dbo].[ReportSettings];
+TRUNCATE TABLE [dbo].[BloodBanks];
+TRUNCATE TABLE [dbo].[Newses];
+TRUNCATE TABLE [dbo].[EmergencyBloodRequests];
+TRUNCATE TABLE [dbo].[ScheduledOrders];
+
+--Don't change order
+
+TRUNCATE TABLE [dbo].[Bids];
+ALTER TABLE [dbo].[Bids]
+	DROP CONSTRAINT [FK_Bids_Tenders_TenderId];
+TRUNCATE TABLE [dbo].[Tenders];
+
+ALTER TABLE [dbo].[Bids]
+	ADD CONSTRAINT [FK_Bids_Tenders_TenderId] FOREIGN KEY ([TenderId]) REFERENCES [dbo].[Tenders]([Id])
+
+SET IDENTITY_INSERT [dbo].[Tenders] ON
+	INSERT INTO [dbo].[Tenders] ([Id], [DueDate], [State], [Demands]) VALUES (1, N'2023-01-02 15:19:01', 2, N'[{"BloodType":1,"Quantity":5},{"BloodType":5,"Quantity":9}]')
+	INSERT INTO [dbo].[Tenders] ([Id], [DueDate], [State], [Demands]) VALUES (2, N'2022-12-11 15:19:02', 0, N'[{"BloodType":3,"Quantity":3},{"BloodType":1,"Quantity":7}]')
+	INSERT INTO [dbo].[Tenders] ([Id], [DueDate], [State], [Demands]) VALUES (3, N'2023-01-20 15:19:01', 0, N'[{"BloodType":3,"Quantity":3},{"BloodType":1,"Quantity":7}, {"BloodType":4,"Quantity":7}, {"BloodType":5,"Quantity":7}]')
+	INSERT INTO [dbo].[Tenders] ([Id], [DueDate], [State], [Demands]) VALUES (4, N'2023-01-15 15:19:01', 0, N'[{"BloodType":3,"Quantity":15},{"BloodType":1,"Quantity":13}, {"BloodType":4,"Quantity":20}, {"BloodType":5,"Quantity":50}]')
+SET IDENTITY_INSERT [dbo].[Tenders] OFF
+
+SET IDENTITY_INSERT [dbo].[Bids] ON
+	INSERT INTO [dbo].[Bids] ([Id], [DeliveryDate], [Price], [BloodBankId], [Status], [TenderId]) VALUES (1, N'2023-01-31 23:59:59', 1000, 1, 1, 1)
+	INSERT INTO [dbo].[Bids] ([Id], [DeliveryDate], [Price], [BloodBankId], [Status], [TenderId]) VALUES (2, N'2023-02-15 15:19:01', 1000, 2, 2, 1)
+	INSERT INTO [dbo].[Bids] ([Id], [DeliveryDate], [Price], [BloodBankId], [Status], [TenderId]) VALUES (3, N'2023-01-11 15:19:01', 2000, 1, 0, 2)
+	INSERT INTO [dbo].[Bids] ([Id], [DeliveryDate], [Price], [BloodBankId], [Status], [TenderId]) VALUES (4, N'2023-01-15 15:19:01', 1500, 2, 0, 2)
+	INSERT INTO [dbo].[Bids] ([Id], [DeliveryDate], [Price], [BloodBankId], [Status], [TenderId]) VALUES (5, N'2023-02-15 15:19:01', 10000, 1, 0, 3)
+SET IDENTITY_INSERT [dbo].[Bids] OFF
+
+-------------------------------------------------------
+
+
 SET IDENTITY_INSERT [dbo].[BloodRequests] ON 
-INSERT [dbo].[BloodRequests] ([Id], [RequiredForDate], [BloodQuantity], [Reason], [DoctorId], [RequestState], [BloodType], [Comment], [BloodBankId]) VALUES (1, '2022-12-16 11:30:00', 1, 'Need it for operation', 5, 0, 0, null, 0)
-INSERT [dbo].[BloodRequests] ([Id], [RequiredForDate], [BloodQuantity], [Reason], [DoctorId], [RequestState], [BloodType], [Comment], [BloodBankId]) VALUES (2, '2022-12-17 11:30:00', 1, 'Need it for operation', 3, 0, 1, null, 0)
-INSERT [dbo].[BloodRequests] ([Id], [RequiredForDate], [BloodQuantity], [Reason], [DoctorId], [RequestState], [BloodType], [Comment], [BloodBankId]) VALUES (3, '2022-12-11 11:30:00', 1, 'Need it for operation', 3, 0, 2, null, 0)
-INSERT [dbo].[BloodRequests] ([Id], [RequiredForDate], [BloodQuantity], [Reason], [DoctorId], [RequestState], [BloodType], [Comment], [BloodBankId]) VALUES (4, '2023-01-16 11:30:00', 3, 'Need it for operation', 4, 1, 3, null, 2)
-INSERT [dbo].[BloodRequests] ([Id], [RequiredForDate], [BloodQuantity], [Reason], [DoctorId], [RequestState], [BloodType], [Comment], [BloodBankId]) VALUES (5, '2022-12-18 11:30:00', 4, 'Need it for operation', 3, 1, 4, null, 3)
-INSERT [dbo].[BloodRequests] ([Id], [RequiredForDate], [BloodQuantity], [Reason], [DoctorId], [RequestState], [BloodType], [Comment], [BloodBankId]) VALUES (6, '2022-12-19 11:30:00', 5, 'Need it for operation', 4, 1, 5, null, 1)
-INSERT [dbo].[BloodRequests] ([Id], [RequiredForDate], [BloodQuantity], [Reason], [DoctorId], [RequestState], [BloodType], [Comment], [BloodBankId]) VALUES (7, '2022-12-21 11:30:00', 6, 'Need it for operation', 4, 1, 0, null, 2)
-INSERT [dbo].[BloodRequests] ([Id], [RequiredForDate], [BloodQuantity], [Reason], [DoctorId], [RequestState], [BloodType], [Comment], [BloodBankId]) VALUES (8, '2022-12-12 11:30:00', 7, 'Need it for operation', 4, 0, 4, null, 0)
-INSERT [dbo].[BloodRequests] ([Id], [RequiredForDate], [BloodQuantity], [Reason], [DoctorId], [RequestState], [BloodType], [Comment], [BloodBankId]) VALUES (9, '2022-12-12 11:30:00', 2, 'Need it for operation', 4, 1, 6, null, 2)
+	INSERT [dbo].[BloodRequests] ([Id], [RequiredForDate], [BloodQuantity_Value], [Reason], [DoctorId], [RequestState], [BloodType], [Comment], [BloodBankId]) VALUES (1, '2022-12-16 11:30:00', 1, 'Need it for operation', 5, 0, 0, null, 0)
+	INSERT [dbo].[BloodRequests] ([Id], [RequiredForDate], [BloodQuantity_Value], [Reason], [DoctorId], [RequestState], [BloodType], [Comment], [BloodBankId]) VALUES (2, '2022-12-17 11:30:00', 1, 'Need it for operation', 3, 0, 1, null, 0)
+	INSERT [dbo].[BloodRequests] ([Id], [RequiredForDate], [BloodQuantity_Value], [Reason], [DoctorId], [RequestState], [BloodType], [Comment], [BloodBankId]) VALUES (3, '2022-12-11 11:30:00', 1, 'Need it for operation', 3, 0, 2, null, 0)
+	INSERT [dbo].[BloodRequests] ([Id], [RequiredForDate], [BloodQuantity_Value], [Reason], [DoctorId], [RequestState], [BloodType], [Comment], [BloodBankId]) VALUES (4, '2023-01-16 11:30:00', 3, 'Need it for operation', 4, 1, 3, null, 2)
+	INSERT [dbo].[BloodRequests] ([Id], [RequiredForDate], [BloodQuantity_Value], [Reason], [DoctorId], [RequestState], [BloodType], [Comment], [BloodBankId]) VALUES (5, '2022-12-18 11:30:00', 4, 'Need it for operation', 3, 1, 4, null, 3)
+	INSERT [dbo].[BloodRequests] ([Id], [RequiredForDate], [BloodQuantity_Value], [Reason], [DoctorId], [RequestState], [BloodType], [Comment], [BloodBankId]) VALUES (6, '2022-12-19 11:30:00', 5, 'Need it for operation', 4, 1, 5, null, 1)
+	INSERT [dbo].[BloodRequests] ([Id], [RequiredForDate], [BloodQuantity_Value], [Reason], [DoctorId], [RequestState], [BloodType], [Comment], [BloodBankId]) VALUES (7, '2022-12-21 11:30:00', 6, 'Need it for operation', 4, 1, 0, null, 2)
+	INSERT [dbo].[BloodRequests] ([Id], [RequiredForDate], [BloodQuantity_Value], [Reason], [DoctorId], [RequestState], [BloodType], [Comment], [BloodBankId]) VALUES (8, '2022-12-12 11:30:00', 7, 'Need it for operation', 4, 0, 4, null, 0)
+	INSERT [dbo].[BloodRequests] ([Id], [RequiredForDate], [BloodQuantity_Value], [Reason], [DoctorId], [RequestState], [BloodType], [Comment], [BloodBankId]) VALUES (9, '2022-12-12 11:30:00', 2, 'Need it for operation', 4, 1, 6, null, 2)
+	INSERT [dbo].[BloodRequests] ([Id], [RequiredForDate], [BloodQuantity_Value], [Reason], [DoctorId], [RequestState], [BloodType], [Comment], [BloodBankId]) VALUES (10, '2022-12-21 11:30:00', 6, 'Need it for operation', 4, 4, 0, null, 0)
+	INSERT [dbo].[BloodRequests] ([Id], [RequiredForDate], [BloodQuantity_Value], [Reason], [DoctorId], [RequestState], [BloodType], [Comment], [BloodBankId]) VALUES (11, '2022-12-12 11:30:00', 7, 'Need it for operation', 4, 4, 4, null, 1)
+	INSERT [dbo].[BloodRequests] ([Id], [RequiredForDate], [BloodQuantity_Value], [Reason], [DoctorId], [RequestState], [BloodType], [Comment], [BloodBankId]) VALUES (12, '2022-12-12 11:30:00', 2, 'Need it for operation', 4, 4, 6, null, 2)
 SET IDENTITY_INSERT [dbo].[BloodRequests] OFF
 
 GO
 SET IDENTITY_INSERT [dbo].[ReportSettings] ON 
-INSERT [dbo].[ReportSettings] ([Id], [StartDeliveryDate], [CalculationDays], [CalculationMonths], [CalculationYears], [DeliveryDays], [DeliveryMonths], [DeliveryYears]) VALUES (1, '2022-11-16 11:30:00', 0, 1, 0, 0, 1, 0)
+	INSERT [dbo].[ReportSettings] ([Id], [StartDeliveryDate], [CalculationDays], [CalculationMonths], [CalculationYears], [DeliveryDays], [DeliveryMonths], [DeliveryYears]) VALUES (1, '2022-11-16 11:30:00', 0, 0, 1, 0, 1, 0)
 SET IDENTITY_INSERT [dbo].[ReportSettings] OFF
 
 GO
 SET IDENTITY_INSERT [dbo].[BloodBanks] ON 
-INSERT [dbo].[BloodBanks] ([Id], [AccountStatus], [ApiKey], [Email], [Name], [Password], [PasswordResetKey], [ServerAddress], [GRPCServerAddress]) VALUES (1, 1, '4rijtG2K/XHcaesRU2gLHS5LC0QJoqMmKGKQrj4OmNLoxQjsjwUc+w60BFi3fR+0pO/BtrSma8yEJ1+bwAoQHQ==', '{"LocalPart": "bloodymary", "DomainName": "gmail.com"}', 'Bloody Mary', '123', '5lSxho6OJIAMKE2CzURTLcpOPIVeCp5becYHSgj26BIpLcE5DXARRiJFUtPupqpNWdIFqY1EhEFNx1QQsTFxbj', 'http://localhost:8086/', '127.0.0.1:12689')
-INSERT [dbo].[BloodBanks] ([Id], [AccountStatus], [ApiKey], [Email], [Name], [Password], [PasswordResetKey], [ServerAddress], [GRPCServerAddress]) VALUES (2, 1, 'W3QW1vpKFX9NUJ94HF0klON+lRaPBaSgx7mwAgV0b0ml4uVu7t2+2FoNDLqweFKzw4drCuaf0mPRbylQaja3Nw==', '{"LocalPart": "bloodyhell", "DomainName": "gmail.com"}', 'Bloody Hell', '123', '4UHf68tCV7GfsjAyYtCnackqmphU28PzwH7AFNHARy3PnMLuDbFD5Ec3Q2nBX8JW2rkXnQSTCvfeklOOgqwhH7', 'http://localhost:8086/', '127.0.0.1:12689')
-INSERT [dbo].[BloodBanks] ([Id], [AccountStatus], [ApiKey], [Email], [Name], [Password], [PasswordResetKey], [ServerAddress], [GRPCServerAddress]) VALUES (3, 1, 'tLeiJ6w79JdrILqI34F6kYM3UAWENV8RjeZvi0LVtJochrXWJ7mpt0Cdedka8lVWUPnCFLZOhJbcS8ao9VFgwQ==', '{"LocalPart": "newlife", "DomainName": "gmail.com"}', 'New Life', '123', '4UHf68tCV7GfsjAyYtCnackqmphU28PzwH7AFNHARy3PnMLuDbFD5Ec3Q2nBX8JW2rkXnQSTCvfeklOOgqwhH7', 'http://localhost:8086/', '127.0.0.1:12689')
+	INSERT [dbo].[BloodBanks] ([Id], [AccountStatus], [ApiKey], [Email], [Name], [Password], [PasswordResetKey], [ServerAddress], [GRPCServerAddress]) VALUES (1, 1, '4rijtG2K/XHcaesRU2gLHS5LC0QJoqMmKGKQrj4OmNLoxQjsjwUc+w60BFi3fR+0pO/BtrSma8yEJ1+bwAoQHQ==', '{"LocalPart": "bloodymary", "DomainName": "gmail.com"}', 'Bloody Mary', '123', '5lSxho6OJIAMKE2CzURTLcpOPIVeCp5becYHSgj26BIpLcE5DXARRiJFUtPupqpNWdIFqY1EhEFNx1QQsTFxbj', 'http://localhost:8086/', 'localhost:12689')
+	INSERT [dbo].[BloodBanks] ([Id], [AccountStatus], [ApiKey], [Email], [Name], [Password], [PasswordResetKey], [ServerAddress], [GRPCServerAddress]) VALUES (2, 1, 'W3QW1vpKFX9NUJ94HF0klON+lRaPBaSgx7mwAgV0b0ml4uVu7t2+2FoNDLqweFKzw4drCuaf0mPRbylQaja3Nw==', '{"LocalPart": "bloodyhell", "DomainName": "gmail.com"}', 'Bloody Hell', '123', '4UHf68tCV7GfsjAyYtCnackqmphU28PzwH7AFNHARy3PnMLuDbFD5Ec3Q2nBX8JW2rkXnQSTCvfeklOOgqwhH7', 'http://localhost:8086/', null)
+	INSERT [dbo].[BloodBanks] ([Id], [AccountStatus], [ApiKey], [Email], [Name], [Password], [PasswordResetKey], [ServerAddress], [GRPCServerAddress]) VALUES (3, 1, 'tLeiJ6w79JdrILqI34F6kYM3UAWENV8RjeZvi0LVtJochrXWJ7mpt0Cdedka8lVWUPnCFLZOhJbcS8ao9VFgwQ==', '{"LocalPart": "newlife", "DomainName": "gmail.com"}', 'New Life', '123', '4UHf68tCV7GfsjAyYtCnackqmphU28PzwH7AFNHARy3PnMLuDbFD5Ec3Q2nBX8JW2rkXnQSTCvfeklOOgqwhH7', 'http://localhost:8086/', 'localhost:12689')
 
 SET IDENTITY_INSERT [dbo].[BloodBanks] OFF
 
 GO
 SET IDENTITY_INSERT [dbo].[Newses] ON 
-INSERT [dbo].[Newses] ([Id], [Title], [Text], [Status], [DateTime], [BloodBankId]) VALUES (1, 'sadfasddas', 'sadsdasdasdasda', 0, '2022-11-16 11:30:00', 1)
+	INSERT [dbo].[Newses] ([Id], [Title], [Text], [Status], [DateTime], [BloodBankId], [Image]) VALUES (1, 'sadfasddas', 'sadsdasdasdasda', 0, '2022-11-16 11:30:00', 1,'.//src//assets//images//home-page-bg-blue-kek.jpg')
 SET IDENTITY_INSERT [dbo].[Newses] OFF
-
-
-GO
-SET IDENTITY_INSERT [dbo].[Bids] ON 
-INSERT [dbo].[Bids] ([Id], [DeliveryDate], [Price], [TenderOfBidId], [BloodBankId], [Status]) VALUES(1, '2023-12-12 12:00:00', 2000, 1, 3, 0)
-SET IDENTITY_INSERT [dbo].[Bids] OFF
-
-GO
-SET IDENTITY_INSERT [dbo].[Tenders] ON 
-INSERT [dbo].[Tenders] ([Id], [DueDate], [State]) VALUES (1, '2022-12-12 12:00:00', 0)
-SET IDENTITY_INSERT [dbo].[Tenders] OFF
-
-GO
-SET IDENTITY_INSERT [dbo].[Demands] ON 
-INSERT [dbo].[Demands] ([Id], [BloodType], [Quantity], [TenderId]) VALUES (1, 0, 5, 1)
-INSERT [dbo].[Demands] ([Id], [BloodType], [Quantity], [TenderId]) VALUES (2, 3, 3, 1)
-INSERT [dbo].[Demands] ([Id], [BloodType], [Quantity], [TenderId]) VALUES (3, 5, 7, 1)
-SET IDENTITY_INSERT [dbo].[Demands] OFF

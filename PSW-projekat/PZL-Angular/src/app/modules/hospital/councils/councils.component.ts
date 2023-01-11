@@ -31,4 +31,8 @@ export class CouncilsComponent implements OnInit {
     })
   }
 
+  public addCouncil() {
+    this.router.navigate(['/council/add']);
+  }
+
 }

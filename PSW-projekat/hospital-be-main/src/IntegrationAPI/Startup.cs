@@ -24,13 +24,12 @@ using IntegrationLibrary.Core.Repository.ScheduledOrder;
 using IntegrationLibrary.Core.Service.Tenders;
 using IntegrationLibrary.Core.Repository.Tenders;
 using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
-using IntegrationLibrary.Core.Service.Bids;
-using IntegrationLibrary.Core.Repository.Bids;
 using IntegrationLibrary.Core.HospitalConnection;
 using IntegrationLibrary.Core.Service.EmergencyBloodRequests;
 using IntegrationAPI.Adapters;
 using IntegrationLibrary.Core.Service.HostedServices;
 using IntegrationLibrary.Core.Repository.EmergencyBloodRequests;
+using HospitalLibrary.Settings;
 
 namespace IntegrationAPI
 {
@@ -98,8 +97,6 @@ namespace IntegrationAPI
             services.AddScoped<IScheduledOrderService, ScheduledOrderService>();
             services.AddScoped<ITenderRepository, TenderRepository>();
             services.AddScoped<ITenderService, TenderService>();
-            services.AddScoped<IBidRepository, BidRepository>();
-            services.AddScoped<IBidService, BidService>();
             services.AddScoped<IHospitalConnection, HospitalHTTPConnection>();
             services.AddScoped<IEmergencyBloodRequestService, EmergencyBloodRequestService>();
             services.AddScoped<IEmergencyBloodRequestRepository, EmergencyBloodRequestRepository>();

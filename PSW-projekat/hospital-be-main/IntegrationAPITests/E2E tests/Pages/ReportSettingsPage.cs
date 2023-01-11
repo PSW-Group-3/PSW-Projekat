@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace IntegrationAPITests.E2E_tests.Pages
@@ -35,10 +36,24 @@ namespace IntegrationAPITests.E2E_tests.Pages
 
         private IWebElement SubmitButton => driver.FindElement(By.Id("Submit"));
 
+        private IWebElement Toaster => driver.FindElement(By.CssSelector(".toast-message"));
+
 
         public ReportSettingsPage(IWebDriver driver)
         {
             this.driver = driver;
+        }
+
+        public void WaitForStart()
+        {
+            var wait = new WebDriverWait(driver, new TimeSpan(0, 0, 10));
+            wait.Until(condition: ExpectedConditions.ElementToBeClickable(By.Id("OptionDelivery")));
+        }
+
+        public void WaitForComponentToBeClickable(string id)
+        {
+            var wait = new WebDriverWait(driver, new TimeSpan(0, 0, 10));
+            wait.Until(condition: ExpectedConditions.ElementToBeClickable(By.Id(id)));
         }
 
         public bool OptionDeliveryDropdownDisplayed()
@@ -83,57 +98,67 @@ namespace IntegrationAPITests.E2E_tests.Pages
 
         public void Select6MonthsCalculationPeriod()
         {
-
+            WaitForComponentToBeClickable("OptionCalculation");
             OptionCalculationDropdown.Click();
             driver.FindElement(By.Id("6monthsC")).Click();
         }
 
         public void SelectMonthCalculationPeriod()
         {
+            WaitForComponentToBeClickable("OptionCalculation");
             OptionCalculationDropdown.Click();
             driver.FindElement(By.Id("monthC")).Click();
         }
 
         public void SelectYearCalculationPeriod()
         {
+            WaitForComponentToBeClickable("OptionCalculation");
             OptionCalculationDropdown.Click();
             driver.FindElement(By.Id("yearC")).Click();
         }
 
         public void SelectCustomCalculationPeriod()
         {
+            WaitForComponentToBeClickable("OptionCalculation");
             OptionCalculationDropdown.Click();
             driver.FindElement(By.Id("customC")).Click();
         }
 
         public void Select6MonthsDeliveryPeriod()
         {
+            WaitForComponentToBeClickable("OptionDelivery");
             OptionDeliveryDropdown.Click();
             driver.FindElement(By.Id("6monthsD")).Click();
         }
 
         public void SelectMonthDeliveryPeriod()
         {
+            WaitForComponentToBeClickable("OptionDelivery");
             OptionDeliveryDropdown.Click();
             driver.FindElement(By.Id("monthD")).Click();
         }
 
         public void SelectYearDeliveryPeriod()
         {
+            WaitForComponentToBeClickable("OptionDelivery");
             OptionDeliveryDropdown.Click();
             driver.FindElement(By.Id("yearD")).Click();
         }
 
         public void SelectCustomDeliveryPeriod()
         {
+            WaitForComponentToBeClickable("OptionDelivery");
             OptionDeliveryDropdown.Click();
             driver.FindElement(By.Id("customD")).Click();
         }
 
         public void InsertCustomDeliveryPeriod(DateTime date, string days, string months, string years)
         {
+            WaitForComponentToBeClickable("DeliveryDays");
             DeliveryDaysField.Clear();
+            WaitForComponentToBeClickable("DeliveryMonths");
             DeliveryMonthsField.Clear();
+            WaitForComponentToBeClickable("DeliveryYears");
             DeliveryYearsField.Clear();
             DeliveryDateField.SendKeys(date.ToShortDateString());
             DeliveryDaysField.SendKeys(days);
@@ -150,8 +175,11 @@ namespace IntegrationAPITests.E2E_tests.Pages
 
         public void InsertCustomCalculationPeriod(string days, string months, string years)
         {
+            WaitForComponentToBeClickable("CalculationDays");
             CalculationDaysField.Clear();
+            WaitForComponentToBeClickable("CalculationMonths");
             CalculationMonthsField.Clear();
+            WaitForComponentToBeClickable("CalculationYears");
             CalculationYearsField.Clear();
             CalculationDaysField.SendKeys(days);
             CalculationMonthsField.SendKeys(months);
@@ -165,8 +193,20 @@ namespace IntegrationAPITests.E2E_tests.Pages
 
         public void WaitForToastDialog()
         {
-            var wait = new WebDriverWait(driver, new TimeSpan(0, 0, 3));
+            var wait = new WebDriverWait(driver, new TimeSpan(0, 0, 2));
             wait.Until(condition: ExpectedConditions.PresenceOfAllElementsLocatedBy(By.CssSelector(".toast-message")));
+        }
+
+        public void ToastSuccessfullDialog()
+        {
+            var wait = new WebDriverWait(driver, new TimeSpan(0, 0, 5));
+            wait.Until(condition: ExpectedConditions.PresenceOfAllElementsLocatedBy(By.CssSelector(".toast-success")));
+        }
+
+        public void ToastErrorDialog()
+        {
+            var wait = new WebDriverWait(driver, new TimeSpan(0, 0, 5));
+            wait.Until(condition: ExpectedConditions.PresenceOfAllElementsLocatedBy(By.CssSelector(".toast-error")));
         }
 
         public void Navigate() => driver.Navigate().GoToUrl(URI);

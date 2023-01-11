@@ -77,7 +77,7 @@ export class CreateDoctorsCouncilComponent implements OnInit {
       return;
     }
     this.doctorsCouncilService.create(this.councilDTO).subscribe(res => {
-      this.router.navigate(['/homeDoctor']);
+      this.router.navigate(['/councilOfDoctors']);
     });
   }
 

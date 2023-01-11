@@ -24,8 +24,7 @@ namespace IntegrationAPITests.Tests
         }
         private static ScheduledOrderController SetupSettingsController(IServiceProvider scope)
         {
-            return new ScheduledOrderController(scope.GetRequiredService<IScheduledOrderService>(),
-               scope.GetRequiredService<IBloodBankService>());
+            return new ScheduledOrderController(scope.GetRequiredService<IScheduledOrderService>(), scope.GetRequiredService<IBloodBankService>());
         }
         [Fact]
         public void Create_scheduled_order()

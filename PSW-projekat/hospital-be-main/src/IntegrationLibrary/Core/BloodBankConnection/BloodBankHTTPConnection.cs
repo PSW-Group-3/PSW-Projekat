@@ -30,6 +30,7 @@ namespace IntegrationLibrary.Core.BloodBankConnection
 
             return GetAsync(client).Result;
         }
+
         static async Task<bool> GetAsync(HttpClient httpClient)
         {
             client.Timeout = TimeSpan.FromSeconds(15);
@@ -80,12 +81,33 @@ namespace IntegrationLibrary.Core.BloodBankConnection
             return GetAsync(client, bank, bType, quant).Result;
         }
 
+        public async Task<int> GetEmergencyBlood(BloodBank bank, string bType, int quant)
+        {
+            client = new()
+            {
+                BaseAddress = new Uri(bank.ServerAddress)
+            };
+            return GetAsyncEmergency(client, bank, bType, quant).Result;
+        }
+
         static async Task<int> GetAsync(HttpClient httpClient, BloodBank bank, string bType, int quant)
         {
             int blood = -1;
             client.Timeout = TimeSpan.FromSeconds(15);
             client.DefaultRequestHeaders.Add("Authorization", "Bearer " + bank.ApiKey);
             using HttpResponseMessage response = await httpClient.GetAsync("api/bloodbank/get/" + bank.Email.EmailAddress + "/" + bType + "/" + quant);
+
+            response.EnsureSuccessStatusCode();
+
+            string hasBlood = await response.Content.ReadAsStringAsync();
+            blood = Int32.Parse(hasBlood);
+            return blood;
+        }
+
+        static async Task<int> GetAsyncEmergency(HttpClient httpClient, BloodBank bank, string bType, int quant)
+        {
+            int blood = -1;
+            using HttpResponseMessage response = await httpClient.GetAsync("api/bloodbank/getEmergency/" + bType + "/" + quant);
 
             response.EnsureSuccessStatusCode();
 

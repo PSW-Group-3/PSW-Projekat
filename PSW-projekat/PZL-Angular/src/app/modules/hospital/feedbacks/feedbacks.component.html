@@ -28,14 +28,14 @@
             <td mat-cell *matCellDef="let feedbackDto" class="cell-center"> 
                 <div *ngIf="feedbackDto.public=='Public'">             
                     <div *ngIf="feedbackDto.status=='Pending'">
-                        <button mat-button (click)="onApprove(feedbackDto)" class="button-updateStatus" id="approveButton">Approve</button>
-                        <button mat-button (click)="onReject(feedbackDto)" class="button-updateStatus" id="rejectButton">Reject</button>
+                        <button mat-button (click)="onApprove(feedbackDto)" class="button-updateStatus" id="approveButton{{feedbackDto.feedbackId}}">Approve</button>
+                        <button mat-button (click)="onReject(feedbackDto)" class="button-updateStatus" id="rejectButton{{feedbackDto.feedbackId}}">Reject</button>
                     </div>
                     <div *ngIf="feedbackDto.status=='Approved'">
-                        <button mat-button (click)="onReject(feedbackDto)" class="button-updateStatus" id="rejectButton">Reject</button>
+                        <button mat-button (click)="onReject(feedbackDto)" class="button-updateStatus" id="rejectButton{{feedbackDto.feedbackId}}">Reject</button>
                     </div>
                     <div *ngIf="feedbackDto.status=='Rejected'">
-                        <button mat-button (click)="onApprove(feedbackDto)" class="button-updateStatus" id="approveButton">Approve</button>
+                        <button mat-button (click)="onApprove(feedbackDto)" class="button-updateStatus" id="approveButton{{feedbackDto.feedbackId}}">Approve</button>
                     </div>  
                 </div>   
             </td>
