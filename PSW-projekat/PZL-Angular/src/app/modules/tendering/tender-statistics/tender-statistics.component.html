@@ -29,32 +29,62 @@
 
                 <div class="card" style="border-radius: 15px;" [hidden]="this.isHidden">
                     <div class="card-body">
-                       <label>A +  :</label>
-                       <label >{{this.blood[0]}}</label>
-                       <br>
-                       <label>B +  :</label>
-                       <label >{{this.blood[1]}}</label>
-                       <br>
-                       <label>AB+ :</label>
-                       <label >{{this.blood[2]}}</label>
-                       <br>
-                       <label>0 +  :</label>
-                       <label >{{this.blood[3]}}</label>
-                       <br>
-                       <label>A -  :</label>
-                       <label >{{this.blood[4]}}</label>
-                       <br>
-                       <label>B -  :</label>
-                       <label >{{this.blood[5]}}</label>
-                       <br>
-                       <label>AB- :</label>
-                       <label >{{this.blood[6]}}</label>
-                       <br>
-                       <label>0 -  :</label>
-                       <label >{{this.blood[7]}}</label>
-                       <br>
+                      <h2>Hospital:</h2>
+                      <table class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th scope="col">BloodType</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col"></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let dem of statistics, let i = index">
+                            <td>{{bloodType[i]}}</td>
+                            <td>{{dem}}</td>
+                            </tr>
+                        </tbody>
+                      </table>
+                      
+                       
                     </div>
                 </div>
+
+                <div class="card" style="border-radius: 15px;" [hidden]="this.isHidden">
+                  <div class="card-body">
+                    <h2>Blood banks:</h2>
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th scope="col">Blood bank</th>
+                          <th scope="col">A+</th>
+                          <th scope="col">B+</th>
+                          <th scope="col">AB+</th>
+                          <th scope="col">0+</th>
+                          <th scope="col">A-</th>
+                          <th scope="col">B-</th>
+                          <th scope="col">AB-</th>
+                          <th scope="col">0-</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let bank of bloodBanks, let i = index">
+                          <td>{{bank.name}}</td>
+                          <td>{{statisticOfBank[i][0]}}</td>
+                          <td>{{statisticOfBank[i][1]}}</td>
+                          <td>{{statisticOfBank[i][2]}}</td>
+                          <td>{{statisticOfBank[i][3]}}</td>
+                          <td>{{statisticOfBank[i][4]}}</td>
+                          <td>{{statisticOfBank[i][5]}}</td>
+                          <td>{{statisticOfBank[i][6]}}</td>
+                          <td>{{statisticOfBank[i][7]}}</td>
+                          </tr>
+                      </tbody>
+                    </table>
+                    
+                     
+                  </div>
+              </div>
         
               </div>
             </div>

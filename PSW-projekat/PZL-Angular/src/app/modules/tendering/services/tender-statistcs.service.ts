@@ -21,12 +21,12 @@ export class TenderStatistcsService {
   
   getBloodBanksWinners(dates: TenderDates):Observable<BloodBank[]>{
     // String dates = dates.Start.getFullYear.toString() + '-' + dates.Start.getMonth.toString() + '-' + dates.Start.getDay.toString() + '%' + dates.End.getFullYear.toString() + '-' + dates.End.getMonth.toString()+ '-' + dates.End.getDay.toString();
-     return this.http.get<any>(this.integrationApiHost + 'api/Tender/Blood/BloodBanks/'+ dates.Start + '/' + dates.End, {headers: this.headers}).pipe(catchError(this.handleError));
+     return this.http.get<any>(this.integrationApiHost + 'api/Tender/BloodBanks/'+ dates.Start + '/' + dates.End, {headers: this.headers}).pipe(catchError(this.handleError));
    }
 
    getBloodBanksStatistics(dates: TenderDates):Observable<[[number]]>{
     // String dates = dates.Start.getFullYear.toString() + '-' + dates.Start.getMonth.toString() + '-' + dates.Start.getDay.toString() + '%' + dates.End.getFullYear.toString() + '-' + dates.End.getMonth.toString()+ '-' + dates.End.getDay.toString();
-     return this.http.get<any>(this.integrationApiHost + 'api/Tender/Blood/BloodBanksStatistics/'+ dates.Start + '/' + dates.End, {headers: this.headers}).pipe(catchError(this.handleError));
+     return this.http.get<any>(this.integrationApiHost + 'api/Tender/BloodBanksStatistics/'+ dates.Start + '/' + dates.End, {headers: this.headers}).pipe(catchError(this.handleError));
    }
 
 
