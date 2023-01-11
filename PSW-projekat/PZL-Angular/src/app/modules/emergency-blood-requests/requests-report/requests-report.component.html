@@ -33,4 +33,21 @@
 
 <button class="m-1" mat-stroked-button (click)="accept()">Send</button>
 <h1>Requests:</h1>
-<p>{{ this.requests }}</p>
+<p>Blood ammounts:</p>
+<p>AN: {{ this.report.bloodAmmounts.AN }}</p>
+<p>AP: {{ this.report.bloodAmmounts.AP }}</p>
+<p>BN: {{ this.report.bloodAmmounts.BN }}</p>
+<p>BP: {{ this.report.bloodAmmounts.BP }}</p>
+<p>ABN: {{ this.report.bloodAmmounts.ABN }}</p>
+<p>ABN: {{ this.report.bloodAmmounts.ABN }}</p>
+<p>ON: {{ this.report.bloodAmmounts.ON }}</p>
+<p>OP: {{ this.report.bloodAmmounts.OP }}</p>
+
+<p>ABNBanks: {{ this.report.abnBanks | json }}</p>
+<p>ABPBanks: {{ this.report.abpBanks | json }}</p>
+<p>ANBanks: {{ this.report.anBanks | json }}</p>
+<p>APBanks: {{ this.report.apBanks | json }}</p>
+<p>BNBanks: {{ this.report.bnBanks | json }}</p>
+<p>BPBanks: {{ this.report.bpBanks | json }}</p>
+<p>ONBanks: {{ this.report.onBanks | json }}</p>
+<p>OPBanks: {{ this.report.opBanks | json }}</p>
