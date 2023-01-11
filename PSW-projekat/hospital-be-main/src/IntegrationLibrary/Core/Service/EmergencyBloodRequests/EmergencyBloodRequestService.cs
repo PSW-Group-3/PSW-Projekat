@@ -177,7 +177,9 @@ namespace IntegrationLibrary.Core.Service.EmergencyBloodRequests
             foreach (EmergencyBloodRequest requestIt in _emergencyBloodRequestRepository.GetAll())
             {
                 //check if request is in date range
-                switch (requestIt.BloodType)
+                if (reportParams.StartDate < requestIt.Date && requestIt.Date < reportParams.EndDate)
+                {
+                    switch (requestIt.BloodType)
                 {
                     case BloodType.ABP:
                         if (report.BloodAmmounts.ContainsKey(BloodType.ABP))
@@ -207,7 +209,7 @@ namespace IntegrationLibrary.Core.Service.EmergencyBloodRequests
                             report.BloodAmmounts.Add(BloodType.ABN, requestIt.BloodQuantity);
                         }
                         string ABNBankName = _bloodBankRepository.GetById(requestIt.BloodBankId).Name;
-                        if (report.ABPBanks.ContainsKey(ABNBankName))
+                        if (report.ABNBanks.ContainsKey(ABNBankName))
                         {
                             report.ABNBanks[ABNBankName] += requestIt.BloodQuantity;
                         }
@@ -333,6 +335,7 @@ namespace IntegrationLibrary.Core.Service.EmergencyBloodRequests
                     default:
                         //asd
                         break;
+                }
                 }
             }
                 //generate and save pdf for report
