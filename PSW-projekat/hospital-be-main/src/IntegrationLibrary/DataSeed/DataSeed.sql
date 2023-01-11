@@ -22,6 +22,10 @@ SET IDENTITY_INSERT [dbo].[Tenders] ON
 	INSERT INTO [dbo].[Tenders] ([Id], [DueDate], [State], [Demands]) VALUES (2, N'2022-12-11 15:19:02', 0, N'[{"BloodType":3,"Quantity":3},{"BloodType":1,"Quantity":7}]')
 	INSERT INTO [dbo].[Tenders] ([Id], [DueDate], [State], [Demands]) VALUES (3, N'2023-01-20 15:19:01', 0, N'[{"BloodType":3,"Quantity":3},{"BloodType":1,"Quantity":7}, {"BloodType":4,"Quantity":7}, {"BloodType":5,"Quantity":7}]')
 	INSERT INTO [dbo].[Tenders] ([Id], [DueDate], [State], [Demands]) VALUES (4, N'2023-01-15 15:19:01', 0, N'[{"BloodType":3,"Quantity":15},{"BloodType":1,"Quantity":13}, {"BloodType":4,"Quantity":20}, {"BloodType":5,"Quantity":50}]')
+	INSERT INTO [dbo].[Tenders] ([Id], [DueDate], [State], [Demands]) VALUES (5, N'2023-01-02 15:19:01', 2, N'[{"BloodType":6,"Quantity":5},{"BloodType":7,"Quantity":9}]')
+	INSERT INTO [dbo].[Tenders] ([Id], [DueDate], [State], [Demands]) VALUES (6, N'2023-01-02 15:19:01', 2, N'[{"BloodType":2,"Quantity":2},{"BloodType":4,"Quantity":1}, {"BloodType":0,"Quantity":2}, {"BloodType":6,"Quantity":3}]')
+	INSERT INTO [dbo].[Tenders] ([Id], [DueDate], [State], [Demands]) VALUES (7, N'2023-01-02 15:19:01', 2, N'[{"BloodType":1,"Quantity":1},{"BloodType":3,"Quantity":6}, {"BloodType":2,"Quantity":3}, {"BloodType":7,"Quantity":2}]')
+
 SET IDENTITY_INSERT [dbo].[Tenders] OFF
 
 SET IDENTITY_INSERT [dbo].[Bids] ON
@@ -30,6 +34,9 @@ SET IDENTITY_INSERT [dbo].[Bids] ON
 	INSERT INTO [dbo].[Bids] ([Id], [DeliveryDate], [Price], [BloodBankId], [Status], [TenderId]) VALUES (3, N'2023-01-11 15:19:01', 2000, 1, 0, 2)
 	INSERT INTO [dbo].[Bids] ([Id], [DeliveryDate], [Price], [BloodBankId], [Status], [TenderId]) VALUES (4, N'2023-01-15 15:19:01', 1500, 2, 0, 2)
 	INSERT INTO [dbo].[Bids] ([Id], [DeliveryDate], [Price], [BloodBankId], [Status], [TenderId]) VALUES (5, N'2023-02-15 15:19:01', 10000, 1, 0, 3)
+	INSERT INTO [dbo].[Bids] ([Id], [DeliveryDate], [Price], [BloodBankId], [Status], [TenderId]) VALUES (6, N'2023-01-10 15:19:01', 10000, 1, 1, 5)
+	INSERT INTO [dbo].[Bids] ([Id], [DeliveryDate], [Price], [BloodBankId], [Status], [TenderId]) VALUES (7, N'2023-01-10 15:19:01', 10000, 2, 1, 6)
+	INSERT INTO [dbo].[Bids] ([Id], [DeliveryDate], [Price], [BloodBankId], [Status], [TenderId]) VALUES (8, N'2023-01-10 15:19:01', 10000, 3, 1, 7)
 SET IDENTITY_INSERT [dbo].[Bids] OFF
 
 -------------------------------------------------------

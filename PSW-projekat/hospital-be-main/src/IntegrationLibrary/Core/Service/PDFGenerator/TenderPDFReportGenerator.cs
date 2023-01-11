@@ -34,120 +34,158 @@ namespace IntegrationLibrary.Core.Service.PDFGenerator
         public string CreateFileName()
         {
             string creationDate = DateTime.Now.ToString("ddMMyyyy");
-            return "emergency_blood_intake_report_" + creationDate + ".pdf";
+            return "tender_blood_intake_report_" + creationDate + ".pdf";
         }
         public void CreatePDFBody(List<List<int>> bloodTypesByBanks, List<BloodBank> banks, List<int> bloodAmount, DateTime start, DateTime end)
         {
-            //html += "<body><h1>Emergency blood intake report</h1><div>" +
-            //    "<p>From: " + reportParams.StartDate.ToString("dd.MM.yyyy.") + "</p>" +
-            //    "<p>Until: " + reportParams.EndDate.ToString("dd.MM.yyyy.") + "</p>";
-
-            //if (reportParams.BloodType != null)
-            //    html += "<p>For blood type: " + GetBloodTypeAsString(reportParams.BloodType) + "</p>";
+            html += "<body><h1>Tender blood intake report</h1><div>" +
+                "<p>From: " + start.ToString("dd.MM.yyyy.") + "</p>" +
+                "<p>Until: " + end.ToString("dd.MM.yyyy.") + "</p>";
 
             html += "<table class=\"GeneratedTable\"><thead><tr>" +
                                      " <th> Blood type </th>" +
                                      " <th> Quantity (units) </th> " +
                                     "  <th> Banks</th></tr></thead><tbody>";
 
+            List<String> bloodTypes = CreateBloodTypeList();
+            int index = 0;
+            foreach (String bloodType in bloodTypes)
+            {
+                if (bloodAmount[index] > 0) { 
+                    // do something with entry.Value or entry.Key
+                    html += "<tr><td>" + bloodType + "</td><td>" + bloodAmount[index] + "</td><td>";
 
-            //foreach (KeyValuePair<BloodType, int> entry in report.BloodAmmounts)
-            //{
-            //    // do something with entry.Value or entry.Key
-            //    html += "<tr><td>" + GetBloodTypeAsString(entry.Key) + "</td><td>" + entry.Value + "</td><td>";
+                    int bankIndex = 0;
+                    switch (bloodType)
+                    {
+                        case "A positive":
+                            bool isFirst = true;
+                            foreach (BloodBank bank in banks)
+                            {
+                                if (!isFirst)
+                                    html += "<br>";
+                                if(bloodTypesByBanks[bankIndex][index] > 0 )
+                                    html += bank.Name + "(" + bloodTypesByBanks[bankIndex][index] + " units)";
+                                isFirst = false;
+                                bankIndex++;
+                            }
 
-            //    //switch (entry.Key)
-            //    //{
-            //    //    case BloodType.ABP:
-            //    //        bool isFirst = true;
-            //    //        foreach (KeyValuePair<string, int> bankEntry in report.ABPBanks)
-            //    //        {
-            //    //            if (!isFirst)
-            //    //                html += "<br>";
-            //    //            html += bankEntry.Key + "(" + bankEntry.Value + " units)";
-            //    //            isFirst = false;
-            //    //        }
+                            break;
+                        case "B positive":
+                            isFirst = true;
+                            foreach (BloodBank bank in banks)
+                            {
+                                if (!isFirst)
+                                    html += "<br>";
+                                if (bloodTypesByBanks[bankIndex][index] > 0)
+                                    html += bank.Name + "(" + bloodTypesByBanks[bankIndex][index] + " units)";
+                                isFirst = false;
+                                bankIndex++;
+                            }
 
-            //    //        break;
-            //    //    case BloodType.ABN:
-            //    //        isFirst = true;
-            //    //        foreach (KeyValuePair<string, int> bankEntry in report.ABNBanks)
-            //    //        {
-            //    //            if (!isFirst)
-            //    //                html += "<br>";
-            //    //            html += bankEntry.Key + "(" + bankEntry.Value + " units)";
-            //    //            isFirst = false;
-            //    //        }
-            //    //        break;
-            //    //    case BloodType.AP:
-            //    //        isFirst = true;
-            //    //        foreach (KeyValuePair<string, int> bankEntry in report.APBanks)
-            //    //        {
-            //    //            if (!isFirst)
-            //    //                html += "<br>";
-            //    //            html += bankEntry.Key + "(" + bankEntry.Value + " units)";
-            //    //            isFirst = false;
-            //    //        }
-            //    //        break;
-            //    //    case BloodType.AN:
-            //    //        isFirst = true;
-            //    //        foreach (KeyValuePair<string, int> bankEntry in report.ANBanks)
-            //    //        {
-            //    //            if (!isFirst)
-            //    //                html += "<br>";
-            //    //            html += bankEntry.Key + "(" + bankEntry.Value + " units)";
-            //    //            isFirst = false;
-            //    //        }
-            //    //        break;
-            //    //    case BloodType.BP:
-            //    //        isFirst = true;
-            //    //        foreach (KeyValuePair<string, int> bankEntry in report.BPBanks)
-            //    //        {
-            //    //            if (!isFirst)
-            //    //                html += "<br>";
-            //    //            html += bankEntry.Key + "(" + bankEntry.Value + " units)";
-            //    //            isFirst = false;
-            //    //        }
-            //    //        break;
-            //    //    case BloodType.BN:
-            //    //        isFirst = true;
-            //    //        foreach (KeyValuePair<string, int> bankEntry in report.BNBanks)
-            //    //        {
-            //    //            if (!isFirst)
-            //    //                html += "<br>";
-            //    //            html += bankEntry.Key + "(" + bankEntry.Value + " units)";
-            //    //            isFirst = false;
-            //    //        }
-            //    //        break;
-            //    //    case BloodType.OP:
-            //    //        isFirst = true;
-            //    //        foreach (KeyValuePair<string, int> bankEntry in report.OPBanks)
-            //    //        {
-            //    //            if (!isFirst)
-            //    //                html += "<br>";
-            //    //            html += bankEntry.Key + "(" + bankEntry.Value + " units)";
-            //    //            isFirst = false;
-            //    //        }
-            //    //        break;
-            //    //    case BloodType.ON:
-            //    //        isFirst = true;
-            //    //        foreach (KeyValuePair<string, int> bankEntry in report.ONBanks)
-            //    //        {
-            //    //            if (!isFirst)
-            //    //                html += "<br>";
-            //    //            html += bankEntry.Key + "(" + bankEntry.Value + " units)";
-            //    //            isFirst = false;
-            //    //        }
-            //    //        break;
-            //    //    default:
-            //    //        //asd
-            //    //        break;
-            //    //}
-            //    html += @"</td></tr>";
+                            break;
+                        case "AB positive":
+                            isFirst = true;
+                            foreach (BloodBank bank in banks)
+                            {
+                                if (!isFirst)
+                                    html += "<br>";
+                                if (bloodTypesByBanks[bankIndex][index] > 0)
+                                    html += bank.Name + "(" + bloodTypesByBanks[bankIndex][index] + " units)";
+                                isFirst = false;
+                                bankIndex++;
+                            }
 
-            //}
+                            break;
+                        case "O positive":
+                            isFirst = true;
+                            foreach (BloodBank bank in banks)
+                            {
+                                if (!isFirst)
+                                    html += "<br>";
+                                if (bloodTypesByBanks[bankIndex][index] > 0)
+                                    html += bank.Name + "(" + bloodTypesByBanks[bankIndex][index] + " units)";
+                                isFirst = false;
+                                bankIndex++;
+                            }
+
+                            break;
+                        case "A negative":
+                            isFirst = true;
+                            foreach (BloodBank bank in banks)
+                            {
+                                if (!isFirst)
+                                    html += "<br>";
+                                if (bloodTypesByBanks[bankIndex][index] > 0)
+                                    html += bank.Name + "(" + bloodTypesByBanks[bankIndex][index] + " units)";
+                                isFirst = false;
+                                bankIndex++;
+                            }
+
+                            break;
+                        case "B negative":
+                            isFirst = true;
+                            foreach (BloodBank bank in banks)
+                            {
+                                if (!isFirst)
+                                    html += "<br>";
+                                if (bloodTypesByBanks[bankIndex][index] > 0)
+                                    html += bank.Name + "(" + bloodTypesByBanks[bankIndex][index] + " units)";
+                                isFirst = false;
+                                bankIndex++;
+                            }
+
+                            break;
+                        case "AB negative":
+                            isFirst = true;
+                            foreach (BloodBank bank in banks)
+                            {
+                                if (!isFirst)
+                                    html += "<br>";
+                                if (bloodTypesByBanks[bankIndex][index] > 0)
+                                    html += bank.Name + "(" + bloodTypesByBanks[bankIndex][index] + " units)";
+                                isFirst = false;
+                                bankIndex++;
+                            }
+
+                            break;
+                        case "O negative":
+                            isFirst = true;
+                            foreach (BloodBank bank in banks)
+                            {
+                                if (!isFirst)
+                                    html += "<br>";
+                                if (bloodTypesByBanks[bankIndex][index] > 0)
+                                    html += bank.Name + "(" + bloodTypesByBanks[bankIndex][index] + " units)";
+                                isFirst = false;
+                                bankIndex++;
+                            }
+
+                            break;
+                        default:
+                            //asd
+                            break;
+                    }
+                    html += @"</td></tr>";
+                    index++;
+                }
+            }
 
             html += @"</tbody></table>";
+        }
+        private List<String> CreateBloodTypeList()
+        {
+            List<String> bloodTypeList = new List<String>();
+            bloodTypeList.Add("A positive");
+            bloodTypeList.Add("B positive");
+            bloodTypeList.Add("AB positive");
+            bloodTypeList.Add("O positive");
+            bloodTypeList.Add("A negative");
+            bloodTypeList.Add("B negative");
+            bloodTypeList.Add("AB negative");
+            bloodTypeList.Add("O negative");
+
+            return bloodTypeList;
         }
         public void CreatePieChart(List<List<int>> bloodTypesByBanks, List<BloodBank> banks, List<int> bloodAmount)
         {
@@ -189,20 +227,24 @@ namespace IntegrationLibrary.Core.Service.PDFGenerator
                           colorByPoint: true,
                           data: [";
 
-            //bool isFirst = true;
+            bool isFirst = true;
 
-            //int maxValue = SumBlood(report.BloodAmmounts);
-            //foreach (KeyValuePair<BloodType, int> entry in report.BloodAmmounts)
-            //{
-            //    double value = (maxValue * 100) / (double)entry.Value;
-            //    if (!isFirst)
-            //        html += ",";
-            //    html += "{name: '" + GetBloodTypeAsString(entry.Key) + "', y: " + Math.Round(value, 2) + "}";
-            //    isFirst = false;
-
-            //}
-
-            html += @"]
+            int maxValue = SumBlood(bloodAmount);
+            
+            int index = 0;
+            foreach (String bloodType in CreateBloodTypeList())
+            {
+                if (bloodAmount[index] > 0)
+                {
+                    double value = ((double)bloodAmount[index] * 100) / maxValue;
+                    if (!isFirst)
+                        html += ",";
+                    html += "{name: '" + bloodType + "', y: " + Math.Round(value, 2) + "}";
+                    isFirst = false;
+                    index++;
+                }
+            }
+                    html += @"]
                           }]
                       });
                     </script>
@@ -210,12 +252,12 @@ namespace IntegrationLibrary.Core.Service.PDFGenerator
                     </body>
                 </html>";
         }
-        private int SumBlood(Dictionary<BloodType, int> report)
+        private int SumBlood(List<int> bloodAmount)
         {
             int sum = 0;
-            foreach (KeyValuePair<BloodType, int> entry in report)
+            foreach (int amount in bloodAmount)
             {
-                sum += entry.Value;
+                sum += amount;
             }
             return sum;
         }

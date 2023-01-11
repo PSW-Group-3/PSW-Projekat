@@ -120,7 +120,7 @@ namespace IntegrationLibrary.Core.Service.Tenders
             List<Tender> tendersInRange = new List<Tender>();
             foreach (Tender tender in tenders)
             {
-                if (tender.DueDate > start || tender.DueDate < end)
+                if (tender.DueDate > start && tender.DueDate < end)
                 {
                     tendersInRange.Add(tender);
                 }
