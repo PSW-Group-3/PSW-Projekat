@@ -9,7 +9,7 @@ import { Report } from '../model/report.model';
   styleUrls: ['./requests-report.component.css'],
 })
 export class RequestsReportComponent implements OnInit {
-  public dates = { start: new Date(), end: new Date() };
+  public dates = { StartDate: new Date(), EndDate: new Date() };
   public errorMessage: any;
   public report: Report = new Report();
   constructor(
@@ -19,6 +19,10 @@ export class RequestsReportComponent implements OnInit {
 
   ngOnInit(): void {}
   public accept() {
+    // const datesString = {
+    //   StartDate: this.dates.StartDate.toJSON,
+    //   EndDate: this.dates.EndDate.toJSON,
+    // };
     console.log('accept', this.dates);
     this.emergencyService.getReport(this.dates).subscribe(
       (res) => {
