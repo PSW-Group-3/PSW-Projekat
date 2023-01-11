@@ -8,7 +8,7 @@ namespace IntegrationLibrary.Core.Model
 {
     public class EmergencyBloodReportParams
     {
-        public string StartDate;
-        public string EndDate;
+        public DateTime StartDate;
+        public DateTime EndDate;
     }
 }
