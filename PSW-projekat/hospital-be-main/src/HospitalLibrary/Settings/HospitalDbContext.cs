@@ -30,6 +30,11 @@ namespace HospitalLibrary.Settings
 
         public DbSet<DoctorsCouncil> DoctorsCouncils { get; set; }
 
+        public DbSet<HospitalLibrary.Core.AggregatDoctor.DoctorExamination> DoctorExaminations { get; set; }
+
+        public DbSet<HospitalLibrary.Core.AggregatDoctor.DomainEvent> DoctorExaminationEvents { get; set; }
+
+
         public HospitalDbContext(DbContextOptions<HospitalDbContext> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
