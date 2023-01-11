@@ -52,6 +52,7 @@ namespace IntegrationLibrary.Core.Service.EmergencyBloodRequests
                 BloodBankId = request.BloodBankID,
                 BloodQuantity = request.BloodQuantity,
                 BloodType = ProtoBloodTypeToBloodType(request.BloodType),
+                Date = DateTime.Now
             };
             _emergencyBloodRequestRepository.Create(emergencyBloodRequest);
         }
@@ -169,6 +170,173 @@ namespace IntegrationLibrary.Core.Service.EmergencyBloodRequests
                 return BloodType.ABP;
             }
             return BloodType.ABN;
+        }
+        public EmergencyBloodReport GetEmergencyBloodReportDT0(EmergencyBloodReportParams reportParams)
+        {
+            EmergencyBloodReport report = new EmergencyBloodReport();
+            foreach (EmergencyBloodRequest requestIt in _emergencyBloodRequestRepository.GetAll())
+            {
+                //check if request is in date range
+                switch (requestIt.BloodType)
+                {
+                    case BloodType.ABP:
+                        if (report.BloodAmmounts.ContainsKey(BloodType.ABP))
+                        {
+                            report.BloodAmmounts[BloodType.ABP] += requestIt.BloodQuantity;
+                        }
+                        else
+                        {
+                            report.BloodAmmounts.Add(BloodType.ABP, requestIt.BloodQuantity);
+                        }
+                        string ABPBankName = _bloodBankRepository.GetById(requestIt.BloodBankId).Name;
+                        if(report.ABPBanks.ContainsKey(ABPBankName))
+                        {
+                            report.ABPBanks[ABPBankName] += requestIt.BloodQuantity;
+                        } else
+                        {
+                            report.ABPBanks.Add(ABPBankName, requestIt.BloodQuantity);
+                        }
+                        break;
+                    case BloodType.ABN:
+                        if (report.BloodAmmounts.ContainsKey(BloodType.ABN))
+                        {
+                            report.BloodAmmounts[BloodType.ABN] += requestIt.BloodQuantity;
+                        }
+                        else
+                        {
+                            report.BloodAmmounts.Add(BloodType.ABN, requestIt.BloodQuantity);
+                        }
+                        string ABNBankName = _bloodBankRepository.GetById(requestIt.BloodBankId).Name;
+                        if (report.ABPBanks.ContainsKey(ABNBankName))
+                        {
+                            report.ABNBanks[ABNBankName] += requestIt.BloodQuantity;
+                        }
+                        else
+                        {
+                            report.ABNBanks.Add(ABNBankName, requestIt.BloodQuantity);
+                        }
+                        break;
+                    case BloodType.AP:
+                        if (report.BloodAmmounts.ContainsKey(BloodType.AP))
+                        {
+                            report.BloodAmmounts[BloodType.AP] += requestIt.BloodQuantity;
+                        }
+                        else
+                        {
+                            report.BloodAmmounts.Add(BloodType.AP, requestIt.BloodQuantity);
+                        }
+                        string APBankName = _bloodBankRepository.GetById(requestIt.BloodBankId).Name;
+                        if (report.APBanks.ContainsKey(APBankName))
+                        {
+                            report.APBanks[APBankName] += requestIt.BloodQuantity;
+                        }
+                        else
+                        {
+                            report.APBanks.Add(APBankName, requestIt.BloodQuantity);
+                        }
+                        break;
+                    case BloodType.AN:
+                        if (report.BloodAmmounts.ContainsKey(BloodType.AN))
+                        {
+                            report.BloodAmmounts[BloodType.AN] += requestIt.BloodQuantity;
+                        }
+                        else
+                        {
+                            report.BloodAmmounts.Add(BloodType.AN, requestIt.BloodQuantity);
+                        }
+                        string ANBankName = _bloodBankRepository.GetById(requestIt.BloodBankId).Name;
+                        if (report.ANBanks.ContainsKey(ANBankName))
+                        {
+                            report.ANBanks[ANBankName] += requestIt.BloodQuantity;
+                        }
+                        else
+                        {
+                            report.ANBanks.Add(ANBankName, requestIt.BloodQuantity);
+                        }
+                        break;
+                    case BloodType.BP:
+                        if (report.BloodAmmounts.ContainsKey(BloodType.BP))
+                        {
+                            report.BloodAmmounts[BloodType.BP] += requestIt.BloodQuantity;
+                        }
+                        else
+                        {
+                            report.BloodAmmounts.Add(BloodType.BP, requestIt.BloodQuantity);
+                        }
+                        string BPBankName = _bloodBankRepository.GetById(requestIt.BloodBankId).Name;
+                        if (report.BPBanks.ContainsKey(BPBankName))
+                        {
+                            report.BPBanks[BPBankName] += requestIt.BloodQuantity;
+                        }
+                        else
+                        {
+                            report.BPBanks.Add(BPBankName, requestIt.BloodQuantity);
+                        }
+                        break;
+                    case BloodType.BN:
+                        if (report.BloodAmmounts.ContainsKey(BloodType.BN))
+                        {
+                            report.BloodAmmounts[BloodType.BN] += requestIt.BloodQuantity;
+                        }
+                        else
+                        {
+                            report.BloodAmmounts.Add(BloodType.BN, requestIt.BloodQuantity);
+                        }
+                        string BNBankName = _bloodBankRepository.GetById(requestIt.BloodBankId).Name;
+                        if (report.BNBanks.ContainsKey(BNBankName))
+                        {
+                            report.BNBanks[BNBankName] += requestIt.BloodQuantity;
+                        }
+                        else
+                        {
+                            report.BNBanks.Add(BNBankName, requestIt.BloodQuantity);
+                        }
+                        break;
+                    case BloodType.OP:
+                        if (report.BloodAmmounts.ContainsKey(BloodType.OP))
+                        {
+                            report.BloodAmmounts[BloodType.OP] += requestIt.BloodQuantity;
+                        }
+                        else
+                        {
+                            report.BloodAmmounts.Add(BloodType.OP, requestIt.BloodQuantity);
+                        }
+                        string OPBankName = _bloodBankRepository.GetById(requestIt.BloodBankId).Name;
+                        if (report.OPBanks.ContainsKey(OPBankName))
+                        {
+                            report.OPBanks[OPBankName] += requestIt.BloodQuantity;
+                        }
+                        else
+                        {
+                            report.OPBanks.Add(OPBankName, requestIt.BloodQuantity);
+                        }
+                        break;
+                    case BloodType.ON:
+                        if (report.BloodAmmounts.ContainsKey(BloodType.ON))
+                        {
+                            report.BloodAmmounts[BloodType.ON] += requestIt.BloodQuantity;
+                        }
+                        else
+                        {
+                            report.BloodAmmounts.Add(BloodType.ON, requestIt.BloodQuantity);
+                        }
+                        string ONBankName = _bloodBankRepository.GetById(requestIt.BloodBankId).Name;
+                        if (report.ONBanks.ContainsKey(ONBankName))
+                        {
+                            report.ONBanks[ONBankName] += requestIt.BloodQuantity;
+                        }
+                        else
+                        {
+                            report.ONBanks.Add(ONBankName, requestIt.BloodQuantity);
+                        }
+                        break;
+                    default:
+                        //asd
+                        break;
+                }
+            }
+                //generate and save pdf for report
+                return report;
         }
     }
 }

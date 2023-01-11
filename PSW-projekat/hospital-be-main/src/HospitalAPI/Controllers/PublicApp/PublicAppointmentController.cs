@@ -22,7 +22,6 @@ namespace HospitalAPI.Controllers.PublicApp
         private readonly IDoctorService _doctorService;
         private readonly IPatientService _patientService;
 
-
         public PublicAppointmentController(IAppointmentService appointmentService, IDoctorService doctorService, IPatientService patientService)
         {
             _appointmentService = appointmentService;

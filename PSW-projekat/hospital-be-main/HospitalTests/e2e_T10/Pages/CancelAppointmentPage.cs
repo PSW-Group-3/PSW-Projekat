@@ -17,7 +17,7 @@ namespace HospitalTests.e2e_T10.Pages
         public static bool Err { get; set; } = true;
 
         private IWebElement AppointmentsTable => driver.FindElement(By.Id("appointmentsTable"));
-        private IWebElement CancelButton => driver.FindElement(By.Id("5"));
+        private IWebElement CancelButton => driver.FindElement(By.Id("1"));
 
         public CancelAppointmentPage(IWebDriver driver)
         {
@@ -27,6 +27,11 @@ namespace HospitalTests.e2e_T10.Pages
         public bool AppointmentsTableDisplayed()
         {
             return AppointmentsTable.Displayed;
+        }
+
+        public bool CancelButtonDisplayed()
+        {
+            return CancelButton.Displayed;
         }
 
         public void SubmitCancel()
@@ -43,7 +48,7 @@ namespace HospitalTests.e2e_T10.Pages
             {
                 try
                 {
-                    return AppointmentsTableDisplayed();
+                    return AppointmentsTableDisplayed() && CancelButtonDisplayed();
                 }
                 catch (StaleElementReferenceException)
                 {

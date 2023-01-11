@@ -61,6 +61,19 @@ namespace IntegrationAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("report")]
+        public ActionResult GetReport(EmergencyBloodReportParams reportParams)
+        {
+            try
+            {
+                EmergencyBloodReport report = _emergencyBloodRequestService.GetEmergencyBloodReportDT0(reportParams);
+                return Ok(report);
+            } catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
 
     }
 }

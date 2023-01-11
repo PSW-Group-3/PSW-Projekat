@@ -55,7 +55,8 @@ namespace IntegrationLibrary.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     BloodQuantity = table.Column<int>(type: "int", nullable: false),
                     BloodType = table.Column<int>(type: "int", nullable: false),
-                    BloodBankId = table.Column<int>(type: "int", nullable: false)
+                    BloodBankId = table.Column<int>(type: "int", nullable: false),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {

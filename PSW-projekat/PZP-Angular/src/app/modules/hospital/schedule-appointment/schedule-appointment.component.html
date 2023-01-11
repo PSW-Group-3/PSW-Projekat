@@ -28,7 +28,7 @@
   </div>
 </nav>
 <div class="d-flex justify-content-center m-5">
-  <mat-stepper [orientation]="(stepperOrientation | async)!" linear="true">
+  <mat-stepper [orientation]="(stepperOrientation | async)!" linear>
     <mat-step [stepControl]="dateForm" label="Choose a date">
       <form [formGroup]="dateForm">
         <mat-form-field appearance="fill">
@@ -39,7 +39,7 @@
             <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
         <div>
-          <button mat-button matStepperNext>Next</button>
+          <button mat-button matStepperNext (click)="ChooseAppointmentDate()">Next</button>
         </div>
       </form>
     </mat-step>
@@ -60,7 +60,7 @@
           </mat-select>
         </mat-form-field>
         <div>
-          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperPrevious (click)="BackToAppointmentDateChoosing()">Back</button>
           <button mat-button matStepperNext (click)="getDoctors()">Next</button>
         </div>
       </form>
@@ -73,10 +73,9 @@
             <mat-option>--</mat-option>
             <mat-option *ngFor="let doctor of doctors" [value]="doctor">{{doctor.fullName}}</mat-option>
           </mat-select>
-          <mat-label>Doctor</mat-label>
         </mat-form-field>
         <div>
-          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperPrevious (click)="BackToSpecializationChoosing()">Back</button>
           <button mat-button matStepperNext (click)="getFreeAppointmentTimes()">Next</button>
         </div>
       </form>
@@ -91,8 +90,8 @@
             </mat-select>
           </mat-form-field>
           <div>
-            <button mat-button matStepperPrevious>Back</button>
-            <button mat-button matStepperNext>Next</button>
+            <button mat-button matStepperPrevious (click)="BackToDoctorChoosing()">Back</button>
+            <button mat-button matStepperNext (click)="ChooseAppointmentTime()">Next</button>
           </div>
         </form>
     </mat-step>
@@ -114,7 +113,7 @@
       <p>Doctor: {{doctorForm.value.doctor.fullName}}</p>
       <p>Time: {{timeForm.value.time}}</p>
       <div>
-        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperPrevious (click)="BackToAppointmentTimeChoosing()">Back</button>
         <button mat-button (click)="schedule()">Schedule</button>
       </div>
     </mat-step>
