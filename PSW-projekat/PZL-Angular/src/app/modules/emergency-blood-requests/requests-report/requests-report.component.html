@@ -1,0 +1,36 @@
+<div class="col-md-9 pe-5">
+  <p>Start</p>
+  <div
+    id="date-picker-example"
+    class="md-form md-outline input-with-post-icon datepicker"
+    inline="true"
+  >
+    <input
+      placeholder="Select date"
+      type="date"
+      id="example"
+      [(ngModel)]="this.dates.start"
+      class="form-control"
+    />
+  </div>
+</div>
+<div class="col-md-9 pe-5">
+  <p>End</p>
+  <div
+    id="date-picker-example"
+    class="md-form md-outline input-with-post-icon datepicker"
+    inline="true"
+  >
+    <input
+      placeholder="Select date"
+      type="date"
+      id="example"
+      [(ngModel)]="this.dates.end"
+      class="form-control"
+    />
+  </div>
+</div>
+
+<button class="m-1" mat-stroked-button (click)="accept()">Send</button>
+<h1>Requests:</h1>
+<p>{{ this.requests }}</p>
