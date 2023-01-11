@@ -21,6 +21,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
+using HospitalLibrary.Core.AggregatDoctor;
 
 namespace HospitalAPI
 {
@@ -148,7 +149,7 @@ namespace HospitalAPI
             services.AddScoped<IExaminationRepository, ExaminationRepository>();
 
             services.AddScoped<IIntegrationConnection, IntegrationHTTPConnection>();
-
+            services.AddScoped<DoctorExaminationEventsRepository>();
 
         }
 
