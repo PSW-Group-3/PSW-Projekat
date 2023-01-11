@@ -32,10 +32,11 @@ namespace HospitalTests.e2e_T10
             loginPage.InsertUsername("nevena");
             loginPage.InsertPassword("123");
             loginPage.SubmitForm();
-            Thread.Sleep(3000);
+            loginPage.EnsureLoggedIn();
             loginPage.ErrorDivDisplayed().ShouldBe(false);
             cancelAppointmentPage = new Pages.CancelAppointmentPage(driver);
             cancelAppointmentPage.Navigate();
+            cancelAppointmentPage.EnsurePageIsDisplayed();
         }
 
         public void Dispose()
@@ -49,12 +50,9 @@ namespace HospitalTests.e2e_T10
         {
 
             cancelAppointmentPage.SubmitCancel();
-            try
-            {
-                cancelAppointmentPage.WaitForToastDialog();
-            }
-            catch (WebDriverTimeoutException) { }
+
         }
+
 
     }
 }
