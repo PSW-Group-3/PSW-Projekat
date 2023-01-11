@@ -8,8 +8,7 @@ namespace IntegrationLibrary.Core.Service.PDFGenerator
 {
     public interface IPDFService
     {
-        void CreatePDF();
-        String createFileName(String name);
+        String CreateFileName(String name);
         void CreatePDFStyle();
 
         void CreatePDFBody();

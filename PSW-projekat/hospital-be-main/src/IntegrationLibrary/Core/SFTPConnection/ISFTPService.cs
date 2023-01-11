@@ -10,6 +10,6 @@ namespace IntegrationLibrary.Core.SFTPConnection
     {
         void Connect();
         void Disconnect();
-        void saveReports();
+        void saveReports(string path);
     }
 }

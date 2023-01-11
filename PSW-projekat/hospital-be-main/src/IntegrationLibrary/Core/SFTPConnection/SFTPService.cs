@@ -10,7 +10,7 @@ namespace IntegrationLibrary.Core.SFTPConnection
 {
     public class SFTPService : ISFTPService
     {
-        public static SftpClient client = new SftpClient(new PasswordConnectionInfo("192.168.1.7", 2222, "tester", "password"));
+        public static SftpClient client = new SftpClient(new PasswordConnectionInfo("192.168.56.1", 2222, "tester", "password"));
         public void Connect()
         {
             client.Connect();
@@ -19,13 +19,12 @@ namespace IntegrationLibrary.Core.SFTPConnection
         {
             client.Disconnect();
         }
-        public void saveReports()
+        public void saveReports(string path)
         {
             Connect();
-            string sourceFile = Directory.GetParent(Directory.GetCurrentDirectory()).FullName + @"\IntegrationAPI\BloodReportForBloodyMary_30112022.pdf";
-            using (Stream stream  = File.OpenRead(sourceFile))
+            using (Stream stream  = File.OpenRead(path))
             {
-                client.UploadFile(stream, @"\public\" + Path.GetFileName(sourceFile));
+                client.UploadFile(stream, @"\public\" + Path.GetFileName(path));
             }
 
             Disconnect();
