@@ -19,10 +19,6 @@ export class RequestsReportComponent implements OnInit {
 
   ngOnInit(): void {}
   public accept() {
-    // const datesString = {
-    //   StartDate: this.dates.StartDate.toJSON,
-    //   EndDate: this.dates.EndDate.toJSON,
-    // };
     console.log('accept', this.dates);
     this.emergencyService.getReport(this.dates).subscribe(
       (res) => {

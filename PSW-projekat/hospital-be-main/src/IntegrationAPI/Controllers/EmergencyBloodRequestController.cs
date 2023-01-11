@@ -66,9 +66,6 @@ namespace IntegrationAPI.Controllers
         {
             try
             {
-                Console.WriteLine("reportParams: ");
-                Console.WriteLine(reportParams.StartDate);
-                Console.WriteLine(reportParams.EndDate);
                 EmergencyBloodReport report = _emergencyBloodRequestService.GetEmergencyBloodReportDT0(reportParams);
                 return Ok(report);
             } catch (Exception ex)
