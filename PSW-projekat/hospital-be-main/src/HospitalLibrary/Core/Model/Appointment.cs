@@ -17,15 +17,25 @@ namespace HospitalLibrary.Core.Model
         }
 
 
-        public Appointment(int id, bool deleted, Patient patient, Doctor doctor, DateTime dateTime, DateTime cancelationDate)
+        public Appointment(int id, bool deleted, Patient patient, Doctor doctor, DateTime dateTime, DateTime? cancelationDate)
         {
-            Id = id;
-            Deleted = deleted;
-            Patient = patient;
-            Doctor = doctor;
-            DateTime = dateTime;
-            CancelationDate = cancelationDate;
+            if (Validate(dateTime)){
+                Id = id;
+                Deleted = deleted;
+                Patient = patient;
+                Doctor = doctor;
+                DateTime = dateTime;
+                CancelationDate = cancelationDate;
+            }
+            else
+                throw new Exception("Invalid values for appointment");
+        }
 
+        private bool Validate(DateTime dateTime)
+        {
+            if (dateTime > DateTime.Now)
+                return true;
+            return false;
         }
     }
 

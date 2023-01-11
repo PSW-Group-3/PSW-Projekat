@@ -21,11 +21,4 @@ export class PatientInfoComponent implements OnInit {
       this.patientInfo = res;
     });
   }
-
-  logout(){
-    this.loginService.logout().subscribe(res => {
-      
-    }) 
-  }
-
 }

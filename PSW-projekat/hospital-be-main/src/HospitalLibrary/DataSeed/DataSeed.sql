@@ -255,22 +255,22 @@ INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], 
 INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (2, 9, 4, 8, 0, 12, 0)
 INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (2, 10, 5, 8, 0, 12, 0)
 
-INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (3, 11, 1, 8, 0, 12, 0)
-INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (3, 12, 2, 8, 0, 12, 0)
-INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (3, 13, 3, 8, 0, 12, 0)
-INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (3, 14, 4, 8, 0, 12, 0)
-INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (3, 15, 5, 8, 0, 12, 0)
+INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (3, 11, 1, 12, 0, 16, 0)
+INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (3, 12, 2, 12, 0, 16, 0)
+INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (3, 13, 3, 12, 0, 16, 0)
+INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (3, 14, 4, 12, 0, 16, 0)
+INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (3, 15, 5, 12, 0, 16, 0)
 
-INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (4, 16, 1, 8, 0, 12, 0)
-INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (4, 17, 2, 8, 0, 12, 0)
-INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (4, 18, 3, 8, 0, 12, 0)
-INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (4, 19, 4, 8, 0, 12, 0)
-INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (4, 20, 5, 8, 0, 12, 0)
+INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (4, 16, 1, 12, 0, 16, 0)
+INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (4, 17, 2, 12, 0, 16, 0)
+INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (4, 18, 3, 12, 0, 16, 0)
+INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (4, 19, 4, 12, 0, 16, 0)
+INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (4, 20, 5, 12, 0, 16, 0)
 
-INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (5, 21, 1, 8, 0, 12, 0)
-INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (5, 22, 2, 8, 0, 12, 0)
+INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (5, 21, 6, 8, 0, 12, 0)
+INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (5, 22, 0, 8, 0, 12, 0)
 
-INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (6, 23, 3, 8, 0, 12, 0)
-INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (6, 24, 4, 8, 0, 12, 0)
+INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (6, 23, 6, 8, 0, 12, 0)
+INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (6, 24, 0, 8, 0, 12, 0)
 
 SET IDENTITY_INSERT [dbo].[Patients] OFF

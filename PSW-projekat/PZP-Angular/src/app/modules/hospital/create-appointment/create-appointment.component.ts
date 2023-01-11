@@ -76,11 +76,5 @@ export class CreateAppointment implements OnInit{
 
     })
   }
-
-  logout(){
-    this.loginService.logout().subscribe(res => {
-      
-    }) 
-  }
 }
 

@@ -23,6 +23,7 @@ import { TenderDetailsComponent } from './blood-bank-tenders/tender-details/tend
 import { BankLoginComponent } from './bank-login/bank-login.component';
 import { MatNativeDateModule } from '@angular/material/core';
 import { PatientAppointmentsComponent } from './patient-appointments/patient-appointments.component';
+import { PatientNavBarComponent } from './patient-nav-bar/patient-nav-bar.component';
 
 const routes: Routes = [
   { path: 'rooms', component: RoomsComponent },
@@ -63,6 +64,7 @@ const routes: Routes = [
     BankLoginComponent,
     PatientAppointmentsComponent,
     CreateAppointment,
+    PatientNavBarComponent,
   ],
   imports: [
     CommonModule,

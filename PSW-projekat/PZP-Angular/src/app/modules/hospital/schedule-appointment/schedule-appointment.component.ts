@@ -83,12 +83,8 @@ export class ScheduleAppointmentComponent implements OnInit {
     this.AppointmentSchedulingAggregateEndTime();
 
     this.appointmentsService.scheduleAppointment(appointmentInfo).subscribe(res => {
-      this.router.navigate(['/homePatient']);
+      this.router.navigate(['/appointments']);
     });
-  }
-
-  logout(){
-    this.loginService.logout().subscribe(res => {}) 
   }
 
   //Event Sourcing Functions

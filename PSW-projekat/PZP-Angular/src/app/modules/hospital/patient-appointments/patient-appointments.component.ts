@@ -45,11 +45,5 @@ export class PatientAppointmentsComponent implements OnInit {
       return true
     return false
   }
-
-  logout(){
-    this.loginService.logout().subscribe(res => {
-      
-    }) 
-  }
 }
 
