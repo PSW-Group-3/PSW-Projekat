@@ -24,7 +24,7 @@ namespace HospitalAPI.Controllers.PrivateApp
             _schedulingStatisticsService = schedulingStatisticsService;
         }
 
-        [HttpGet("GetAllEventStatistics")]
+        [HttpGet("GetAllExaminationEventStatistics")]
         public ActionResult GetAllEventStatistics()
         {
             ExaminationStatisticsDTO dto = _schedulingStatisticsService.GetAllEventStatistics();

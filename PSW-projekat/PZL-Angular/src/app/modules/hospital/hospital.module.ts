@@ -38,6 +38,7 @@ import { BloodRequestsComponent } from './blood-requests/blood-requests.componen
 import { PrescriptionsComponent } from './prescriptions/prescriptions.component';
 import { ShowDescriptionsPipe } from './prescriptions/show-descriptions.pipe';
 import { ShowMedicinesPipe } from './prescriptions/show-medicines.pipe';
+import { ExaminationStatisticComponent } from './examination-statistic/examination-statistic.component';
 
 const routes: Routes = [
   { path: 'rooms', component: RoomsComponent, canActivate: [AuthGuardManager] },
@@ -113,6 +114,8 @@ const routes: Routes = [
   { path: 'reports', component: ReportsComponent, canActivate: [ AuthGuardDoctor ] },
   { path: 'bloodRequests', component: BloodRequestsComponent },
   { path: 'prescriptions', component: PrescriptionsComponent},
+  { path: 'examinationStatistic', component: ExaminationStatisticComponent},
+  
 
 ];
 
@@ -146,7 +149,8 @@ const routes: Routes = [
     BloodRequestsComponent,
     PrescriptionsComponent,
     ShowDescriptionsPipe,
-    ShowMedicinesPipe
+    ShowMedicinesPipe,
+    ExaminationStatisticComponent
   ],
   imports: [
     CommonModule,
