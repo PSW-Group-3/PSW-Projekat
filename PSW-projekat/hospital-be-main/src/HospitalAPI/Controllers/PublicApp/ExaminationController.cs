@@ -192,15 +192,21 @@ namespace HospitalAPI.Controllers.PublicApp
         }
 
         [Authorize(Roles = "Patient")]
-        [HttpGet("GetPDF")]
-        public ActionResult GetPDF(
-            int id
-        )
+        [HttpGet("GetPDF/{appointmentID}")]
+        public ActionResult GetPDF(int appointmentID)
         {
-            string filename = "report.pdf";
-            //string filename = "examination_" + id + ".pdf";
+            string filename = "examination_" + appointmentID + ".pdf";
             string path = Directory.GetParent(Directory.GetCurrentDirectory()).FullName + @"\HospitalAPI\" + filename;
-            byte[] pdfFile = System.IO.File.ReadAllBytes(path);
+            byte[] pdfFile;
+            try
+            {
+                pdfFile = System.IO.File.ReadAllBytes(path);
+            }
+            catch
+            {
+                return BadRequest("File not found");
+            }
+            
             return File(pdfFile, "application/pdf", filename);
         }
     }

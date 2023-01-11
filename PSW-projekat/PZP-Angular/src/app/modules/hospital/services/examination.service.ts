@@ -11,7 +11,6 @@ export class ExaminationService {
   constructor(private http: HttpClient) { }
 
   getPDF(appointmentID: number){
-    return this.http.get('api/Examination/GetPDF', {headers: this.headers, responseType: 'blob'});
+    return this.http.get('api/Examination/GetPDF/' + appointmentID, { headers: this.headers, responseType: 'blob'});
   }
-
 }
