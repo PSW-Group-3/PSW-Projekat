@@ -10,5 +10,6 @@ namespace IntegrationLibrary.Core.Model
     {
         public DateTime StartDate;
         public DateTime EndDate;
+        public BloodType BloodType;
     }
 }
