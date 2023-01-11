@@ -1,5 +1,7 @@
-﻿using OpenQA.Selenium;
+﻿using HospitalTests.e2e_T10.Pages;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.DevTools.V106.Network;
 using Shouldly;
 using System;
 using System.Threading;
@@ -48,9 +50,9 @@ namespace HospitalTests.e2e_T10
         [Fact]
         public void Cancel_appointment_successfully()
         {
-
             cancelAppointmentPage.SubmitCancel();
-
+            cancelAppointmentPage.EnsureCanceled();
+            Assert.Equal("Cancelled", cancelAppointmentPage.Status.Text);
         }
 
 
