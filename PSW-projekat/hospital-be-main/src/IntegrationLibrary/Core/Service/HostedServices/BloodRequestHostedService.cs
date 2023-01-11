@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using IntegrationLibrary.Core.Model;
 using IntegrationLibrary.Core.Service.BloodRequests;
+using IntegrationLibrary.Core.SFTPConnection;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 

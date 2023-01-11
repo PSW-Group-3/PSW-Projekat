@@ -74,7 +74,7 @@ namespace IntegrationLibrary.Core.Service.Reports
                 {
                     List<IFormFile> pdfs = new List<IFormFile>();
                     MemoryStream stream = new MemoryStream(pdfFile);
-                    pdfs.Add(new FormFile(stream, 0, pdfFile.Length, bloodReportPDFGenerator.createFileName(bank.Name), bloodReportPDFGenerator.createFileName(bank.Name)) 
+                    pdfs.Add(new FormFile(stream, 0, pdfFile.Length, bloodReportPDFGenerator.CreateFileName(bank.Name), bloodReportPDFGenerator.CreateFileName(bank.Name)) 
                     {
                         Headers = new HeaderDictionary(),
                         ContentType = "application/pdf" 

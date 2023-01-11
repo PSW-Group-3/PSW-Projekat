@@ -12,6 +12,8 @@ using IntegrationLibrary.Core.Exceptions;
 using IntegrationLibrary.Core.Model;
 using IntegrationLibrary.Core.Repository.BloodBanks;
 using IntegrationLibrary.Core.Repository.EmergencyBloodRequests;
+using IntegrationLibrary.Core.Service.PDFGenerator;
+using IntegrationLibrary.Core.SFTPConnection;
 using IntegrationLibrary.Protos;
 
 namespace IntegrationLibrary.Core.Service.EmergencyBloodRequests
@@ -20,11 +22,15 @@ namespace IntegrationLibrary.Core.Service.EmergencyBloodRequests
     {
         private readonly IBloodBankRepository _bloodBankRepository;
         private readonly IEmergencyBloodRequestRepository _emergencyBloodRequestRepository;
+        private readonly EmergencyRequestPDFGenerator _emergencyRequestPDFGenerator =  new EmergencyRequestPDFGenerator();
+        private readonly ISFTPService _SFTPService;
 
-        public EmergencyBloodRequestService(IBloodBankRepository bloodBankRepository, IEmergencyBloodRequestRepository emergencyBloodRequestRepository)
+        public EmergencyBloodRequestService(IBloodBankRepository bloodBankRepository, IEmergencyBloodRequestRepository emergencyBloodRequestRepository, 
+            ISFTPService SFTPService)
         {
             _bloodBankRepository = bloodBankRepository;
             _emergencyBloodRequestRepository = emergencyBloodRequestRepository;
+            _SFTPService = SFTPService;
         }
 
         public  void RequestEmergencyBlood(EmergencyBloodRequestGRPC request)
@@ -338,8 +344,16 @@ namespace IntegrationLibrary.Core.Service.EmergencyBloodRequests
                 }
                 }
             }
-                //generate and save pdf for report
-                return report;
+            //generate and save pdf for report
+            string path = _emergencyRequestPDFGenerator.CreatePDF(reportParams ,report);
+            try
+            {
+                _SFTPService.saveReports(path);
+            }catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            return report;
         }
     }
 }

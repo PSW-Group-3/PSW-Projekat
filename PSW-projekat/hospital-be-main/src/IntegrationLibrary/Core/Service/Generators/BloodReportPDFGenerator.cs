@@ -22,14 +22,14 @@ namespace IntegrationLibrary.Core.Service.Generators
             
             PdfDocument doc = Renderer.RenderHtmlAsPdf(html);
 
-            String filename = createFileName(bank.Name);
+            String filename = CreateFileName(bank.Name);
             doc.SaveAs(filename);
 
             string path = Directory.GetParent(Directory.GetCurrentDirectory()).FullName + @"\IntegrationAPI\" + filename;
             byte[] pdfFile = File.ReadAllBytes(path);
             return pdfFile;
         }
-        public String createFileName(String bankName)
+        public String CreateFileName(String bankName)
         {
             String today = DateTime.Now.ToString("ddMMyyyy");
             String filename = "BloodReportFor" + bankName.Replace(" ", "") + "_" + today + ".pdf";
@@ -38,7 +38,7 @@ namespace IntegrationLibrary.Core.Service.Generators
 
         public void DeleteMadeFiles(String bankName)
         {
-            String path = Directory.GetParent(Directory.GetCurrentDirectory()).FullName + @"\IntegrationAPI\" + createFileName(bankName);
+            String path = Directory.GetParent(Directory.GetCurrentDirectory()).FullName + @"\IntegrationAPI\" + CreateFileName(bankName);
             if (File.Exists(path))
                 File.Delete(path);
         }

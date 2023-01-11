@@ -12,8 +12,7 @@ import { Report } from '../model/report.model';
 export class RequestsReportComponent implements OnInit {
   public request = {
     StartDate: new Date(),
-    EndDate: new Date(),
-    BloodType,
+    EndDate: new Date()
   };
   public errorMessage: any;
   public bloodTypes: BloodType[] = [
