@@ -70,9 +70,6 @@
       <HashCode>ABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Core\AggregatDoctor\Events\DoctorSelectedPrescriptions.cs</FileName>
     </TypeIdentifier>
-    <ShowAsCollectionAssociation>
-      <Property Name="Prescriptions" />
-    </ShowAsCollectionAssociation>
   </Class>
   <Class Name="HospitalLibrary.Core.AggregatDoctor.Events.DoctorSelectedSymptoms" Collapsed="true">
     <Position X="20" Y="7.25" Width="1.5" />
@@ -80,29 +77,12 @@
       <HashCode>AAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Core\AggregatDoctor\Events\DoctorSelectedSymptoms.cs</FileName>
     </TypeIdentifier>
-    <ShowAsCollectionAssociation>
-      <Property Name="Symptoms" />
-    </ShowAsCollectionAssociation>
   </Class>
   <Class Name="HospitalLibrary.Core.AggregatDoctor.Events.DoctorWriteReport" Collapsed="true">
     <Position X="14.75" Y="7.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAA=</HashCode>
       <FileName>Core\AggregatDoctor\Events\DoctorWriteReport.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="HospitalLibrary.Core.Model.Symptom" Collapsed="true">
-    <Position X="25.25" Y="7" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAgAACAAAAQAIAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Core\Model\Symptom.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="HospitalLibrary.Core.Model.Prescription">
-    <Position X="27" Y="8.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAgAAgAAAAAAAAAAAAAAAAAAAAAAAAACAA=</HashCode>
-      <FileName>Core\Model\Prescription.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="HospitalLibrary.Core.Model.Doctor" Collapsed="true">

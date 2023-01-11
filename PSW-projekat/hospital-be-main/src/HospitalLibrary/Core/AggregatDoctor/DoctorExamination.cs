@@ -17,12 +17,12 @@ namespace HospitalLibrary.Core.AggregatDoctor
 
         public DoctorExamination() { }
 
-        public void ChooseSymptoms(List<Symptom> symptoms)
+        public void ChooseSymptoms(string symptoms)
         {
             Causes(new DoctorSelectedSymptoms(symptoms));
         }
 
-        public void ChoosePerscriptions(List<Prescription>  prescriptions)
+        public void ChoosePerscriptions(string  prescriptions)
         {
             Causes(new DoctorSelectedPrescriptions(prescriptions));
         }

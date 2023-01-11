@@ -9,14 +9,15 @@ namespace HospitalLibrary.Core.AggregatDoctor.Events
 {
     public class DoctorSelectedPrescriptions : DomainEvent
     {
-        public virtual ICollection<Prescription> Prescriptions { get; set; }
+        
+        public string Prescriptions { get; set; }
         public DoctorSelectedPrescriptions()
         {
             phase = ExaminationStage.symptomsChoosen;
             selectionTime = DateTime.Now;
         }
 
-        public DoctorSelectedPrescriptions(List<Prescription> prescription)
+        public DoctorSelectedPrescriptions(string prescription)
         {
             phase = ExaminationStage.symptomsChoosen;
             Prescriptions = prescription;

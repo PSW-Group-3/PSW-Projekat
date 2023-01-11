@@ -37,9 +37,9 @@ namespace HospitalAPI.Controllers.PrivateApp
         }
 
         [HttpPost("DoctorExaminationAggregateEndTime")]
-        public ActionResult DoctorExaminationAggregateEndTime(int id)
+        public ActionResult DoctorExaminationAggregateEndTime(DoctorExaminationEventDTO doctorExaminationEventDTO)
         {
-            DoctorExamination doctorExamination = _doctorExaminationEventsRepository.findById(id);
+            DoctorExamination doctorExamination = _doctorExaminationEventsRepository.findById(doctorExaminationEventDTO.Id);
             doctorExamination.endTime = DateTime.Now;
             doctorExamination.Stage = ExaminationStage.eximinationFinished;
             _doctorExaminationEventsRepository._context.SaveChanges();
@@ -51,7 +51,7 @@ namespace HospitalAPI.Controllers.PrivateApp
         public ActionResult DoctorChoosingExaminationSymptoms(DoctorExaminationEventDTO doctorExaminationEventDTO)
         {
             DoctorChoosingSymptoms doctorChoosingSymptoms = new DoctorChoosingSymptoms(_doctorExaminationEventsRepository) { };
-            doctorChoosingSymptoms.Execute(doctorExaminationEventDTO.Id, doctorExaminationEventDTO.symptoms);
+            doctorChoosingSymptoms.Execute(doctorExaminationEventDTO.Id, doctorExaminationEventDTO.report);
 
             return Ok();
         }
@@ -69,35 +69,35 @@ namespace HospitalAPI.Controllers.PrivateApp
         public ActionResult DoctorChoosingExaminationPrescriptions(DoctorExaminationEventDTO doctorExaminationEventDTO)
         {
             DoctorChoosingPrescriptions doctorChoosingPrescriptions = new DoctorChoosingPrescriptions(_doctorExaminationEventsRepository) { };
-            doctorChoosingPrescriptions.Execute(doctorExaminationEventDTO.Id, doctorExaminationEventDTO.prescriptions);
+            doctorChoosingPrescriptions.Execute(doctorExaminationEventDTO.Id, doctorExaminationEventDTO.report);
 
             return Ok();
         }
 
        
         [HttpPost("BackToExaminationPerscriptiosChoosing")]
-        public ActionResult BackToExaminationPerscriptiosChoosing(int id)
+        public ActionResult BackToExaminationPerscriptiosChoosing(DoctorExaminationEventDTO doctorExaminationEventDTO)
         {
             BackToPrescriptionsChoosing backToSpecializationChoosing = new BackToPrescriptionsChoosing(_doctorExaminationEventsRepository) { };
-            backToSpecializationChoosing.Execute(id);
+            backToSpecializationChoosing.Execute(doctorExaminationEventDTO.Id);
 
             return Ok();
         }
 
         [HttpPost("BackToExaminationSymptomsChoosing")]
-        public ActionResult BackToExaminationSymptomsChoosing(int id)
+        public ActionResult BackToExaminationSymptomsChoosing(DoctorExaminationEventDTO doctorExaminationEventDTO)
         {
             BackToSymptomsChoosing backToDoctorChoosing = new BackToSymptomsChoosing(_doctorExaminationEventsRepository) { };
-            backToDoctorChoosing.Execute(id);
+            backToDoctorChoosing.Execute(doctorExaminationEventDTO.Id);
 
             return Ok();
         }
 
         [HttpPost("BackToExaminationReportChoosing")]
-        public ActionResult BackToExaminationReportChoosing(int id)
+        public ActionResult BackToExaminationReportChoosing(DoctorExaminationEventDTO doctorExaminationEventDTO)
         {
             BackToReportChoosing backToAppointmentTimeChoosing = new BackToReportChoosing(_doctorExaminationEventsRepository) { };
-            backToAppointmentTimeChoosing.Execute(id);
+            backToAppointmentTimeChoosing.Execute(doctorExaminationEventDTO.Id);
 
             return Ok();
         }

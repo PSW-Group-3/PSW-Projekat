@@ -9,7 +9,7 @@ namespace HospitalLibrary.Core.AggregatDoctor.Events
 {
     public class DoctorSelectedSymptoms : DomainEvent
     {
-        public virtual ICollection<Symptom> Symptoms { get; set; }
+        public string Symptoms { get; set; }
 
         public DoctorSelectedSymptoms()
         {
@@ -17,7 +17,7 @@ namespace HospitalLibrary.Core.AggregatDoctor.Events
             selectionTime = DateTime.Now;
         }
 
-        public DoctorSelectedSymptoms(List<Symptom> symptoms)
+        public DoctorSelectedSymptoms(string symptoms)
         {
             phase = ExaminationStage.symptomsChoosen;
             Symptoms = symptoms;

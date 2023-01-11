@@ -16,7 +16,7 @@ namespace HospitalLibrary.Core.AggregatDoctor.use
             _doctorExaminationEventsRepository = doctorExaminationEventsRepository;
         }
 
-        public void Execute(int id, List<Prescription> prescriptions)
+        public void Execute(int id, string prescriptions)
         {
             DoctorExamination doctorExamination = _doctorExaminationEventsRepository.findById(id);
 
