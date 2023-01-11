@@ -52,6 +52,7 @@ namespace IntegrationLibrary.Core.Service.EmergencyBloodRequests
                 BloodBankId = request.BloodBankID,
                 BloodQuantity = request.BloodQuantity,
                 BloodType = ProtoBloodTypeToBloodType(request.BloodType),
+                Date = DateTime.Now
             };
             _emergencyBloodRequestRepository.Create(emergencyBloodRequest);
         }
@@ -334,6 +335,7 @@ namespace IntegrationLibrary.Core.Service.EmergencyBloodRequests
                         break;
                 }
             }
+                //generate and save pdf for report
                 return report;
         }
     }
