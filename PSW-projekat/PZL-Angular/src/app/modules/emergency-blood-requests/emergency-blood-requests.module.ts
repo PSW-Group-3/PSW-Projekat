@@ -16,17 +16,18 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { MaterialModule } from 'src/app/material/material.module';
-
+import { RequestsReportComponent } from './requests-report/requests-report.component';
 
 const routes: Routes = [
-  {path: 'emergency-blood-request', component: RequestBloodComponent },
+  { path: 'emergency-blood-request', component: RequestBloodComponent },
+  {
+    path: 'emergency-blood-request-report',
+    component: RequestsReportComponent,
+  },
 ];
 
-
 @NgModule({
-  declarations: [
-    RequestBloodComponent
-  ],
+  declarations: [RequestBloodComponent, RequestsReportComponent],
   imports: [
     CommonModule,
     BrowserModule,
@@ -43,9 +44,9 @@ const routes: Routes = [
     FormsModule,
     MaterialModule,
     RouterModule.forChild(routes),
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
   ],
 
-  exports: [ RouterModule ]
+  exports: [RouterModule],
 })
-export class EmergencyBloodRequestsModule { }
+export class EmergencyBloodRequestsModule {}
