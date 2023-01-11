@@ -73,6 +73,20 @@ namespace HospitalLibrary.Core.AggregatDoctor
             return new List<int> { allFinishedAggregateIds.Count() - nonLinearCounter, nonLinearCounter };
         }
 
+        public int GetNumberOfFinished()
+        {
+            var allFinishedAggregates = _context.DoctorExaminations.Where(e => e.Stage == ExaminationStage.eximinationFinished);
+            
+            return allFinishedAggregates.Count();
+        }
+
+        public int GetNumberOfNonFinished()
+        {
+            var allFinishedAggregates = _context.DoctorExaminations.Where(e => e.Stage != ExaminationStage.eximinationFinished);
+
+            return allFinishedAggregates.Count();
+        }
+
         public List<int> GetNumberOfFinishedSchedulingsPerDay()
         {
             var allFinishedAggregates = _context.DoctorExaminations.Where(e => e.Stage == ExaminationStage.eximinationFinished);

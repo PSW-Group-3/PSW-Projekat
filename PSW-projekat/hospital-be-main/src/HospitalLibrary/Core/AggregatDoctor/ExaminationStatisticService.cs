@@ -28,7 +28,8 @@ namespace HospitalLibrary.Core.AggregatDoctor
             double avarageNumberOfStepsForSuccessfulScheduling = GetAvarageNumberOfStepsForSuccessfulScheduling();
             List<double> avarageNumberOfEachStepForSuccessfulScheduling = GetAvarageNumberOfEachStepForSuccessfulScheduling();
             List<NumberOfFinishedAndUnfinishedDoctorExamination> numberOfFinishedAndUnfinishedSchedulingForAllPatients = GetNumberOfFinishedAndUnfinishedSchedulingForAllPatients();
-
+            int numberFinished = _schedulingAppointmentEventsRepository.GetNumberOfFinished();
+            int numberNonFinished = _schedulingAppointmentEventsRepository.GetNumberOfNonFinished();
             ExaminationStatisticsDTO dto = new ExaminationStatisticsDTO
                 (
                     avarageSchedulingDuration,
@@ -38,7 +39,9 @@ namespace HospitalLibrary.Core.AggregatDoctor
                     unfinishedSchedulingsPerDay,
                     avarageNumberOfStepsForSuccessfulScheduling,
                     avarageNumberOfEachStepForSuccessfulScheduling,
-                    numberOfFinishedAndUnfinishedSchedulingForAllPatients
+                    numberOfFinishedAndUnfinishedSchedulingForAllPatients,
+                    numberFinished,
+                    numberNonFinished
                 );
 
             return dto;

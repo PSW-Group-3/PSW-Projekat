@@ -24,8 +24,11 @@ export class ExaminationStatisticComponent implements OnInit {
   public barChartOptions = { }
   
   public schedulingAppointmentEventsStatistic : ExaminationsStatisticsDTO;
-  public linearAndNonlinearSchedulingsLables = ['Linear', 'Nonlinear'];
+  public linearAndNonlinearSchedulingsLables = ['Sequentially', 'Non Sequentially'];
   public linearAndNonlinearSchedulingsData : any;
+  public linearLables = ['Finished', 'Non Finished'];
+  public linearData : any;
+
   public avarageNumberOfSteps : number;
   public avarageSchedulingDuration: number;
 
@@ -48,6 +51,9 @@ export class ExaminationStatisticComponent implements OnInit {
   setSchedulingEventsFields(){
     let array = [this.schedulingAppointmentEventsStatistic.linearSchedulingNumber, this.schedulingAppointmentEventsStatistic.nonlinearSchedulingNumber]     
     this.linearAndNonlinearSchedulingsData = [{ data: array, label: "Schedulings" }];
+    let array1 = [this.schedulingAppointmentEventsStatistic.numberFinished, this.schedulingAppointmentEventsStatistic.numberNonFinished]     
+    this.linearData = [{ data: array1, label: "Schedulings" }];
+    
     this.avarageNumberOfSteps = this.schedulingAppointmentEventsStatistic.avarageNumberOfStepsForSuccessfulScheduling;
     this.avarageSchedulingDuration = this.schedulingAppointmentEventsStatistic.avarageSchedulingDuration;
   }
@@ -80,7 +86,7 @@ export class ExaminationStatisticComponent implements OnInit {
     this.avarageNumberOfEachStep = new Chart("avarageNumberOfEachStep", {
       type: 'bar',
       data: {
-        labels: ['Date', 'Specialization', 'Doctor', 'Time', 'Review'], 
+        labels: ['Back Symptom','Back','Sympthom', 'Prescription', 'Report'], 
 	      datasets: [
           {
             data: this.schedulingAppointmentEventsStatistic.avarageNumberOfEachStepForSuccessfulScheduling,

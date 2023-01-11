@@ -7,12 +7,15 @@ export class ExaminationsStatisticsDTO {
     avarageNumberOfStepsForSuccessfulScheduling : number;
     avarageNumberOfEachStepForSuccessfulScheduling : number[];
     numberOfFinishedAndUnfinishedSchedulingForAllPatients : Array<NumberOfFinishedAndUnfinishedExamination>;
-
+    numberFinished : number;
+    numberNonFinished : number;
 
     public constructor(avarageSchedulingDuration: number, linearSchedulingNumber: number, nonlinearSchedulingNumber: number,
                         finishedSchedulingsPerDay: number[], unfinishedSchedulingsPerDay: number[],
                         avarageNumberOfStepForSuccessfulScheduling: number,
                         avarageNumberOfEachStepForSuccessfulScheduling: number[], 
+                        numberFinished : number,
+                        numberNonFinished : number,
                         numberOfFinishedAndUnfinishedSchedulingForAllPatients: Array<NumberOfFinishedAndUnfinishedExamination>) {
         {
             this.avarageSchedulingDuration = avarageSchedulingDuration;
@@ -23,7 +26,10 @@ export class ExaminationsStatisticsDTO {
             this.avarageNumberOfStepsForSuccessfulScheduling = avarageNumberOfStepForSuccessfulScheduling;
             this.avarageNumberOfEachStepForSuccessfulScheduling = avarageNumberOfEachStepForSuccessfulScheduling;
             this.numberOfFinishedAndUnfinishedSchedulingForAllPatients = numberOfFinishedAndUnfinishedSchedulingForAllPatients;
+            this.numberFinished  = numberFinished;
+            this.numberNonFinished = numberNonFinished;
         }
+
     }
 }
 

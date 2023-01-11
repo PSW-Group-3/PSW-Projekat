@@ -108,10 +108,12 @@ export class MedicalReportComponent implements OnInit {
   public id: number;
   public identifikator: number;
   public pregled: Examination = new Examination(0, false, Appointment, null, null, '')
+  public terminId: number;
 
   constructor(private router: Router, private dialog: MatDialog,private eventSourcingService: DoctorExaminationEventService) { }
 
   ngOnInit(): void {
+    this.terminId =this.pregled.appointment.id;
     this.id = this.identifikator - 1;
     this.examination = this.pregled;
   }
@@ -130,7 +132,7 @@ export class MedicalReportComponent implements OnInit {
 
     const modalDi = this.dialog.closeAll();
     const modalDialog = this.dialog.open(MedicalExaminationPatientComponent, dialogConfig);
-    modalDialog.componentInstance.terminId = this.id;
+    modalDialog.componentInstance.terminId = this.pregled.appointment.id;
     this.BackToExaminationSymptomsChoosing();
   }
 
@@ -218,6 +220,7 @@ export class MedicalPrescriptionShowComponent implements OnInit {
 
     const modalDi = this.dialog.closeAll();
     const modalDialog = this.dialog.open(MedicalReportComponent, dialogConfig);
+    modalDialog.componentInstance.pregled = this.examination;
     this.BackToExaminationReportChoosing();
   }
 
@@ -292,6 +295,7 @@ export class MedicalExaminationFinish implements OnInit {
 
     const modalDi = this.dialog.closeAll();
     const modalDialog = this.dialog.open(MedicalPrescriptionShowComponent, dialogConfig);
+    modalDialog.componentInstance.pregled = this.examination;
     this.BackToExaminationPerscriptiosChoosing();
   }
 
