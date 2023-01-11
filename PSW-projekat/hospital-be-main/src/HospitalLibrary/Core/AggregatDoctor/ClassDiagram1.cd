@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="HospitalLibrary.Core.AggregatDoctor.DoctorExamination">
+    <Position X="10.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAEAAADCAAAAAAAAgACAAAAJQAIQAAAgAAAIAAAA=</HashCode>
+      <FileName>Core\AggregatDoctor\DoctorExamination.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Doctor" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="HospitalLibrary.Core.AggregatDoctor.DomainEvent">
+    <Position X="14.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAA=</HashCode>
+      <FileName>Core\AggregatDoctor\DomainEvent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HospitalLibrary.Core.Model.BaseModel" Collapsed="true">
+    <Position X="16.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Model\BaseModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HospitalLibrary.Core.AggregatDoctor.EventSourcedAggregate">
+    <Position X="10.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\AggregatDoctor\EventSourcedAggregate.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Changes" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="HospitalLibrary.Core.AggregatDoctor.Events.BackToPrescriptionsSelection">
+    <Position X="13" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\AggregatDoctor\Events\BackToPrescriptionsSelection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HospitalLibrary.Core.AggregatDoctor.Events.BackToReportWritten">
+    <Position X="22" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\AggregatDoctor\Events\BackToReportWritten.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HospitalLibrary.Core.AggregatDoctor.Events.BackToSymptomsSelection">
+    <Position X="18.25" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\AggregatDoctor\Events\BackToSymptomsSelection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HospitalLibrary.Core.AggregatDoctor.Events.DoctorSelectedPrescriptions">
+    <Position X="16.5" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\AggregatDoctor\Events\DoctorSelectedPrescriptions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HospitalLibrary.Core.AggregatDoctor.Events.DoctorSelectedSymptoms">
+    <Position X="20" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\AggregatDoctor\Events\DoctorSelectedSymptoms.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HospitalLibrary.Core.AggregatDoctor.Events.DoctorWriteReport">
+    <Position X="14.75" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAA=</HashCode>
+      <FileName>Core\AggregatDoctor\Events\DoctorWriteReport.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HospitalLibrary.Core.Model.Doctor">
+    <Position X="7.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEBAAEAAAAAEA=</HashCode>
+      <FileName>Core\Model\Doctor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="HospitalLibrary.Core.AggregatDoctor.ExaminationStage">
+    <Position X="8.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAiAAAAAAEAAIAAAAACAAAAAAAAAAAAAAACABAAA=</HashCode>
+      <FileName>Core\AggregatDoctor\ExaminationStage.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

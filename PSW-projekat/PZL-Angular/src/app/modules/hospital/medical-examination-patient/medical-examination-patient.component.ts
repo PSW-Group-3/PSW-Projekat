@@ -14,6 +14,8 @@ import { ExaminationService } from '../services/examination.service';
 import { RoomService } from '../services/room.service';
 import { SymptomService } from '../services/symptom.service';
 import { Output, EventEmitter } from '@angular/core';
+import { DoctorExaminationEventService } from '../services/doctor-examination-event.service';
+import { DoctorExaminationDTO } from '../model/doctorExaminationDTO';
 
 @Component({
   selector: 'app-medical-examination-patient',
@@ -35,7 +37,7 @@ export class MedicalExaminationPatientComponent implements OnInit{
   public terminId: number;
 
   constructor(private symptomService: SymptomService, private route: ActivatedRoute, private appointmentService: AppointmentService,
-     private router: Router, private dialog: MatDialog) { }
+     private router: Router, private dialog: MatDialog,private eventSourcingService: DoctorExaminationEventService) { }
 
   ngOnInit(): void {
       this.appointmentService.getAppointment(this.terminId).subscribe(res => {
@@ -56,6 +58,7 @@ export class MedicalExaminationPatientComponent implements OnInit{
       });
       this.dataSourceSymptoms.data = this.symptoms;
     })
+    this.DoctorExaminationAggregateStartTime();
   }
 
   public handleOptionChangeSymptoms() {
@@ -75,6 +78,20 @@ export class MedicalExaminationPatientComponent implements OnInit{
 
     modalDialog.componentInstance.identifikator = id;
     modalDialog.componentInstance.pregled = this.examination;
+    this.DoctorChoosingExaminationSymptoms();
+  }
+
+
+
+  public DoctorExaminationAggregateStartTime() {
+    this.eventSourcingService.DoctorExaminationAggregateStartTime().subscribe(res => {
+      localStorage.setItem('aggregateId', res.toString());
+    });
+  }
+
+  public DoctorChoosingExaminationSymptoms(){
+    let dto: DoctorExaminationDTO = new DoctorExaminationDTO(parseInt(localStorage.getItem("aggregateId")!), this.examination.symptoms,[],"");   
+    this.eventSourcingService.DoctorChoosingExaminationSymptoms(dto).subscribe(res => {}); 
   }
 }
 
@@ -91,14 +108,20 @@ export class MedicalReportComponent implements OnInit {
   public id: number;
   public identifikator: number;
   public pregled: Examination = new Examination(0, false, Appointment, null, null, '')
+  public terminId: number;
 
-  constructor(private router: Router, private dialog: MatDialog) { }
+  constructor(private router: Router, private dialog: MatDialog,private eventSourcingService: DoctorExaminationEventService) { }
 
   ngOnInit(): void {
+    this.terminId =this.pregled.appointment.id;
     this.id = this.identifikator - 1;
     this.examination = this.pregled;
   }
 
+  public BackToExaminationSymptomsChoosing(){
+    let dto: DoctorExaminationDTO = new DoctorExaminationDTO(parseInt(localStorage.getItem("aggregateId")!), [],[],"");   
+    this.eventSourcingService.BackToExaminationSymptomsChoosing(dto).subscribe(res => {});
+  }
   public back(){
     const dialogConfig = new MatDialogConfig();
 
@@ -109,7 +132,13 @@ export class MedicalReportComponent implements OnInit {
 
     const modalDi = this.dialog.closeAll();
     const modalDialog = this.dialog.open(MedicalExaminationPatientComponent, dialogConfig);
-    modalDialog.componentInstance.terminId = this.id;
+    modalDialog.componentInstance.terminId = this.pregled.appointment.id;
+    this.BackToExaminationSymptomsChoosing();
+  }
+
+  public DoctorChoosingExaminationReport() {
+    let dto: DoctorExaminationDTO = new DoctorExaminationDTO(parseInt(localStorage.getItem("aggregateId")!), [],[],this.examination.report);   
+    this.eventSourcingService.DoctorChoosingExaminationReport(dto).subscribe(res => {}); 
   }
 
   public next(){
@@ -124,6 +153,7 @@ export class MedicalReportComponent implements OnInit {
     const modalDi = this.dialog.closeAll();
     const modalDialog = this.dialog.open(MedicalPrescriptionShowComponent, dialogConfig);
     modalDialog.componentInstance.pregled = this.examination;
+    this.DoctorChoosingExaminationReport();
   }
 }
 
@@ -147,7 +177,7 @@ export class MedicalPrescriptionShowComponent implements OnInit {
   public recepti: Prescription[] = [];
   public recept: Prescription = new Prescription(0, false, this.lekovi, '');
  
-  constructor(private roomService: RoomService, private router: Router, private dialog: MatDialog) { }
+  constructor(private roomService: RoomService, private router: Router, private dialog: MatDialog, private eventSourcingService: DoctorExaminationEventService) { }
 
   ngOnInit(): void {
 
@@ -176,6 +206,11 @@ export class MedicalPrescriptionShowComponent implements OnInit {
     return this.recept.medicines;
   }
 
+  public BackToExaminationReportChoosing() {
+    let dto: DoctorExaminationDTO = new DoctorExaminationDTO(parseInt(localStorage.getItem("aggregateId")!), [],[],"");   
+    this.eventSourcingService.BackToExaminationReportChoosing(dto).subscribe(res => {});
+  }
+
   public back(){
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
@@ -185,6 +220,14 @@ export class MedicalPrescriptionShowComponent implements OnInit {
 
     const modalDi = this.dialog.closeAll();
     const modalDialog = this.dialog.open(MedicalReportComponent, dialogConfig);
+    modalDialog.componentInstance.pregled = this.examination;
+    this.BackToExaminationReportChoosing();
+  }
+
+
+  public DoctorChoosingExaminationPrescriptions() {
+    let dto: DoctorExaminationDTO = new DoctorExaminationDTO(parseInt(localStorage.getItem("aggregateId")!), [],this.examination.prescriptions,"");   
+    this.eventSourcingService.DoctorChoosingExaminationPrescriptions(dto).subscribe(res => {}); 
   }
 
   public next(){    
@@ -197,6 +240,7 @@ export class MedicalPrescriptionShowComponent implements OnInit {
     const modalDi = this.dialog.closeAll();
     const modalDialog = this.dialog.open(MedicalExaminationFinish, dialogConfig);
     modalDialog.componentInstance.pregled = this.examination;
+    this.DoctorChoosingExaminationPrescriptions();
   }
 }
 
@@ -214,7 +258,7 @@ export class MedicalExaminationFinish implements OnInit {
   public pomocnaLista: Medicine[] = [];
   public pom: Medicine[] = [];
 
-  constructor(private examinationService: ExaminationService, private router: Router, private dialog: MatDialog) { }
+  constructor(private examinationService: ExaminationService, private router: Router, private dialog: MatDialog,private eventSourcingService: DoctorExaminationEventService) { }
 
   ngOnInit(): void {
     this.examination = this.pregled;
@@ -236,6 +280,11 @@ export class MedicalExaminationFinish implements OnInit {
     return this.pomocnaLista;
   }
 
+  public BackToExaminationPerscriptiosChoosing() {
+    let dto: DoctorExaminationDTO = new DoctorExaminationDTO(parseInt(localStorage.getItem("aggregateId")!), [],[],"");   
+    this.eventSourcingService.BackToExaminationPerscriptiosChoosing(dto).subscribe(res => {});
+  }
+
   public back(){
     const dialogConfig = new MatDialogConfig();
 
@@ -246,6 +295,14 @@ export class MedicalExaminationFinish implements OnInit {
 
     const modalDi = this.dialog.closeAll();
     const modalDialog = this.dialog.open(MedicalPrescriptionShowComponent, dialogConfig);
+    modalDialog.componentInstance.pregled = this.examination;
+    this.BackToExaminationPerscriptiosChoosing();
+  }
+
+  
+  public DoctorExaminationAggregateEndTime() {
+    let dto: DoctorExaminationDTO = new DoctorExaminationDTO(parseInt(localStorage.getItem("aggregateId")!), [],[],"");   
+    this.eventSourcingService.DoctorExaminationAggregateEndTime(dto).subscribe(res => {});
   }
 
   public createExamination() {     
@@ -280,7 +337,7 @@ export class MedicalExaminationFinish implements OnInit {
     window.open(fileURL, '_blank');
     a.click();
     });
-
+    this.DoctorExaminationAggregateEndTime();
   }
 }
 
