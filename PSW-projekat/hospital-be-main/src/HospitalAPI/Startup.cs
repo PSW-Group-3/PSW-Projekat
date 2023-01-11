@@ -150,6 +150,7 @@ namespace HospitalAPI
 
             services.AddScoped<IIntegrationConnection, IntegrationHTTPConnection>();
             services.AddScoped<DoctorExaminationEventsRepository>();
+            services.AddScoped<ExaminationStatisticService>();
 
         }
 
