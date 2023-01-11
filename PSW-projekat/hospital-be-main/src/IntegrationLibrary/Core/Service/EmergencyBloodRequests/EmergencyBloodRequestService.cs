@@ -176,6 +176,7 @@ namespace IntegrationLibrary.Core.Service.EmergencyBloodRequests
             foreach (EmergencyBloodRequest requestIt in _emergencyBloodRequestRepository.GetAll())
             {
                 //check if request is in date range
+                //if (requestIt.)
                 switch (requestIt.BloodType)
                 {
                     case BloodType.ABP:
