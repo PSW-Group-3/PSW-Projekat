@@ -21,7 +21,8 @@ namespace IntegrationLibrary.Core.SFTPConnection
         }
         public void saveReports(string path)
         {
-            Connect();
+            if(!client.IsConnected)
+                Connect();
             using (Stream stream  = File.OpenRead(path))
             {
                 client.UploadFile(stream, @"\public\" + Path.GetFileName(path));
