@@ -195,7 +195,6 @@ namespace IntegrationLibrary.Core.Service.PDFGenerator
                     <link href='https://cdnjs.cloudflare.com/ajax/libs/c3/0.5.4/c3.css' rel='stylesheet'>
                     <!-- Load d3.js and c3.js -->
                     <script src='https://code.highcharts.com/highcharts.js'></script>";
-            html += "<h2>Blood Type Pie Chart</h2>";
             html += "<div id=\"container\" style = \"height: 816px; width: 1056px; \"></div>";
 
             html += @"<script>
