@@ -138,7 +138,7 @@ namespace IntegrationAPITests.Tests
             var requests = new List<BloodRequest>();
 
             BloodRequest req1 = new BloodRequest(new DateTime(2022, 12, 1), new Quantity(2), "for operation", 1, RequestState.Accepted, BloodType.BP, 7, null);
-            BloodRequest req2 = new BloodRequest(new DateTime(2022, 12, 31), new Quantity(3), "for operation", 1, RequestState.Accepted, BloodType.BN, 7, null);
+            BloodRequest req2 = new BloodRequest(new DateTime(2023, 12, 31), new Quantity(3), "for operation", 1, RequestState.Accepted, BloodType.BN, 7, null);
             BloodRequest req3 = new BloodRequest(new DateTime(2022, 12, 12), new Quantity(1), "for operation", 1, RequestState.Accepted, BloodType.AP, 8, null);
             BloodRequest req4 = new BloodRequest(new DateTime(2022, 12, 22), new Quantity(4), "for operation", 1, RequestState.Pending, BloodType.ABN, 8, null);
 

@@ -50,19 +50,7 @@ export class TenderStatisticsComponent implements OnInit {
             this.statisticOfBank = res;
             console.log(res);
             console.log(this.bloodBanks.length);
-       
-            for(let i = 0 ; i< this.bloodBanks.length; i++){
-              
-              
-              let tableString : string = "<table class=\"table table-striped\"><thead><tr><th scope=\"col\">BloodType</th><th scope=\"col\">Quantity</th></tr></thead><tbody>"
-              
-              tableString = tableString + "<tr *ngFor=\"let dem of statisticOfBank["+i+"], let j = index\"><td>{{bloodType[j]}}</td><td>{{dem}}</td></tr>"
-              
-              tableString = tableString + "</tbody></table>";
-             console.log(tableString);
-             
-              // (<HTMLSpanElement>document.getElementById("tableArea")).innerHTML = tableString;
-             }
+      
             }
            );
            }

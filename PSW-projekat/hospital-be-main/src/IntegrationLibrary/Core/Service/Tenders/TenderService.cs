@@ -3,6 +3,8 @@ using IntegrationLibrary.Core.Model.MailRequests;
 using IntegrationLibrary.Core.Model.Tender;
 using IntegrationLibrary.Core.Repository.BloodBanks;
 using IntegrationLibrary.Core.Repository.Tenders;
+using IntegrationLibrary.Core.Service.PDFGenerator;
+using IntegrationLibrary.Core.SFTPConnection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,11 +18,14 @@ namespace IntegrationLibrary.Core.Service.Tenders
         private readonly ITenderRepository _tenderRepository;
         private readonly IEmailService _emailService;
         private readonly IBloodBankRepository _bloodBankRepository;
-        public TenderService(ITenderRepository tenderRepository, IEmailService emailService, IBloodBankRepository bloodBankRepository)
+        private readonly TenderPDFReportGenerator _tenderPDFReportGenerator = new TenderPDFReportGenerator();
+        private readonly ISFTPService _SFTPService;
+        public TenderService(ITenderRepository tenderRepository, IEmailService emailService, IBloodBankRepository bloodBankRepository, ISFTPService SFTPService)
         {
             _tenderRepository = tenderRepository;
             _emailService = emailService;
             _bloodBankRepository = bloodBankRepository;
+            _SFTPService = SFTPService;
         }
 
         public IEnumerable<Tender> GetAllOpen()
@@ -259,7 +264,15 @@ namespace IntegrationLibrary.Core.Service.Tenders
                 counters.Add(counter);
                 bloods.Add(blood);
             }
-
+            String path = _tenderPDFReportGenerator.CreatePDF(bloods, GetBloodBankWinners(Start, End), CreateStatisticsOfBloodType(Start, End), Start, End);
+            try
+            {
+                _SFTPService.saveReports(path);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
             return bloods;
 
         }
