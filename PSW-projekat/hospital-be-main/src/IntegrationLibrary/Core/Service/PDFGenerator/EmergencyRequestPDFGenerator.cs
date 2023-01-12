@@ -20,6 +20,7 @@ namespace IntegrationLibrary.Core.Service.PDFGenerator
             CreatePDFStyle();
             CreatePDFBody(reportParams, report);
             CreatePieChart(report);
+            CreateStackChart(report);
 
             Renderer.RenderingOptions.EnableJavaScript = true;
             Renderer.RenderingOptions.RenderDelay = 1000;
@@ -41,9 +42,6 @@ namespace IntegrationLibrary.Core.Service.PDFGenerator
             html += "<body><h1>Emergency blood intake report</h1><div>" +
                 "<p>From: " + reportParams.StartDate.ToString("dd.MM.yyyy.") + "</p>" +
                 "<p>Until: " + reportParams.EndDate.ToString("dd.MM.yyyy.") + "</p>";
-
-            //if (reportParams.BloodType != null)
-            //    html += "<p>For blood type: " + GetBloodTypeAsString(reportParams.BloodType) + "</p>";
             
             html += "<table class=\"GeneratedTable\"><thead><tr>" +
                                      " <th> Blood type </th>" +
@@ -204,10 +202,7 @@ namespace IntegrationLibrary.Core.Service.PDFGenerator
                 html += @"]
                           }]
                       });
-                    </script>
-
-                    </body>
-                </html>";
+                    </script>";
             }
         private int SumBlood(Dictionary<BloodType, int> report)
         {
@@ -217,6 +212,144 @@ namespace IntegrationLibrary.Core.Service.PDFGenerator
                 sum += entry.Value;
             }
             return sum;
+        }
+        public void CreateStackChart(EmergencyBloodReport report)
+        {
+            html += @"<div id='chart' style='width: 950px;'></div>";
+            html += "<br><br><br><figure class=\"highcharts-figure\"><div id =\"containeer\"></div></figure>";
+
+            html += @"<script>
+                            Highcharts.chart('containeer', {
+                    chart:
+                            {
+                            type: 'column'
+                    },
+                    title:
+                            {
+                            text: 'Blood quantity by blood type and blood bank',
+                        align: 'left'
+                    },
+                    xAxis:
+                            {
+                            categories: ['A positive', 'B positive', 'AB positive', 'O positive', 'A negative', 'B negative', 'AB negative', 'O negative']
+                    },
+                    yAxis:
+                            {
+                            min: 0,
+                        title:
+                                {
+                                text: 'Blood quantity'
+                        },
+                        stackLabels:
+                                {
+                                enabled: true,
+                            style:
+                                    {
+                                    fontWeight: 'bold',
+                                color: ( // theme
+                                    Highcharts.defaultOptions.title.style &&
+                                    Highcharts.defaultOptions.title.style.color
+                                ) || 'gray',
+                                textOutline: 'none'
+                            }
+                                }
+                            },
+                    legend:
+                            {
+                            align: 'left',
+                        x: 40,
+                        verticalAlign: 'top',
+                        y: 50,
+                        floating: true,
+                        backgroundColor:
+                                Highcharts.defaultOptions.legend.backgroundColor || 'white',
+                        borderColor: '#CCC',
+                        borderWidth: 1,
+                        shadow: false
+                    },
+                    tooltip:
+                            {
+                            headerFormat: '<b>{point.x}</b><br/>',
+                        pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
+                    },
+                    plotOptions:
+                            {
+                            column:
+                                {
+                                stacking: 'normal',
+                            dataLabels:
+                                    {
+                                    enabled: true
+                            }
+                                }
+                            },
+                    series:
+                            [";
+
+            bool isFirst = true;
+            List<String> banks = GetBanksFromReport(report);
+            foreach (String bank in banks)
+            {
+                int a = -1;
+                if (!isFirst)
+                    html += ",";
+                html += "{name: '" + bank + "', data: [" + (report.APBanks.TryGetValue(bank, out a) ? a : 0) + ", " +
+                                        (report.BPBanks.TryGetValue(bank, out a) ? a : 0) + ", " +
+                                        (report.ABPBanks.TryGetValue(bank, out a) ? a : 0) + ", " +
+                                        (report.OPBanks.TryGetValue(bank, out a) ? a : 0) + ", " +
+                                        (report.ANBanks.TryGetValue(bank, out a) ? a : 0) + ", " +
+                                        (report.BNBanks.TryGetValue(bank, out a) ? a : 0) + ", " +
+                                        (report.ABNBanks.TryGetValue(bank, out a) ? a : 0) + ", " +
+                                        (report.ONBanks.TryGetValue(bank, out a) ? a : 0) + "]}";
+                isFirst = false;
+            }
+            html += @"]
+                      });
+                    </script>
+
+                    </body>
+                </html>";
+        }
+        private List<String> GetBanksFromReport(EmergencyBloodReport report)
+        {
+            List<String> banks = new List<String>();
+            foreach (KeyValuePair<string, int> entry in report.APBanks)
+                banks.Add(entry.Key);
+            foreach (KeyValuePair<string, int> entry in report.BPBanks) {
+                if (!banks.Contains(entry.Key))
+                    banks.Add(entry.Key);
+            }
+            foreach (KeyValuePair<string, int> entry in report.ABPBanks)
+            {
+                if (!banks.Contains(entry.Key))
+                    banks.Add(entry.Key);
+            }
+            foreach (KeyValuePair<string, int> entry in report.OPBanks)
+            {
+                if (!banks.Contains(entry.Key))
+                    banks.Add(entry.Key);
+            }
+            foreach (KeyValuePair<string, int> entry in report.ANBanks)
+            {
+                if (!banks.Contains(entry.Key))
+                    banks.Add(entry.Key);
+            }
+            foreach (KeyValuePair<string, int> entry in report.BNBanks)
+            {
+                if (!banks.Contains(entry.Key))
+                    banks.Add(entry.Key);
+            }
+            foreach (KeyValuePair<string, int> entry in report.ABNBanks)
+            {
+                if (!banks.Contains(entry.Key))
+                    banks.Add(entry.Key);
+            }
+            foreach (KeyValuePair<string, int> entry in report.ONBanks)
+            {
+                if (!banks.Contains(entry.Key))
+                    banks.Add(entry.Key);
+            }
+            return banks;
         }
         public void CreatePDFStyle()
         {
@@ -239,6 +372,53 @@ namespace IntegrationLibrary.Core.Service.PDFGenerator
                                 padding: 3px;}
                             table.GeneratedTable thead { 
                                 background-color: #ff5353; }
+                            
+                            #container {
+                                height: 400px;
+                            }
+
+                            .highcharts-figure,
+                            .highcharts-data-table table {
+                                min-width: 310px;
+                                max-width: 800px;
+                                margin: 1em auto;
+                            }
+
+                            .highcharts-data-table table {
+                                font-family: Verdana, sans-serif;
+                                border-collapse: collapse;
+                                border: 1px solid #ebebeb;
+                                margin: 10px auto;
+                                text-align: center;
+                                width: 100%;
+                                max-width: 500px;
+                            }
+
+                            .highcharts-data-table caption {
+                                padding: 1em 0;
+                                font-size: 1.2em;
+                                color: #555;
+                            }
+
+                            .highcharts-data-table th {
+                                font-weight: 600;
+                                padding: 0.5em;
+                            }
+
+                            .highcharts-data-table td,
+                            .highcharts-data-table th,
+                            .highcharts-data-table caption {
+                                padding: 0.5em;
+                            }
+
+                            .highcharts-data-table thead tr,
+                            .highcharts-data-table tr:nth-child(even) {
+                                background: #f8f8f8;
+                            }
+
+                            .highcharts-data-table tr:hover {
+                                background: #f1f7ff;
+                            }
                         </style>
                     </head>";
         }

@@ -20,7 +20,7 @@ namespace IntegrationLibrary.Core.Service.PDFGenerator
             CreatePDFStyle();
             CreatePDFBody(bloodTypesByBanks, banks, bloodAmount, start, end);
             CreatePieChart(bloodTypesByBanks, banks, bloodAmount);
-
+            CreateStackChart(bloodTypesByBanks, banks, bloodAmount);
             Renderer.RenderingOptions.EnableJavaScript = true;
             Renderer.RenderingOptions.RenderDelay = 1000;
             PdfDocument doc = Renderer.RenderHtmlAsPdf(html);
@@ -246,10 +246,7 @@ namespace IntegrationLibrary.Core.Service.PDFGenerator
                     html += @"]
                           }]
                       });
-                    </script>
-
-                    </body>
-                </html>";
+                    </script>";
         }
         private int SumBlood(List<int> bloodAmount)
         {
@@ -259,6 +256,121 @@ namespace IntegrationLibrary.Core.Service.PDFGenerator
                 sum += amount;
             }
             return sum;
+        }
+        public void CreateStackChart(List<List<int>> bloodTypesByBanks, List<BloodBank> banks, List<int> bloodAmount)
+        {
+            html += @"<div id='chart' style='width: 950px;'></div>";
+  
+
+            html += "<br><br><br><figure class=\"highcharts-figure\"><div id =\"containeer\"></div></figure>";
+
+
+
+            //html += "<div id=\"container\" style = \"height: 816px; width: 1056px; \"></div>";
+            html += @"<script>
+                            Highcharts.chart('containeer', {
+                    chart:
+                            {
+                            type: 'column'
+                    },
+                    title:
+                            {
+                            text: 'Blood quantity by blood type and blood bank',
+                        align: 'left'
+                    },
+                    xAxis:
+                            {
+                            categories: ['A positive', 'B positive', 'AB positive', 'O positive', 'A negative', 'B negative', 'AB negative', 'O negative']
+                    },
+                    yAxis:
+                            {
+                            min: 0,
+                        title:
+                                {
+                                text: 'Blood quantity'
+                        },
+                        stackLabels:
+                                {
+                                enabled: true,
+                            style:
+                                    {
+                                    fontWeight: 'bold',
+                                color: ( // theme
+                                    Highcharts.defaultOptions.title.style &&
+                                    Highcharts.defaultOptions.title.style.color
+                                ) || 'gray',
+                                textOutline: 'none'
+                            }
+                                }
+                            },
+                    legend:
+                            {
+                            align: 'left',
+                        x: 40,
+                        verticalAlign: 'top',
+                        y: 50,
+                        floating: true,
+                        backgroundColor:
+                                Highcharts.defaultOptions.legend.backgroundColor || 'white',
+                        borderColor: '#CCC',
+                        borderWidth: 1,
+                        shadow: false
+                    },
+                    tooltip:
+                            {
+                            headerFormat: '<b>{point.x}</b><br/>',
+                        pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
+                    },
+                    plotOptions:
+                            {
+                            column:
+                                {
+                                stacking: 'normal',
+                            dataLabels:
+                                    {
+                                    enabled: true
+                            }
+                                }
+                            },
+                    series:
+                            [";
+
+            bool isFirst = true;
+            int index = 0;
+            foreach (BloodBank bank in banks)
+            {
+                if (!isFirst)
+                    html += ",";
+                html += "{name: '" + bank.Name + "', data: [" + bloodTypesByBanks[index][0] + ", " +
+                                        bloodTypesByBanks[index][1] + ", " +
+                                        bloodTypesByBanks[index][2] + ", " +
+                                        bloodTypesByBanks[index][3] + ", " +
+                                        bloodTypesByBanks[index][4] + ", " +
+                                        bloodTypesByBanks[index][5] + ", " +
+                                        bloodTypesByBanks[index][6] + ", " +
+                                        bloodTypesByBanks[index][7] + "]}";
+                isFirst = false;
+                index++;      
+            }
+            html += @"]
+                      });
+                    </script>
+
+                    </body>
+                </html>";
+
+
+            //{
+            //name: 'BPL',
+            //            data: [3, 5, 1, 13]
+            //        }, {
+            //name: 'FA Cup',
+            //            data: [14, 8, 8, 12]
+            //        }, {
+            //name: 'CL',
+            //            data: [0, 2, 6, 3]
+            //        }]
+            //    });
         }
         public void CreatePDFStyle()
         {
@@ -281,23 +393,55 @@ namespace IntegrationLibrary.Core.Service.PDFGenerator
                                 padding: 3px;}
                             table.GeneratedTable thead { 
                                 background-color: #ff5353; }
+                            #container {
+                                height: 400px;
+                            }
+
+                            .highcharts-figure,
+                            .highcharts-data-table table {
+                                min-width: 310px;
+                                max-width: 800px;
+                                margin: 1em auto;
+                            }
+
+                            .highcharts-data-table table {
+                                font-family: Verdana, sans-serif;
+                                border-collapse: collapse;
+                                border: 1px solid #ebebeb;
+                                margin: 10px auto;
+                                text-align: center;
+                                width: 100%;
+                                max-width: 500px;
+                            }
+
+                            .highcharts-data-table caption {
+                                padding: 1em 0;
+                                font-size: 1.2em;
+                                color: #555;
+                            }
+
+                            .highcharts-data-table th {
+                                font-weight: 600;
+                                padding: 0.5em;
+                            }
+
+                            .highcharts-data-table td,
+                            .highcharts-data-table th,
+                            .highcharts-data-table caption {
+                                padding: 0.5em;
+                            }
+
+                            .highcharts-data-table thead tr,
+                            .highcharts-data-table tr:nth-child(even) {
+                                background: #f8f8f8;
+                            }
+
+                            .highcharts-data-table tr:hover {
+                                background: #f1f7ff;
+                            }
+
                         </style>
                     </head>";
-        }
-        private String GetBloodTypeAsString(BloodType type)
-        {
-            switch (type)
-            {
-                case BloodType.ABP: return "AB positive";
-                case BloodType.ABN: return "AB negative";
-                case BloodType.AP: return "A positive";
-                case BloodType.AN: return "A negative";
-                case BloodType.BP: return "B positive";
-                case BloodType.BN: return "B negative";
-                case BloodType.OP: return "O positive";
-                case BloodType.ON: return "O negative";
-            }
-            return "";
         }
     }
 }
