@@ -17,6 +17,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { MaterialModule } from 'src/app/material/material.module';
 import { RequestsReportComponent } from './requests-report/requests-report.component';
+import { NavBarsModule } from '../nav-bars/nav-bars.module';
 
 const routes: Routes = [
   { path: 'emergency-blood-request', component: RequestBloodComponent },
@@ -45,6 +46,7 @@ const routes: Routes = [
     MaterialModule,
     RouterModule.forChild(routes),
     ToastrModule.forRoot(),
+    NavBarsModule
   ],
 
   exports: [RouterModule],

@@ -20,6 +20,7 @@ import { ViewSingleTenderComponent } from './view-single-tender/view-single-tend
 import { CreateTenderComponent } from './create-tender/create-tender.component';
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { TenderStatisticsComponent } from './tender-statistics/tender-statistics.component';
+import { NavBarsModule } from '../nav-bars/nav-bars.module';
 
 const routes: Routes = [
   { path: 'view-tenders', component: ViewTendersComponent },
@@ -52,7 +53,8 @@ const routes: Routes = [
     MaterialModule,
     RouterModule.forChild(routes),
     ToastrModule.forRoot(),
-    FontAwesomeModule
+    FontAwesomeModule,
+    NavBarsModule
   ],
   exports: [ RouterModule ]
 })

@@ -21,6 +21,7 @@ import { MaterialModule } from 'src/app/material/material.module';
 import { ReturnedRequestsForDoctorComponent } from './returned-requests-for-doctor/returned-requests-for-doctor.component';
 import { UpdateRequestForDoctorComponent } from './update-request-for-doctor/update-request-for-doctor.component';
 import { ScheduledRequestComponent } from './scheduled-request/scheduled-request.component';
+import { NavBarsModule } from '../nav-bars/nav-bars.module';
 
 const routes: Routes = [
   { path: 'doctor-blood-requests', component: AllDoctorBloodRequestsComponent },
@@ -56,6 +57,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     ToastrModule.forRoot(),
     MatProgressSpinnerModule,
+    NavBarsModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 

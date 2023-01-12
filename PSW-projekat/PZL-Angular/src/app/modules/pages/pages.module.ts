@@ -7,6 +7,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuardDoctor } from '../hospital/services/authDoctor.guard';
 import { AuthGuardManager } from '../hospital/services/authManager.guard';
 import { ForbiddenAccessComponent } from './forbidden-access/forbidden-access.component';
+import { NavBarsModule } from '../nav-bars/nav-bars.module';
 
 const routes: Routes = [
   { path: 'homeManager', component: HomeManagerComponent },
@@ -24,6 +25,7 @@ const routes: Routes = [
     CommonModule,
     AppRoutingModule,
     RouterModule.forChild(routes),
+    NavBarsModule
   ],
   providers: [ 
     AuthGuardManager, 

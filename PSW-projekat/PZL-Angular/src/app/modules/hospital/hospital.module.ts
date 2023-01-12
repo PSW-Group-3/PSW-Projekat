@@ -39,6 +39,7 @@ import { PrescriptionsComponent } from './prescriptions/prescriptions.component'
 import { ShowDescriptionsPipe } from './prescriptions/show-descriptions.pipe';
 import { ShowMedicinesPipe } from './prescriptions/show-medicines.pipe';
 import { ExaminationStatisticComponent } from './examination-statistic/examination-statistic.component';
+import { NavBarsModule } from '../nav-bars/nav-bars.module';
 
 const routes: Routes = [
   { path: 'rooms', component: RoomsComponent, canActivate: [AuthGuardManager] },
@@ -165,6 +166,7 @@ const routes: Routes = [
     MatFormFieldModule,
     NgChartsModule,
     MatSelectModule,
+    NavBarsModule,
   ],
   exports: [RouterModule],
 })

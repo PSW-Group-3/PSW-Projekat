@@ -21,6 +21,7 @@ import { BloodBanksComponent } from './blood-banks/blood-banks.component';
 import { BloodRequestsComponent } from './blood-requests/blood-requests.component';
 import { ReportSettingsComponent } from './report-settings/report-settings.component';
 import { NewsComponent } from './news/news.component';
+import { NavBarsModule } from '../nav-bars/nav-bars.module';
 
 const routes: Routes = [
   {path: 'blood-bank-registration', component: BloodBankRegistrationComponent},
@@ -58,6 +59,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     CommonModule,
     ToastrModule.forRoot(),
+    NavBarsModule
   ],
   providers: [  
     MatDatepickerModule,  
