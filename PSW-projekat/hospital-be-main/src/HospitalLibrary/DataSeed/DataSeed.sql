@@ -178,8 +178,8 @@ INSERT [dbo].[Examinations] ([Id], [AppointmentId], [Report], [Deleted]) VALUES 
 INSERT [dbo].[Examinations] ([Id], [AppointmentId], [Report], [Deleted]) VALUES (4, 4, 'Pacijent je primljen nepokretan i bez svesti. Premesten hitno u operacionu salu.', 0)
 INSERT [dbo].[Examinations] ([Id], [AppointmentId], [Report], [Deleted]) VALUES (5, 6, 'Pacijent je stigao sa velikim bolovima. Unutrasnje krvarenje.', 0)
 INSERT [dbo].[Examinations] ([Id], [AppointmentId], [Report], [Deleted]) VALUES (6, 5, 'Pacijent je nepokretan. Premesten u sobu za hitne slucajeve.', 0)
-INSERT [dbo].[Examinations] ([Id], [AppointmentId], [Report], [Deleted]) VALUES (7, 7, 'Pacijent je u bolovima sa dijagnostikovanim "Enteritis salmonellosa".', 0)
-INSERT [dbo].[Examinations] ([Id], [AppointmentId], [Report], [Deleted]) VALUES (8, 8, 'Pacijent je u losem stanju. Uzrokovan "Enteritis campylobacterialis", tj zapaljenjem creva.', 0)
+INSERT [dbo].[Examinations] ([Id], [AppointmentId], [Report], [Deleted]) VALUES (7, 7, 'Pacijent je u bolovima sa dijagnostikovanim Enteritis salmonellosa.', 0)
+INSERT [dbo].[Examinations] ([Id], [AppointmentId], [Report], [Deleted]) VALUES (8, 8, 'Pacijent je u losem stanju. Uzrokovan Enteritis campylobacterialis, tj zapaljenjem creva.', 0)
 
 
 SET IDENTITY_INSERT [dbo].[Examinations] OFF
@@ -208,8 +208,8 @@ SET IDENTITY_INSERT [dbo].[Prescriptions] ON
 
 INSERT [dbo].[Prescriptions] ([Id], [Description], [ExaminationId], [Deleted]) VALUES (1, 'Svaki dan 3x na svakih osam sati, posle obroka.', 1, 0)
 INSERT [dbo].[Prescriptions] ([Id], [Description], [ExaminationId], [Deleted]) VALUES (2, 'Svaki dan 1x na prazan stomak.', 2, 0)
-INSERT [dbo].[Prescriptions] ([Id], [Description], [ExaminationId], [Deleted]) VALUES (3, '3x na dan, po dve tablete.', 3, 0)
-INSERT [dbo].[Prescriptions] ([Id], [Description], [ExaminationId], [Deleted]) VALUES (4, 'Svaki dan posle obroka. "quaque die ante cibum"', 4, 0)
+INSERT [dbo].[Prescriptions] ([Id], [Description], [ExaminationId], [Deleted]) VALUES (3, '3x na dan, na osam sati po dve tablete.', 3, 0)
+INSERT [dbo].[Prescriptions] ([Id], [Description], [ExaminationId], [Deleted]) VALUES (4, 'Svaki dan posle obroka.', 4, 0)
 SET IDENTITY_INSERT [dbo].[Prescriptions] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Medicines] ON 
