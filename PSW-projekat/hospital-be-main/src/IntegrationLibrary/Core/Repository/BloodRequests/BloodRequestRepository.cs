@@ -50,6 +50,7 @@ namespace IntegrationLibrary.Core.Repository.BloodRequests
         public void Update(BloodRequest entity)
         {
             _context.Entry(entity).State = EntityState.Modified;
+            _context.Entry(entity.BloodQuantity).State = EntityState.Modified;
             try
             {
                 _context.SaveChanges();

@@ -10,7 +10,7 @@ namespace IntegrationLibrary.Core.Model
     [Owned]
     public class Quantity : ValueObject
     {
-        public int Value { get; private set; }
+        public int Value { get; set; }
         public Quantity() { }
         public Quantity(int value)
         {

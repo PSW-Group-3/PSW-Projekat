@@ -30,6 +30,7 @@ namespace IntegrationAPI.Adapters
             {
                 RequiredForDate = entity.RequiredForDate,
                 BloodQuantity = entity.BloodQuantity.Value,
+                Comment = entity.Comment,
                 Reason = entity.Reason,
                 DoctorId = entity.DoctorId,
                 RequestState = entity.RequestState,

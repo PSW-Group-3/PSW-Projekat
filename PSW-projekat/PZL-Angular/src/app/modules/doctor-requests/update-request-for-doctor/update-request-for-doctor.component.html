@@ -52,7 +52,7 @@
                   <div class="col-md-9 pe-5">
                     <mat-form-field appearance="fill">
                       <mat-label>Quantity(units - max 10)</mat-label>
-                      <input type="number" min="0" max="10" [(ngModel)]="request.bloodQuantity" matInput>
+                      <input type="number" min="0" max="10" [(ngModel)]="this.request.bloodQuantity" matInput>
                     </mat-form-field>
                   </div>
                 </div>
@@ -66,7 +66,7 @@
                   <div class="col-md-9 pe-5">
                     <mat-form-field appearance="fill">
                       <mat-label>Reason:</mat-label>
-                      <textarea matInput [(ngModel)]="request.reason" style="resize: none;"></textarea>
+                      <textarea matInput [(ngModel)]="this.request.reason" style="resize: none;"></textarea>
                     </mat-form-field>
                   </div>
                 </div>
@@ -80,7 +80,7 @@
                   <div class="col-md-9 pe-5">
                     <mat-form-field appearance="fill">
                       <mat-label>Comment:</mat-label>
-                      <textarea readonly matInput value="{{request.comment}}" style="resize: none;"></textarea>
+                      <textarea readonly matInput value="{{this.request.comment}}" style="resize: none;"></textarea>
                     </mat-form-field>
                   </div>
                 </div>
@@ -94,7 +94,7 @@
                   <div class="col-md-9 pe-5">
                     <mat-form-field appearance="fill">
                       <mat-label>Request state:</mat-label>
-                      <input readonly matInput value="{{getStateByValue(request.requestState)}}">
+                      <input readonly matInput value="{{getStateByValue(this.request.requestState)}}">
                     </mat-form-field>
                   </div>
                 </div>
