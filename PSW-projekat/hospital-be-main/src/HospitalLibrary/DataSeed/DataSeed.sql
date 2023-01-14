@@ -206,7 +206,7 @@ SET IDENTITY_INSERT [dbo].[Symptoms] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Prescriptions] ON 
 
-INSERT [dbo].[Prescriptions] ([Id], [Description], [ExaminationId], [Deleted]) VALUES (1, 'Svaki dan 3x na svakih osam sati, posle obroka.', 1, 0)
+INSERT [dbo].[Prescriptions] ([Id], [Description], [ExaminationId], [Deleted]) VALUES (1, 'Svaki dan 3x na osam sati, posle obroka.', 1, 0)
 INSERT [dbo].[Prescriptions] ([Id], [Description], [ExaminationId], [Deleted]) VALUES (2, 'Svaki dan 1x na prazan stomak.', 2, 0)
 INSERT [dbo].[Prescriptions] ([Id], [Description], [ExaminationId], [Deleted]) VALUES (3, '3x na dan, na osam sati po dve tablete.', 3, 0)
 INSERT [dbo].[Prescriptions] ([Id], [Description], [ExaminationId], [Deleted]) VALUES (4, 'Svaki dan posle obroka.', 4, 0)

@@ -146,6 +146,9 @@ namespace HospitalLibrary.Core.Service
 
         public string getBetween(string strSource, string strStart, string strEnd)
         {
+            int n1 = strSource.IndexOf(strStart);
+            int n2 = strSource.IndexOf(strEnd);
+
             if (strSource.IndexOf(strStart) > strSource.IndexOf(strEnd)) { return ""; }
 
             if (strSource.ToLower().Contains(strStart.ToLower()) && strSource.ToLower().Contains(strEnd.ToLower()))
@@ -210,47 +213,73 @@ namespace HospitalLibrary.Core.Service
                     {
                         if (examination.Report.ToLower().Contains(s1.ToLower())) { examinations.Add(examination); }
                     }
-
                 }
             }
 
             return examinations;
         }
 
-        public List<Examination> GetAllExaminationsBySearchPrescription(string searchWord, int personId)
+        public List<Examination> GetAllExaminationsBySearchPrescription(string searchText, int personId)
         {
+
             List<Examination> examinations = new List<Examination>();
-            List<string> split = new List<string>();
-            string phrase = "";
 
-
-            foreach (Examination examination in GetAllExaminationsByDoctor(personId))
+            if (searchText.Contains("'"))
             {
-                foreach (Prescription prescription in examination.Prescriptions)
+                searchText = searchText.Replace("'", string.Empty);
+                string[] splittedSearchText = searchText.Split(' ');
+
+                foreach (Examination examination in GetAllExaminationsByDoctor(personId))
                 {
-
-                    //ako postoji fraza u izvestaju
-                    if (prescription.Description.Contains('\"'))
+                    foreach (Prescription prescription in examination.Prescriptions)
                     {
-                        split = prescription.Description.Split('"').Where((s, i) => i % 2 == 1).ToList();
-                        phrase = split.FirstOrDefault();
+                        string konacno = "";
+                        string cleanAmount = prescription.Description.Replace(".", string.Empty);
+                        string[] splittedPrescription = cleanAmount.Split(' ');
+                        string lastElement = splittedSearchText[splittedSearchText.Length - 1];
+                        string firstElement = splittedSearchText[0];
 
-                        if (searchWord.ToLower().Equals(phrase.ToLower()))
+                        if (splittedSearchText.Length > 1)
                         {
-                            examinations.Add(examination);
+                            string izmedju = getBetween(cleanAmount, firstElement, lastElement);
+                            string izmedjuTrimovan = izmedju.Trim();
+
+                            if (izmedjuTrimovan.Equals("") && !izmedju.Equals("")) { konacno = firstElement + " " + lastElement; }
+                            else if (!izmedjuTrimovan.Equals("") && !izmedju.Equals("")) { konacno = firstElement + " " + izmedjuTrimovan + " " + lastElement; }
+
+                            if (konacno.ToLower().Equals(searchText.ToLower())) { examinations.Add(examination); }
+                        }
+
+                        if (splittedSearchText.Length == 1)
+                        {
+                            foreach (string s1 in splittedPrescription)
+                            {
+                                if (s1.ToLower().Equals(searchText.ToLower()))
+                                    examinations.Add(examination);
+                            }
                         }
                     }
 
-                    string changedDescription = "mrs";
-
-                    //ovde koristis samo reci koje se ne nalaze u navodnicima
-                    //obicne reci
-                    if (changedDescription.ToLower().Contains(searchWord.ToLower()))
-                    {
-                        examinations.Add(examination);
-                    }
                 }
             }
+
+            else
+            {
+                foreach (Examination examination in GetAllExaminationsByDoctor(personId))
+                {
+                    foreach (Prescription prescription in examination.Prescriptions)
+                    {
+                        string[] splittedSearchText2 = searchText.Split(' ');
+
+                        foreach (string s1 in splittedSearchText2)
+                        {
+                            if (prescription.Description.ToLower().Contains(s1.ToLower())) { examinations.Add(examination); }
+                        }
+                    }
+                  
+                }
+            }
+
             return examinations;
         }
 
