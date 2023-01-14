@@ -3,6 +3,9 @@
   <h5>{{ errorMessage }}</h5>
   <div class="table-header" *ngIf="!errorMessage">
     <p class="table-title">Blood Banks</p>
+    <button id="Submit" style="background-color: #fd5c63;" (click)="emergency()"  mat-stroked-button href="/emergency-blood-request">
+      Emergency request
+    </button>
   </div>
   <table mat-table [dataSource]="dataSource" *ngIf="!errorMessage">
     <ng-container matColumnDef="Required Until">

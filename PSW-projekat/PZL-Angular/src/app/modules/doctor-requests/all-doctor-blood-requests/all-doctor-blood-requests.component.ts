@@ -51,5 +51,9 @@ export class AllDoctorBloodRequestsComponent implements OnInit {
     return Object.values(RequestState)[value]
   }
 
+  emergency() {
+    this.router.navigate(['emergency-blood-request']);
+  }
+
 
 }
