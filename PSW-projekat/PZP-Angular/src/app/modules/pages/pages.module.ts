@@ -5,6 +5,7 @@ import { AppRoutingModule } from 'src/app/app-routing.module';
 import { HomePatientComponent } from './homePatient/homePatient.component';
 import { BankHomeComponent } from './bank-home/bank-home.component';
 import { MdbCarouselModule } from 'mdb-angular-ui-kit/carousel';
+import { NavBarsModule } from "../nav-bar/nav-bars.module";
 
 const routes: Routes = [
   { path: 'homePatient', component: HomePatientComponent },
@@ -12,15 +13,16 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [
-    HomePatientComponent,
-    BankHomeComponent
-  ],
-  imports: [
-    CommonModule,
-    AppRoutingModule,
-    RouterModule.forChild(routes),
-    MdbCarouselModule
-  ]
+    declarations: [
+        HomePatientComponent,
+        BankHomeComponent
+    ],
+    imports: [
+        CommonModule,
+        AppRoutingModule,
+        RouterModule.forChild(routes),
+        MdbCarouselModule,
+        NavBarsModule
+    ]
 })
 export class PagesModule { }
