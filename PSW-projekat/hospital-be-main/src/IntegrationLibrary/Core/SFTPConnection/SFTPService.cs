@@ -10,7 +10,7 @@ namespace IntegrationLibrary.Core.SFTPConnection
 {
     public class SFTPService : ISFTPService
     {
-        public static SftpClient client = new SftpClient(new PasswordConnectionInfo("192.168.56.1", 2222, "tester", "password"));
+        public static SftpClient client = new SftpClient(new PasswordConnectionInfo("192.168.1.110", 2222, "tester", "password"));
         public void Connect()
         {
             client.Connect();
