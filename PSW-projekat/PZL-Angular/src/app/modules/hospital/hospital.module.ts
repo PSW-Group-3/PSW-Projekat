@@ -88,6 +88,7 @@ const routes: Routes = [
     canActivate: [AuthGuardDoctor],
   }, */
   { path: 'appointments/add', component: CreateAppointmentComponent },
+
   { path: 'appointments/:id/update', component: UpdateAppointmentComponent },
   { path: 'rooms', component: RoomsComponent, canActivate: [ AuthGuardManager ] },
   { path: 'rooms/add', component: CreateRoomComponent, canActivate: [ AuthGuardManager ] },
@@ -153,7 +154,7 @@ const routes: Routes = [
     ShowDescriptionsPipe,
     ShowMedicinesPipe,
     ExaminationStatisticComponent,
-    TreatmentsComponent
+    TreatmentsComponent,
   ],
   imports: [
     CommonModule,

@@ -87,11 +87,30 @@ namespace HospitalLibrary.Core.Service
 
                 document.Open();
 
-                Paragraph para1 = new Paragraph("Examination summary", new Font(Font.FontFamily.TIMES_ROMAN, 35, Font.BOLD));
+                //Image logo = Image.GetInstance("https://e7.pngegg.com/pngimages/811/814/png-clipart-white-hospital-illustration-children-s-hospital-free-content-hopital-presentation-sticker-thumbnail.png");
+                //logo.ScaleAbsolute(40, 40);
+                Paragraph para5 = new Paragraph("Bolnica ZDRAVO", new Font(Font.FontFamily.TIMES_ROMAN, 10, Font.ITALIC));
+                Paragraph para6 = new Paragraph("Ive Andrica 10, Novi Sad", new Font(Font.FontFamily.TIMES_ROMAN, 10, Font.ITALIC));
+                Paragraph para7 = new Paragraph("hospital@gmail.com", new Font(Font.FontFamily.TIMES_ROMAN, 10, Font.ITALIC));
+                Paragraph para8 = new Paragraph("021/123-123", new Font(Font.FontFamily.TIMES_ROMAN, 10, Font.ITALIC));
+
+                para5.Alignment = Element.ALIGN_RIGHT;
+                para6.Alignment = Element.ALIGN_RIGHT;
+                para7.Alignment = Element.ALIGN_RIGHT;
+                para8.Alignment = Element.ALIGN_RIGHT;
+
+                document.Add(para5);
+                document.Add(para6);
+                document.Add(para7);
+                document.Add(para8);
+
+                Paragraph p = new Paragraph(new Chunk(new iTextSharp.text.pdf.draw.LineSeparator(0.0F, 100.0F, BaseColor.BLACK, Element.ALIGN_LEFT, 1)));
+                document.Add(p);
+
+                Paragraph para1 = new Paragraph("Examination summary", new Font(Font.FontFamily.TIMES_ROMAN, 25, Font.BOLD));
                 para1.Alignment = Element.ALIGN_CENTER;
                 para1.SpacingAfter = 50;
                 document.Add(para1);
-
 
                 if (symptoms)
                 {
@@ -126,9 +145,22 @@ namespace HospitalLibrary.Core.Service
                         {
                             Console.WriteLine(medicine.Name);
                             document.Add(new Paragraph(medicine.Name, new Font(Font.FontFamily.TIMES_ROMAN, 15)));
+                            document.Add(new Paragraph(prescription.Description, new Font(Font.FontFamily.TIMES_ROMAN, 15, Font.ITALIC)));
+                            Paragraph paraaaa = new Paragraph("");
+                            paraaaa.SpacingAfter = 7;
+                            document.Add(paraaaa);
                         }
                     }
                 }
+
+                Paragraph potpis = new Paragraph("Signature of the doctor:", new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD));
+                potpis.SpacingBefore = 25;
+                potpis.Alignment = Element.ALIGN_RIGHT;
+                document.Add(potpis);
+
+                Paragraph linija = new Paragraph(new Chunk(new iTextSharp.text.pdf.draw.LineSeparator(0.0F, 25.0F, BaseColor.BLACK, Element.ALIGN_RIGHT, 1)));
+                linija.SpacingBefore = 10;
+                document.Add(linija);
 
 
                 document.Close();

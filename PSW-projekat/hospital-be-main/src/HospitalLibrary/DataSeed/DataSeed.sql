@@ -131,10 +131,11 @@ INSERT [dbo].[Appointments] ([Id], [PatientId], [DoctorId], [DateTime], [Cancela
 INSERT [dbo].[Appointments] ([Id], [PatientId], [DoctorId], [DateTime], [CancelationDate], [Deleted]) VALUES (6, 1, 1, '2022-12-19 00:00:00.0000000', '2022-12-19 00:20:00.0000000', 0)
 INSERT [dbo].[Appointments] ([Id], [PatientId], [DoctorId], [DateTime], [CancelationDate], [Deleted]) VALUES (7, 1, 1, '2022-12-19 12:00:00.0000000', '2022-12-19 12:20:00.0000000', 0)
 INSERT [dbo].[Appointments] ([Id], [PatientId], [DoctorId], [DateTime], [CancelationDate], [Deleted]) VALUES (8, 1, 1, '2022-12-19 13:00:00.0000000', '2022-12-19 13:20:00.0000000', 0)
-INSERT [dbo].[Appointments] ([Id], [PatientId], [DoctorId], [DateTime], [CancelationDate], [Deleted]) VALUES (9, null, null, '2022-12-19 13:00:00.0000000', '2022-12-19 13:20:00.0000000', 0)
-INSERT [dbo].[Appointments] ([Id], [PatientId], [DoctorId], [DateTime], [CancelationDate], [Deleted]) VALUES (10, null, null, '2022-12-19 10:00:00.0000000', '2022-12-19 10:20:00.0000000', 0)
-INSERT [dbo].[Appointments] ([Id], [PatientId], [DoctorId], [DateTime], [CancelationDate], [Deleted]) VALUES (11, null, null, '2022-12-21 15:00:00.0000000', '2022-12-21 15:20:00.0000000', 0)
-INSERT [dbo].[Appointments] ([Id], [PatientId], [DoctorId], [DateTime], [CancelationDate], [Deleted]) VALUES (12, null, 2, '2022-12-19 10:00:00.0000000', '2022-12-19 10:20:00.0000000', 0)
+INSERT [dbo].[Appointments] ([Id], [PatientId], [DoctorId], [DateTime], [CancelationDate], [Deleted]) VALUES (9, null, null, '2023-01-19 13:00:00.0000000', '2022-12-19 13:20:00.0000000', 0)
+INSERT [dbo].[Appointments] ([Id], [PatientId], [DoctorId], [DateTime], [CancelationDate], [Deleted]) VALUES (10, null, null, '2023-01-20 10:00:00.0000000', '2022-12-19 10:20:00.0000000', 0)
+INSERT [dbo].[Appointments] ([Id], [PatientId], [DoctorId], [DateTime], [CancelationDate], [Deleted]) VALUES (11, null, null, '2023-01-21 15:00:00.0000000', '2022-12-21 15:20:00.0000000', 0)
+INSERT [dbo].[Appointments] ([Id], [PatientId], [DoctorId], [DateTime], [CancelationDate], [Deleted]) VALUES (12, null, null, '2023-01-22 10:00:00.0000000', '2022-12-19 10:20:00.0000000', 0)
+INSERT [dbo].[Appointments] ([Id], [PatientId], [DoctorId], [DateTime], [CancelationDate], [Deleted]) VALUES (13, 5, 1, '2023-02-28 15:00:00.0000000', '2022-12-19 10:20:00.0000000', 0)
 SET IDENTITY_INSERT [dbo].[Appointments] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Bloods] ON 
@@ -158,12 +159,12 @@ GO
 SET IDENTITY_INSERT [dbo].[Beds] ON 
 
 INSERT [dbo].[Beds] ([Id], [Name], [BedState], [PatientId], [Quantity], [RoomId], [Deleted]) VALUES (1, 'Dekubitalni', 1, NULL, 10, 1, 0)
-INSERT [dbo].[Beds] ([Id], [Name], [BedState], [PatientId], [Quantity], [RoomId], [Deleted]) VALUES (2, 'Dormeo', 0, NULL, 5, 1, 0)
+INSERT [dbo].[Beds] ([Id], [Name], [BedState], [PatientId], [Quantity], [RoomId], [Deleted]) VALUES (2, 'Dormeo', 0, 2, 5, 1, 0)
 INSERT [dbo].[Beds] ([Id], [Name], [BedState], [PatientId], [Quantity], [RoomId], [Deleted]) VALUES (3, 'Intenzivni', 1, NULL, 3, 1, 0)
 INSERT [dbo].[Beds] ([Id], [Name], [BedState], [PatientId], [Quantity], [RoomId], [Deleted]) VALUES (4, 'Poluintenzivni', 0, 3, 6, 2, 0)
 INSERT [dbo].[Beds] ([Id], [Name], [BedState], [PatientId], [Quantity], [RoomId], [Deleted]) VALUES (5, 'Invalidski', 1, NULL, 8, 2, 0)
 INSERT [dbo].[Beds] ([Id], [Name], [BedState], [PatientId], [Quantity], [RoomId], [Deleted]) VALUES (6, 'Dekubitalni', 1, NULL, 10, 2, 0)
-INSERT [dbo].[Beds] ([Id], [Name], [BedState], [PatientId], [Quantity], [RoomId], [Deleted]) VALUES (7, 'Dormeo', 0, 1, 4, 3, 0)
+INSERT [dbo].[Beds] ([Id], [Name], [BedState], [PatientId], [Quantity], [RoomId], [Deleted]) VALUES (7, 'Dormeo', 0, NULL, 4, 3, 0)
 INSERT [dbo].[Beds] ([Id], [Name], [BedState], [PatientId], [Quantity], [RoomId], [Deleted]) VALUES (8, 'Intenzivni', 1, NULL, 3, 3, 0)
 INSERT [dbo].[Beds] ([Id], [Name], [BedState], [PatientId], [Quantity], [RoomId], [Deleted]) VALUES (9, 'Poluintenzivni', 1, NULL, 6, 3, 0)
 INSERT [dbo].[Beds] ([Id], [Name], [BedState], [PatientId], [Quantity], [RoomId], [Deleted]) VALUES (10, 'Invalidski', 1, NULL, 8, 3, 0)
@@ -224,11 +225,13 @@ GO
 SET IDENTITY_INSERT [dbo].[Therapys] ON 
 
 INSERT [dbo].[Therapys] ([Id], [MedicineId], [BloodId], [QuantitytMedicine], [QuantityBlood], [Deleted]) VALUES (1, 2, 3, 2, 1, 0)
+INSERT [dbo].[Therapys] ([Id], [MedicineId], [BloodId], [QuantitytMedicine], [QuantityBlood], [Deleted]) VALUES (2, 3, 3, 2, 1, 0)
 SET IDENTITY_INSERT [dbo].[Therapys] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Treatments] ON 
 
-INSERT [dbo].[Treatments] ([Id], [PatientId], [DateAdmission], [DateDischarge], [ReasonForAdmission], [ReasonForDischarge], [TreatmentState], [TherapyId], [RoomId], [Deleted]) VALUES (1, 2, '2022-11-16 11:30:00', '2022-11-16 13:00:00', 'Bol u grlu', 'Pacijent se oseca bolje', 1, 1, 1, 0)
+INSERT [dbo].[Treatments] ([Id], [PatientId], [DateAdmission], [DateDischarge], [ReasonForAdmission], [ReasonForDischarge], [TreatmentState], [TherapyId], [RoomId], [Deleted]) VALUES (1, 2, '2022-11-16 11:30:00', '2022-11-16 13:00:00', 'Bol u grlu', '', 1, 1, 1, 0)
+INSERT [dbo].[Treatments] ([Id], [PatientId], [DateAdmission], [DateDischarge], [ReasonForAdmission], [ReasonForDischarge], [TreatmentState], [TherapyId], [RoomId], [Deleted]) VALUES (2, 3, '2022-11-17 12:30:00', '2022-11-17 16:00:00', 'Pojacano krvarenje', '', 1, 2, 2, 0)
 SET IDENTITY_INSERT [dbo].[Treatments] OFF
 GO
 SET IDENTITY_INSERT [dbo].[WorkingDays] ON 
@@ -240,6 +243,77 @@ INSERT INTO [dbo].[WorkingDays]([Id], [Day],[StartTime],[EndTime],[DoctorId],[De
 INSERT INTO [dbo].[WorkingDays]([Id], [Day],[StartTime],[EndTime],[DoctorId],[Deleted]) VALUES(5, 1,'2022-12-12 08:00:00.0000000','2022-12-12 18:00:00.0000000',2,0)
 INSERT INTO [dbo].[WorkingDays]([Id], [Day],[StartTime],[EndTime],[DoctorId],[Deleted]) VALUES(6, 2,'2022-12-12 08:00:00.0000000','2022-12-12 18:00:00.0000000',2,0)
 SET IDENTITY_INSERT [dbo].[WorkingDays] OFF
+GO
+SET IDENTITY_INSERT [dbo].[DoctorsCouncils] ON 
+
+INSERT INTO [dbo].[DoctorsCouncils]([Id], [Topic], [Start], [End], [Duration], [Deleted]) VALUES(1, 'Godisnji odmori', '2022-11-16 11:30:00', '2022-11-16 13:30:00', 120, 0)
+INSERT INTO [dbo].[DoctorsCouncils]([Id], [Topic], [Start], [End], [Duration], [Deleted]) VALUES(2, 'Bozicni praznici', '2022-12-17 13:10:00', '2022-12-17 13:30:00', 20, 0)
+INSERT INTO [dbo].[DoctorsCouncils]([Id], [Topic], [Start], [End], [Duration], [Deleted]) VALUES(3, 'Bolovanje', '2022-10-18 10:30:00', '2022-10-18 11:00:00', 30, 0)
+INSERT INTO [dbo].[DoctorsCouncils]([Id], [Topic], [Start], [End], [Duration], [Deleted]) VALUES(4, 'Dogovori oko zamene smena', '2022-11-20 14:10:00', '2022-11-20 14:30:00', 20, 0)
+
+SET IDENTITY_INSERT [dbo].[DoctorsCouncils] OFF 
+GO
+
+INSERT INTO [dbo].[DoctorDoctorsCouncil]([CouncilsId], [DoctorsId]) VALUES(1, 2)
+INSERT INTO [dbo].[DoctorDoctorsCouncil]([CouncilsId], [DoctorsId]) VALUES(1, 1)
+INSERT INTO [dbo].[DoctorDoctorsCouncil]([CouncilsId], [DoctorsId]) VALUES(1, 3)
+INSERT INTO [dbo].[DoctorDoctorsCouncil]([CouncilsId], [DoctorsId]) VALUES(1, 4)
+
+INSERT INTO [dbo].[DoctorDoctorsCouncil]([CouncilsId], [DoctorsId]) VALUES(2, 2)
+INSERT INTO [dbo].[DoctorDoctorsCouncil]([CouncilsId], [DoctorsId]) VALUES(2, 1)
+
+INSERT INTO [dbo].[DoctorDoctorsCouncil]([CouncilsId], [DoctorsId]) VALUES(3, 1)
+INSERT INTO [dbo].[DoctorDoctorsCouncil]([CouncilsId], [DoctorsId]) VALUES(3, 4)
+
+INSERT INTO [dbo].[DoctorDoctorsCouncil]([CouncilsId], [DoctorsId]) VALUES(4, 3)
+INSERT INTO [dbo].[DoctorDoctorsCouncil]([CouncilsId], [DoctorsId]) VALUES(4, 1)
+
+GO
+SET IDENTITY_INSERT [dbo].[DoctorExaminations]ON 
+
+INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (1,4,1,'2023-01-11 16:43:56.6236649','0001-01-01 00:00:00.0000000',0	  )
+INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (2,6,1,'2023-01-11 16:45:06.4166103','0001-01-01 00:00:00.0000000',0	  )
+INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (3,3,1,'2023-01-11 16:54:36.9281546','0001-01-01 00:00:00.0000000',0	  )
+INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (4,3,1,'2023-01-11 16:59:55.2350639','0001-01-01 00:00:00.0000000',0	  )
+INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (5,7,1,'2023-01-11 17:05:03.1426259','2023-01-11 17:05:12.8069807',0	  )
+INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (6,7,1,'2023-01-11 17:05:47.7558814','2023-01-11 17:07:44.3923814',0	  )
+INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (7,7,1,'2023-01-11 19:46:04.7355355','2023-01-11 19:46:16.7432119',0	  )
+INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (8,7,1,'2023-01-11 19:46:25.3146879','2023-01-11 19:46:41.6692912',0	  )
+INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (9,7,2,'2023-01-11 19:46:51.5318359','2023-01-11 19:47:01.2526608',0	  )
+INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (10,7,2,'2023-01-11 19:58:09.0977671','2023-01-11 19:58:14.0924922',0  )
+INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (11,4,2,'2023-01-11 19:58:20.1748015','0001-01-01 00:00:00.0000000',0  )
+INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (12,3,2,'2023-01-11 19:58:32.6228560','0001-01-01 00:00:00.0000000',0  )
+INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (13,7,2,'2023-01-11 20:02:03.0145359','2023-01-11 20:02:07.2079820',0  )
+INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (14,3,2,'2023-01-11 20:02:12.7405398','0001-01-01 00:00:00.0000000',0  )
+INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (15,7,2,'2023-01-11 20:05:50.4646179','2023-01-11 20:06:14.4607579',0  )
+INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (16,3,2,'2023-01-11 20:06:20.1592655','0001-01-01 00:00:00.0000000',0  )
+INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (17,4,2,'2023-01-11 20:08:32.1587292','0001-01-01 00:00:00.0000000',0  )
+INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (18,6,2,'2023-01-11 20:08:39.6761554','0001-01-01 00:00:00.0000000',0  )
+INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (19,4,2,'2023-01-11 20:19:21.9059157','0001-01-01 00:00:00.0000000',0  )
+INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (20,1,2,'2023-01-11 20:19:26.4749432','0001-01-01 00:00:00.0000000',0  )
+INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (21,2,2,'2023-01-11 20:30:41.8093610','0001-01-01 00:00:00.0000000',0  )
+INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (22,7,2,'2023-01-11 20:30:56.2124322','2023-01-11 20:31:17.8114265',0  )
+INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (23,4,2,'2023-01-11 20:31:27.1663737','0001-01-01 00:00:00.0000000',0  )
+INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (24,4,2,'2023-01-11 20:32:01.8709779','0001-01-01 00:00:00.0000000',0  )
+INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (25,4,2,'2023-01-11 20:32:04.3018971','0001-01-01 00:00:00.0000000',0  )
+INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (26,7,2,'2023-01-11 20:32:05.9090453','2023-01-11 20:32:10.4406613',0  )
+INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (27,3,2,'2023-01-11 20:32:18.8771053','0001-01-01 00:00:00.0000000',0  )
+INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (28,7,2,'2023-01-11 20:36:57.5038196','2023-01-11 20:37:03.3451032',0  )
+INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (29,1,2,'2023-01-11 20:37:18.8552299','0001-01-01 00:00:00.0000000',0  )
+INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (30,0,2,'2023-01-11 20:37:21.6945798','0001-01-01 00:00:00.0000000',0  )
+INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (31,1,2,'2023-01-11 20:39:46.8676144','0001-01-01 00:00:00.0000000',0  )
+INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (33,0,2,'2023-01-11 20:42:13.7819879','0001-01-01 00:00:00.0000000',0  )
+INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (34,3,2,'2023-01-11 20:42:15.1308572','0001-01-01 00:00:00.0000000',0  )
+INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (35,4,2,'2023-01-11 21:59:07.0688089','0001-01-01 00:00:00.0000000',0  )
+INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (36,7,2,'2023-01-11 21:59:25.4288616','2023-01-11 21:59:32.8687948',0  )
+INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (37,7,2,'2023-01-11 22:04:19.4050410','2023-01-11 22:04:56.4721564',0  )
+INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (38,7,2,'2023-01-11 22:17:17.4401192','2023-01-11 22:17:46.5975167',0  )
+INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (39,7,2,'2023-01-11 22:17:53.8742209','2023-01-11 22:18:14.2062286',0  )
+INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (40,0,2,'2023-01-11 22:18:31.7692337','0001-01-01 00:00:00.0000000',0  )
+INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (41,4,2,'2023-01-12 00:26:53.7164115','0001-01-01 00:00:00.0000000',0  )
+INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (42,4,2,'2023-01-12 00:26:57.2954079','0001-01-01 00:00:00.0000000',0  )
+INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (43,7,2,'2023-01-12 00:27:08.6668811','2023-01-12 00:27:15.3059491',0  )
+SET IDENTITY_INSERT [dbo].[DoctorExaminations]OFF
 GO
 SET IDENTITY_INSERT [dbo].[DoctorExaminationEvents]ON 
 
@@ -410,7 +484,7 @@ INSERT [dbo].[DoctorExaminationEvents] ([Id],[AggregateId],[phase],[selectionTim
 INSERT [dbo].[DoctorExaminationEvents] ([Id],[AggregateId],[phase],[selectionTime],[Discriminator],[Prescriptions],[Symptoms],[Report],[Deleted]) VALUES (166,39,1,'2023-01-11 22:18:08.6347435','DoctorSelectedPrescriptions','',NULL,NULL,0					  )
 INSERT [dbo].[DoctorExaminationEvents] ([Id],[AggregateId],[phase],[selectionTime],[Discriminator],[Prescriptions],[Symptoms],[Report],[Deleted]) VALUES (167,39,6,'2023-01-11 22:18:09.7867080','BackToPrescriptionsSelection',NULL,NULL,NULL,0			  )
 INSERT [dbo].[DoctorExaminationEvents] ([Id],[AggregateId],[phase],[selectionTime],[Discriminator],[Prescriptions],[Symptoms],[Report],[Deleted]) VALUES (168,39,1,'2023-01-11 22:18:13.1708148','DoctorSelectedPrescriptions','',NULL,NULL,0					  )
-INSERT [dbo].[DoctorExaminationEvents] ([Id],[AggregateId],[phase],[selectionTime],[Discriminator],[Prescriptions],[Symptoms],[Report],[Deleted]) VALUES (169,41,1,'2023-01-12 00:26:55.8731901','DoctorSelectedSymptoms,NULL','',NULL,0						  )
+INSERT [dbo].[DoctorExaminationEvents] ([Id],[AggregateId],[phase],[selectionTime],[Discriminator],[Prescriptions],[Symptoms],[Report],[Deleted]) VALUES (169,41,1,'2023-01-12 00:26:55.8731901','DoctorSelectedSymptoms,NULL','',NULL,NULL,0						  )
 INSERT [dbo].[DoctorExaminationEvents] ([Id],[AggregateId],[phase],[selectionTime],[Discriminator],[Prescriptions],[Symptoms],[Report],[Deleted]) VALUES (170,41,4,'2023-01-12 00:26:57.3274101','BackToSymptomsSelection',NULL,NULL,NULL,0					  )
 INSERT [dbo].[DoctorExaminationEvents] ([Id],[AggregateId],[phase],[selectionTime],[Discriminator],[Prescriptions],[Symptoms],[Report],[Deleted]) VALUES (171,42,1,'2023-01-12 00:26:58.9517008','DoctorSelectedSymptoms',NULL,'',NULL,0						  )
 INSERT [dbo].[DoctorExaminationEvents] ([Id],[AggregateId],[phase],[selectionTime],[Discriminator],[Prescriptions],[Symptoms],[Report],[Deleted]) VALUES (172,42,1,'2023-01-12 00:26:59.3995274','DoctorWriteReport',NULL,NULL,'',0							  )
@@ -422,52 +496,6 @@ INSERT [dbo].[DoctorExaminationEvents] ([Id],[AggregateId],[phase],[selectionTim
 INSERT [dbo].[DoctorExaminationEvents] ([Id],[AggregateId],[phase],[selectionTime],[Discriminator],[Prescriptions],[Symptoms],[Report],[Deleted]) VALUES (177,43,1,'2023-01-12 00:27:11.1101822','DoctorSelectedSymptoms',NULL,'',NULL,0						  )
 INSERT [dbo].[DoctorExaminationEvents] ([Id],[AggregateId],[phase],[selectionTime],[Discriminator],[Prescriptions],[Symptoms],[Report],[Deleted]) VALUES (178,43,1,'2023-01-12 00:27:11.5174538','DoctorWriteReport',NULL,NULL,'',0							  )
 SET IDENTITY_INSERT [dbo].[DoctorExaminationEvents] OFF
-GO
-SET IDENTITY_INSERT [dbo].[DoctorExaminations]ON 
-
-INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (1,4,2,'2023-01-11 16:43:56.6236649','0001-01-01 00:00:00.0000000',0	  )
-INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (2,6,2,'2023-01-11 16:45:06.4166103','0001-01-01 00:00:00.0000000',0	  )
-INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (3,3,2,'2023-01-11 16:54:36.9281546','0001-01-01 00:00:00.0000000',0	  )
-INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (4,3,2,'2023-01-11 16:59:55.2350639','0001-01-01 00:00:00.0000000',0	  )
-INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (5,7,2,'2023-01-11 17:05:03.1426259','2023-01-11 17:05:12.8069807',0	  )
-INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (6,7,2,'2023-01-11 17:05:47.7558814','2023-01-11 17:07:44.3923814',0	  )
-INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (7,7,2,'2023-01-11 19:46:04.7355355','2023-01-11 19:46:16.7432119',0	  )
-INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (8,7,2,'2023-01-11 19:46:25.3146879','2023-01-11 19:46:41.6692912',0	  )
-INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (9,7,2,'2023-01-11 19:46:51.5318359','2023-01-11 19:47:01.2526608',0	  )
-INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (10,7,2,'2023-01-11 19:58:09.0977671','2023-01-11 19:58:14.0924922',0  )
-INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (11,4,2,'2023-01-11 19:58:20.1748015','0001-01-01 00:00:00.0000000',0  )
-INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (12,3,2,'2023-01-11 19:58:32.6228560','0001-01-01 00:00:00.0000000',0  )
-INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (13,7,2,'2023-01-11 20:02:03.0145359','2023-01-11 20:02:07.2079820',0  )
-INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (14,3,2,'2023-01-11 20:02:12.7405398','0001-01-01 00:00:00.0000000',0  )
-INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (15,7,2,'2023-01-11 20:05:50.4646179','2023-01-11 20:06:14.4607579',0  )
-INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (16,3,2,'2023-01-11 20:06:20.1592655','0001-01-01 00:00:00.0000000',0  )
-INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (17,4,2,'2023-01-11 20:08:32.1587292','0001-01-01 00:00:00.0000000',0  )
-INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (18,6,2,'2023-01-11 20:08:39.6761554','0001-01-01 00:00:00.0000000',0  )
-INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (19,4,2,'2023-01-11 20:19:21.9059157','0001-01-01 00:00:00.0000000',0  )
-INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (20,1,2,'2023-01-11 20:19:26.4749432','0001-01-01 00:00:00.0000000',0  )
-INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (21,2,2,'2023-01-11 20:30:41.8093610','0001-01-01 00:00:00.0000000',0  )
-INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (22,7,2,'2023-01-11 20:30:56.2124322','2023-01-11 20:31:17.8114265',0  )
-INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (23,4,2,'2023-01-11 20:31:27.1663737','0001-01-01 00:00:00.0000000',0  )
-INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (24,4,2,'2023-01-11 20:32:01.8709779','0001-01-01 00:00:00.0000000',0  )
-INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (25,4,2,'2023-01-11 20:32:04.3018971','0001-01-01 00:00:00.0000000',0  )
-INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (26,7,2,'2023-01-11 20:32:05.9090453','2023-01-11 20:32:10.4406613',0  )
-INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (27,3,2,'2023-01-11 20:32:18.8771053','0001-01-01 00:00:00.0000000',0  )
-INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (28,7,2,'2023-01-11 20:36:57.5038196','2023-01-11 20:37:03.3451032',0  )
-INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (29,1,2,'2023-01-11 20:37:18.8552299','0001-01-01 00:00:00.0000000',0  )
-INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (30,0,2,'2023-01-11 20:37:21.6945798','0001-01-01 00:00:00.0000000',0  )
-INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (31,1,2,'2023-01-11 20:39:46.8676144','0001-01-01 00:00:00.0000000',0  )
-INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (33,0,2,'2023-01-11 20:42:13.7819879','0001-01-01 00:00:00.0000000',0  )
-INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (34,3,2,'2023-01-11 20:42:15.1308572','0001-01-01 00:00:00.0000000',0  )
-INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (35,4,2,'2023-01-11 21:59:07.0688089','0001-01-01 00:00:00.0000000',0  )
-INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (36,7,2,'2023-01-11 21:59:25.4288616','2023-01-11 21:59:32.8687948',0  )
-INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (37,7,2,'2023-01-11 22:04:19.4050410','2023-01-11 22:04:56.4721564',0  )
-INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (38,7,2,'2023-01-11 22:17:17.4401192','2023-01-11 22:17:46.5975167',0  )
-INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (39,7,2,'2023-01-11 22:17:53.8742209','2023-01-11 22:18:14.2062286',0  )
-INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (40,0,2,'2023-01-11 22:18:31.7692337','0001-01-01 00:00:00.0000000',0  )
-INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (41,4,2,'2023-01-12 00:26:53.7164115','0001-01-01 00:00:00.0000000',0  )
-INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (42,4,2,'2023-01-12 00:26:57.2954079','0001-01-01 00:00:00.0000000',0  )
-INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (43,7,2,'2023-01-12 00:27:08.6668811','2023-01-12 00:27:15.3059491',0  )
-SET IDENTITY_INSERT [dbo].[DoctorExaminations]OFF
 GO
 SET IDENTITY_INSERT [dbo].[DoctorSchedule] ON 
 

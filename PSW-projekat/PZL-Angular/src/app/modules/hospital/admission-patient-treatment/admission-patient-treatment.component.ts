@@ -121,6 +121,10 @@ export class AdmissionPatientTreatmentComponent implements OnInit {
     return this.treatment.patient;
   }
 
+  public GetRequests() {
+    this.therapy.blood.bloodType = this.ConvertToNumber(this.bloodType);
+  }
+
   public ConvertToNumber(obj: any): any{
     switch(obj){
       case 'O-': return 7;

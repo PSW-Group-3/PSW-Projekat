@@ -6,12 +6,24 @@
 
 }
 
+.inputPolje{
+    width: 1000px
+}
+
 .nextDugme1 {
     color: black;
     border-radius: 3px;
     border-color: black;
-    margin-left: 72px;
 
+}
+
+.container{
+    height: 550px;
+}
+
+mat-form-field {
+    width: 100%;
+    margin: auto;
 }
 
 .comboSimptomi{
@@ -19,15 +31,44 @@
 }
 
 .comboSelect{
-    height: 100px;
+    height: 50px;
     text-align: left;
-
 }
 
 .backDugme {
     color: black;
     border-radius: 3px;
     border-color: black;
+}
+
+.backDugme1 {
+    color: black;
+    border-radius: 3px;
+    border-color: black;
+    align-content: right;
+    position: absolute;
+    left: 1080px;
+    top: 490px; 
+}
+
+.backDugme2 {
+    color: black;
+    border-radius: 3px;
+    border-color: black;
+    align-content: right;
+    position: absolute;
+    left: 1080px;
+    top: 530px; 
+}
+
+.backDugme3 {
+    color: black;
+    border-radius: 3px;
+    border-color: black;
+    align-content: right;
+    position: absolute;
+    left: 1080px;
+    top: 592px; 
 }
 
 .plusic{

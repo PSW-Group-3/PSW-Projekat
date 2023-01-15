@@ -57,8 +57,8 @@ export class AppointmentsComponent implements OnInit {
 
     dialogConfig.disableClose = false;
     dialogConfig.id = "modal-component";
-    dialogConfig.height = "450px";
-    dialogConfig.width = "450px";
+    dialogConfig.height = "600px";
+    dialogConfig.width = "500px";
 
     const modalDialog = this.dialog.open(MedicalExaminationPatientComponent, dialogConfig);
     modalDialog.componentInstance.terminId = id;
@@ -68,7 +68,7 @@ export class AppointmentsComponent implements OnInit {
   public deleteAppointment(id: number) {
     if(window.confirm('Are sure you want to delete this item ?')){
       this.appointmentService.deleteAppointment(id).subscribe(res => {
-        this.appointmentService.GetAllByDoctor(2).subscribe(res => {
+        this.appointmentService.GetAllByDoctor(Number(localStorage.getItem("currentUserId"))).subscribe(res => {
           let result = Object.values(JSON.parse(JSON.stringify(res)));
           this.appointments = []
           result.forEach((element: any) => {

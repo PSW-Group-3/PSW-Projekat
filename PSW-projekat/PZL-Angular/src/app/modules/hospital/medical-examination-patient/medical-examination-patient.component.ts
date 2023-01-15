@@ -70,8 +70,8 @@ export class MedicalExaminationPatientComponent implements OnInit{
 
     dialogConfig.disableClose = false;
     dialogConfig.id = "modal-component-simptomi-next";
-    dialogConfig.height = "450px";
-    dialogConfig.width = "450px";
+    dialogConfig.height = "600px";
+    dialogConfig.width = "500px";
 
     const modalDi = this.dialog.closeAll();
     const modalDialog = this.dialog.open(MedicalReportComponent, dialogConfig);
@@ -127,8 +127,8 @@ export class MedicalReportComponent implements OnInit {
 
     dialogConfig.disableClose = false;
     dialogConfig.id = "modal-component-izvestaj-back";
-    dialogConfig.height = "450px";
-    dialogConfig.width = "450px";
+    dialogConfig.height = "600px";
+    dialogConfig.width = "500px";
 
     const modalDi = this.dialog.closeAll();
     const modalDialog = this.dialog.open(MedicalExaminationPatientComponent, dialogConfig);
@@ -147,8 +147,8 @@ export class MedicalReportComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
     dialogConfig.id = "modal-component-izvestaj-next";
-    dialogConfig.height = "450px";
-    dialogConfig.width = "450px";
+    dialogConfig.height = "600px";
+    dialogConfig.width = "500px";
 
     const modalDi = this.dialog.closeAll();
     const modalDialog = this.dialog.open(MedicalPrescriptionShowComponent, dialogConfig);
@@ -215,8 +215,8 @@ export class MedicalPrescriptionShowComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
     dialogConfig.id = "modal-component-recept-back";
-    dialogConfig.height = "450px";
-    dialogConfig.width = "450px";
+    dialogConfig.height = "600px";
+    dialogConfig.width = "500px";
 
     const modalDi = this.dialog.closeAll();
     const modalDialog = this.dialog.open(MedicalReportComponent, dialogConfig);
@@ -234,8 +234,8 @@ export class MedicalPrescriptionShowComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
     dialogConfig.id = "modal-component-recept-next";
-    dialogConfig.height = "450px";
-    dialogConfig.width = "450px";
+    dialogConfig.height = "600px";
+    dialogConfig.width = "500px";
 
     const modalDi = this.dialog.closeAll();
     const modalDialog = this.dialog.open(MedicalExaminationFinish, dialogConfig);
@@ -290,8 +290,8 @@ export class MedicalExaminationFinish implements OnInit {
 
     dialogConfig.disableClose = false;
     dialogConfig.id = "modal-component-finish-back";
-    dialogConfig.height = "450px";
-    dialogConfig.width = "450px";
+    dialogConfig.height = "600px";
+    dialogConfig.width = "500px";
 
     const modalDi = this.dialog.closeAll();
     const modalDialog = this.dialog.open(MedicalPrescriptionShowComponent, dialogConfig);

@@ -65,10 +65,9 @@
             <mat-label>Blood type</mat-label>
 
             <mat-select [(ngModel)]="therapy.blood">
-                <mat-option *ngFor="let blood of bloods" [value]="blood">{{blood.bloodType}}
-                </mat-option>
-            </mat-select>
-
+              <mat-option *ngFor="let blood of bloods" [value]="blood">{{blood.bloodType}}
+              </mat-option>
+          </mat-select>
         </mat-form-field>
 
         <mat-form-field appearance="fill">

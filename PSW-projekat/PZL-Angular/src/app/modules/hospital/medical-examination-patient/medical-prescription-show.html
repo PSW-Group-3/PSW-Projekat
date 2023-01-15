@@ -2,7 +2,9 @@
     <div>
         <div>
 
-        <h1>Prescription</h1>
+        <h1><b>Prescription</b></h1>
+
+        <br>
 
         <mat-form-field appearance="fill">
             <mat-label>Medicines</mat-label>
@@ -18,7 +20,7 @@
 
         <a>
             <button (click)="addNewItem(recept.medicines, recept.description)" class="nextDugme1" mat-stroked-button>
-                 Add 
+                <b>Add</b> 
             </button>
         </a>
 
@@ -42,15 +44,16 @@
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
 
+        <br>
         <a>
-            <button (click)="back()" class="backDugme" mat-stroked-button>
-                 Back 
+            <button (click)="back()" class="backDugme"  mat-stroked-button>
+                <b>Back</b> 
             </button>
         </a>
 
         <a>
-            <button (click)="next()" class="nextDugme1" mat-stroked-button>
-                 Next 
+            <button (click)="next()" class="backDugme" style="float: right;" mat-stroked-button>
+                <b>Next</b> 
             </button>
         </a>
 
