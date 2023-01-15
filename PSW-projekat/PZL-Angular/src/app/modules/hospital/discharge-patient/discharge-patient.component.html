@@ -36,7 +36,8 @@
 <div class="disvhargePatient">
     <div>
 
-        <h1>Discharge patient from hospital</h1>
+      <h1><b>Discharge of the patient from treatment</b></h1>
+
         <mat-form-field appearance="fill">
             <mat-label>Name</mat-label>
             <input matInput [(ngModel)]="treatment.patient.name" disabled>
@@ -73,8 +74,8 @@
             <input type="text" matInput [(ngModel)]="treatment.reasonForDischarge" name="reasonForAdmission">
         </mat-form-field><br>
 
-        <button mat-stroked-button (click)="updateTreatment()">
-            Discharge
+        <button class="dugme" mat-stroked-button (click)="updateTreatment()">
+            <b>Discharge</b>
         </button>
     </div>
 </div>

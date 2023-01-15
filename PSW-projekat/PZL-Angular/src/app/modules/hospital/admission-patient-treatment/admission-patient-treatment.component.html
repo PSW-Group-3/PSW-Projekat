@@ -34,7 +34,8 @@
   </nav>
 <div class="admissionPatient">
     <div>
- 
+      <h1><b>Admission of the patient to treatment</b></h1>
+
         <mat-form-field appearance="fill">
             <mat-label>Patient</mat-label>
             <mat-select [(ngModel)]="treatment.patient" (ngModelChange)="handleOptionChangePatient()">
@@ -100,8 +101,8 @@
             <mat-label>Reason for patient admission</mat-label>
             <input type="text" matInput [(ngModel)]="treatment.reasonForAdmission" name="reasonForAdmission">
         </mat-form-field><br>
-        <button mat-stroked-button (click)="createTreatment()">
-            Submit
+        <button class="dugme" mat-stroked-button (click)="createTreatment()">
+            <b>Submit</b>
         </button>
     </div>
 </div>

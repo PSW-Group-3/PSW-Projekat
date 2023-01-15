@@ -2,12 +2,21 @@
     color: #382110;
 }
 
-div {
-    width: 40%;
-    margin: auto;
+.bloodConsumptions{
+    margin-top: 40px;
+    margin-left: 600px;
+    width: 30%;
+}
+
+.w-80{
+    position: inherit;
+	width: 80%;
 }
 
 mat-form-field {
     width: 100%;
     margin: auto;
+}
+.dugme{
+    border-color: black;
 }

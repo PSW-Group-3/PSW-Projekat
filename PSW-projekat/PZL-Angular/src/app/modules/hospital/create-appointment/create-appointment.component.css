@@ -17,3 +17,6 @@ mat-form-field {
     position: inherit;
 	width: 80%;
 }
+.dugme{
+    border-color: black;
+}

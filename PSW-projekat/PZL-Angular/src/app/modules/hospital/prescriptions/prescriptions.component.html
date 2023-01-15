@@ -1,6 +1,39 @@
-<div class="container">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark w-80 mx-auto p-3 shadow-lg" style="border-bottom-left-radius: 20px; border-bottom-right-radius: 20px;">
+    <a class="navbar-brand m-0" href="/homeDoctor"><div class="h1 mx-4">Home</div></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/homeDoctor"><div class="h3 m-1">Profile</div></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="appointmentButton" href="/appointments"><div class="h3 m-1">Appointments</div></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/returned-requests"><div class="h3 m-1">Returned requests</div></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/treatments"><div class="h3 m-1">Treatments</div></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/councilOfDoctors"><div class="h3 m-1">Consiliums</div></a>
+        </li>
+      </ul>
+      <div class="mx-auto"></div>
+
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link text-white" href="" (click)="logoutUser()"><div class="h3 mx-4 mt-2">Log out</div></a>
+        </li>
+      </ul>
+    </div>
+</nav>
+<div class="prescriptions">
     <div class="table-header">
-        <p class="table-title">All reports</p>
+        <p class="table-title"><b>All prescriptions</b></p>
         <div class="searchP" id="wrapper">
 
             <div id="div1">

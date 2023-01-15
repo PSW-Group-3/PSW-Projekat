@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { BloodBank } from '../../blood-banks/model/blood-bank.model';
 import { BloodRequest } from '../model/bloodRequest.model';
 import { BloodResuestService } from '../services/blood-request.service';
+import { LoginService } from '../services/login.service';
 
 @Component({
   selector: 'app-blood-requests',
@@ -18,7 +19,7 @@ export class BloodRequestsComponent implements OnInit {
   public displayedColumns = ['bloodType','bloodQuantity', 'reason','date'];
   
     
-  constructor(private bloodRequestService: BloodResuestService, private router: Router) { }
+  constructor(private loginService: LoginService, private bloodRequestService: BloodResuestService, private router: Router) { }
   ngOnInit(): void {
     this.bloodRequestService.getBloodRequests().subscribe(res => {
       this.requests = res;
@@ -34,8 +35,14 @@ export class BloodRequestsComponent implements OnInit {
     })
   }
 
+  logoutUser(){
+    this.loginService.logout().subscribe(res => {
+    })
+  }
 
-  
+  public addBloodRequest() {
+    this.router.navigate(['/bloodRequest/add']);
+  }
 
   public ConvertToNumber(obj: any): any{
     switch(obj){

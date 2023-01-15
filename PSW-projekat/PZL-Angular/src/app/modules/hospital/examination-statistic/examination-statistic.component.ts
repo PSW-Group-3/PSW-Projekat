@@ -44,9 +44,10 @@ export class ExaminationStatisticComponent implements OnInit {
     
   }
 
- 
-
-  
+  logoutUser(){
+    this.loginService.logout().subscribe(res => {
+    })
+  }
 
   setSchedulingEventsFields(){
     let array = [this.schedulingAppointmentEventsStatistic.linearSchedulingNumber, this.schedulingAppointmentEventsStatistic.nonlinearSchedulingNumber]     

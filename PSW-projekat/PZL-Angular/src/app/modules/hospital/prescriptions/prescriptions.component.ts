@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Examination } from '../model/examination';
 import { Prescription } from '../model/prescription';
 import { ExaminationService } from '../services/examination.service';
+import { LoginService } from '../services/login.service';
 
 @Component({
   selector: 'app-prescriptions',
@@ -25,7 +26,7 @@ export class PrescriptionsComponent implements OnInit {
   public recepti: Prescription[] = [];
   public pomocna: Prescription[] = [];
   
-  constructor(private examinationService: ExaminationService, private router: Router) { }
+  constructor(private loginService: LoginService, private examinationService: ExaminationService, private router: Router) { }
 
   ngOnInit(): void {
 
@@ -42,6 +43,11 @@ export class PrescriptionsComponent implements OnInit {
         }
       });
       this.dataSource.data = this.examinations;
+    })
+  }
+
+  logoutUser(){
+    this.loginService.logout().subscribe(res => {
     })
   }
 

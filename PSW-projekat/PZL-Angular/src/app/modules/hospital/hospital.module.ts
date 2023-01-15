@@ -99,10 +99,7 @@ const routes: Routes = [
   //{ path: 'appointments/add', component: CreateAppointmentComponent, canActivate: [ AuthGuardDoctor ] },
   //{ path: 'appointments/:id/update', component: UpdateAppointmentComponent, canActivate: [ AuthGuardDoctor ] },
   { path: 'statistics', component: StatisticsComponent, canActivate: [ AuthGuardManager ] },
-
   { path: 'treatments', component: TreatmentsComponent },
-
-
   { path: 'treatments/add', component: AdmissionPatientTreatmentComponent },
   { path: 'treatments/:id/update', component: DischargePatientComponent },
   { path: 'login', component: LoginComponent },

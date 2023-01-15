@@ -5,6 +5,7 @@ import { BloodConsumption } from '../model/blood-consumption';
 import { BloodType } from '../model/bloodType';
 import { ToastrService } from 'ngx-toastr';
 import { BloodConsumptionService } from '../services/blood-consumption.service';
+import { LoginService } from '../services/login.service';
 
 @Component({
   selector: 'app-blood-consumption',
@@ -13,10 +14,15 @@ import { BloodConsumptionService } from '../services/blood-consumption.service';
 })
 export class BloodConsumptionComponent implements OnInit {
   public bloodConsumption: BloodConsumption = new BloodConsumption(0,new Blood(0,false,'',''),'', localStorage.getItem("currentUserId"))
-  public bloodType: String = ''
-  constructor(private bloodConsumptionService: BloodConsumptionService, private router: Router,private toastr: ToastrService) { }
+  public bloodType: String = '';
+  constructor(private loginService: LoginService, private bloodConsumptionService: BloodConsumptionService, private router: Router,private toastr: ToastrService) { }
   ngOnInit(): void {
     
+  }
+
+  logoutUser(){
+    this.loginService.logout().subscribe(res => {
+    })
   }
 
   public ConvertFromString(obj: any): any{

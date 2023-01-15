@@ -7,8 +7,21 @@
     background-color: white;
 }
 
+.prescriptions{
+    margin-top: 20px;
+    margin-left: 470px;
+    width: 52%;
+    border-radius: 3px;
+    background-color: white;
+}
+
 table {
     width: 100%;
+}
+
+.w-80{
+    position: inherit;
+	width: 80%;
 }
 
 .table-title {
