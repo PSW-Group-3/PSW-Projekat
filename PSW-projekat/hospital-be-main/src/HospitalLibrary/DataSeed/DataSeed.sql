@@ -135,6 +135,8 @@ INSERT [dbo].[Appointments] ([Id], [PatientId], [DoctorId], [DateTime], [Cancela
 INSERT [dbo].[Appointments] ([Id], [PatientId], [DoctorId], [DateTime], [CancelationDate], [Deleted]) VALUES (10, null, null, '2022-12-19 10:00:00.0000000', '2022-12-19 10:20:00.0000000', 0)
 INSERT [dbo].[Appointments] ([Id], [PatientId], [DoctorId], [DateTime], [CancelationDate], [Deleted]) VALUES (11, null, null, '2022-12-21 15:00:00.0000000', '2022-12-21 15:20:00.0000000', 0)
 INSERT [dbo].[Appointments] ([Id], [PatientId], [DoctorId], [DateTime], [CancelationDate], [Deleted]) VALUES (12, null, 2, '2022-12-19 10:00:00.0000000', '2022-12-19 10:20:00.0000000', 0)
+INSERT [dbo].[Appointments] ([Id], [PatientId], [DoctorId], [DateTime], [CancelationDate], [Deleted]) VALUES (14, 3, 1,	'2023-01-17 08:00:00.0000000', NULL, 0)
+
 SET IDENTITY_INSERT [dbo].[Appointments] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Bloods] ON 
@@ -239,6 +241,9 @@ INSERT INTO [dbo].[WorkingDays]([Id], [Day],[StartTime],[EndTime],[DoctorId],[De
 INSERT INTO [dbo].[WorkingDays]([Id], [Day],[StartTime],[EndTime],[DoctorId],[Deleted]) VALUES(4, 0,'2022-12-12 08:00:00.0000000','2022-12-12 18:00:00.0000000',2,0)
 INSERT INTO [dbo].[WorkingDays]([Id], [Day],[StartTime],[EndTime],[DoctorId],[Deleted]) VALUES(5, 1,'2022-12-12 08:00:00.0000000','2022-12-12 18:00:00.0000000',2,0)
 INSERT INTO [dbo].[WorkingDays]([Id], [Day],[StartTime],[EndTime],[DoctorId],[Deleted]) VALUES(6, 2,'2022-12-12 08:00:00.0000000','2022-12-12 18:00:00.0000000',2,0)
+INSERT INTO [dbo].[WorkingDays]([Id], [Day],[StartTime],[EndTime],[DoctorId],[Deleted]) VALUES(7, 0,'2022-12-12 08:00:00.0000000','2022-12-12 18:00:00.0000000',3,0)
+INSERT INTO [dbo].[WorkingDays]([Id], [Day],[StartTime],[EndTime],[DoctorId],[Deleted]) VALUES(8, 1,'2022-12-12 08:00:00.0000000','2022-12-12 18:00:00.0000000',3,0)
+INSERT INTO [dbo].[WorkingDays]([Id], [Day],[StartTime],[EndTime],[DoctorId],[Deleted]) VALUES(9, 2,'2022-12-12 08:00:00.0000000','2022-12-12 18:00:00.0000000',3,0)
 SET IDENTITY_INSERT [dbo].[WorkingDays] OFF
 GO
 SET IDENTITY_INSERT [dbo].[DoctorSchedule] ON 
