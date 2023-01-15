@@ -42,7 +42,7 @@ namespace IntegrationLibrary.Core.Service.PDFGenerator
                 "<p>From: " + start.ToString("dd.MM.yyyy.") + "</p>" +
                 "<p>Until: " + end.ToString("dd.MM.yyyy.") + "</p>";
 
-            html += "<table class=\"GeneratedTable\"><thead><tr>" +
+            html += "<table class=\"GeneratedTable\" ><thead><tr>" +
                                      " <th> Blood type </th>" +
                                      " <th> Quantity (units) </th> " +
                                     "  <th> Banks</th></tr></thead><tbody>";
@@ -62,11 +62,14 @@ namespace IntegrationLibrary.Core.Service.PDFGenerator
                             bool isFirst = true;
                             foreach (BloodBank bank in banks)
                             {
-                                if (!isFirst)
-                                    html += "<br>";
-                                if(bloodTypesByBanks[bankIndex][index] > 0 )
+                                if (bloodTypesByBanks[bankIndex][index] > 0)
+                                {
+                                    if (!isFirst)
+                                        html += "<br>";
                                     html += bank.Name + "(" + bloodTypesByBanks[bankIndex][index] + " units)";
-                                isFirst = false;
+                                    isFirst = false;
+                                }
+
                                 bankIndex++;
                             }
 
@@ -75,11 +78,14 @@ namespace IntegrationLibrary.Core.Service.PDFGenerator
                             isFirst = true;
                             foreach (BloodBank bank in banks)
                             {
-                                if (!isFirst)
-                                    html += "<br>";
+                                
                                 if (bloodTypesByBanks[bankIndex][index] > 0)
+                                {
+                                    if (!isFirst)
+                                        html += "<br>";
                                     html += bank.Name + "(" + bloodTypesByBanks[bankIndex][index] + " units)";
-                                isFirst = false;
+                                    isFirst = false;
+                                }
                                 bankIndex++;
                             }
 
@@ -88,11 +94,13 @@ namespace IntegrationLibrary.Core.Service.PDFGenerator
                             isFirst = true;
                             foreach (BloodBank bank in banks)
                             {
-                                if (!isFirst)
-                                    html += "<br>";
                                 if (bloodTypesByBanks[bankIndex][index] > 0)
+                                {
+                                    if (!isFirst)
+                                        html += "<br>";
                                     html += bank.Name + "(" + bloodTypesByBanks[bankIndex][index] + " units)";
-                                isFirst = false;
+                                    isFirst = false;
+                                }
                                 bankIndex++;
                             }
 
@@ -101,11 +109,13 @@ namespace IntegrationLibrary.Core.Service.PDFGenerator
                             isFirst = true;
                             foreach (BloodBank bank in banks)
                             {
-                                if (!isFirst)
-                                    html += "<br>";
                                 if (bloodTypesByBanks[bankIndex][index] > 0)
+                                {
+                                    if (!isFirst)
+                                        html += "<br>";
                                     html += bank.Name + "(" + bloodTypesByBanks[bankIndex][index] + " units)";
-                                isFirst = false;
+                                    isFirst = false;
+                                }
                                 bankIndex++;
                             }
 
@@ -114,11 +124,13 @@ namespace IntegrationLibrary.Core.Service.PDFGenerator
                             isFirst = true;
                             foreach (BloodBank bank in banks)
                             {
-                                if (!isFirst)
-                                    html += "<br>";
                                 if (bloodTypesByBanks[bankIndex][index] > 0)
+                                {
+                                    if (!isFirst)
+                                        html += "<br>";
                                     html += bank.Name + "(" + bloodTypesByBanks[bankIndex][index] + " units)";
-                                isFirst = false;
+                                    isFirst = false;
+                                }
                                 bankIndex++;
                             }
 
@@ -127,11 +139,13 @@ namespace IntegrationLibrary.Core.Service.PDFGenerator
                             isFirst = true;
                             foreach (BloodBank bank in banks)
                             {
-                                if (!isFirst)
-                                    html += "<br>";
                                 if (bloodTypesByBanks[bankIndex][index] > 0)
+                                {
+                                    if (!isFirst)
+                                        html += "<br>";
                                     html += bank.Name + "(" + bloodTypesByBanks[bankIndex][index] + " units)";
-                                isFirst = false;
+                                    isFirst = false;
+                                }
                                 bankIndex++;
                             }
 
@@ -140,11 +154,13 @@ namespace IntegrationLibrary.Core.Service.PDFGenerator
                             isFirst = true;
                             foreach (BloodBank bank in banks)
                             {
-                                if (!isFirst)
-                                    html += "<br>";
                                 if (bloodTypesByBanks[bankIndex][index] > 0)
+                                {
+                                    if (!isFirst)
+                                        html += "<br>";
                                     html += bank.Name + "(" + bloodTypesByBanks[bankIndex][index] + " units)";
-                                isFirst = false;
+                                    isFirst = false;
+                                }
                                 bankIndex++;
                             }
 
@@ -153,11 +169,13 @@ namespace IntegrationLibrary.Core.Service.PDFGenerator
                             isFirst = true;
                             foreach (BloodBank bank in banks)
                             {
-                                if (!isFirst)
-                                    html += "<br>";
                                 if (bloodTypesByBanks[bankIndex][index] > 0)
+                                {
+                                    if (!isFirst)
+                                        html += "<br>";
                                     html += bank.Name + "(" + bloodTypesByBanks[bankIndex][index] + " units)";
-                                isFirst = false;
+                                    isFirst = false;
+                                }
                                 bankIndex++;
                             }
 
@@ -195,7 +213,7 @@ namespace IntegrationLibrary.Core.Service.PDFGenerator
                     <link href='https://cdnjs.cloudflare.com/ajax/libs/c3/0.5.4/c3.css' rel='stylesheet'>
                     <!-- Load d3.js and c3.js -->
                     <script src='https://code.highcharts.com/highcharts.js'></script>";
-            html += "<div id=\"container\" style = \"height: 816px; width: 1056px; \"></div>";
+            html += "<div id=\"container\" style = \"height: 816px; width: 960px;\"></div>";
 
             html += @"<script>
                                   Highcharts.chart('container', {
@@ -359,18 +377,6 @@ namespace IntegrationLibrary.Core.Service.PDFGenerator
                     </body>
                 </html>";
 
-
-            //{
-            //name: 'BPL',
-            //            data: [3, 5, 1, 13]
-            //        }, {
-            //name: 'FA Cup',
-            //            data: [14, 8, 8, 12]
-            //        }, {
-            //name: 'CL',
-            //            data: [0, 2, 6, 3]
-            //        }]
-            //    });
         }
         public void CreatePDFStyle()
         {
@@ -379,20 +385,26 @@ namespace IntegrationLibrary.Core.Service.PDFGenerator
                         <title>Emergency Blood Report PDF</title>
                         <style>
                             table.GeneratedTable {
-                                width: 100 %; 
-                                background-color: #ffffff; 
-                                border-collapse: collapse;
-                                border-width: 2px; 
-                                border-color: #ff5353; 
-                                border-style: solid; 
-                                color: #000000; } 
-                            table.GeneratedTable td, table.GeneratedTable th { 
-                                border-width: 2px; 
-                                border-color: #ff5353; 
-                                border-style: solid; 
-                                padding: 3px;}
-                            table.GeneratedTable thead { 
-                                background-color: #ff5353; }
+                            width: 100%; 
+                            background-color: #ffffff; 
+                            border-collapse: collapse;
+                            border-width: 2px; 
+                            border-color: #2596be; 
+                            border-style: solid; 
+                            color: #000000;
+                            margin-bottom: 70px;} 
+                        table.GeneratedTable td, table.GeneratedTable th { 
+                            border-width: 2px; 
+                            border-color: #2596be; 
+                            border-style: solid; 
+                            padding: 3px;}
+                        table.GeneratedTable thead { 
+                            background-color: #2596be; }
+
+                        table.GeneratedTable tr:nth-child(even) {
+                            background-color: rgb(121, 117, 117);
+                            color: white;
+                        }
                             #container {
                                 height: 400px;
                             }
