@@ -2,9 +2,11 @@
     color: #382110;
 }
 
-div {
-    width: 40%;
-    margin: auto;
+
+.konzilijum{
+    margin-top: 40px;
+    margin-left: 600px;
+    width: 30%;
 }
 
 mat-form-field {
@@ -15,3 +17,11 @@ mat-form-field {
     opacity: 0.75;
     font-size: 0.75em;
   }
+
+.dugme{
+    border-color: black;
+}
+.w-80{
+    position: inherit;
+	width: 80%;
+}

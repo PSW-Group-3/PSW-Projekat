@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../model/user';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MedicalExaminationPatientComponent } from '../medical-examination-patient/medical-examination-patient.component';
+import { LoginService } from '../services/login.service';
 
 
 @Component({
@@ -20,7 +21,7 @@ export class AppointmentsComponent implements OnInit {
   public appointments: Appointment[] = [];
   public patient1: User = new User(0, '', '', 0);
   
-  constructor(private appointmentService: AppointmentService, private router: Router, public dialog: MatDialog) { }
+  constructor(private loginService: LoginService,private appointmentService: AppointmentService, private router: Router, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.appointmentService.GetAllByDoctor(Number(localStorage.getItem("currentUserId"))).subscribe(res => {
@@ -31,6 +32,11 @@ export class AppointmentsComponent implements OnInit {
         this.appointments.push(app);
       });
       this.dataSource.data = this.appointments;
+    })
+  }
+
+  logoutUser(){
+    this.loginService.logout().subscribe(res => {
     })
   }
   
@@ -51,8 +57,8 @@ export class AppointmentsComponent implements OnInit {
 
     dialogConfig.disableClose = false;
     dialogConfig.id = "modal-component";
-    dialogConfig.height = "450px";
-    dialogConfig.width = "450px";
+    dialogConfig.height = "600px";
+    dialogConfig.width = "500px";
 
     const modalDialog = this.dialog.open(MedicalExaminationPatientComponent, dialogConfig);
     modalDialog.componentInstance.terminId = id;
@@ -62,7 +68,7 @@ export class AppointmentsComponent implements OnInit {
   public deleteAppointment(id: number) {
     if(window.confirm('Are sure you want to delete this item ?')){
       this.appointmentService.deleteAppointment(id).subscribe(res => {
-        this.appointmentService.GetAllByDoctor(2).subscribe(res => {
+        this.appointmentService.GetAllByDoctor(Number(localStorage.getItem("currentUserId"))).subscribe(res => {
           let result = Object.values(JSON.parse(JSON.stringify(res)));
           this.appointments = []
           result.forEach((element: any) => {

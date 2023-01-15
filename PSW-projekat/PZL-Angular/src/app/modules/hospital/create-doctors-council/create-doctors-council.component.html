@@ -1,5 +1,39 @@
-<div class="container">
-    <h1 id="title" name="title">Schedule a council</h1>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark w-80 mx-auto p-3 shadow-lg" style="border-bottom-left-radius: 20px; border-bottom-right-radius: 20px;">
+  <a class="navbar-brand m-0" href="/homeDoctor"><div class="h1 mx-4">Home</div></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/homeDoctor"><div class="h3 m-1">Profile</div></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="appointmentButton" href="/appointments"><div class="h3 m-1">Appointments</div></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/returned-requests"><div class="h3 m-1">Returned requests</div></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/treatments"><div class="h3 m-1">Treatments</div></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/councilOfDoctors"><div class="h3 m-1">Consiliums</div></a>
+      </li>
+    </ul>
+    <div class="mx-auto"></div>
+
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link text-white" href="" (click)="logoutUser()"><div class="h3 mx-4 mt-2">Log out</div></a>
+      </li>
+    </ul>
+  </div>
+
+</nav>
+<div class="konzilijum">
+    <h1 id="title" name="title"><b>Consilium scheduling</b></h1>
     <mat-form-field appearance="fill">
         <mat-label>Topic</mat-label>
         <textarea matInput [(ngModel)]="councilDTO.topic" placeholder="" name="topic" id="topic"></textarea>
@@ -17,9 +51,11 @@
         <input type="number" min="1" matInput [(ngModel)]="councilDTO.duration"  name="duration" id="duration">
     </mat-form-field><br>
 
-    <button mat-stroked-button id="showDoctors" (click)="showDoctors()">
-        Choose a doctor
-    </button> <button mat-stroked-button id="showSpecializations" (click)="showSpecializations()">
+    <button class="dugme" mat-stroked-button id="showDoctors" (click)="showDoctors()">
+        Choose a doctors
+    </button> 
+    <br><br>
+    <button class="dugme" mat-stroked-button id="showSpecializations" (click)="showSpecializations()">
         Choose specializations
     </button><br><br>
 
@@ -40,7 +76,7 @@
     </div>
         <div *ngIf="chooseDoctors">
            <mat-form-field appearance="fill">
-            <mat-label>Doctoras</mat-label>
+            <mat-label>Doctors</mat-label>
             <mat-select [formControl]="toppings" [(ngModel)]="doctorsCouncil"  id="doctorSelect" multiple>
               <mat-select-trigger>
                 
@@ -58,8 +94,8 @@
     <div>
     
 <br><br>
-        <button mat-stroked-button id="submit" (click)="submit()">
-            Submit
+        <button class="dugme" mat-stroked-button id="submit" (click)="submit()">
+            <b>Submit</b>
         </button>
    
     </div>

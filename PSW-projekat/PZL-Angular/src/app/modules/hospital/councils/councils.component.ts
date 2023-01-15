@@ -3,6 +3,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { DoctorsCouncilDto } from '../model/doctorsCouncilDto';
 import { DoctorsCouncilService } from '../services/doctors-council.service';
+import { LoginService } from '../services/login.service';
 import { ShowDoctorsPipe } from './show-doctors.pipe';
 
 @Component({
@@ -17,7 +18,7 @@ export class CouncilsComponent implements OnInit {
   public councils: DoctorsCouncilDto[] = [];
 
 
-  constructor(private doctorsCouncilService: DoctorsCouncilService, private router: Router) { }
+  constructor(private loginService: LoginService, private doctorsCouncilService: DoctorsCouncilService, private router: Router) { }
 
   ngOnInit(): void { 
     this.doctorsCouncilService.GetAllCouncilByDoctor(Number(localStorage.getItem("currentUserId"))-1).subscribe(res => {
@@ -33,6 +34,11 @@ export class CouncilsComponent implements OnInit {
 
   public addCouncil() {
     this.router.navigate(['/council/add']);
+  }
+
+  logoutUser(){
+    this.loginService.logout().subscribe(res => {
+    })
   }
 
 }

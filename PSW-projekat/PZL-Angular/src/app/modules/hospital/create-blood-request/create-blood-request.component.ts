@@ -5,6 +5,7 @@ import { BloodResuestService } from 'src/app/modules/hospital/services/blood-req
 import { RequestState } from '../model/requestState';
 import { ToastrService } from 'ngx-toastr';
 import { BloodType } from '../../doctor-requests/model/blood-type';
+import { LoginService } from '../services/login.service';
 
 
 
@@ -18,7 +19,7 @@ export class CreateBloodRequestComponent {
   public bloodRequest: BloodRequest = new BloodRequest(0, false, Date(),  localStorage.getItem("currentUserId") , '', '', RequestState.pending, '');
   public bloodType: String;
     
-  constructor(private bloodRequestService: BloodResuestService, private router: Router, private toastr: ToastrService) { }
+  constructor(private loginService: LoginService, private bloodRequestService: BloodResuestService, private router: Router, private toastr: ToastrService) { }
 
   public createBloodRequest() {
     console.log( localStorage.getItem("currentUserId") )
@@ -50,6 +51,11 @@ export class CreateBloodRequestComponent {
   private isValidInput(): boolean {
     return this.bloodRequest?.bloodQuantity.toString() != '' && this.bloodType != '' &&
      this.bloodRequest?.reason != '' && this.bloodRequest?.requiredForDate.toString() !='';
+  }
+
+  logoutUser(){
+    this.loginService.logout().subscribe(res => {
+    })
   }
 
 }

@@ -14,7 +14,7 @@ export class TreatmentService {
   constructor(private http: HttpClient) { }
 
   getTreatments(): Observable<Treatment[]> {
-    return this.http.get<Treatment[]>(this.apiHost + 'api/treatments', {headers: this.headers});
+    return this.http.get<Treatment[]>(this.apiHost + 'api/treatment', {headers: this.headers});
   }
 
   getTreatment(id: number): Observable<Treatment> {

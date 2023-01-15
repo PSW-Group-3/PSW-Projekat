@@ -2,12 +2,21 @@
     color: #382110;
 }
 
-div {
-    width: 40%;
-    margin: auto;
-}
-
 mat-form-field {
     width: 100%;
     margin: auto;
+}
+
+.updateAppointment{
+    margin-top: 40px;
+    margin-left: 600px;
+    width: 30%;
+}
+
+.w-80{
+    position: inherit;
+	width: 80%;
+}
+.dugme{
+    border-color: black;
 }

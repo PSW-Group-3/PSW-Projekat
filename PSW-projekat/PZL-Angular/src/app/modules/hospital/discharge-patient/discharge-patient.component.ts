@@ -7,6 +7,7 @@ import { Room } from '../model/room.model';
 import { RoomDto } from '../model/roomDto';
 import { Treatment } from '../model/treatment';
 import { TreatmentState } from '../model/treatmentState';
+import { LoginService } from '../services/login.service';
 import { RoomService } from '../services/room.service';
 import { TreatmentService } from '../services/treatment.service';
 import { UserService } from '../services/user.service';
@@ -25,7 +26,7 @@ export class DischargePatientComponent implements OnInit {
   public rooms: RoomDto[] = [];
   public newPatient1: PatientDto = new PatientDto(0, '','','','', 0);
 
-  constructor(private treatmentService: TreatmentService, private userService: UserService, private roomService: RoomService, private router: Router, private route: ActivatedRoute ) { }
+  constructor(private loginService: LoginService, private treatmentService: TreatmentService, private userService: UserService, private roomService: RoomService, private router: Router, private route: ActivatedRoute ) { }
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
@@ -56,13 +57,19 @@ export class DischargePatientComponent implements OnInit {
         a.download=fileName;
         a.href = window.URL.createObjectURL(blob);
         a.click();
-      this.router.navigate(['/treatments/add']);
       window.confirm("The patient was discharged from hospital!");
+      this.router.navigate(['/treatments']);
+
     });
   }
 
   private isValidInput(): boolean {
     return this.treatment?.dateDischarge.toString() != '' && this.treatment?.reasonForDischarge.toString() != '';
+  }
+
+  logoutUser(){
+    this.loginService.logout().subscribe(res => {
+    })
   }
 
 }

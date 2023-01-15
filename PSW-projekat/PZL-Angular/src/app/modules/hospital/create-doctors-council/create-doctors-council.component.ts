@@ -25,7 +25,7 @@ export class CreateDoctorsCouncilComponent implements OnInit {
   public chooseSpecializations: boolean = false;
   toppings = new FormControl('');
   
-  constructor(private loginService:LoginService, private doctorsCouncilService: DoctorsCouncilService, private userService: UserService, private router: Router, private toastr: ToastrService) { }
+  constructor(private loginService: LoginService, private doctorsCouncilService: DoctorsCouncilService, private userService: UserService, private router: Router, private toastr: ToastrService) { }
 
   ngOnInit(): void {
 
@@ -93,5 +93,10 @@ export class CreateDoctorsCouncilComponent implements OnInit {
   private isValidInput(): boolean {
     return this.councilDTO?.start.toString() != '' && this.councilDTO?.end.toString() != '' &&
     this.councilDTO?.duration.toString() != '' && this.councilDTO?.topic !='' && (this.doctorsCouncil.length> 0 || this.specialization.length >0);
+  }
+
+  logoutUser(){
+    this.loginService.logout().subscribe(res => {
+    })
   }
 }

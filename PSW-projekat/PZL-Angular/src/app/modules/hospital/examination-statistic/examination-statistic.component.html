@@ -1,37 +1,43 @@
 <div class="w-100">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark w-80 mx-auto p-3 shadow-lg" style="border-bottom-left-radius: 20px; border-bottom-right-radius: 20px;">
-        <a class="navbar-brand m-0" href="/homeDoctor"><div class="h1 mx-4">Home</div></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-      
-        <div class="collapse navbar-collapse">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="/homeDoctor"><div class="h3 m-1">Profile</div></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" id="appointmentButton" href="/appointments"><div class="h3 m-1">My appointments</div></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/returned-requests"><div class="h3 m-1">Returned requests</div></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/treatments/add"><div class="h3 m-1">Treatment</div></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/councilOfDoctors"><div class="h3 m-1">Councils</div></a>
-            </li>
-          </ul>
-          <div class="mx-auto"></div>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark w-80 mx-auto p-3 shadow-lg" style="border-bottom-left-radius: 20px; border-bottom-right-radius: 20px;">
+    <a class="navbar-brand m-0" href="/homeDoctor"><div class="h1 mx-4">Home</div></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
   
-          
-        </div>
-  
-      </nav>
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/homeDoctor"><div class="h3 m-1">Profile</div></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="appointmentButton" href="/appointments"><div class="h3 m-1">Appointments</div></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/returned-requests"><div class="h3 m-1">Returned requests</div></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/treatments"><div class="h3 m-1">Treatments</div></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/councilOfDoctors"><div class="h3 m-1">Consiliums</div></a>
+        </li>
+      </ul>
+      <div class="mx-auto"></div>
+
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link text-white" href="" (click)="logoutUser()"><div class="h3 mx-4 mt-2">Log out</div></a>
+        </li>
+      </ul>
+    </div>
+
+  </nav>
 </div>
+<div class="statistika">
+
 <div class="d-flex flex-column w-100">
-   <div class="d-flex mx-4 ps-2 mt-5 fs-2 fw-bold pb-3 border-dark border-bottom border-3"><span>Doctor Examination Statistics</span></div>
+   <div class="d-flex mx-4 ps-2 mt-5 fs-2 fw-bold pb-3 "><span>Examination Statistics</span></div>
   <div class="d-flex flex-wrap justify-content-evenly mx-4">
     <div class="mt-4 bg-light p-4 rounded mx-2 shadow-lg flex-fill" style="max-width:max(47%, 430px); aspect-ratio: 2  / 1">
       <span class="fs-5 fw-bold">Ratio of sequentially and non sequentially doctor examinations</span>
@@ -51,6 +57,15 @@
   </div>
 
   <div class="d-flex flex-wrap justify-content-evenly mx-4">
+    <div class="mt-4 bg-light p-4 rounded mx-2 shadow-lg flex-fill" style="max-width:max(47%, 430px)">
+      <span class="fs-5 fw-bold">Average number of steps for successful examination: {{avarageNumberOfSteps}}</span>
+    </div>
+    <div class="mt-4 bg-light p-4 rounded mx-2 shadow-lg flex-fill" style="max-width:max(47%, 430px)">
+      <span class="fs-5 fw-bold">Average time for successful examination: {{ avarageSchedulingDuration }} seconds</span>
+    </div>
+  </div>
+
+  <div class="d-flex flex-wrap justify-content-evenly mx-4">
     <div class="mt-4 bg-light p-4 rounded mx-2 shadow-lg flex-fill" style="max-width:max(47%, 430px); aspect-ratio: 2  / 1">
       <span class="fs-5 fw-bold">Ratio of finished and non finished examinations</span>
       <canvas  baseChart 
@@ -62,24 +77,9 @@
         class="mt-3"> 
       </canvas>
     </div>
-  </div>
-
-  <div class="d-flex flex-wrap justify-content-evenly mx-4">
-    <div class="mt-4 bg-light p-4 rounded mx-2 shadow-lg flex-fill" style="max-width:max(47%, 430px)">
-      <span class="fs-5 fw-bold">Average number of steps for successful examination: {{avarageNumberOfSteps}}</span>
-    </div>
-    <div class="mt-4 bg-light p-4 rounded mx-2 shadow-lg flex-fill" style="max-width:max(47%, 430px)">
-      <span class="fs-5 fw-bold">Average time for successful examination: {{ avarageSchedulingDuration }} seconds</span>
-    </div>
-  </div>
-
-  <div class="d-flex flex-wrap justify-content-evenly mx-4">
     <div class="mt-4 bg-light p-4 rounded mx-2 shadow-lg flex-fill" style="max-width:max(47%, 430px); aspect-ratio: 2  / 1">
       <span class="fs-5 fw-bold">Average number of views for each steps</span>
       <canvas id="avarageNumberOfEachStep" class="mt-3">{{ avarageNumberOfEachStep }}</canvas>
-    </div>
-    <div class="mt-4 bg-light p-4 rounded mx-2 shadow-lg flex-fill" style="max-width:max(47%, 430px); aspect-ratio: 2 / 1">
-      <span class="fs-5 fw-bold">Average time for each step in successful examination:</span>
     </div>
   </div>
 
@@ -106,4 +106,5 @@
       </table>
     </div>
   </div>
+</div>
 </div>

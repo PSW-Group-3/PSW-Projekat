@@ -40,6 +40,7 @@ import { ShowDescriptionsPipe } from './prescriptions/show-descriptions.pipe';
 import { ShowMedicinesPipe } from './prescriptions/show-medicines.pipe';
 import { ExaminationStatisticComponent } from './examination-statistic/examination-statistic.component';
 import { NavBarsModule } from '../nav-bars/nav-bars.module';
+import { TreatmentsComponent } from './treatments/treatments.component';
 
 const routes: Routes = [
   { path: 'rooms', component: RoomsComponent, canActivate: [AuthGuardManager] },
@@ -87,6 +88,7 @@ const routes: Routes = [
     canActivate: [AuthGuardDoctor],
   }, */
   { path: 'appointments/add', component: CreateAppointmentComponent },
+
   { path: 'appointments/:id/update', component: UpdateAppointmentComponent },
   { path: 'rooms', component: RoomsComponent, canActivate: [ AuthGuardManager ] },
   { path: 'rooms/add', component: CreateRoomComponent, canActivate: [ AuthGuardManager ] },
@@ -98,6 +100,7 @@ const routes: Routes = [
   //{ path: 'appointments/add', component: CreateAppointmentComponent, canActivate: [ AuthGuardDoctor ] },
   //{ path: 'appointments/:id/update', component: UpdateAppointmentComponent, canActivate: [ AuthGuardDoctor ] },
   { path: 'statistics', component: StatisticsComponent, canActivate: [ AuthGuardManager ] },
+  { path: 'treatments', component: TreatmentsComponent },
   { path: 'treatments/add', component: AdmissionPatientTreatmentComponent },
   { path: 'treatments/:id/update', component: DischargePatientComponent },
   { path: 'login', component: LoginComponent },
@@ -116,7 +119,6 @@ const routes: Routes = [
   { path: 'bloodRequests', component: BloodRequestsComponent },
   { path: 'prescriptions', component: PrescriptionsComponent},
   { path: 'examinationStatistic', component: ExaminationStatisticComponent},
-  
 
 ];
 
@@ -151,7 +153,8 @@ const routes: Routes = [
     PrescriptionsComponent,
     ShowDescriptionsPipe,
     ShowMedicinesPipe,
-    ExaminationStatisticComponent
+    ExaminationStatisticComponent,
+    TreatmentsComponent,
   ],
   imports: [
     CommonModule,

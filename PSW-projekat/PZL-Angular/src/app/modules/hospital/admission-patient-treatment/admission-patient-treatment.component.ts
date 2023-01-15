@@ -20,6 +20,10 @@ import { Medicine } from '../model/medicine';
 import { TherapyService } from '../services/therapy.service';
 import { MedicineService } from '../services/medicine.service';
 import { BloodService } from '../services/blood.service';
+import { LoginService } from '../services/login.service';
+import { RoomName } from '../model/roomName';
+import { RoomFloor } from '../model/roomFloor';
+import { RoomType } from '../model/roomType';
 
 
 
@@ -46,10 +50,12 @@ export class AdmissionPatientTreatmentComponent implements OnInit {
   public idk: number = 0;
   public pomK: BedDto;
   public idp: number = 0;
+  public soba: RoomDto;
+  public bloodType: String;
 
   public therapy: Therapy = new Therapy(0, false, Medicine, Blood, 0, 0);
 
-  constructor(private treatmentService: TreatmentService, private roomService: RoomService, 
+  constructor(private loginService: LoginService, private treatmentService: TreatmentService, private roomService: RoomService, 
               private bedService: BedService, private patientService: PatientService, 
               private therapyService: TherapyService, private medicineService: MedicineService,
               private bloodService: BloodService, private router: Router) { }
@@ -83,8 +89,10 @@ export class AdmissionPatientTreatmentComponent implements OnInit {
     this.roomService.getRooms().subscribe(res => {
       let result = Object.values(JSON.parse(JSON.stringify(res)));
       result.forEach((element: any) => {
+
         var app = new RoomDto(element.id, element.number, element.floor, element.roomType, element.bedDtos);
         this.rooms.push(app);
+        console.log(this.rooms);
       });
       this.dataSourceRooms.data = this.rooms;
     })
@@ -111,6 +119,29 @@ export class AdmissionPatientTreatmentComponent implements OnInit {
 
   public handleOptionChangePatient() {
     return this.treatment.patient;
+  }
+
+  public GetRequests() {
+    this.therapy.blood.bloodType = this.ConvertToNumber(this.bloodType);
+  }
+
+  public ConvertToNumber(obj: any): any{
+    switch(obj){
+      case 'O-': return 7;
+      case 'A-': return 4;
+      case 'B-': return 5;
+      case 'AB-': return 6;
+      case 'O+': return 3;
+      case 'A+': return 0;
+      case 'B+': return 1;
+      case 'AB+': return 2;
+      default: return 0; 
+    }
+  }
+
+  logoutUser(){
+    this.loginService.logout().subscribe(res => {
+    })
   }
 
   public handleOptionChangeBed() {
@@ -163,7 +194,9 @@ export class AdmissionPatientTreatmentComponent implements OnInit {
                     });
         
                     this.treatmentService.createTreatment(this.treatment).subscribe(res => {
-                      window.confirm("The patient was admitted for inpatient treatment!");
+                      //window.confirm("The patient was admitted for inpatient treatment!");
+                      this.router.navigate(['/treatments']);
+
                     });
                   } 
                 }});})
@@ -193,7 +226,9 @@ export class AdmissionPatientTreatmentComponent implements OnInit {
             });
 
             this.treatmentService.createTreatment(this.treatment).subscribe(res => {
-              window.confirm("The patient was admitted for inpatient treatment!");
+              //window.confirm("The patient was admitted for inpatient treatment!");
+              this.router.navigate(['/treatments']);
+
             });
           } 
         }});})
@@ -224,7 +259,9 @@ export class AdmissionPatientTreatmentComponent implements OnInit {
             });
 
             this.treatmentService.createTreatment(this.treatment).subscribe(res => {
-              window.confirm("The patient was admitted for inpatient treatment!");
+              //window.confirm("The patient was admitted for inpatient treatment!");
+              this.router.navigate(['/treatments']);
+
             });
           } 
         }});})

@@ -7,21 +7,13 @@
     background-color: white;
 }
 
-.prescriptions{
-    margin-top: 20px;
-    margin-left: 470px;
-    width: 52%;
-    border-radius: 3px;
-    background-color: white;
+.w-80{
+    position: inherit;
+	width: 80%;
 }
 
 table {
     width: 100%;
-}
-
-.w-80{
-    position: inherit;
-	width: 80%;
 }
 
 .table-title {
@@ -58,37 +50,10 @@ p {
 }
 
 .stetoshope{
-    width: 20px;
-    height: 20px;
+    width: 25px;
+    height: 25px;
     margin-left: -20px;
 }
 
-.searchP {
-    width: 340px;
-    padding: 15px;
-}
 
-.slika {
-    width: 32px;
-    height: 32px;
-    background-color: transparent;
-}
-
-.dugme {
-    border-color: white;
-    background-color: transparent;
-}
-
-#div1 {
-    display: inline-block;
-    
-}
-#div2 {
-    vertical-align:top;
-    display: inline-block;
-}
-#div3 {
-    vertical-align:top;
-    display: inline-block;
-}
 

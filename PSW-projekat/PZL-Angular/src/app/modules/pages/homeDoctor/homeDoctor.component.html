@@ -1,15 +1,48 @@
 <app-doctor-nav-bar></app-doctor-nav-bar>
 <div class="w-100">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark w-80 mx-auto p-3 shadow-lg" style="border-bottom-left-radius: 20px; border-bottom-right-radius: 20px;">
+      <a class="navbar-brand m-0" href="/homeDoctor"><div class="h1 mx-4">Home</div></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/homeDoctor"><div class="h3 m-1">Profile</div></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="appointmentButton" href="/appointments"><div class="h3 m-1">Appointments</div></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/returned-requests"><div class="h3 m-1">Returned requests</div></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/treatments"><div class="h3 m-1">Treatments</div></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/councilOfDoctors"><div class="h3 m-1">Consiliums</div></a>
+          </li>
+        </ul>
+        <div class="mx-auto"></div>
+
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link text-white" href="" (click)="logoutUser()"><div class="h3 mx-4 mt-2">Log out</div></a>
+          </li>
+        </ul>
+      </div>
+
+    </nav>
     <div id="wrapper">
 
       <div id="div1">
       <button class="dugmePregled">
-        <a href="/treatments/add">
+        <a href="/treatments">
           <img class="slikaPregled" src="https://cdn-icons-png.flaticon.com/512/1934/1934407.png" alt="buttonpng" border="0"/>
         </a>
       </button>
-      <p class="imeParagraf"> <b>Admission of the patient</b></p>
-      <p class="imeDrugiPregled"> <b>for treatment</b></p>
+      <p class="imeParagraf"> <b>Treatments</b></p>
       </div>
 
       <div id="div2">
@@ -21,24 +54,64 @@
       <p class="imeParagraf"> <b>Reports</b></p>
       </div>
 
-      <div id="div3">
+      <div id="div2">
         <button class="dugmeTermin">
           <a href="/prescriptions">
             <img class="slikaIzvestaj" src="https://icons.veryicon.com/png/o/healthcate-medical/medical-related-series/medicine-9.png" alt="buttonpng" border="0"/>
           </a>
         </button>
         <p class="imeParagraf"> <b>Prescriptions</b></p>
+      </div>
+
+      <div id="div2">
+        <button class="dugmeTermin">
+          <a href="/bloodConsumption/add">
+            <img class="slikaIzvestaj" src="https://cdn-icons-png.flaticon.com/512/101/101941.png?w=360.png" alt="buttonpng" border="0"/>
+          </a>
+        </button>
+        <p class="imeParagraf"> <b>Blood consumption</b></p>
         </div>
 
     </div>
 
-    <div class="divAppointments">
+    <div id="wrapper2">
+
+      <div id="div1">
       <button class="dugmeTermin">
         <a href="/appointments">
           <img class="slikaPregled" src="https://www.nicepng.com/png/detail/207-2073800_calendar-event-schedule-month-appointment-comments-appointment-icon.png" alt="buttonpng" border="0"/>
         </a>
       </button>
       <p class="imeParagraf"> <b>Appointments</b></p>
+      </div>
+
+      <div id="statistics">
+        <button class="dugmeTermin">
+          <a href="/examinationStatistic">
+            <img class="slikaPregled" src="https://png.pngtree.com/png-vector/20190115/ourlarge/pngtree-vector-statistics-icon-png-image_321018.jpg" alt="buttonpng" border="0"/>
+          </a>
+        </button>
+        <p class="imeParagraf"> <b>Examination statistics</b></p>
+      </div>
+
+      <div id="statistics">
+        <button class="dugmeKonzilijum">
+          <a href="/councilOfDoctors">
+            <img class="slikaPregled" src="https://uxwing.com/wp-content/themes/uxwing/download/business-professional-services/team-meeting-icon.png" alt="buttonpng" border="0"/>
+          </a>
+        </button>
+        <p class="imeParagraf"> <b>Consiliums</b></p>
+        </div>
+
+        <div id="statistics">
+          <button class="dugmeKonzilijum">
+            <a href="/bloodRequests">
+              <img class="slikaPregled" src="https://icons.veryicon.com/png/o/miscellaneous/x/my-request.png" alt="buttonpng" border="0"/>
+            </a>
+          </button>
+          <p class="imeParagraf"> <b>Blood requests</b></p>
+          </div>
+
     </div>
 
   </div>

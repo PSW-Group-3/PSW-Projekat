@@ -43,12 +43,14 @@ export class BloodRequestsComponent implements OnInit {
     })
   }
 
-  logoutUser(){
+ logoutUser(){
     this.loginService.logout().subscribe(res => {
-      
     })
   }
-  
+
+  public addBloodRequest() {
+    this.router.navigate(['/bloodRequest/add']);
+  }
 
   public ConvertToNumber(obj: any): any{
     switch(obj){
