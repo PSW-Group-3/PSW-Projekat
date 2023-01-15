@@ -146,9 +146,6 @@ namespace HospitalLibrary.Core.Service
 
         public string getBetween(string strSource, string strStart, string strEnd)
         {
-            int n1 = strSource.IndexOf(strStart);
-            int n2 = strSource.IndexOf(strEnd);
-
             if (strSource.IndexOf(strStart) > strSource.IndexOf(strEnd)) { return ""; }
 
             if (strSource.ToLower().Contains(strStart.ToLower()) && strSource.ToLower().Contains(strEnd.ToLower()))

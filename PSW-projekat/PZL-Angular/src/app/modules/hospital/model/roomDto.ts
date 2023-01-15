@@ -2,12 +2,14 @@ import { Bed } from "./bed";
 import { BedDto } from "./bedDto";
 import { Blood } from "./blood";
 import { Medicine } from "./medicine";
+import { RoomFloor } from "./roomFloor";
+import { RoomName } from "./roomName";
 import { RoomType } from "./roomType";
 
 export class RoomDto {
     id: number = 0;
-    number: string = '';
-    floor: number = 0;
+    number: RoomName;
+    floor: RoomFloor;
     roomType: RoomType;
     bedDtos: BedDto[];
 

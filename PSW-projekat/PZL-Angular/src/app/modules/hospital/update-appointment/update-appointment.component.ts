@@ -5,6 +5,7 @@ import { Appointment } from '../model/appointment.model';
 import { PatientDto } from '../model/patientDto';
 import { User } from '../model/user';
 import { AppointmentService } from '../services/appointment.service';
+import { LoginService } from '../../hospital/services/login.service';
 
 @Component({
   selector: 'app-update-appointment',
@@ -21,7 +22,7 @@ export class UpdateAppointmentComponent implements OnInit {
   public newPatient1: PatientDto = new PatientDto(0, '','','','', 0);
   public odgovor: Response;
 
-  constructor(private appointmentService: AppointmentService, private route: ActivatedRoute,
+  constructor(private loginService: LoginService, private appointmentService: AppointmentService, private route: ActivatedRoute,
     private router: Router) { }
 
   ngOnInit(): void {
@@ -55,6 +56,11 @@ export class UpdateAppointmentComponent implements OnInit {
 
   private isValidInput(): boolean {
     return this.appointment?.dateTime.toString() != '';
+  }
+
+  logoutUser(){
+    this.loginService.logout().subscribe(res => {
+    })
   }
 
 }

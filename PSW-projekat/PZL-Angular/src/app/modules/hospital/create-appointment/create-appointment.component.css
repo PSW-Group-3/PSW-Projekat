@@ -2,12 +2,18 @@
     color: #382110;
 }
 
-div {
-    width: 40%;
-    margin: auto;
+.createAppointment{
+    margin-top: 40px;
+    margin-left: 600px;
+    width: 30%;
 }
 
 mat-form-field {
     width: 100%;
     margin: auto;
+}
+
+.w-80{
+    position: inherit;
+	width: 80%;
 }

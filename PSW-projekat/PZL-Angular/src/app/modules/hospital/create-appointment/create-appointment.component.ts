@@ -9,6 +9,7 @@ import { PatientDto } from '../model/patientDto';
 import { DoctorDto } from '../model/doctorDto';
 import { DoctorService } from '../services/doctor.service';
 import { Doctor } from '../model/doctor';
+import { LoginService } from '../services/login.service';
 
 
 @Component({
@@ -25,7 +26,7 @@ export class CreateAppointmentComponent implements OnInit {
   public doctor: DoctorDto = new DoctorDto(0, '','','', '', 0);
   public doctorProba: DoctorDto = new DoctorDto(0, '','','', '', 0);
 
-  constructor(private appointmentService: AppointmentService, private userService: UserService, private router: Router,
+  constructor(private loginService: LoginService, private appointmentService: AppointmentService, private userService: UserService, private router: Router,
     private doctorService: DoctorService) { }
 
   ngOnInit(): void {
@@ -62,5 +63,10 @@ export class CreateAppointmentComponent implements OnInit {
 
   private isValidInput(): boolean {
     return this.appointment?.dateTime.toString() != ''&& this.appointment?.patient.toString() != '';
+  }
+
+  logoutUser(){
+    this.loginService.logout().subscribe(res => {
+    })
   }
 }
