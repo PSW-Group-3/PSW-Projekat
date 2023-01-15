@@ -41,6 +41,7 @@ export class StatisticsComponent implements OnInit {
   public schedulingAppointmentEventsStatistic : SchedulingStatisticsDTO;
   public linearAndNonlinearSchedulingsLables = ['Linear', 'Nonlinear'];
   public linearAndNonlinearSchedulingsData : any;
+  public numberOfFinishedAndUnfinishedSchedulingForAllPatients: any;
   public avarageNumberOfSteps : number;
   public avarageSchedulingDuration: number;
 
@@ -133,6 +134,7 @@ export class StatisticsComponent implements OnInit {
     this.linearAndNonlinearSchedulingsData = [{ data: array, label: "Schedulings" }];
     this.avarageNumberOfSteps = this.schedulingAppointmentEventsStatistic.avarageNumberOfStepsForSuccessfulScheduling;
     this.avarageSchedulingDuration = this.schedulingAppointmentEventsStatistic.avarageSchedulingDuration;
+    this.numberOfFinishedAndUnfinishedSchedulingForAllPatients = this.schedulingAppointmentEventsStatistic.numberOfFinishedAndUnfinishedSchedulingForAllPatients;
   }
 
   createSchedulingsPerDayChart(){
