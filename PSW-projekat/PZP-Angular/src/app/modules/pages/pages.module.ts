@@ -6,6 +6,7 @@ import { HomePatientComponent } from './homePatient/homePatient.component';
 import { BankHomeComponent } from './bank-home/bank-home.component';
 import { MdbCarouselModule } from 'mdb-angular-ui-kit/carousel';
 import { NavBarsModule } from "../nav-bar/nav-bars.module";
+import { HospitalModule } from "../hospital/hospital.module";
 
 const routes: Routes = [
   { path: 'homePatient', component: HomePatientComponent },
@@ -22,7 +23,8 @@ const routes: Routes = [
         AppRoutingModule,
         RouterModule.forChild(routes),
         MdbCarouselModule,
-        NavBarsModule
+        NavBarsModule,
+        HospitalModule
     ]
 })
 export class PagesModule { }
