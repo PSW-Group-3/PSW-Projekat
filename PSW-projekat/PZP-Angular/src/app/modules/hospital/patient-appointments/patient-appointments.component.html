@@ -1,32 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark w-80 mx-auto p-3 shadow-lg" style="border-bottom-left-radius: 20px; border-bottom-right-radius: 20px;">
-    <a class="navbar-brand m-0" href="/homePatient"><div class="h1 mx-4">Home</div></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="/patientInfo"><div class="h3 m-1">Profile</div></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/appointments"><div class="h3 m-1">My appointments</div></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/createAppointment"><div class="h3 m-1">Request Appointment</div></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/scheduleAppointment"><div class="h3 m-1">Schedule Appointment</div></a>
-        </li>
-      </ul>
-      <div class="mx-auto"></div>
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <a class="nav-link text-white" href="" (click)="logout()"><div class="h3 mx-4 mt-2">Log out</div></a>
-        </li>
-      </ul>
-    </div>
-</nav>
+<app-patient-nav-bar></app-patient-nav-bar>
 <div class="container">
   <div class="table-header">
       <h2 class="table-title">All appointments</h2>

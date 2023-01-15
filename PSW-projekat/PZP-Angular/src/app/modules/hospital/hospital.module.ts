@@ -23,6 +23,7 @@ import { TenderDetailsComponent } from './blood-bank-tenders/tender-details/tend
 import { BankLoginComponent } from './bank-login/bank-login.component';
 import { MatNativeDateModule } from '@angular/material/core';
 import { PatientAppointmentsComponent } from './patient-appointments/patient-appointments.component';
+import { NavBarsModule } from "../nav-bar/nav-bars.module";
 
 const routes: Routes = [
   { path: 'rooms', component: RoomsComponent },
@@ -46,33 +47,34 @@ const routes: Routes = [
 ]
 
 @NgModule({
-  declarations: [
-    RoomsComponent,
-    RoomDetailComponent,
-    CreateRoomComponent,
-    UpdateRoomComponent,
-    FeedbacksComponent,
-    CreateFeedbackComponent,
-    WelcomeComponent,
-    LoginComponent,
-    RegisterComponent,
-    PatientInfoComponent,
-    ScheduleAppointmentComponent,
-    ViewAllOpenTendersComponent,
-    TenderDetailsComponent,
-    BankLoginComponent,
-    PatientAppointmentsComponent,
-    CreateAppointment,
-  ],
-  imports: [
-    CommonModule,
-    MaterialModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatNativeDateModule,
-    RouterModule.forChild(routes)
-  ],
-  exports: [ RouterModule ],
-  providers: [ AuthGuard ]
+    declarations: [
+        RoomsComponent,
+        RoomDetailComponent,
+        CreateRoomComponent,
+        UpdateRoomComponent,
+        FeedbacksComponent,
+        CreateFeedbackComponent,
+        WelcomeComponent,
+        LoginComponent,
+        RegisterComponent,
+        PatientInfoComponent,
+        ScheduleAppointmentComponent,
+        ViewAllOpenTendersComponent,
+        TenderDetailsComponent,
+        BankLoginComponent,
+        PatientAppointmentsComponent,
+        CreateAppointment,
+    ],
+    exports: [RouterModule],
+    providers: [AuthGuard],
+    imports: [
+        CommonModule,
+        MaterialModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatNativeDateModule,
+        RouterModule.forChild(routes),
+        NavBarsModule
+    ]
 })
 export class HospitalModule { }
