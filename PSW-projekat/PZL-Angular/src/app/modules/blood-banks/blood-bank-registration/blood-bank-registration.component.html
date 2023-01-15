@@ -1,20 +1,73 @@
 <app-manager-nav-bar></app-manager-nav-bar>
-<div class="container">
-    <div>
-        <mat-form-field appearance="fill">
-            <mat-label>Blood bank name:</mat-label>
-            <input matInput id="Name" [(ngModel)]="bloodBank.name">
-        </mat-form-field><br>
-        <mat-form-field appearance="fill">
-            <mat-label>Contact email:</mat-label>
-            <input matInput id="Email" [(ngModel)]="bloodBank.email">
-        </mat-form-field><br>
-        <mat-form-field appearance="fill">
-            <mat-label>Server address:</mat-label>
-            <input matInput id="ServerAddress" [(ngModel)]="bloodBank.serverAddress">
-        </mat-form-field><br>
-        <button mat-stroked-button id="Submit" (click)="registerBloodBank()">
-            Submit
-        </button>
+<section class="vh-100">
+    <div class="container h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-xl-9">
+
+                <h1 class="text-black mb-4 d-flex justify-content-center">Register Blood Bank</h1>
+
+                <div class="card " style="border-radius: 15px;">
+                    <div class="card-body ">
+                        <div class="row align-items-center pt-4 pb-3">
+                            <div class="col-md-3 ps-5">
+                                <h6 class="mb-0" style="font-size: 15px;">Report delivery:</h6>
+                            </div>
+                            <div class="col-md-9 pe-5">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Blood bank name:</mat-label>
+                                    <input matInput id="Name" [(ngModel)]="bloodBank.name">
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+
+                        <div class="row align-items-center pt-4 pb-3">
+                            <div class="col-md-3 ps-5">
+                                <h6 class="mb-0" style="font-size: 15px;">Custom delivery range:</h6>
+                            </div>
+                            <div class="col-md-9 pe-5">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Contact email:</mat-label>
+                                    <input matInput id="Email" [(ngModel)]="bloodBank.email">
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="row align-items-center pt-4 pb-3">
+                            <div class="col-md-3 ps-5">
+                                <h6 class="mb-0" style="font-size: 15px;">Custom delivery range:</h6>
+                            </div>
+                            <div class="col-md-9 pe-5">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Server address:</mat-label>
+                                    <input matInput id="ServerAddress" [(ngModel)]="bloodBank.serverAddress">
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="row align-items-center pt-4 pb-3">
+                            <div class="col-md-3 ps-5">
+                                <h6 class="mb-0" style="font-size: 15px;">gRPC Server Address with port:</h6>
+                            </div>
+                            <div class="col-md-9 pe-5">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>gRPC Server Address with port:</mat-label>
+                                    <input matInput id="ServerAddresssadasd" >
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <hr class="mx-n3">
+                        <div class="px-5 py-4 d-flex ">
+                            <button mat-stroked-button id="Submit" (click)="registerBloodBank()">
+                                Submit
+                            </button>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
+</section>

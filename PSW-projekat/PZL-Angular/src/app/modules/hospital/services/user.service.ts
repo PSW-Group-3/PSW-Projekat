@@ -20,7 +20,7 @@ export class UserService {
   }
 
   GetAllDoctors(): Observable<DoctorDto[]> {
-    return this.http.get<DoctorDto[]>(this.apiHost + 'api/doctor', {headers: this.headers});
+    return this.http.get<DoctorDto[]>(this.apiHost + 'api/doctor/GetAll', {headers: this.headers});
   }
 
 }

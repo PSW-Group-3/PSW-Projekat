@@ -43,18 +43,15 @@ SET IDENTITY_INSERT [dbo].[Bids] OFF
 
 
 SET IDENTITY_INSERT [dbo].[BloodRequests] ON 
-	INSERT [dbo].[BloodRequests] ([Id], [RequiredForDate], [BloodQuantity_Value], [Reason], [DoctorId], [RequestState], [BloodType], [Comment], [BloodBankId]) VALUES (1, '2022-12-16 11:30:00', 1, 'Need it for operation', 5, 0, 0, null, 0)
-	INSERT [dbo].[BloodRequests] ([Id], [RequiredForDate], [BloodQuantity_Value], [Reason], [DoctorId], [RequestState], [BloodType], [Comment], [BloodBankId]) VALUES (2, '2022-12-17 11:30:00', 1, 'Need it for operation', 3, 0, 1, null, 0)
-	INSERT [dbo].[BloodRequests] ([Id], [RequiredForDate], [BloodQuantity_Value], [Reason], [DoctorId], [RequestState], [BloodType], [Comment], [BloodBankId]) VALUES (3, '2022-12-11 11:30:00', 1, 'Need it for operation', 3, 0, 2, null, 0)
-	INSERT [dbo].[BloodRequests] ([Id], [RequiredForDate], [BloodQuantity_Value], [Reason], [DoctorId], [RequestState], [BloodType], [Comment], [BloodBankId]) VALUES (4, '2023-01-16 11:30:00', 3, 'Need it for operation', 4, 1, 3, null, 2)
-	INSERT [dbo].[BloodRequests] ([Id], [RequiredForDate], [BloodQuantity_Value], [Reason], [DoctorId], [RequestState], [BloodType], [Comment], [BloodBankId]) VALUES (5, '2022-12-18 11:30:00', 4, 'Need it for operation', 3, 1, 4, null, 3)
-	INSERT [dbo].[BloodRequests] ([Id], [RequiredForDate], [BloodQuantity_Value], [Reason], [DoctorId], [RequestState], [BloodType], [Comment], [BloodBankId]) VALUES (6, '2022-12-19 11:30:00', 5, 'Need it for operation', 4, 1, 5, null, 1)
-	INSERT [dbo].[BloodRequests] ([Id], [RequiredForDate], [BloodQuantity_Value], [Reason], [DoctorId], [RequestState], [BloodType], [Comment], [BloodBankId]) VALUES (7, '2022-12-21 11:30:00', 6, 'Need it for operation', 4, 1, 0, null, 2)
-	INSERT [dbo].[BloodRequests] ([Id], [RequiredForDate], [BloodQuantity_Value], [Reason], [DoctorId], [RequestState], [BloodType], [Comment], [BloodBankId]) VALUES (8, '2022-12-12 11:30:00', 7, 'Need it for operation', 4, 0, 4, null, 0)
-	INSERT [dbo].[BloodRequests] ([Id], [RequiredForDate], [BloodQuantity_Value], [Reason], [DoctorId], [RequestState], [BloodType], [Comment], [BloodBankId]) VALUES (9, '2022-12-12 11:30:00', 2, 'Need it for operation', 4, 1, 6, null, 2)
-	INSERT [dbo].[BloodRequests] ([Id], [RequiredForDate], [BloodQuantity_Value], [Reason], [DoctorId], [RequestState], [BloodType], [Comment], [BloodBankId]) VALUES (10, '2022-12-21 11:30:00', 6, 'Need it for operation', 4, 4, 0, null, 0)
-	INSERT [dbo].[BloodRequests] ([Id], [RequiredForDate], [BloodQuantity_Value], [Reason], [DoctorId], [RequestState], [BloodType], [Comment], [BloodBankId]) VALUES (11, '2022-12-12 11:30:00', 7, 'Need it for operation', 4, 4, 4, null, 1)
-	INSERT [dbo].[BloodRequests] ([Id], [RequiredForDate], [BloodQuantity_Value], [Reason], [DoctorId], [RequestState], [BloodType], [Comment], [BloodBankId]) VALUES (12, '2022-12-12 11:30:00', 2, 'Need it for operation', 4, 4, 6, null, 2)
+	INSERT [dbo].[BloodRequests] ([Id], [RequiredForDate], [BloodQuantity_Value], [Reason], [DoctorId], [RequestState], [BloodType], [Comment], [BloodBankId]) VALUES (1, '2023-02-11 11:30:00', 3, 'Need it for heart operation', 5, 0, 0, null, 0)
+	INSERT [dbo].[BloodRequests] ([Id], [RequiredForDate], [BloodQuantity_Value], [Reason], [DoctorId], [RequestState], [BloodType], [Comment], [BloodBankId]) VALUES (2, '2023-02-12 11:30:00', 5, 'Need it for brain surgery', 5, 2, 1, 'Your asking for too much blood', 0)
+	INSERT [dbo].[BloodRequests] ([Id], [RequiredForDate], [BloodQuantity_Value], [Reason], [DoctorId], [RequestState], [BloodType], [Comment], [BloodBankId]) VALUES (3, '2023-02-13 11:30:00', 2, 'Need it for operation on the leg', 5, 3, 2, null, 0)
+	INSERT [dbo].[BloodRequests] ([Id], [RequiredForDate], [BloodQuantity_Value], [Reason], [DoctorId], [RequestState], [BloodType], [Comment], [BloodBankId]) VALUES (4, '2023-01-20 11:30:00', 3, 'Need it for heart operation', 3, 0, 3, null, 2)
+	INSERT [dbo].[BloodRequests] ([Id], [RequiredForDate], [BloodQuantity_Value], [Reason], [DoctorId], [RequestState], [BloodType], [Comment], [BloodBankId]) VALUES (5, '2023-01-21 11:30:00', 4, 'Need it for brain surgery', 3, 2, 4, 'Your asking for too much blood', 3)
+	INSERT [dbo].[BloodRequests] ([Id], [RequiredForDate], [BloodQuantity_Value], [Reason], [DoctorId], [RequestState], [BloodType], [Comment], [BloodBankId]) VALUES (6, '2023-01-22 11:30:00', 5, 'Need it for operation on the leg', 3, 3, 5, null, 1)
+	INSERT [dbo].[BloodRequests] ([Id], [RequiredForDate], [BloodQuantity_Value], [Reason], [DoctorId], [RequestState], [BloodType], [Comment], [BloodBankId]) VALUES (7, '2023-01-25 11:30:00', 6, 'Need it for heart operation', 4, 0, 0, null, 2)
+	INSERT [dbo].[BloodRequests] ([Id], [RequiredForDate], [BloodQuantity_Value], [Reason], [DoctorId], [RequestState], [BloodType], [Comment], [BloodBankId]) VALUES (8, '2023-01-26 11:30:00', 7, 'Need it for brain surgery', 4, 2, 4, 'Your asking for too much blood', 0)
+	INSERT [dbo].[BloodRequests] ([Id], [RequiredForDate], [BloodQuantity_Value], [Reason], [DoctorId], [RequestState], [BloodType], [Comment], [BloodBankId]) VALUES (9, '2023-01-27 11:30:00', 2, 'Need it for operation on the leg', 4, 3, 6, null, 2)
 SET IDENTITY_INSERT [dbo].[BloodRequests] OFF
 
 GO
@@ -72,5 +69,7 @@ SET IDENTITY_INSERT [dbo].[BloodBanks] OFF
 
 GO
 SET IDENTITY_INSERT [dbo].[Newses] ON 
-	INSERT [dbo].[Newses] ([Id], [Title], [Text], [Status], [DateTime], [BloodBankId], [Image]) VALUES (1, 'sadfasddas', 'sadsdasdasdasda', 0, '2022-11-16 11:30:00', 1,'.//src//assets//images//home-page-bg-blue-kek.jpg')
+	INSERT [dbo].[Newses] ([Id], [Title], [Text], [Status], [DateTime], [BloodBankId], [Image]) VALUES (1, 'Blood donations', 'Donating blood helps save lives. Donate now!', 0, '2022-11-16 11:30:00', 1,'.//src//assets//images//krv.png')
+	INSERT [dbo].[Newses] ([Id], [Title], [Text], [Status], [DateTime], [BloodBankId], [Image]) VALUES (2, 'Scheduling promotion', 'Scheduling appointments in the next month is 50% off!', 0, '2022-11-16 11:30:00', 1,'.//src//assets//images//schedule.png')
+	INSERT [dbo].[Newses] ([Id], [Title], [Text], [Status], [DateTime], [BloodBankId], [Image]) VALUES (3, 'New hospital', 'We have oppened a new clinic in Novi Sad!', 0, '2022-11-16 11:30:00', 1,'.//src//assets//images//ns.png')
 SET IDENTITY_INSERT [dbo].[Newses] OFF

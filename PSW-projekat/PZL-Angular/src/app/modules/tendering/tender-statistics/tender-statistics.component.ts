@@ -36,7 +36,6 @@ export class TenderStatisticsComponent implements OnInit {
     
       //console.log( this.dates.Start + '/' + this.dates.End);
       
-        this.toast.show("dobavi statistiku ");
         this.tenderStatistcsService.getStatisticsFromDates(this.dates).subscribe(res => {
           this.statistics = res;
           console.log(res);
@@ -64,7 +63,6 @@ export class TenderStatisticsComponent implements OnInit {
                this.isHidden = false;
 
     }else{
-      this.toast.show("ne dobaviljaj statistiku ");
     }
   }
 }

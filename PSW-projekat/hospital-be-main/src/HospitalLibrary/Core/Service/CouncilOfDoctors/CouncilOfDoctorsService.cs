@@ -100,8 +100,11 @@ namespace HospitalLibrary.Core.Service.CouncilOfDoctors
                     entity.Start = datas.First();
                     _councilOfDoctorsRepository.Create(entity);
                     return;
-                    
+
                 }
+            }
+            else {
+                throw new Exception();
             }
         }
 

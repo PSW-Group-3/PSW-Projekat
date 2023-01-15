@@ -3,6 +3,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { BloodBank } from '../../blood-banks/model/blood-bank.model';
 import { BloodRequest } from '../model/bloodRequest.model';
+import { RequestState } from '../model/requestState';
 import { BloodResuestService } from '../services/blood-request.service';
 import { LoginService } from '../services/login.service';
 
@@ -14,6 +15,8 @@ import { LoginService } from '../services/login.service';
 export class BloodRequestsComponent implements OnInit {
 
   public requests: BloodRequest[]=[]
+
+  public requests1: BloodRequest[]=[]
   public bloodType: String;
   public dataSource = new MatTableDataSource<BloodRequest>();
   public displayedColumns = ['bloodType','bloodQuantity', 'reason','date'];
@@ -23,7 +26,12 @@ export class BloodRequestsComponent implements OnInit {
   ngOnInit(): void {
     this.bloodRequestService.getBloodRequests().subscribe(res => {
       this.requests = res;
-      this.dataSource.data = this.requests;
+      for (let f of this.requests){
+         if(f.requestState == RequestState.accepted){ 
+            this.requests1.push(f); 
+          }     
+      }
+      this.dataSource.data = this.requests1;
     })  }
 
   public GetRequests() {
@@ -35,7 +43,7 @@ export class BloodRequestsComponent implements OnInit {
     })
   }
 
-  logoutUser(){
+ logoutUser(){
     this.loginService.logout().subscribe(res => {
     })
   }

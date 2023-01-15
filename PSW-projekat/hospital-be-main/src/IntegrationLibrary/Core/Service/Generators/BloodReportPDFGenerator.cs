@@ -46,20 +46,26 @@ namespace IntegrationLibrary.Core.Service.Generators
         {
             html = @"<head><style>
                             table.GeneratedTable {
-                                width: 100 %; 
-                                background-color: #ffffff; 
-                                border-collapse: collapse;
-                                border-width: 2px; 
-                                border-color: #ff5353; 
-                                border-style: solid; 
-                                color: #000000; } 
-                            table.GeneratedTable td, table.GeneratedTable th { 
-                                border-width: 2px; 
-                                border-color: #ff5353; 
-                                border-style: solid; 
-                                padding: 3px;}
-                            table.GeneratedTable thead { 
-                                background-color: #ff5353; }
+                            width: 100%; 
+                            background-color: #ffffff; 
+                            border-collapse: collapse;
+                            border-width: 2px; 
+                            border-color: #2596be; 
+                            border-style: solid; 
+                            color: #000000;
+                            margin-bottom: 70px;} 
+                        table.GeneratedTable td, table.GeneratedTable th { 
+                            border-width: 2px; 
+                            border-color: #2596be; 
+                            border-style: solid; 
+                            padding: 3px;}
+                        table.GeneratedTable thead { 
+                            background-color: #2596be; }
+
+                        table.GeneratedTable tr:nth-child(even) {
+                            background-color: rgb(121, 117, 117);
+                            color: white;
+                        }
                         </style></head>";
         }
 

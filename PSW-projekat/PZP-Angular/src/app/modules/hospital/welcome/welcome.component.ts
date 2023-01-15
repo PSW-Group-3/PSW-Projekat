@@ -14,6 +14,8 @@ export class WelcomeComponent implements OnInit {
   public dataSourceFeedbacks: FeedbackDto[] = [];
   public feedbacks: FeedbackDto[] = [];
   public feedbackCount = 0;
+  public top = "top-40";
+  public nesto = 0;
 
   constructor(private feedbackService: FeedbackService, private router: Router, private userService: UserService) { }
 
@@ -45,4 +47,5 @@ export class WelcomeComponent implements OnInit {
   registerPatient(){
     this.router.navigate(['/register']);
   }
+
 }

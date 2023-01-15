@@ -79,7 +79,15 @@ export class CreateDoctorsCouncilComponent implements OnInit {
     }
     this.doctorsCouncilService.create(this.councilDTO).subscribe(res => {
       this.router.navigate(['/councilOfDoctors']);
+    },(error) => {
+      this.toastr.show("Selected doctors of the given specialization are busy!");
     });
+  }
+
+  logoutUser(){
+    this.loginService.logout().subscribe(res => {
+      
+    })
   }
 
   private isValidInput(): boolean {

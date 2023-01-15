@@ -9,10 +9,10 @@ import { LoginService } from '../../hospital/services/login.service';
 })
 export class HomePatientComponent implements OnInit {
 
-  constructor(private loginService: LoginService,private advertisementService: AdvertisementService) { }
+  constructor(private loginService: LoginService, private advertisementService: AdvertisementService) { }
 
-  public advertisements : any[] = []
-  public hasLoaded = false
+  public advertisements : any[] = [];
+  public hasLoaded = false;
 
   ngOnInit(): void {
     this.advertisementService.getAllAdvertisements().subscribe(res => {
