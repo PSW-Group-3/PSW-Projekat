@@ -4,11 +4,12 @@
     <mdb-carousel-item *ngFor="let ad of advertisements">
       <img
         src={{ad.image}}
-        class="d-block w-100"
+        class="d-block mx-auto"
+        style="min-height: 30vh;"
         alt="..."
       />
-      <div class="carousel-caption d-none d-md-block">
-        <h5>{{ad.title}}</h5>
+      <div class="carousel-caption text-dark fw-bold d-none d-md-block">
+        <h3 class="fw-bold">{{ad.title}}</h3>
         <p>{{ad.text}}</p>
       </div>
     </mdb-carousel-item>

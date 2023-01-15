@@ -128,3 +128,14 @@
 }
 
 /**********SHAPES**********/
+
+.bg {
+
+    background-image: url("/assets/images/welcome.png");
+    height: auto;
+    width: 99.1vw;
+    object-fit: fill;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
