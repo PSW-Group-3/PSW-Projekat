@@ -52,6 +52,20 @@ SET IDENTITY_INSERT [dbo].[BloodRequests] ON
 	INSERT [dbo].[BloodRequests] ([Id], [RequiredForDate], [BloodQuantity_Value], [Reason], [DoctorId], [RequestState], [BloodType], [Comment], [BloodBankId]) VALUES (7, '2023-01-25 11:30:00', 6, 'Need it for heart operation', 4, 0, 0, null, 2)
 	INSERT [dbo].[BloodRequests] ([Id], [RequiredForDate], [BloodQuantity_Value], [Reason], [DoctorId], [RequestState], [BloodType], [Comment], [BloodBankId]) VALUES (8, '2023-01-26 11:30:00', 7, 'Need it for brain surgery', 4, 2, 4, 'Your asking for too much blood', 0)
 	INSERT [dbo].[BloodRequests] ([Id], [RequiredForDate], [BloodQuantity_Value], [Reason], [DoctorId], [RequestState], [BloodType], [Comment], [BloodBankId]) VALUES (9, '2023-01-27 11:30:00', 2, 'Need it for operation on the leg', 4, 3, 6, null, 2)
+
+	INSERT [dbo].[BloodRequests] ([Id], [RequiredForDate], [BloodQuantity_Value], [Reason], [DoctorId], [RequestState], [BloodType], [Comment], [BloodBankId]) VALUES (10, '2023-01-21 11:30:00', 4, 'Need it for brain surgery', 3, 1, 4, 'Your asking for too much blood', 3)
+	INSERT [dbo].[BloodRequests] ([Id], [RequiredForDate], [BloodQuantity_Value], [Reason], [DoctorId], [RequestState], [BloodType], [Comment], [BloodBankId]) VALUES (11, '2023-01-22 11:30:00', 5, 'Need it for operation on the leg', 3, 1, 5, null, 1)
+	INSERT [dbo].[BloodRequests] ([Id], [RequiredForDate], [BloodQuantity_Value], [Reason], [DoctorId], [RequestState], [BloodType], [Comment], [BloodBankId]) VALUES (12, '2023-01-25 11:30:00', 6, 'Need it for heart operation', 4, 1, 0, null, 2)
+	INSERT [dbo].[BloodRequests] ([Id], [RequiredForDate], [BloodQuantity_Value], [Reason], [DoctorId], [RequestState], [BloodType], [Comment], [BloodBankId]) VALUES (13, '2023-01-26 11:30:00', 7, 'Need it for brain surgery', 4, 1, 4, 'Your asking for too much blood', 0)
+	INSERT [dbo].[BloodRequests] ([Id], [RequiredForDate], [BloodQuantity_Value], [Reason], [DoctorId], [RequestState], [BloodType], [Comment], [BloodBankId]) VALUES (14, '2023-01-27 11:30:00', 2, 'Need it for operation on the leg', 4, 1, 6, null, 2)
+
+	INSERT [dbo].[BloodRequests] ([Id], [RequiredForDate], [BloodQuantity_Value], [Reason], [DoctorId], [RequestState], [BloodType], [Comment], [BloodBankId]) VALUES (15, '2023-01-21 11:30:00', 4, 'Need it for brain surgery', 3, 1, 4, 'Your asking for too much blood', 3)
+	INSERT [dbo].[BloodRequests] ([Id], [RequiredForDate], [BloodQuantity_Value], [Reason], [DoctorId], [RequestState], [BloodType], [Comment], [BloodBankId]) VALUES (16, '2023-01-22 11:30:00', 5, 'Need it for operation on the leg', 3, 1, 5, null, 1)
+	INSERT [dbo].[BloodRequests] ([Id], [RequiredForDate], [BloodQuantity_Value], [Reason], [DoctorId], [RequestState], [BloodType], [Comment], [BloodBankId]) VALUES (17, '2023-01-25 11:30:00', 6, 'Need it for heart operation', 4, 1, 0, null, 2)
+	INSERT [dbo].[BloodRequests] ([Id], [RequiredForDate], [BloodQuantity_Value], [Reason], [DoctorId], [RequestState], [BloodType], [Comment], [BloodBankId]) VALUES (18, '2023-01-26 11:30:00', 7, 'Need it for brain surgery', 4, 1, 4, 'Your asking for too much blood', 0)
+	INSERT [dbo].[BloodRequests] ([Id], [RequiredForDate], [BloodQuantity_Value], [Reason], [DoctorId], [RequestState], [BloodType], [Comment], [BloodBankId]) VALUES (19, '2023-01-27 11:30:00', 2, 'Need it for operation on the leg', 4, 1, 6, null, 2)
+
+
 SET IDENTITY_INSERT [dbo].[BloodRequests] OFF
 
 GO
