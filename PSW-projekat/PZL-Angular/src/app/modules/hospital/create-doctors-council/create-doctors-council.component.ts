@@ -6,6 +6,7 @@ import { CouncilDTO } from '../model/CounciDTO';
 import { DoctorDto } from '../model/doctorDto';
 import { Specialization } from '../model/specialization';
 import { DoctorsCouncilService } from '../services/doctors-council.service';
+import { LoginService } from '../services/login.service';
 import { UserService } from '../services/user.service';
 
 @Component({
@@ -24,7 +25,7 @@ export class CreateDoctorsCouncilComponent implements OnInit {
   public chooseSpecializations: boolean = false;
   toppings = new FormControl('');
   
-  constructor(private doctorsCouncilService: DoctorsCouncilService, private userService: UserService, private router: Router, private toastr: ToastrService) { }
+  constructor(private loginService:LoginService, private doctorsCouncilService: DoctorsCouncilService, private userService: UserService, private router: Router, private toastr: ToastrService) { }
 
   ngOnInit(): void {
 
@@ -78,7 +79,15 @@ export class CreateDoctorsCouncilComponent implements OnInit {
     }
     this.doctorsCouncilService.create(this.councilDTO).subscribe(res => {
       this.router.navigate(['/councilOfDoctors']);
+    },(error) => {
+      this.toastr.show("Selected doctors of the given specialization are busy!");
     });
+  }
+
+  logoutUser(){
+    this.loginService.logout().subscribe(res => {
+      
+    })
   }
 
   private isValidInput(): boolean {

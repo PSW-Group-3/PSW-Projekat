@@ -3,7 +3,9 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { BloodBank } from '../../blood-banks/model/blood-bank.model';
 import { BloodRequest } from '../model/bloodRequest.model';
+import { RequestState } from '../model/requestState';
 import { BloodResuestService } from '../services/blood-request.service';
+import { LoginService } from '../services/login.service';
 
 @Component({
   selector: 'app-blood-requests',
@@ -13,16 +15,23 @@ import { BloodResuestService } from '../services/blood-request.service';
 export class BloodRequestsComponent implements OnInit {
 
   public requests: BloodRequest[]=[]
+
+  public requests1: BloodRequest[]=[]
   public bloodType: String;
   public dataSource = new MatTableDataSource<BloodRequest>();
   public displayedColumns = ['bloodType','bloodQuantity', 'reason','date'];
   
     
-  constructor(private bloodRequestService: BloodResuestService, private router: Router) { }
+  constructor(private loginService: LoginService, private bloodRequestService: BloodResuestService, private router: Router) { }
   ngOnInit(): void {
     this.bloodRequestService.getBloodRequests().subscribe(res => {
       this.requests = res;
-      this.dataSource.data = this.requests;
+      for (let f of this.requests){
+         if(f.requestState == RequestState.accepted){ 
+            this.requests1.push(f); 
+          }     
+      }
+      this.dataSource.data = this.requests1;
     })  }
 
   public GetRequests() {
@@ -34,7 +43,11 @@ export class BloodRequestsComponent implements OnInit {
     })
   }
 
-
+  logoutUser(){
+    this.loginService.logout().subscribe(res => {
+      
+    })
+  }
   
 
   public ConvertToNumber(obj: any): any{
