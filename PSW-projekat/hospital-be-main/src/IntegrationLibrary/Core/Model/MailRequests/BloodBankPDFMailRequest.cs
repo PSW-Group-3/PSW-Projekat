@@ -521,7 +521,7 @@ namespace IntegrationLibrary.Core.Model.MailRequests
                                 </table>
                                 <p>If you have any questions, feel free to <a href=""mailto: zdravocorp2022@gmail.com"">email our customer success team</a>. (We're lightning quick at replying.)
                                 <p>Thanks,
-                                  <br>Zdrava Bolnica team</p>
+                                  <br>GoCare Clinic team</p>
                               </div>
                             </td>
                           </tr>
@@ -534,7 +534,7 @@ namespace IntegrationLibrary.Core.Model.MailRequests
                           <tr>
                             <td class=""content-cell"" align=""center"">
                               <p class=""f-fallback sub align-center"">
-                                [Zdrava Bolnica, LLC]
+                                [GoCare Clinic, LLC]
                                 <br>Established 1999
                               </p>
                             </td>
