@@ -13,7 +13,7 @@ export class ManagerNavBarComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  logoutUser(){
+  logout(){
     this.loginService.logout().subscribe(res => {
       
     })
