@@ -1,10 +1,10 @@
 export enum BloodType {
-    APlus,
-    BPlus,
-    ABPlus,
-    OPlus,
+    OMinus,
     AMinus,
     BMinus,
     ABMinus,
-    OMinus
+    OPlus,
+    APlus,
+    BPlus,
+    ABPlus,
 }

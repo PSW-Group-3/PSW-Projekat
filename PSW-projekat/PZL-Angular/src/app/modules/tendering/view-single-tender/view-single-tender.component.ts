@@ -39,14 +39,17 @@ export class ViewSingleTenderComponent implements OnInit {
 
 
   public convertBloodType(blood: number): string{
-    if(blood == 0){return 'A+';}
-    else{if(blood == 1){return 'B+';}
-    else{if(blood == 2){return 'AB+';}
-    else{if(blood == 3){return '0+';}
-    else{if(blood == 4){return 'A-'}
-    else{if(blood == 5){return 'B-'}
-    else{if(blood == 6){return 'AB-'}
-    else{return '0-'}}}}}}}
+    switch(blood){
+      case 0: return 'O-';
+      case 1: return 'A-';
+      case 2: return 'B-';
+      case 3: return 'AB-';
+      case 4: return 'O+';
+      case 5: return 'A+';
+      case 6: return 'B+';
+      case 7: return 'AB+';
+      default: return '333'; 
+    }
   }
 
   public getBankName(bid:Bid): String{
