@@ -95,8 +95,4 @@ export class CreateDoctorsCouncilComponent implements OnInit {
     this.councilDTO?.duration.toString() != '' && this.councilDTO?.topic !='' && (this.doctorsCouncil.length> 0 || this.specialization.length >0);
   }
 
-  logoutUser(){
-    this.loginService.logout().subscribe(res => {
-    })
-  }
 }

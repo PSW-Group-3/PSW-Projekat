@@ -89,7 +89,7 @@ namespace HospitalLibrary.Core.Service
 
                 //Image logo = Image.GetInstance("https://e7.pngegg.com/pngimages/811/814/png-clipart-white-hospital-illustration-children-s-hospital-free-content-hopital-presentation-sticker-thumbnail.png");
                 //logo.ScaleAbsolute(40, 40);
-                Paragraph para5 = new Paragraph("Bolnica ZDRAVO", new Font(Font.FontFamily.TIMES_ROMAN, 10, Font.ITALIC));
+                Paragraph para5 = new Paragraph("GoCare", new Font(Font.FontFamily.TIMES_ROMAN, 10, Font.ITALIC));
                 Paragraph para6 = new Paragraph("Ive Andrica 10, Novi Sad", new Font(Font.FontFamily.TIMES_ROMAN, 10, Font.ITALIC));
                 Paragraph para7 = new Paragraph("hospital@gmail.com", new Font(Font.FontFamily.TIMES_ROMAN, 10, Font.ITALIC));
                 Paragraph para8 = new Paragraph("021/123-123", new Font(Font.FontFamily.TIMES_ROMAN, 10, Font.ITALIC));
