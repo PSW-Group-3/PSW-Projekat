@@ -62,50 +62,75 @@ namespace HospitalLibrary.Core.Service
 
                 document.Open();
 
+                Paragraph para5 = new Paragraph("GoCare", new Font(Font.FontFamily.TIMES_ROMAN, 10, Font.ITALIC));
+                Paragraph para6 = new Paragraph("Ive Andrica 10, Novi Sad", new Font(Font.FontFamily.TIMES_ROMAN, 10, Font.ITALIC));
+                Paragraph para7 = new Paragraph("hospital@gmail.com", new Font(Font.FontFamily.TIMES_ROMAN, 10, Font.ITALIC));
+                Paragraph para8 = new Paragraph("021/123-123", new Font(Font.FontFamily.TIMES_ROMAN, 10, Font.ITALIC));
+                para5.Alignment = Element.ALIGN_RIGHT;
+                para6.Alignment = Element.ALIGN_RIGHT;
+                para7.Alignment = Element.ALIGN_RIGHT;
+                para8.Alignment = Element.ALIGN_RIGHT;
+                document.Add(para5);
+                document.Add(para6);
+                document.Add(para7);
+                document.Add(para8);
 
-                Paragraph para1 = new Paragraph("Discharge summary", new Font(Font.FontFamily.TIMES_ROMAN, 35, Font.BOLD));
+                Paragraph p = new Paragraph(new Chunk(new iTextSharp.text.pdf.draw.LineSeparator(0.0F, 100.0F, BaseColor.BLACK, Element.ALIGN_LEFT, 1)));
+                document.Add(p);
+
+                Paragraph para1 = new Paragraph("Discharge summary", new Font(Font.FontFamily.TIMES_ROMAN, 25, Font.BOLD));
+                para1.Alignment = Element.ALIGN_CENTER;
+                para1.SpacingAfter = 50;
+                document.Add(para1);
+
                 Paragraph para2 = new Paragraph("Patient name: " + treatment.Patient.Person.Name,
                                                 new Font(Font.FontFamily.TIMES_ROMAN, 15));
                 Paragraph para3 = new Paragraph("Patient surname: " + treatment.Patient.Person.Surname,
                                                 new Font(Font.FontFamily.TIMES_ROMAN, 15));
-                Paragraph para4 = new Paragraph("Room: " + treatment.Room.Number,
+                Paragraph para4 = new Paragraph("Room: " + treatment.Room.Number.Name,
                                                 new Font(Font.FontFamily.TIMES_ROMAN, 15));
-                Paragraph para5 = new Paragraph("Admission date: " + treatment.DateAdmission,
+                Paragraph para52 = new Paragraph("Admission date: " + treatment.DateAdmission,
                                                 new Font(Font.FontFamily.TIMES_ROMAN, 15));
-                Paragraph para6 = new Paragraph("Reason for admission: " + treatment.ReasonForAdmission,
+                Paragraph para62 = new Paragraph("Reason for admission: " + treatment.ReasonForAdmission,
                                                 new Font(Font.FontFamily.TIMES_ROMAN, 15));
-                Paragraph para7 = new Paragraph("Discharge date: " + treatment.DateDischarge,
+                Paragraph para72 = new Paragraph("Discharge date: " + treatment.DateDischarge,
                                                 new Font(Font.FontFamily.TIMES_ROMAN, 15));
-                Paragraph para8 = new Paragraph("Reason for discharge: " + treatment.ReasonForDischarge,
+                Paragraph para82 = new Paragraph("Reason for discharge: " + treatment.ReasonForDischarge,
                                                 new Font(Font.FontFamily.TIMES_ROMAN, 15));
 
 
                 
-                para1.Alignment = Element.ALIGN_CENTER;
-                para1.SpacingAfter = 50;
                 para2.Alignment = Element.ALIGN_LEFT;
                 para2.SpacingAfter = 10;
                 para3.Alignment = Element.ALIGN_LEFT;
                 para3.SpacingAfter = 10;
                 para4.Alignment = Element.ALIGN_LEFT;
                 para4.SpacingAfter = 10;
-                para5.Alignment = Element.ALIGN_LEFT;
-                para5.SpacingAfter = 10;
-                para6.Alignment = Element.ALIGN_LEFT;
-                para6.SpacingAfter = 10;
-                para7.Alignment = Element.ALIGN_LEFT;
-                para7.SpacingAfter = 10;
-                para8.Alignment = Element.ALIGN_LEFT;
-                para8.SpacingAfter = 10;
+                para52.Alignment = Element.ALIGN_LEFT;
+                para52.SpacingAfter = 10;
+                para62.Alignment = Element.ALIGN_LEFT;
+                para62.SpacingAfter = 10;
+                para72.Alignment = Element.ALIGN_LEFT;
+                para72.SpacingAfter = 10;
+                para82.Alignment = Element.ALIGN_LEFT;
+                para82.SpacingAfter = 10;
 
-                document.Add(para1);
                 document.Add(para2);
                 document.Add(para3);
                 document.Add(para4);
-                document.Add(para5);
-                document.Add(para6);
-                document.Add(para7);
-                document.Add(para8);
+                document.Add(para52);
+                document.Add(para62);
+                document.Add(para72);
+                document.Add(para82);
+
+                Paragraph potpis = new Paragraph("Signature of the doctor:", new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD));
+                potpis.SpacingBefore = 25;
+                potpis.Alignment = Element.ALIGN_RIGHT;
+                document.Add(potpis);
+
+                Paragraph linija = new Paragraph(new Chunk(new iTextSharp.text.pdf.draw.LineSeparator(0.0F, 25.0F, BaseColor.BLACK, Element.ALIGN_RIGHT, 1)));
+                linija.SpacingBefore = 10;
+                document.Add(linija);
 
 
                 document.Close();
