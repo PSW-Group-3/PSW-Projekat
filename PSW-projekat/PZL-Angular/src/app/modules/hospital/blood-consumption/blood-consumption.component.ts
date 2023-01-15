@@ -22,11 +22,6 @@ ngOnInit(): void {
     
   }
 
-  logoutUser(){
-    this.loginService.logout().subscribe(res => {
-    })
-  }
-
   public ConvertFromString(obj: any): any{
     switch(obj){
       case '0': return BloodType.APlus;
