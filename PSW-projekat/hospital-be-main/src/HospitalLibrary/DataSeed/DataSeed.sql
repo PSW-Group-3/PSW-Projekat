@@ -22,19 +22,36 @@ GO
 SET IDENTITY_INSERT [dbo].[Allergies] ON 
 
 INSERT [dbo].[Allergies] ([Id], [Name], [Deleted]) VALUES (1, N'Polen', 0)
-INSERT [dbo].[Allergies] ([Id], [Name], [Deleted]) VALUES (2, N'Prasina', 0)
-INSERT [dbo].[Allergies] ([Id], [Name], [Deleted]) VALUES (3, N'Pas', 0)
-INSERT [dbo].[Allergies] ([Id], [Name], [Deleted]) VALUES (4, N'Macka', 0)
-INSERT [dbo].[Allergies] ([Id], [Name], [Deleted]) VALUES (5, N'Pcela', 0)
-INSERT [dbo].[Allergies] ([Id], [Name], [Deleted]) VALUES (6, N'Ambrozija', 0)
-INSERT [dbo].[Allergies] ([Id], [Name], [Deleted]) VALUES (7, N'Kikiriki', 0)
+INSERT [dbo].[Allergies] ([Id], [Name], [Deleted]) VALUES (2, N'Dust', 0)
+INSERT [dbo].[Allergies] ([Id], [Name], [Deleted]) VALUES (3, N'Animal fur', 0)
+INSERT [dbo].[Allergies] ([Id], [Name], [Deleted]) VALUES (4, N'Penicilin', 0)
+INSERT [dbo].[Allergies] ([Id], [Name], [Deleted]) VALUES (5, N'Aspirin', 0)
+INSERT [dbo].[Allergies] ([Id], [Name], [Deleted]) VALUES (6, N'Ibuprofen', 0)
+INSERT [dbo].[Allergies] ([Id], [Name], [Deleted]) VALUES (7, N'Peanuts', 0)
 INSERT [dbo].[Allergies] ([Id], [Name], [Deleted]) VALUES (8, N'Gluten', 0)
-INSERT [dbo].[Allergies] ([Id], [Name], [Deleted]) VALUES (9, N'Laktoza', 0)
-INSERT [dbo].[Allergies] ([Id], [Name], [Deleted]) VALUES (10, N'Alergija10', 0)
-INSERT [dbo].[Allergies] ([Id], [Name], [Deleted]) VALUES (11, N'Alergija11', 0)
-INSERT [dbo].[Allergies] ([Id], [Name], [Deleted]) VALUES (12, N'Alergija12', 0)
-INSERT [dbo].[Allergies] ([Id], [Name], [Deleted]) VALUES (13, N'Alergija13', 0)
+INSERT [dbo].[Allergies] ([Id], [Name], [Deleted]) VALUES (9, N'Lactose', 0)
+INSERT [dbo].[Allergies] ([Id], [Name], [Deleted]) VALUES (10, N'Shellfish', 0)
+INSERT [dbo].[Allergies] ([Id], [Name], [Deleted]) VALUES (11, N'Wheat', 0)
+INSERT [dbo].[Allergies] ([Id], [Name], [Deleted]) VALUES (12, N'Nuts', 0)
+INSERT [dbo].[Allergies] ([Id], [Name], [Deleted]) VALUES (13, N'Soybeans', 0)
 SET IDENTITY_INSERT [dbo].[Allergies] OFF
+
+GO
+SET IDENTITY_INSERT [dbo].[PatientAllergies] ON 
+
+INSERT [dbo].[PatientAllergies] ([Id], [PatientId], [AllergyId], [Deleted]) VALUES (1, 8, 4, 0)
+INSERT [dbo].[PatientAllergies] ([Id], [PatientId], [AllergyId], [Deleted]) VALUES (2, 8, 5, 0)
+INSERT [dbo].[PatientAllergies] ([Id], [PatientId], [AllergyId], [Deleted]) VALUES (3, 8, 3, 0)
+INSERT [dbo].[PatientAllergies] ([Id], [PatientId], [AllergyId], [Deleted]) VALUES (4, 9, 4, 0)
+INSERT [dbo].[PatientAllergies] ([Id], [PatientId], [AllergyId], [Deleted]) VALUES (5, 9, 5, 0)
+INSERT [dbo].[PatientAllergies] ([Id], [PatientId], [AllergyId], [Deleted]) VALUES (6, 9, 3, 0)
+INSERT [dbo].[PatientAllergies] ([Id], [PatientId], [AllergyId], [Deleted]) VALUES (7, 10, 7, 0)
+INSERT [dbo].[PatientAllergies] ([Id], [PatientId], [AllergyId], [Deleted]) VALUES (8, 10, 5, 0)
+INSERT [dbo].[PatientAllergies] ([Id], [PatientId], [AllergyId], [Deleted]) VALUES (9, 11, 11, 0)
+INSERT [dbo].[PatientAllergies] ([Id], [PatientId], [AllergyId], [Deleted]) VALUES (10, 12, 4, 0)
+INSERT [dbo].[PatientAllergies] ([Id], [PatientId], [AllergyId], [Deleted]) VALUES (11, 13, 4, 0)
+INSERT [dbo].[PatientAllergies] ([Id], [PatientId], [AllergyId], [Deleted]) VALUES (12, 14, 3, 0)
+SET IDENTITY_INSERT [dbo].[PatientAllergies] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Doctors] ON 
 
@@ -278,4 +295,14 @@ INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], 
 INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (6, 23, 3, 8, 0, 12, 0)
 INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (6, 24, 4, 8, 0, 12, 0)
 
-SET IDENTITY_INSERT [dbo].[Patients] OFF
+SET IDENTITY_INSERT [dbo].[DoctorSchedule] OFF
+
+GO
+SET IDENTITY_INSERT [dbo].[Feedbacks] ON 
+
+INSERT [dbo].[Feedbacks] ([Id], [Description], [IsAnonimous], [IsPublic], [DateCreated], [UserId], [Status], [Deleted]) VALUES (1, 'Great experience', 0, 1, '2023-01-12 08:00:00.0000000', 9 ,1 ,0)
+INSERT [dbo].[Feedbacks] ([Id], [Description], [IsAnonimous], [IsPublic], [DateCreated], [UserId], [Status], [Deleted]) VALUES (2, 'Generally unpleasant experience during examination', 1, 1, '2022-12-12 08:00:00.0000000', 9 ,1 ,0)
+INSERT [dbo].[Feedbacks] ([Id], [Description], [IsAnonimous], [IsPublic], [DateCreated], [UserId], [Status], [Deleted]) VALUES (3, 'The atmosphere in the clinic was amazing', 0, 1, '2022-12-31 08:00:00.0000000', 8 ,1 ,0)
+INSERT [dbo].[Feedbacks] ([Id], [Description], [IsAnonimous], [IsPublic], [DateCreated], [UserId], [Status], [Deleted]) VALUES (4, 'I really enjoyed the christmas decoration', 0, 1, '2022-12-25 08:00:00.0000000', 10 ,1 ,0)
+INSERT [dbo].[Feedbacks] ([Id], [Description], [IsAnonimous], [IsPublic], [DateCreated], [UserId], [Status], [Deleted]) VALUES (5, 'Everything seemed alright', 1, 1, '2022-11-12 08:00:00.0000000', 9 ,1 ,0)
+SET IDENTITY_INSERT [dbo].[Feedbacks] OFF

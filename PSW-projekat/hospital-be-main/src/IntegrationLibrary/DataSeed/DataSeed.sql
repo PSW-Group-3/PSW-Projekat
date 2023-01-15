@@ -69,5 +69,7 @@ SET IDENTITY_INSERT [dbo].[BloodBanks] OFF
 
 GO
 SET IDENTITY_INSERT [dbo].[Newses] ON 
-	INSERT [dbo].[Newses] ([Id], [Title], [Text], [Status], [DateTime], [BloodBankId], [Image]) VALUES (1, 'sadfasddas', 'sadsdasdasdasda', 0, '2022-11-16 11:30:00', 1,'.//src//assets//images//home-page-bg-blue-kek.jpg')
+	INSERT [dbo].[Newses] ([Id], [Title], [Text], [Status], [DateTime], [BloodBankId], [Image]) VALUES (1, 'Blood donations', 'Donating blood helps save lives. Donate now!', 0, '2022-11-16 11:30:00', 1,'.//src//assets//images//krv.png')
+	INSERT [dbo].[Newses] ([Id], [Title], [Text], [Status], [DateTime], [BloodBankId], [Image]) VALUES (2, 'Scheduling promotion', 'Scheduling appointments in the next month is 50% off!', 0, '2022-11-16 11:30:00', 1,'.//src//assets//images//schedule.png')
+	INSERT [dbo].[Newses] ([Id], [Title], [Text], [Status], [DateTime], [BloodBankId], [Image]) VALUES (3, 'New hospital', 'We have oppened a new clinic in Novi Sad!', 0, '2022-11-16 11:30:00', 1,'.//src//assets//images//ns.png')
 SET IDENTITY_INSERT [dbo].[Newses] OFF
