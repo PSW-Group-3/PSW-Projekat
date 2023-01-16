@@ -73,7 +73,7 @@ export class CreateAppointment implements OnInit{
       date+" "+time,
     );
     this.appointmentService.postCreateCustomAppointment(checkAvailableAppontment).subscribe(res => {
-
+      this.router.navigate(['/appointments']);
     })
   }
 

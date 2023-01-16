@@ -153,7 +153,7 @@ INSERT [dbo].[Appointments] ([Id], [PatientId], [DoctorId], [DateTime], [Cancela
 INSERT [dbo].[Appointments] ([Id], [PatientId], [DoctorId], [DateTime], [CancelationDate], [Deleted]) VALUES (11, null, null, '2023-01-21 15:00:00.0000000', '2022-12-21 15:20:00.0000000', 0)
 INSERT [dbo].[Appointments] ([Id], [PatientId], [DoctorId], [DateTime], [CancelationDate], [Deleted]) VALUES (12, null, null, '2023-01-22 10:00:00.0000000', '2022-12-19 10:20:00.0000000', 0)
 INSERT [dbo].[Appointments] ([Id], [PatientId], [DoctorId], [DateTime], [CancelationDate], [Deleted]) VALUES (13, 5, 1, '2023-02-28 15:00:00.0000000', '2022-12-19 10:20:00.0000000', 0)
-
+INSERT [dbo].[Appointments] ([Id], [PatientId], [DoctorId], [DateTime], [CancelationDate], [Deleted]) VALUES (14, 3, 1,	'2023-01-17 08:00:00.0000000', NULL, 0)
 SET IDENTITY_INSERT [dbo].[Appointments] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Bloods] ON 
