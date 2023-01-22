@@ -13,5 +13,7 @@ namespace IntegrationLibrary.Core.Service
         void SendScheduledOrder(ScheduledOrder scheduledOrder);
         List<News> Recive(List<BloodBank> bloodBanks);
         public List<FilledOrder> ReciveSheduledOrders(List<BloodBank> bloodBanks);
+
+        void ResetFilledOrders();
     }
 }

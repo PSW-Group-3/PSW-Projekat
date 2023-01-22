@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -42,5 +43,10 @@ namespace IntegrationLibrary.Core.Model
         public int BMinus { get => _bMinus; set => _bMinus = value; }
         public int ABMinus { get => _abMinus; set => _abMinus = value; }
         public int OMinus { get => _oMinus; set => _oMinus = value; }
+
+        public override string ToString()
+        {
+            return JsonConvert.SerializeObject(this);
+        }
     }
 }

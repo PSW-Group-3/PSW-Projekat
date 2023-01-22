@@ -65,10 +65,10 @@ namespace IntegrationLibrary.Core.Service.ScheduledOrders
             foreach (FilledOrder filledOrder in filledOrders)
             {
                 Console.WriteLine("in loop");
-                Console.WriteLine(filledOrder.BankEmail);
-                Console.WriteLine(filledOrder.APlus);
+                Console.WriteLine(filledOrder.ToString());
             }
             sendReq(filledOrders);
+            _rabbitMQService.ResetFilledOrders();
         }
         private void sendReq(List<FilledOrder> filledOrders)
         {

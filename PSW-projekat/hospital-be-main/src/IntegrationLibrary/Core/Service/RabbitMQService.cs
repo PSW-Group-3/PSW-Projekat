@@ -1,4 +1,5 @@
 ﻿using IntegrationLibrary.Core.Model;
+using IntegrationLibrary.Core.Repository.BloodBanks;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
@@ -11,7 +12,66 @@ namespace IntegrationLibrary.Core.Service
 
     public class RabbitMQService : IRabbitMQService
     {
-        public RabbitMQService() {}
+        private static List<FilledOrder> filledOrders= new List<FilledOrder>();
+        private static List<BloodBank> bloodBanks = new List<BloodBank>();
+        private static ConnectionFactory factory1 = new ConnectionFactory() {
+            Uri = new Uri("amqp://guest:guest@localhost:5672")
+        };
+        private static IConnection connection1;
+        private static IModel channel1;
+        private static EventingBasicConsumer consumer1;
+        private readonly IBloodBankRepository _bloodBankRepository;
+
+
+        public RabbitMQService(IBloodBankRepository bloodBankRepository)
+        {
+            _bloodBankRepository = bloodBankRepository;
+            bloodBanks = (List<BloodBank>)_bloodBankRepository.GetAll();
+            connection1 = factory1.CreateConnection();
+            channel1 = connection1.CreateModel();
+            channel1.QueueDeclare("sentOrdersQueue",
+                durable: false,
+                exclusive: false,
+                autoDelete: false,
+                arguments: null);
+            consumer1 = new EventingBasicConsumer(channel1);
+            consumer1.Received += (sender, e) =>
+            {
+                var body = e.Body.ToArray();
+                var message = Encoding.UTF8.GetString(body);
+                Console.WriteLine("message:");
+                Console.WriteLine(message);
+                dynamic stuff = JsonConvert.DeserializeObject(message);
+                Console.WriteLine("stuff: ");
+                Console.WriteLine(stuff);
+                try
+                {
+                    FilledOrder filledOrder = new FilledOrder();
+                    filledOrder.APlus = stuff.aplus;
+                    filledOrder.BPlus = stuff.bplus;
+                    filledOrder.ABPlus = stuff.abplus;
+                    filledOrder.OPlus = stuff.oplus;
+
+                    filledOrder.AMinus = stuff.aminus;
+                    filledOrder.BMinus = stuff.bminus;
+                    filledOrder.ABMinus = stuff.abminus;
+                    filledOrder.OMinus = stuff.ominus;
+                    filledOrder.BankEmail = stuff.bankEmail;
+                    filledOrder.IsSent = stuff.sent;
+                    if (checkBloodBankExists((string)stuff.bankEmail, bloodBanks) &&
+                    checkBloodBankApiKey((string)stuff.bankEmail, (string)stuff.bankApi, bloodBanks))
+                    {
+                        filledOrders.Add(filledOrder);
+                    }
+                }
+                catch
+                {
+                    throw;
+                }
+            };
+
+            channel1.BasicConsume("sentOrdersQueue", true, consumer1);
+        }
         public void Send()
         {
             News n1 = new News("Title 1", "Text1", DateTime.Now, 2,"");
@@ -95,58 +155,10 @@ namespace IntegrationLibrary.Core.Service
 
         }
 
-        public List<FilledOrder> ReciveSheduledOrders(List<BloodBank> bloodBanks)
+        public List<FilledOrder> ReciveSheduledOrders(List<BloodBank> bloodBanks1)
         {
-            List<FilledOrder> filledOrders = new List<FilledOrder>();
-            var factory = new ConnectionFactory
-            {
-                Uri = new Uri("amqp://guest:guest@localhost:5672")
-            };
-            using var connection = factory.CreateConnection();
-            using var channel = connection.CreateModel();
-            channel.QueueDeclare("sentOrdersQueue",
-                durable: false,
-                exclusive: false,
-                autoDelete: false,
-                arguments: null);
-            var consumer = new EventingBasicConsumer(channel);
-            consumer.Received += (sender, e) =>
-            {
-                var body = e.Body.ToArray();
-                var message = Encoding.UTF8.GetString(body);
-                Console.WriteLine("message:");
-                Console.WriteLine(message);
-                dynamic stuff = JsonConvert.DeserializeObject(message);
-                Console.WriteLine("stuff: ");
-                Console.WriteLine(stuff);
-                try
-                {
-                    FilledOrder filledOrder = new FilledOrder();
-                    filledOrder.APlus = stuff.aplus;
-                    filledOrder.BPlus = stuff.bplus;
-                    filledOrder.ABPlus = stuff.abplus;
-                    filledOrder.OPlus = stuff.oplus;
-
-                    filledOrder.AMinus= stuff.aminus;
-                    filledOrder.BMinus = stuff.bminus;
-                    filledOrder.ABMinus = stuff.abminus;
-                    filledOrder.OMinus = stuff.ominus;
-                    filledOrder.BankEmail = stuff.bankEmail;
-                    filledOrder.IsSent = stuff.sent;
-                    if (checkBloodBankExists((string)stuff.bankEmail, bloodBanks) &&
-                    checkBloodBankApiKey((string)stuff.bankEmail, (string)stuff.bankApi, bloodBanks))
-                    {
-                        filledOrders.Add(filledOrder);
-                    }
-                }
-                catch
-                {
-                    throw;
-                }
-            };
-            channel.BasicConsume("sentOrdersQueue", true, consumer);
-
-
+            bloodBanks = bloodBanks1;
+            
             return filledOrders;
 
         }
@@ -173,6 +185,11 @@ namespace IntegrationLibrary.Core.Service
                 }
             }
             return false;
+        }
+
+        public void ResetFilledOrders()
+        {
+            filledOrders.Clear();
         }
 
         
