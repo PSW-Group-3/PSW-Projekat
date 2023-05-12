@@ -33,6 +33,9 @@ namespace HospitalLibrary.Settings
         public DbSet<Symptom> Symptoms { get; set; }
         public DbSet<Prescription> Prescriptions { get; set; }
         public DbSet<Examination> Examinations { get; set; }
+        public DbSet<DailyDiet> DailyDiets { get; set; }
+        public DbSet<Meal> Meals { get; set; }
+        public DbSet<Training> Trainings { get; set; }
 
         public DbSet<DoctorsCouncil> DoctorsCouncils { get; set; }
 

@@ -153,7 +153,13 @@ namespace HospitalAPI
             services.AddScoped<DoctorExaminationEventsRepository>();
             services.AddScoped<ExaminationStatisticService>();
 
+            services.AddScoped<IDietService, DietService>();
+            services.AddScoped<IDietRepository, DietRepository>();
 
+            services.AddScoped<IMealService, MealService>();
+            services.AddScoped<IMealRepository, MealRepository>();
+
+            services.AddScoped<ITrainingService, TrainingService>();
 
             services.AddScoped<SchedulingAppointmentEventsRepository>();
             services.AddScoped<SchedulingStatisticsService>();
