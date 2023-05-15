@@ -21,11 +21,14 @@ namespace HospitalAPI.Controllers.PublicApp
     {
         private readonly IDietService _dietService;
         private readonly IMealService _mealService;
+        private readonly IPersonService _personService;
 
 
-        public HealthController(IDietService dietService)
+        public HealthController(IDietService dietService, IMealService mealService, IPersonService personService)
         {
             _dietService = dietService;
+            _mealService = mealService;
+            _personService = personService;
         }
 
         //[Authorize]
@@ -36,22 +39,27 @@ namespace HospitalAPI.Controllers.PublicApp
         }
 
         //[Authorize]
-        [HttpPost("/meals/add/breakfast")]
-        public ActionResult AddBreakfast(MealDTO dto)
+        [HttpPost("/meals/add")]
+        public ActionResult AddMeal(MealDTO dto)
         {
-            List<int> answers = new();
+            List<float> answers = new();
             foreach(AnswerDTO answerDTO in dto.Answers)
             {
                 answers.Add(answerDTO.Answer);
             }
 
-            Meal meal = new Meal(answers, MealType.breakfast);
+            Person person = _personService.GetById(dto.PersonId);
+            if (person == null)
+            {
+                return BadRequest("Person not found.");
+            }
 
             try
             {
+                Meal meal = new Meal(answers, dto.MealType, person);
                 _mealService.Create(meal);
                 /*_healthService.UpdateHealtScore(dto.PersonId)*/
-                return Ok();
+                return StatusCode(201);
             }
             catch(Exception e)
             {

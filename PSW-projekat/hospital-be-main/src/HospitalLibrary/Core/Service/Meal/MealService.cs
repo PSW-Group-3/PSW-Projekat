@@ -11,9 +11,9 @@ namespace HospitalLibrary.Core.Service
 {
     public class MealService : IMealService
     {
-        private readonly MealRepository _mealRepository;
+        private readonly IMealRepository _mealRepository;
 
-        public MealService(MealRepository mealRepository)
+        public MealService(IMealRepository mealRepository)
         {
             _mealRepository = mealRepository;
         }

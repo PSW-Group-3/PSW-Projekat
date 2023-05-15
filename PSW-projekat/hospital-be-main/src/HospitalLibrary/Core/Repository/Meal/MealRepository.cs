@@ -14,6 +14,11 @@ namespace HospitalLibrary.Core.Repository
     {
         private readonly HospitalDbContext _context;
 
+        public MealRepository(HospitalDbContext context)
+        {
+            _context = context;
+        }
+
         public void Create(Meal entity)
         {
             _context.Add(entity);

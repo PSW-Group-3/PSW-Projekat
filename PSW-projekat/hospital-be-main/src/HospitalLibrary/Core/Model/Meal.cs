@@ -6,37 +6,38 @@ namespace HospitalLibrary.Core.Model
 {
     public class Meal : BaseModel
     {
-        public int Score { get; set; }
+        public float Score { get; set; }
         public MealType MealType { get; set; }
+        public virtual Person Person { get; set; }
 
         public Meal() { }
 
-        public Meal(List<int> answers, MealType mealType)
+        public Meal(List<float> answers, MealType mealType, Person person)
         {
             if (Validate(answers, mealType))
             {
                 Score = CalculateScore(answers);
                 MealType = mealType;
+                Person = person;
             }
             else
                 throw new Exception("Meal invalid.");
         }
         
-        private bool Validate(List<int> answers, MealType mealType)
+        private bool Validate(List<float> answers, MealType mealType)
         {
-            foreach(int answer in answers)
+            foreach(float answer in answers)
             {
-                if (answer < 1 || answer > 5) return false;
+                if (answer < -1 || answer > 1) return false;
             }
-
-            if (mealType is not MealType.breakfast || mealType is not MealType.lunch || mealType is not MealType.dinner) return false;
 
             return true;
         }
 
-        private int CalculateScore(List<int> answers)
+        private float CalculateScore(List<float> answers)
         {
-            foreach (int answer in answers)
+            Score = 0;
+            foreach (float answer in answers)
             {
                 Score += answer;
             }

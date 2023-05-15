@@ -16,6 +16,6 @@ namespace HospitalAPI.DTO
     public class AnswerDTO
     {
         public int QuestionId { get; set; }
-        public int Answer { get; set; }
+        public float Answer { get; set; }
     }
 }
