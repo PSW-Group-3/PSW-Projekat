@@ -58,7 +58,7 @@ namespace HospitalAPI.Controllers.PublicApp
             {
                 Meal meal = new Meal(answers, dto.MealType, person);
                 _mealService.Create(meal);
-                /*_healthService.UpdateHealtScore(dto.PersonId)*/
+                /*_healthService.UpdateHealtScore(dto.PersonId) prebaciti ovaj poziv u mealService.*/
                 return StatusCode(201);
             }
             catch(Exception e)

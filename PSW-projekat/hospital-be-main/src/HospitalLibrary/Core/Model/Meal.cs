@@ -14,17 +14,14 @@ namespace HospitalLibrary.Core.Model
 
         public Meal(List<float> answers, MealType mealType, Person person)
         {
-            if (Validate(answers, mealType))
-            {
-                Score = CalculateScore(answers);
-                MealType = mealType;
-                Person = person;
-            }
-            else
-                throw new Exception("Meal invalid.");
+            if (!IsValidate(answers, mealType)) throw new Exception("Meal invalid.");
+            
+            Score = CalculateScore(answers);
+            MealType = mealType;
+            Person = person;        
         }
         
-        private bool Validate(List<float> answers, MealType mealType)
+        private bool IsValidate(List<float> answers, MealType mealType)
         {
             foreach(float answer in answers)
             {
