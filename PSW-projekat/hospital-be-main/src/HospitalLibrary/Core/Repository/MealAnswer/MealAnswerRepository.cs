@@ -2,47 +2,48 @@
 using HospitalLibrary.Core.Model.Enums;
 using HospitalLibrary.Settings;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HospitalLibrary.Core.Repository
 {
-    public class DietRepository : IDietRepository
+    public class MealAnswerRepository : IMealAnswerRepository
     {
         private readonly HospitalDbContext _context;
 
-        public DietRepository(HospitalDbContext context)
+        public MealAnswerRepository(HospitalDbContext context)
         {
             _context = context;
         }
 
-        public void Create(DailyDiet entity)
+        public void Create(MealAnswer entity)
         {
             _context.Add(entity);
             _context.SaveChanges();
-
         }
 
-        public void Delete(DailyDiet entity)
+        public void Delete(MealAnswer entity)
         {
             _context.Remove(entity);
             _context.SaveChanges();
         }
 
-        public IEnumerable<DailyDiet> GetAll()
+        public IEnumerable<MealAnswer> GetAll()
         {
-            return _context.DailyDiets;
+            return _context.MealAnswers;
         }
 
-        public DailyDiet GetById(int id)
+        public IEnumerable<MealAnswer> GetAllMealAnswersByMealType(MealType mealType)
         {
-            return _context.DailyDiets.Find(id);
+            return _context.MealAnswers.Where(m => m.Meal.MealType == mealType);
         }
 
-        public void Update(DailyDiet entity)
+        public MealAnswer GetById(int id)
+        {
+            return _context.MealAnswers.Find(id);
+        }
+
+        public void Update(MealAnswer entity)
         {
             _context.Entry(entity).State = EntityState.Modified;
 

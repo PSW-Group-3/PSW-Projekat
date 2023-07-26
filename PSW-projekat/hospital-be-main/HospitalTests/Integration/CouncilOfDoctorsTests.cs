@@ -2,7 +2,6 @@
 using HospitalAPI.Controllers.PrivateApp;
 using HospitalAPI.DTO;
 using HospitalLibrary.Core.DTOs;
-using HospitalLibrary.Core.Model;
 using HospitalLibrary.Core.Model.Enums;
 using HospitalLibrary.Core.Service.CouncilOfDoctors;
 using HospitalTests.Setup;
@@ -11,9 +10,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Shouldly;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace HospitalTests.Integration

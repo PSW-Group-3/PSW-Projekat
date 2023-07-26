@@ -4,8 +4,6 @@ using HospitalLibrary.Core.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
 namespace HospitalAPI.Controllers.PublicApp
 {
     [Authorize]

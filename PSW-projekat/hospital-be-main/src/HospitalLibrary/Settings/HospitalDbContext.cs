@@ -1,13 +1,10 @@
 using HospitalLibrary.Core.AggregatDoctor;
 using HospitalLibrary.Core.AggregatDoctor.Events;
 using HospitalLibrary.Core.Model;
-﻿using HospitalLibrary.Core.Model;
 using HospitalLibrary.Core.Model.Aggregate;
 using HospitalLibrary.Core.Model.Aggregate.Events;
-using HospitalLibrary.Core.Model.Aggregate.useCases;
 using HospitalLibrary.Core.Model.Enums;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace HospitalLibrary.Settings
 {
@@ -33,20 +30,19 @@ namespace HospitalLibrary.Settings
         public DbSet<Symptom> Symptoms { get; set; }
         public DbSet<Prescription> Prescriptions { get; set; }
         public DbSet<Examination> Examinations { get; set; }
-        public DbSet<DailyDiet> DailyDiets { get; set; }
-        public DbSet<Meal> Meals { get; set; }
-        public DbSet<Training> Trainings { get; set; }
-
         public DbSet<DoctorsCouncil> DoctorsCouncils { get; set; }
-
         public DbSet<DoctorExamination> DoctorExaminations { get; set; }
 
-        public DbSet<HospitalLibrary.Core.AggregatDoctor.DomainEvent> DoctorExaminationEvents { get; set; }
+        public DbSet<Meal> Meals { get; set; }
+        public DbSet<MealAnswer> MealAnswers { get; set; }
+        public DbSet<MealQuestion> MealQuestions { get; set; }
 
+        public DbSet<Training> Trainings { get; set; }
 
+        
+        public DbSet<Core.AggregatDoctor.DomainEvent> DoctorExaminationEvents { get; set; }
         public DbSet<ScheduleAppointmentByPatient> ScheduleAppointmentByPatients { get; set; }
-
-        public DbSet<HospitalLibrary.Core.Model.Aggregate.DomainEvent> AppointmentSchedulingEvents { get; set; }
+        public DbSet<Core.Model.Aggregate.DomainEvent> AppointmentSchedulingEvents { get; set; }
 
         public HospitalDbContext(DbContextOptions<HospitalDbContext> options) : base(options) { }
 

@@ -1,21 +1,13 @@
-﻿using HospitalLibrary.Core.Model.Enums;
-using System;
+﻿using HospitalLibrary.Core.DTOs;
+using HospitalLibrary.Core.Model.Enums;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace HospitalAPI.DTO
 {
     public class MealDTO
     {
-        public List<AnswerDTO> Answers { get; set; }
+        public List<MealAnswerDTO> Answers { get; set; }
         public MealType MealType { get; set; }
         public int PersonId { get; set; }
-    }
-
-    public class AnswerDTO
-    {
-        public int QuestionId { get; set; }
-        public float Answer { get; set; }
     }
 }

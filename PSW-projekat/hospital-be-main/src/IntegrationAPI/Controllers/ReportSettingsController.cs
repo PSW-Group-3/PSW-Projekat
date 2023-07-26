@@ -1,5 +1,4 @@
 ﻿using IntegrationAPI.Adapters;
-using IntegrationAPI.Controllers.Interfaces;
 using IntegrationAPI.DTO;
 using IntegrationLibrary.Core.Model;
 using IntegrationLibrary.Core.Service.Reports;

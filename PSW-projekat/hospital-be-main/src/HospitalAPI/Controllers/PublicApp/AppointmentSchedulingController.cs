@@ -1,13 +1,9 @@
 ﻿using HospitalAPI.DTO;
-using HospitalLibrary.Core.DTOs;
-using HospitalLibrary.Core.Model;
 using HospitalLibrary.Core.Model.Aggregate;
 using HospitalLibrary.Core.Model.Aggregate.useCases;
 using HospitalLibrary.Core.Service;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.DependencyInjection;
 using System;
 
 namespace HospitalAPI.Controllers.PublicApp

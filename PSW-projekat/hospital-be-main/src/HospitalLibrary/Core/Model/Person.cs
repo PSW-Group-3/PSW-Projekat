@@ -1,6 +1,5 @@
 ﻿using HospitalLibrary.Core.Model.Enums;
 using System;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.RegularExpressions;
 
 namespace HospitalLibrary.Core.Model

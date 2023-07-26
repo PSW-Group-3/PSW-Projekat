@@ -1,5 +1,4 @@
-﻿using HospitalLibrary.Core.DTOs;
-using HospitalLibrary.Core.Model.Enums;
+﻿using HospitalLibrary.Core.Model.Enums;
 using System;
 using System.ComponentModel.DataAnnotations;
 

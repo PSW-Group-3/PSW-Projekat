@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Threading;
-using Microsoft.Extensions.Options;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using Shouldly;

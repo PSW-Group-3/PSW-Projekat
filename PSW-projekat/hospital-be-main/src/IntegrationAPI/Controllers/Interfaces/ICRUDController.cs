@@ -1,6 +1,5 @@
 ﻿using IntegrationAPI.DTO;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 
 namespace IntegrationAPI.Controllers.Interfaces
 {

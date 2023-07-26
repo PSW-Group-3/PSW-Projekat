@@ -1,0 +1,36 @@
+<div class="center">
+    <h1>Diet Overview</h1>
+</div>
+
+<div class="center">
+    <mat-card class="card" *ngFor="let mealinfo of mealInfos; let i = index">
+        <mat-card-header>
+          <mat-card-title>{{mealinfo.mealTypeString}}</mat-card-title>
+          <mat-card-subtitle>For day: {{todayDate.toDateString()}}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content >
+            <p *ngIf="mealinfo.isAdded == true">
+                Your {{mealinfo.mealTypeString}} has been added for today.<br/>
+                Your meal was: {{mealinfo.mealScore}}
+            </p>
+            <p *ngIf="mealinfo.isAdded == false">
+                Please add {{mealinfo.mealTypeString}} for today.
+            </p>
+        </mat-card-content>
+        <mat-card-actions align="end">
+          <button mat-raised-button color="primary" (click)="openMealDialog(mealinfo.mealTypeNumber)" [disabled]="mealInfos[i].isAdded">Add {{mealinfo.mealTypeString}}</button>
+        </mat-card-actions>
+    </mat-card>
+    <mat-card class="card">
+        <mat-card-header>
+          <mat-card-title>Water intake</mat-card-title>
+          <mat-card-subtitle>For day: {{todayDate.toDateString()}}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content >
+            
+        </mat-card-content>
+        <mat-card-actions align="end">
+            <button mat-raised-button color="primary">Water intake</button>
+        </mat-card-actions>
+    </mat-card>
+</div>

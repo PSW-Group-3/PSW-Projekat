@@ -1,9 +1,6 @@
-﻿using HospitalLibrary.Core.Model.Enums;
-using iTextSharp.text.pdf.parser.clipper;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Text.RegularExpressions;
 
 namespace HospitalLibrary.Core.Model

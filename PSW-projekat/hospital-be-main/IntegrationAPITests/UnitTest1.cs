@@ -1,16 +1,11 @@
-using System;
 using Xunit;
-using IntegrationAPI;
 using IntegrationLibrary.Core.Model;
 using IntegrationLibrary.Core.Service;
 using IntegrationLibrary.Core.BloodBankConnection;
 using IntegrationLibrary.Core.Repository.BloodBanks;
 using IntegrationLibrary.Core.Service.BloodBanks;
-using IntegrationLibrary.Settings;
 using Moq;
 using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
-using System.Linq;
 using IntegrationLibrary.Core.HospitalConnection;
 
 namespace IntegrationAPITests

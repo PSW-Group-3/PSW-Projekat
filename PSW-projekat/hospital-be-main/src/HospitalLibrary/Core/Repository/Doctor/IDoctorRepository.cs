@@ -1,6 +1,4 @@
 ﻿using HospitalLibrary.Core.Model;
-﻿using HospitalLibrary.Core.DTOs.CreatingAppointmentsDTOs;
-using HospitalLibrary.Core.Model;
 using HospitalLibrary.Core.Model.Enums;
 using System.Collections.Generic;
 

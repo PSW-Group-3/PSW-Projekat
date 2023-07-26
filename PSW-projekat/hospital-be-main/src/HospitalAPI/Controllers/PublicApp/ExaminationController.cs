@@ -1,19 +1,12 @@
 ﻿using HospitalLibrary.Core.DTOs;
 using HospitalLibrary.Core.Model;
 using HospitalLibrary.Core.Service;
-using IronPdf;
-using iTextSharp.text.pdf.qrcode;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-using Org.BouncyCastle.Utilities;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Net.WebRequestMethods;
 
 namespace HospitalAPI.Controllers.PublicApp
 {

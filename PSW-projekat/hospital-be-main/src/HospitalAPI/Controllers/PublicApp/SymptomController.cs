@@ -1,9 +1,7 @@
-﻿using HospitalLibrary.Core.DTOs;
-using HospitalLibrary.Core.Model;
+﻿using HospitalLibrary.Core.Model;
 using HospitalLibrary.Core.Service;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 
 namespace HospitalAPI.Controllers.PublicApp

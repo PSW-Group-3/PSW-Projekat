@@ -5,8 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HospitalLibrary.Core.Repository
 {
@@ -44,6 +42,11 @@ namespace HospitalLibrary.Core.Repository
         public Meal GetById(int id)
         {
             return _context.Meals.Find(id);
+        }
+
+        public IEnumerable<Meal> GetMealsForPatient(int patientId)
+        {
+            return _context.Meals.Where(m => m.Person.Id == patientId && m.DateOfMeal == DateTime.Today).ToList();
         }
 
         public void Update(Meal entity)

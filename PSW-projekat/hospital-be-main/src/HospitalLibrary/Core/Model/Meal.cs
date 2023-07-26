@@ -1,4 +1,5 @@
-﻿using HospitalLibrary.Core.Model.Enums;
+﻿using HospitalLibrary.Core.DTOs;
+using HospitalLibrary.Core.Model.Enums;
 using System;
 using System.Collections.Generic;
 
@@ -7,36 +8,38 @@ namespace HospitalLibrary.Core.Model
     public class Meal : BaseModel
     {
         public float Score { get; set; }
+        public DateTime DateOfMeal { get; set; }
         public MealType MealType { get; set; }
         public virtual Person Person { get; set; }
 
         public Meal() { }
 
-        public Meal(List<float> answers, MealType mealType, Person person)
+        public Meal(List<MealAnswerDTO> answers, MealType mealType, Person person)
         {
-            if (!IsValidate(answers, mealType)) throw new Exception("Meal invalid.");
+            if (!IsValid(answers, mealType)) throw new Exception("Meal invalid.");
             
             Score = CalculateScore(answers);
+            DateOfMeal = DateTime.Today;
             MealType = mealType;
             Person = person;        
         }
         
-        private bool IsValidate(List<float> answers, MealType mealType)
+        private bool IsValid(List<MealAnswerDTO> answers, MealType mealType)
         {
-            foreach(float answer in answers)
+            foreach(MealAnswerDTO answer in answers)
             {
-                if (answer < -1 || answer > 1) return false;
+                if (answer.Answer < -1 || answer.Answer > 1) return false;
             }
 
             return true;
         }
 
-        private float CalculateScore(List<float> answers)
+        private float CalculateScore(List<MealAnswerDTO> answers)
         {
             Score = 0;
-            foreach (float answer in answers)
+            foreach (MealAnswerDTO answer in answers)
             {
-                Score += answer;
+                Score += answer.Answer;
             }
 
             Score /= answers.Count;

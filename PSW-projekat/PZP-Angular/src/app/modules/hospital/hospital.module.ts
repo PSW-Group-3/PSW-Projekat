@@ -24,7 +24,8 @@ import { BankLoginComponent } from './bank-login/bank-login.component';
 import { MatNativeDateModule } from '@angular/material/core';
 import { PatientAppointmentsComponent } from './patient-appointments/patient-appointments.component';
 import { NavBarsModule } from "../nav-bar/nav-bars.module";
-import { PatientHealthScoreComponent } from './patient-health-score/patient-health-score.component';
+
+
 
 const routes: Routes = [
   { path: 'rooms', component: RoomsComponent },
@@ -38,7 +39,6 @@ const routes: Routes = [
   { path: 'account-activation', component: AccountActivationThanks },
   { path: 'account-activation-info', component: AccountActivationInfo },
   { path: 'patientInfo', component: PatientInfoComponent, canActivate: [ AuthGuard ] },
-  { path: 'patientHealth', component: PatientHealthScoreComponent, canActivate: [ AuthGuard ] },
   { path: 'scheduleAppointment', component: ScheduleAppointmentComponent, canActivate: [ AuthGuard ] },
   { path: 'view-all-open-tenders', component:ViewAllOpenTendersComponent},
   { path: 'tenders-details/:id', component:TenderDetailsComponent},
@@ -66,7 +66,6 @@ const routes: Routes = [
         BankLoginComponent,
         PatientAppointmentsComponent,
         CreateAppointment,
-        PatientHealthScoreComponent,
     ],
     exports: [RouterModule],
     providers: [AuthGuard],

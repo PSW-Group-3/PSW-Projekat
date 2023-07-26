@@ -1,5 +1,4 @@
 ﻿using HospitalAPI;
-using HospitalAPI.Controllers.PublicApp;
 using HospitalLibrary.Core.Service;
 using HospitalTests.Setup;
 using Microsoft.Extensions.DependencyInjection;
@@ -7,9 +6,6 @@ using Xunit;
 using HospitalLibrary.Core.Repository;
 using System.Collections.Generic;
 using HospitalLibrary.Core.DTOs.CreatingAppointmentsDTOs;
-using HospitalLibrary.Identity;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 
 namespace HospitalTests.Integration
 {

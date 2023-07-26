@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using System.Linq;
 using HospitalLibrary.Core.Model;
-using HospitalLibrary.Identity;
 using HospitalLibrary.Core.Model.Enums;
 using System;
 using HospitalLibrary.Core.Model.Aggregate;

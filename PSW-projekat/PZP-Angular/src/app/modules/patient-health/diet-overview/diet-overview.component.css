@@ -1,0 +1,36 @@
+h1 {
+    line-height: 1.2;
+    font-size: 4rem;
+    font-weight: 600;
+    background-image: linear-gradient(to bottom right, #4451b3, #212529);
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    width: 300px;
+    height: 220px;
+    margin: 1rem;
+}
+
+.mat-card{
+    display:flex;
+    flex-direction: column;
+  }
+  
+  .mat-card-header {
+    flex-shrink: 0;
+  }
+  
+  .mat-card-content{
+    flex-grow: 1;
+    margin: 0 16px 16px 16px;
+    overflow: auto;
+  }

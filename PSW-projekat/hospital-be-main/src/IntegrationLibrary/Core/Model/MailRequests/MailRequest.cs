@@ -1,12 +1,6 @@
-﻿using IntegrationLibrary.Core.Exceptions;
-using Microsoft.AspNetCore.Http;
-using System;
+﻿using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Net.Mail;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IntegrationLibrary.Core.Model.MailRequests
 {

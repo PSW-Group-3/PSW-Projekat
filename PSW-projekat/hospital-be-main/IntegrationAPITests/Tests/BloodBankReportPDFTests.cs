@@ -7,18 +7,13 @@ using IntegrationLibrary.Core.Repository.BloodRequests;
 using IntegrationLibrary.Core.Service;
 using IntegrationLibrary.Core.Service.BloodBanks;
 using IntegrationLibrary.Core.Service.BloodRequests;
-using IntegrationLibrary.Core.Service.Generators;
 using IntegrationLibrary.Core.Service.Reports;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Moq;
-using Shouldly;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace IntegrationAPITests.Tests

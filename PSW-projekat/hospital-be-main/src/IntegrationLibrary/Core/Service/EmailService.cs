@@ -1,15 +1,8 @@
-﻿using IntegrationLibrary.Core.Exceptions;
-using IntegrationLibrary.Core.Model.MailRequests;
+﻿using IntegrationLibrary.Core.Model.MailRequests;
 using IntegrationLibrary.Settings;
-using MailKit.Net.Smtp;
 using Microsoft.Extensions.Options;
 using MimeKit;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Net.Mail;
-using System.Text;
 using System.Threading.Tasks;
 using SmtpClient = MailKit.Net.Smtp.SmtpClient;
 

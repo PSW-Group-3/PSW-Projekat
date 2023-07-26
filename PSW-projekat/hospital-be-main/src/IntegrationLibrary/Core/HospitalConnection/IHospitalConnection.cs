@@ -1,11 +1,4 @@
-﻿using HospitalLibrary.Core.DTOs;
-using HospitalLibrary.Core.Model;
-using IntegrationLibrary.Core.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using HospitalLibrary.Core.Model;
 
 namespace IntegrationLibrary.Core.HospitalConnection
 {

@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using HospitalAPI;
 using HospitalAPI.Controllers;
-using HospitalAPI.Controllers.PublicApp;
 using HospitalLibrary.Core.DTOs;
 using HospitalLibrary.Core.Model;
-using HospitalLibrary.Core.Model.Enums;
 using HospitalLibrary.Core.Service;
 using HospitalTests.Setup;
 using Microsoft.AspNetCore.Mvc;

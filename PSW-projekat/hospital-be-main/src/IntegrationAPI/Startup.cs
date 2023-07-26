@@ -23,14 +23,11 @@ using IntegrationLibrary.Core.Service.ScheduledOrders;
 using IntegrationLibrary.Core.Repository.ScheduledOrder;
 using IntegrationLibrary.Core.Service.Tenders;
 using IntegrationLibrary.Core.Repository.Tenders;
-using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 using IntegrationLibrary.Core.HospitalConnection;
 using IntegrationLibrary.Core.Service.EmergencyBloodRequests;
-using IntegrationAPI.Adapters;
 using IntegrationLibrary.Core.Service.HostedServices;
 using IntegrationLibrary.Core.Repository.EmergencyBloodRequests;
 using IntegrationLibrary.Core.SFTPConnection;
-using HospitalLibrary.Settings;
 
 namespace IntegrationAPI
 {

@@ -7,7 +7,7 @@ import { StepperOrientation } from '@angular/material/stepper';
 import { Observable, map } from 'rxjs';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { AppointmentsService } from '../services/appointments.service';
-import { DateAndDoctorForNewAppointmentDto } from '../model/DateAndDoctorForNewAppointmentDto.model';
+import { DateAndDoctorForNewAppointmentDto } from '../model/dateAndDoctorForNewAppointmentDto.model';
 import { LoginService } from '../services/login.service';
 import { EventSourcingService } from '../services/event-sourcing.service';
 import { AppointmentSchedulingEventDTO } from '../model/appointment-scheduling-event-dto';

@@ -1,20 +1,8 @@
 ﻿using IntegrationAPI;
 using IntegrationAPI.Controllers;
-using IntegrationAPI.DTO;
 using IntegrationAPITests.Setup;
-using IntegrationLibrary.Core.Model;
-using IntegrationLibrary.Core.Model.Tender;
-using IntegrationLibrary.Core.Service;
-using IntegrationLibrary.Core.Service.BloodBanks;
 using IntegrationLibrary.Core.Service.Tenders;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Xunit;
 
 namespace IntegrationAPITests.Tests
 {

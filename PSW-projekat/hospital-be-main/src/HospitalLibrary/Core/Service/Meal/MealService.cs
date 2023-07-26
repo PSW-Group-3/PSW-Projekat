@@ -3,9 +3,6 @@ using HospitalLibrary.Core.Model.Enums;
 using HospitalLibrary.Core.Repository;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HospitalLibrary.Core.Service
 {
@@ -41,6 +38,11 @@ namespace HospitalLibrary.Core.Service
         public Meal GetById(int id)
         {
             throw new NotImplementedException();
+        }
+
+        public IEnumerable<Meal> GetMealsForPatient(int patientId)
+        {
+            return _mealRepository.GetMealsForPatient(patientId);
         }
 
         public void Update(Meal entity)

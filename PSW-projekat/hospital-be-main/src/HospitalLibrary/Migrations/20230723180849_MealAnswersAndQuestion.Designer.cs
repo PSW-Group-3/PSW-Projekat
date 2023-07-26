@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HospitalLibrary.Migrations
 {
     [DbContext(typeof(HospitalDbContext))]
-    [Migration("20230515115807_MealUpdate")]
-    partial class MealUpdate
+    [Migration("20230723180849_MealAnswersAndQuestion")]
+    partial class MealAnswersAndQuestion
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -270,41 +270,6 @@ namespace HospitalLibrary.Migrations
                     b.ToTable("Bloods");
                 });
 
-            modelBuilder.Entity("HospitalLibrary.Core.Model.DailyDiet", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("BreakfastId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("Deleted")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("DinnerId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("LunchId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("PersonId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BreakfastId");
-
-                    b.HasIndex("DinnerId");
-
-                    b.HasIndex("LunchId");
-
-                    b.HasIndex("PersonId");
-
-                    b.ToTable("DailyDiets");
-                });
-
             modelBuilder.Entity("HospitalLibrary.Core.Model.Doctor", b =>
                 {
                     b.Property<int>("Id")
@@ -467,6 +432,9 @@ namespace HospitalLibrary.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTime>("DateOfMeal")
+                        .HasColumnType("datetime2");
+
                     b.Property<bool>("Deleted")
                         .HasColumnType("bit");
 
@@ -484,6 +452,55 @@ namespace HospitalLibrary.Migrations
                     b.HasIndex("PersonId");
 
                     b.ToTable("Meals");
+                });
+
+            modelBuilder.Entity("HospitalLibrary.Core.Model.MealAnswer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<float>("Answer")
+                        .HasColumnType("real");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("MealId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("MealQuestionId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MealId");
+
+                    b.HasIndex("MealQuestionId");
+
+                    b.ToTable("MealAnswers");
+                });
+
+            modelBuilder.Entity("HospitalLibrary.Core.Model.MealQuestion", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("MealType")
+                        .HasColumnType("int");
+
+                    b.Property<string>("QuestionText")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MealQuestion");
                 });
 
             modelBuilder.Entity("HospitalLibrary.Core.Model.Medicine", b =>
@@ -999,33 +1016,6 @@ namespace HospitalLibrary.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("HospitalLibrary.Core.Model.DailyDiet", b =>
-                {
-                    b.HasOne("HospitalLibrary.Core.Model.Meal", "Breakfast")
-                        .WithMany()
-                        .HasForeignKey("BreakfastId");
-
-                    b.HasOne("HospitalLibrary.Core.Model.Meal", "Dinner")
-                        .WithMany()
-                        .HasForeignKey("DinnerId");
-
-                    b.HasOne("HospitalLibrary.Core.Model.Meal", "Lunch")
-                        .WithMany()
-                        .HasForeignKey("LunchId");
-
-                    b.HasOne("HospitalLibrary.Core.Model.Person", "Person")
-                        .WithMany()
-                        .HasForeignKey("PersonId");
-
-                    b.Navigation("Breakfast");
-
-                    b.Navigation("Dinner");
-
-                    b.Navigation("Lunch");
-
-                    b.Navigation("Person");
-                });
-
             modelBuilder.Entity("HospitalLibrary.Core.Model.Doctor", b =>
                 {
                     b.HasOne("HospitalLibrary.Core.Model.Person", "Person")
@@ -1170,6 +1160,21 @@ namespace HospitalLibrary.Migrations
                         .HasForeignKey("PersonId");
 
                     b.Navigation("Person");
+                });
+
+            modelBuilder.Entity("HospitalLibrary.Core.Model.MealAnswer", b =>
+                {
+                    b.HasOne("HospitalLibrary.Core.Model.Meal", "Meal")
+                        .WithMany()
+                        .HasForeignKey("MealId");
+
+                    b.HasOne("HospitalLibrary.Core.Model.MealQuestion", "MealQuestion")
+                        .WithMany()
+                        .HasForeignKey("MealQuestionId");
+
+                    b.Navigation("Meal");
+
+                    b.Navigation("MealQuestion");
                 });
 
             modelBuilder.Entity("HospitalLibrary.Core.Model.Medicine", b =>

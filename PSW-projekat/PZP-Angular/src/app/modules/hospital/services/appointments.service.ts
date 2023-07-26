@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { PatientAppointment } from '../model/patientAppointmentsDto.model';
 import { ScheduleAppointment, Specialization } from '../model/scheduleAppointment.model';
 import { DoctorForPatientRegistrationDto } from '../model/doctorForPatientRegistrationDto.model';
-import { DateAndDoctorForNewAppointmentDto } from '../model/DateAndDoctorForNewAppointmentDto.model';
+import { DateAndDoctorForNewAppointmentDto } from '../model/dateAndDoctorForNewAppointmentDto.model';
 
 @Injectable({
   providedIn: 'root'

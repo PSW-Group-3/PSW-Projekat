@@ -5,7 +5,6 @@ using HospitalLibrary.Core.Service;
 using HospitalLibrary.Core.Service.CouncilOfDoctors;
 
 using HospitalLibrary.Core.Repository.Notification;
-using HospitalLibrary.Core.Service;
 using HospitalLibrary.Core.Service.Notification;
 using HospitalLibrary.Identity;
 using HospitalLibrary.Settings;
@@ -39,6 +38,8 @@ namespace HospitalAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors();
+            services.AddAutoMapper(typeof(Startup));
+
             services.AddDbContext<HospitalDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("HospitalDb")).UseLazyLoadingProxies());
 
@@ -153,11 +154,14 @@ namespace HospitalAPI
             services.AddScoped<DoctorExaminationEventsRepository>();
             services.AddScoped<ExaminationStatisticService>();
 
-            services.AddScoped<IDietService, DietService>();
-            services.AddScoped<IDietRepository, DietRepository>();
-
             services.AddScoped<IMealService, MealService>();
             services.AddScoped<IMealRepository, MealRepository>();
+
+            services.AddScoped<IMealAnswerService, MealAnswerService>();
+            services.AddScoped<IMealAnswerRepository, MealAnswerRepository>();
+
+            services.AddScoped<IMealQuestionService, MealQuestionService>();
+            services.AddScoped<IMealQuestionRepository, MealQuestionRepository>();
 
             services.AddScoped<ITrainingService, TrainingService>();
 

@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using IntegrationAPI.DTO;
-using IntegrationLibrary.Core.Model;
 using IntegrationLibrary.Core.Model.Tender;
 
 namespace IntegrationAPI.Adapters

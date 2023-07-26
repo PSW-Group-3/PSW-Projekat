@@ -5,7 +5,6 @@ using HospitalAPI;
 using HospitalAPI.Controllers.PublicApp;
 using HospitalLibrary.Core.DTOs;
 using HospitalLibrary.Core.Model;
-using HospitalLibrary.Core.Model.Enums;
 using HospitalLibrary.Core.Repository;
 using HospitalLibrary.Core.Service;
 using HospitalTests.Setup;

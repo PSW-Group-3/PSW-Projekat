@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using System.Linq;
-using HospitalLibrary.Core.Model;
 using HospitalLibrary.Identity;
 
 namespace HospitalTests.Setup

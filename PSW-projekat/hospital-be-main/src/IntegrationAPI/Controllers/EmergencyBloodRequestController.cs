@@ -2,13 +2,9 @@
 using IntegrationAPI.DTO;
 using IntegrationLibrary.Core.Model;
 using IntegrationLibrary.Core.Service.EmergencyBloodRequests;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Net.Http.Headers;
 
 namespace IntegrationAPI.Controllers
 {

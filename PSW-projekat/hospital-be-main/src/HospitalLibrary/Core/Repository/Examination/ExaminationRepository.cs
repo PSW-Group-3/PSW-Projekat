@@ -1,5 +1,4 @@
 ﻿using HospitalLibrary.Core.Model;
-using HospitalLibrary.Core.Model.Enums;
 using HospitalLibrary.Settings;
 using Microsoft.EntityFrameworkCore;
 using System;

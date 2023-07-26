@@ -1,7 +1,4 @@
-﻿using Microsoft.VisualBasic;
-using System.ComponentModel.DataAnnotations;
-using System;
-using IntegrationAPI.DTO;
+﻿using IntegrationAPI.DTO;
 using IntegrationLibrary.Core.Model;
 
 namespace IntegrationAPI.Adapters

@@ -1,5 +1,4 @@
 ﻿using HospitalLibrary.Core.Model;
-using HospitalLibrary.Core.Model.Enums;
 using HospitalLibrary.Core.Service;
 using HospitalLibrary.Identity;
 using Microsoft.AspNetCore.Authorization;
@@ -7,7 +6,6 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.IdentityModel.Tokens.Jwt;
 
 namespace HospitalAPI.Controllers.PublicApp
 {

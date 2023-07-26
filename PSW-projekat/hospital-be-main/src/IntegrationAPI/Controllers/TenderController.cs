@@ -2,7 +2,6 @@
 using IntegrationAPI.DTO;
 using IntegrationLibrary.Core.Model.Tender;
 using IntegrationLibrary.Core.Service.Tenders;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System;

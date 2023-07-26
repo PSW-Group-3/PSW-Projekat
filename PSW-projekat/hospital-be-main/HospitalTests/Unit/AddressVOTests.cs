@@ -1,20 +1,8 @@
-﻿using HospitalAPI.Controllers;
-using HospitalAPI;
-using HospitalLibrary.Core.DTOs;
-using HospitalLibrary.Core.Service;
+﻿using HospitalAPI;
 using HospitalTests.Setup;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 using HospitalLibrary.Core.Model;
-using System.Security.Principal;
-using Microsoft.IdentityModel.Tokens;
-using System.Drawing.Printing;
 
 namespace HospitalTests.Unit
 {

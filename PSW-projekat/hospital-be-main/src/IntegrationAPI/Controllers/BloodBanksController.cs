@@ -1,7 +1,5 @@
 using HospitalLibrary.Core.DTOs;
 using AutoMapper;
-using IntegrationAPI.Adapters;
-using IntegrationAPI.Controllers.Interfaces;
 using IntegrationAPI.DTO;
 using IntegrationLibrary.Core.Exceptions;
 using IntegrationLibrary.Core.Model;

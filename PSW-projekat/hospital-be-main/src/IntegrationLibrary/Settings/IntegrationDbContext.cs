@@ -1,16 +1,9 @@
 ﻿using IntegrationLibrary.Core.Model;
 using IntegrationLibrary.Core.Model.Tender;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
-using MimeKit;
 using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace IntegrationLibrary.Settings
 {

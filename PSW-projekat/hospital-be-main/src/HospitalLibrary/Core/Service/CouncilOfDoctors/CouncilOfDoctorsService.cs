@@ -1,13 +1,10 @@
-﻿using HospitalLibrary.Core.DTOs;
-using HospitalLibrary.Core.Model;
+﻿using HospitalLibrary.Core.Model;
 using HospitalLibrary.Core.Model.Enums;
 using HospitalLibrary.Core.Repository;
 using HospitalLibrary.Core.Repository.CouncilOfDoctors;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HospitalLibrary.Core.Service.CouncilOfDoctors
 {

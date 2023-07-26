@@ -1,10 +1,7 @@
-﻿using HospitalTests.e2e_T10.Pages;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.DevTools.V106.Network;
 using Shouldly;
 using System;
-using System.Threading;
 using Xunit;
 
 namespace HospitalTests.e2e_T10

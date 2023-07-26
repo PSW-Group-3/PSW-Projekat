@@ -3,15 +3,11 @@ using IntegrationLibrary.Core.Model;
 using IntegrationLibrary.Core.Model.MailRequests;
 using IntegrationLibrary.Core.Repository.BloodBanks;
 using IntegrationLibrary.Core.Service.Generators;
-using IntegrationLibrary.Core.Repository;
 using IntegrationLibrary.Core.BloodBankConnection;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using IntegrationLibrary.Core.HospitalConnection;
-using HospitalLibrary.Core.DTOs;
 
 namespace IntegrationLibrary.Core.Service.BloodBanks
 {

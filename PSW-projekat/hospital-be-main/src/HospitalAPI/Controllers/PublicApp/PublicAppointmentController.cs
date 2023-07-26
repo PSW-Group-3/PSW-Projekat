@@ -5,7 +5,6 @@ using HospitalLibrary.Core.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-using Org.BouncyCastle.Bcpg.Sig;
 using System;
 using System.Collections.Generic;
 

@@ -1,14 +1,10 @@
 ﻿using HospitalAPI.Adapters;
 using HospitalAPI.DTO;
 using HospitalLibrary.Core.Model;
-using HospitalLibrary.Core.Model.Enums;
 using HospitalLibrary.Core.Service;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace HospitalAPI.Controllers.PrivateApp
 {

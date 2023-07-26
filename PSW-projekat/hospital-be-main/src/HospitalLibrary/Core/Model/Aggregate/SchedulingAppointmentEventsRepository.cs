@@ -3,9 +3,6 @@ using HospitalLibrary.Settings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static iTextSharp.text.pdf.events.IndexEvents;
 
 namespace HospitalLibrary.Core.Model.Aggregate
 {

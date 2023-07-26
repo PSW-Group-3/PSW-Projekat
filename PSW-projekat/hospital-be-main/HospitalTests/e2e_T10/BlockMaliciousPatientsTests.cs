@@ -2,7 +2,6 @@
 using OpenQA.Selenium.Chrome;
 using Shouldly;
 using System;
-using System.Threading;
 using Xunit;
 
 namespace HospitalTests.e2e_T10

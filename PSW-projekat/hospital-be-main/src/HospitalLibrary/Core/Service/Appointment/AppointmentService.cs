@@ -2,13 +2,11 @@
 using HospitalLibrary.Core.DTOs.CreatingAppointmentsDTOs;
 using HospitalLibrary.Core.Model;
 using HospitalLibrary.Core.Repository;
-using iTextSharp.text.pdf.parser;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
-using static iTextSharp.text.pdf.events.IndexEvents;
 
 namespace HospitalLibrary.Core.Service
 {
