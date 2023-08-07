@@ -49,9 +49,14 @@ namespace HospitalLibrary.Core.Repository
             return _context.Meals.Find(id);
         }
 
-        public IEnumerable<Meal> GetMealsForPatient(int patientId)
+        public IEnumerable<Meal> GetMealsForPatientByDate(int patientId, DateTime dateTime)
         {
-            return _context.Meals.Where(m => m.Person.Id == patientId && m.DateOfMeal == DateTime.Today).ToList();
+            return _context.Meals.Where(m => m.Person.Id == patientId && m.DateOfMeal == dateTime).ToList();
+        }
+
+        public IEnumerable<Meal> GetMealsForPatientInLast30DaysByType(int patientId, MealType mealType)
+        {
+            return _context.Meals.Where(m => m.Person.Id == patientId && m.DateOfMeal >= DateTime.Today.AddDays(-30) && m.DateOfMeal <= DateTime.Today && m.MealType == mealType).OrderBy(m => m.DateOfMeal).ToList();
         }
 
         public void Update(Meal entity)

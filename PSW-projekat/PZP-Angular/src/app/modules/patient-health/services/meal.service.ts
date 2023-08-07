@@ -18,8 +18,8 @@ export class MealService {
   }
 
 
-  getMealsForPatient(patientId: number): Observable<MealInfoDTO[]> {
-    return this.http.get<[]>('api/Meal/patient/' + patientId, { headers: this.headers });
+  getMealsForPatientByDate(patientId: number, dateTime: Date): Observable<MealInfoDTO[]> {
+    return this.http.get<[]>('api/Meal/patient/' + patientId + "/" + dateTime.toDateString(), { headers: this.headers });
   }
 
   addMeal(mealDTO: MealDTO): Observable<MealDTO> {

@@ -8,7 +8,7 @@ namespace HospitalLibrary.Core.Service
     public interface IMealService : IService<Meal>
     {
         IEnumerable<Meal> GetAllMealsByType(MealType mealType);
-        IEnumerable<Meal> GetMealsForPatient(int patientId);
+        IEnumerable<Meal> GetMealsForPatientByDate(int patientId, DateTime dateTime);
         Meal GetByDateAndType(DateTime today, MealType mealType);
     }
 }

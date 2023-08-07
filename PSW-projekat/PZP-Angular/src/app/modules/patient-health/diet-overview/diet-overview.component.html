@@ -1,9 +1,9 @@
 <app-patient-nav-bar></app-patient-nav-bar>
-<div class="center">
-    <h1>Diet Overview</h1>
-</div>
 
 <div class="center">
+    <h1>Today's diet</h1>
+</div>
+<div class="cards-center">
     <mat-card class="card" *ngFor="let mealinfo of mealInfos; let i = index">
         <mat-card-header>
           <mat-card-title>{{mealinfo.mealTypeString}}</mat-card-title>
@@ -41,4 +41,22 @@
             <button mat-raised-button color="primary" (click)="openWaterDialog(waterInfo.mealTypeNumber, waterInfo.mealTypeString, waterInfo.isAdded)" *ngIf="waterInfo.isAdded==true">Edit Water intake</button>
         </mat-card-actions>
     </mat-card>
+</div>
+
+<div class="center">
+    <h1>Diet Statistics</h1>
+</div>
+<div class="charts">
+    <div class="chart">
+        <canvas id="breakfastScoreChart">{{ breakfastScoreChart }}</canvas>
+    </div>
+    <div class="chart">
+        <canvas id="lunchScoreChart">{{ lunchScoreChart }}</canvas>
+    </div>
+    <div class="chart">
+        <canvas id="dinnerScoreChart">{{ dinnerScoreChart }}</canvas>
+    </div>
+    <div class="chart">
+        <canvas id="waterScoreChart">{{ waterScoreChart }}</canvas>
+    </div>
 </div>

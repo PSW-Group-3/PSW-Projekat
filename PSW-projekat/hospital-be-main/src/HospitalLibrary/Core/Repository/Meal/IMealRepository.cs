@@ -8,7 +8,8 @@ namespace HospitalLibrary.Core.Repository
     public interface IMealRepository : IRepository<Meal>
     {
         IEnumerable<Meal> GetAllMealsByType(MealType mealType);
-        IEnumerable<Meal> GetMealsForPatient(int patientId);
+        IEnumerable<Meal> GetMealsForPatientByDate(int patientId, DateTime dateTime);
         Meal GetByDateAndType(DateTime dateTime, MealType mealType);
+        IEnumerable<Meal> GetMealsForPatientInLast30DaysByType(int patientId, MealType mealType);
     }
 }

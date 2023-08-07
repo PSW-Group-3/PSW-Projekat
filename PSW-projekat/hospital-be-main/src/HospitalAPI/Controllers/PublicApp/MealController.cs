@@ -18,15 +18,17 @@ namespace HospitalAPI.Controllers.PublicApp
     public class MealController : ControllerBase
     {
         private readonly IMealService _mealService;
+        private readonly MealStatisticsService _mealStatisticsService;
         private readonly IMealAnswerService _mealAnswerService;
         private readonly IMealQuestionService _mealQuestionService;
         private readonly IPersonService _personService;
         private readonly IMapper _mapper;
 
 
-        public MealController(IMealService mealService, IMealAnswerService mealAnswerService, IMealQuestionService mealQuestionService, IPersonService personService, IMapper mapper)
+        public MealController(IMealService mealService, MealStatisticsService mealStatisticsService, IMealAnswerService mealAnswerService, IMealQuestionService mealQuestionService, IPersonService personService, IMapper mapper)
         {
             _mealService = mealService;
+            _mealStatisticsService = mealStatisticsService;
             _mealAnswerService = mealAnswerService;
             _mealQuestionService = mealQuestionService;
             _personService = personService;
@@ -49,10 +51,17 @@ namespace HospitalAPI.Controllers.PublicApp
         }
 
         //[Authorize]
-        [HttpGet("patient/{patientId}")]
-        public ActionResult GetMealsForPatient(int patientId)
+        [HttpGet("patient/{patientId}/{dateTime}")]
+        public ActionResult GetMealsForPatientByDate(int patientId, DateTime dateTime)
         {
-            return Ok(MealAdapter.ToListInfoDTO((List<Meal>)_mealService.GetMealsForPatient(patientId)));
+            return Ok(MealAdapter.ToListInfoDTO((List<Meal>)_mealService.GetMealsForPatientByDate(patientId, dateTime)));
+        }
+
+        //[Authorize]
+        [HttpGet("statistics/{patientId}")]
+        public ActionResult GetMealStatistics(int patientId)
+        {
+            return Ok(_mealStatisticsService.GetMealStatistics(patientId));
         }
 
         //[Authorize]

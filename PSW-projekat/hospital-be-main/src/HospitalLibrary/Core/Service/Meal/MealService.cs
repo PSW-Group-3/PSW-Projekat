@@ -45,9 +45,9 @@ namespace HospitalLibrary.Core.Service
             return _mealRepository.GetByDateAndType(dateTime, mealType);
         }
 
-        public IEnumerable<Meal> GetMealsForPatient(int patientId)
+        public IEnumerable<Meal> GetMealsForPatientByDate(int patientId, DateTime dateTime)
         {
-            return _mealRepository.GetMealsForPatient(patientId);
+            return _mealRepository.GetMealsForPatientByDate(patientId, dateTime);
         }
 
         public void Update(Meal entity)
