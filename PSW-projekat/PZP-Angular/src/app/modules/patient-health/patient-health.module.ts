@@ -13,6 +13,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { AddMealDialogComponent } from './add-meal-dialog/add-meal-dialog.component';
 import {MatDividerModule} from '@angular/material/divider';
+import { AddWaterDialogComponent } from './add-water-dialog/add-water-dialog.component';
 
 
 const routes: Routes = [
@@ -25,6 +26,7 @@ const routes: Routes = [
     PatientHealthScoreComponent,
     DietOverviewComponent,
     AddMealDialogComponent,
+    AddWaterDialogComponent,
   ],
   exports: [RouterModule],
   providers: [AuthGuard],

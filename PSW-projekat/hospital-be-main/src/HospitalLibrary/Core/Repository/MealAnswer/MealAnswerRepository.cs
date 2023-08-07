@@ -43,6 +43,11 @@ namespace HospitalLibrary.Core.Repository
             return _context.MealAnswers.Find(id);
         }
 
+        public MealAnswer GetMealAnswerForMealByQuestionId(Meal meal, int mealQuestionId)
+        {
+            return _context.MealAnswers.Where(m => m.Meal.Id == meal.Id && m.MealQuestion.Id == mealQuestionId).FirstOrDefault();
+        }
+
         public void Update(MealAnswer entity)
         {
             _context.Entry(entity).State = EntityState.Modified;

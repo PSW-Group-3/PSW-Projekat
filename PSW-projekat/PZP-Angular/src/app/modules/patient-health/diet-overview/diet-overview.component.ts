@@ -3,12 +3,20 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef } from '@angu
 import { MealQuestionDTO } from '../model/meal-questionDTO.model';
 import { MealService } from '../services/meal.service';
 import { AddMealDialogComponent } from '../add-meal-dialog/add-meal-dialog.component';
+import { AddWaterDialogComponent } from '../add-water-dialog/add-water-dialog.component';
 
 
-export interface DialogData {
+export interface AddMealDialogData {
   mealTypeString: string;
   mealTypeNumber: number;
   mealQuestions: MealQuestionDTO[];
+}
+
+export interface AddWaterDialogData {
+  mealTypeString: string;
+  mealTypeNumber: number;
+  mealQuestions: MealQuestionDTO[];
+  shouldEdit: boolean;
 }
 
 export interface MealInfo {
@@ -30,6 +38,7 @@ export class DietOverviewComponent implements OnInit {
   breakfastInfo: MealInfo = {mealTypeString: 'Breakfast', mealTypeNumber: 0, isAdded: false, mealScore: ''};
   lunchInfo: MealInfo = {mealTypeString: 'Lunch', mealTypeNumber: 1, isAdded: false, mealScore: ''};
   dinnerInfo: MealInfo = {mealTypeString: 'Dinner', mealTypeNumber: 2, isAdded: false, mealScore: ''};
+  waterInfo: MealInfo = {mealTypeString: 'Water intake', mealTypeNumber: 3, isAdded: false, mealScore: ''};
   mealInfos: MealInfo[] = [this.breakfastInfo, this.lunchInfo, this.dinnerInfo];
 
   constructor(public dialog: MatDialog, private mealService: MealService) { }
@@ -47,31 +56,23 @@ export class DietOverviewComponent implements OnInit {
           } else if (element.mealType == 2) {
             this.dinnerInfo.isAdded = true;
             this.dinnerInfo.mealScore = element.mealScore;
+          } else if (element.mealType == 3) {
+            this.waterInfo.isAdded = true;
+            this.waterInfo.mealScore = element.mealScore;
           }
         });
       }
     );
   }
 
-  async openMealDialog(mealType: number): Promise<void> {
-    let mealTypeString: string;
-    if (mealType == 0) {
-      mealTypeString = "Breakfast";
-    } else if (mealType == 1) {
-      mealTypeString = "Lunch";
-    } else if (mealType == 2) {
-      mealTypeString = "Dinner";
-    } else {
-      mealTypeString = "Undefined";
-    }
-
-    this.mealService.getQuestionsForMeal(mealType).subscribe(
+  async openMealDialog(mealTypeNumber: number, mealTypeString: string): Promise<void> {
+    this.mealService.getQuestionsForMeal(mealTypeNumber).subscribe(
       (data) => {
         const dialogRef = this.dialog.open(AddMealDialogComponent, {
-          data: {mealTypeString: mealTypeString, mealTypeNumber: mealType, mealQuestions: data},
+          data: {mealTypeString: mealTypeString, mealTypeNumber: mealTypeNumber, mealQuestions: data},
         });
-        dialogRef.afterClosed().subscribe(() => {
-          this.refreshPage()
+        dialogRef.afterClosed().subscribe(async () => {
+          await this.refreshPage()
         });
       },
       (error) => {
@@ -80,7 +81,23 @@ export class DietOverviewComponent implements OnInit {
     );
   }
 
-  private refreshPage() {
+  async openWaterDialog(mealTypeNumber: number, mealTypeString: string, shouldEdit: boolean): Promise<void> {
+    this.mealService.getQuestionsForMeal(mealTypeNumber).subscribe(
+      (data) => {
+        const dialogRef = this.dialog.open(AddWaterDialogComponent, {
+          data: {mealTypeString: mealTypeString, mealTypeNumber: mealTypeNumber, mealQuestions: data, shouldEdit: shouldEdit},
+        });
+        dialogRef.afterClosed().subscribe(async () => {
+          await this.refreshPage()
+        });
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  async refreshPage() {
     this.ngOnInit();
   }
 

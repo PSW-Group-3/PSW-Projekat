@@ -34,7 +34,7 @@ namespace HospitalLibrary.Core.Model
             return true;
         }
 
-        private float CalculateScore(List<MealAnswerDTO> answers)
+        public float CalculateScore(List<MealAnswerDTO> answers)
         {
             Score = 0;
             foreach (MealAnswerDTO answer in answers)

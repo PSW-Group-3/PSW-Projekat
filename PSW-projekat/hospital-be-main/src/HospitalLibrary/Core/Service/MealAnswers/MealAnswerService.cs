@@ -40,9 +40,14 @@ namespace HospitalLibrary.Core.Service
             throw new NotImplementedException();
         }
 
+        public MealAnswer GetMealAnswerForMealByQuestionId(Meal meal, int mealQuestionId)
+        {
+            return _mealAnswerRepository.GetMealAnswerForMealByQuestionId(meal, mealQuestionId);
+        }
+
         public void Update(MealAnswer entity)
         {
-            throw new NotImplementedException();
+            _mealAnswerRepository.Update(entity);
         }
     }
 }

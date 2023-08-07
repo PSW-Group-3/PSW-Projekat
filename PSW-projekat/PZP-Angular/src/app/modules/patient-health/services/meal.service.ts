@@ -17,12 +17,20 @@ export class MealService {
     return this.http.get<[]>('api/Meal/mealquestions/' + mealType, { headers: this.headers });
   }
 
+
+  getMealsForPatient(patientId: number): Observable<MealInfoDTO[]> {
+    return this.http.get<[]>('api/Meal/patient/' + patientId, { headers: this.headers });
+  }
+
   addMeal(mealDTO: MealDTO): Observable<MealDTO> {
     return this.http.post<MealDTO>('api/Meal/add', mealDTO, { headers: this.headers });
   }
 
-  getMealsForPatient(patientId: number): Observable<MealInfoDTO[]> {
-    return this.http.get<[]>('api/Meal/patient/' + patientId, { headers: this.headers });
+  addWater(mealDTO: MealDTO): Observable<MealDTO> {
+    return this.http.post<MealDTO>('api/Meal/add', mealDTO, { headers: this.headers });
+  }
+  editWater(mealDTO: MealDTO): Observable<MealDTO> {
+    return this.http.put<MealDTO>('api/Meal/edit', mealDTO, { headers: this.headers });
   }
 
 }

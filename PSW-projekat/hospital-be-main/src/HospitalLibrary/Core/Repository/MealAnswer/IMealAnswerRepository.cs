@@ -6,6 +6,7 @@ namespace HospitalLibrary.Core.Repository
 {
     public interface IMealAnswerRepository : IRepository<MealAnswer>
     {
-        public IEnumerable<MealAnswer> GetAllMealAnswersByMealType(MealType mealType);
+        IEnumerable<MealAnswer> GetAllMealAnswersByMealType(MealType mealType);
+        MealAnswer GetMealAnswerForMealByQuestionId(Meal meal, int mealQuestionId);
     }
 }

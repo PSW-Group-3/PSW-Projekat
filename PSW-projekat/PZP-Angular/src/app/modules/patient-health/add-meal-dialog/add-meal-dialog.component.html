@@ -1,9 +1,9 @@
 <h1 mat-dialog-title style="font-size: 1.6rem; font-weight: 500;">Add {{data.mealTypeString}}</h1>
 <div mat-dialog-content>
-    <p style="font-size: 1.2rem;">Answer the question about your meal.</p>
+    <p style="font-size: 1.2rem;">Answer the questions about your meal.</p>
     <div *ngFor="let question of data.mealQuestions; let i = index">
         <div class="columns">
-            <h3>Questions {{i+1}}:</h3>
+            <h3>Question {{i+1}}:</h3>
             <p>{{question.questionText}}</p>
         </div>
         <mat-form-field style="width: 100%;">

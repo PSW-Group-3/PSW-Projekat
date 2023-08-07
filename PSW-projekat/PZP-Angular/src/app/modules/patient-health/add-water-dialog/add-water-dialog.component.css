@@ -1,0 +1,25 @@
+.columns{
+    display: flex;
+    flex-direction: column;
+}
+
+.columns h3 {
+    margin: 0;
+    padding: 0;
+    font-weight: 500;
+    font-size: 1.2rem;
+}
+
+.columns p {
+    margin: 0.3rem 0 0.3rem 0;
+    padding: 0;
+    font-size: 1rem;
+}
+
+.errorMessage {
+    width: 100%;
+    font-size: 1.2rem;
+    color: red;
+    margin: 0;
+    padding: 0;
+}

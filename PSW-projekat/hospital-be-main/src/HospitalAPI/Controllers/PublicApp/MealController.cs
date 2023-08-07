@@ -82,6 +82,36 @@ namespace HospitalAPI.Controllers.PublicApp
                 return BadRequest(e.Message);
             }
         }
+
+        //[Authorize]
+        [HttpPut("edit")]
+        public ActionResult EditMeal(MealDTO dto)
+        {
+            Person person = _personService.GetById(dto.PersonId);
+            if (person == null)
+            {
+                return BadRequest("Person not found.");
+            }
+
+            try
+            {
+                Meal meal = _mealService.GetByDateAndType(DateTime.Today, dto.MealType);
+                meal.Score = meal.CalculateScore(dto.Answers);
+                _mealService.Update(meal);
+                foreach (MealAnswerDTO answerDTO in dto.Answers)
+                {
+                    MealAnswer mealAnswer = _mealAnswerService.GetMealAnswerForMealByQuestionId(meal, answerDTO.QuestionId);
+                    mealAnswer.Answer = answerDTO.Answer;
+                    _mealAnswerService.Update(mealAnswer);
+                }
+                /*_healthService.UpdateHealtScore(dto.PersonId) prebaciti ovaj poziv u mealService.*/
+                return StatusCode(201);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
     }
 }
 

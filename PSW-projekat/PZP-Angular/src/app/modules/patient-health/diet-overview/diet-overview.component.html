@@ -1,3 +1,4 @@
+<app-patient-nav-bar></app-patient-nav-bar>
 <div class="center">
     <h1>Diet Overview</h1>
 </div>
@@ -18,7 +19,7 @@
             </p>
         </mat-card-content>
         <mat-card-actions align="end">
-          <button mat-raised-button color="primary" (click)="openMealDialog(mealinfo.mealTypeNumber)" [disabled]="mealInfos[i].isAdded">Add {{mealinfo.mealTypeString}}</button>
+          <button mat-raised-button color="primary" (click)="openMealDialog(mealinfo.mealTypeNumber, mealinfo.mealTypeString)" [disabled]="mealInfos[i].isAdded">Add {{mealinfo.mealTypeString}}</button>
         </mat-card-actions>
     </mat-card>
     <mat-card class="card">
@@ -27,10 +28,17 @@
           <mat-card-subtitle>For day: {{todayDate.toDateString()}}</mat-card-subtitle>
         </mat-card-header>
         <mat-card-content >
-            
+            <p *ngIf="waterInfo.isAdded == true">
+                Your {{waterInfo.mealTypeString}} has been added for today.<br/>
+                Your water intake is: {{waterInfo.mealScore}}
+            </p>
+            <p *ngIf="waterInfo.isAdded == false">
+                Please add {{waterInfo.mealTypeString}} for today.
+            </p>
         </mat-card-content>
         <mat-card-actions align="end">
-            <button mat-raised-button color="primary">Water intake</button>
+            <button mat-raised-button color="primary" (click)="openWaterDialog(waterInfo.mealTypeNumber, waterInfo.mealTypeString, waterInfo.isAdded)" *ngIf="waterInfo.isAdded==false">Add Water intake</button>
+            <button mat-raised-button color="primary" (click)="openWaterDialog(waterInfo.mealTypeNumber, waterInfo.mealTypeString, waterInfo.isAdded)" *ngIf="waterInfo.isAdded==true">Edit Water intake</button>
         </mat-card-actions>
     </mat-card>
 </div>

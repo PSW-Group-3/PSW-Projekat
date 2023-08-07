@@ -13,23 +13,23 @@ namespace HospitalAPI.Adapters
         public static MealInfoDTO ToInfoDTO(Meal entity)
         {
             String mealScore = "";
-            if (entity.Score <= -0.5)
+            if (entity.Score < -0.5)
             {
                 mealScore = "Very Unhealthy";
             }
-            else if( -0.5 < entity.Score && entity.Score <= -0.1)
+            else if( -0.5 <= entity.Score && entity.Score <= -0.1)
             {
                 mealScore = "Unhealthy";
             }
-            else if(-0.1<entity.Score && entity.Score < 0.1)
+            else if(-0.1 < entity.Score && entity.Score < 0.1)
             {
                 mealScore = "Neutral";
             }
-            else if(0.1<=entity.Score && entity.Score < 0.5)
+            else if(0.1 <= entity.Score && entity.Score <= 0.5)
             {
                 mealScore = "Healthy";
             }
-            else if(0.5<= entity.Score)
+            else if(0.5 < entity.Score)
             {
                 mealScore = "Very Healthy";
             }

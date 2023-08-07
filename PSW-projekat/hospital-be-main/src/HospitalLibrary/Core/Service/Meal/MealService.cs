@@ -40,6 +40,11 @@ namespace HospitalLibrary.Core.Service
             throw new NotImplementedException();
         }
 
+        public Meal GetByDateAndType(DateTime dateTime, MealType mealType)
+        {
+            return _mealRepository.GetByDateAndType(dateTime, mealType);
+        }
+
         public IEnumerable<Meal> GetMealsForPatient(int patientId)
         {
             return _mealRepository.GetMealsForPatient(patientId);
@@ -47,7 +52,7 @@ namespace HospitalLibrary.Core.Service
 
         public void Update(Meal entity)
         {
-            throw new NotImplementedException();
+            _mealRepository.Update(entity);
         }
     }
 }

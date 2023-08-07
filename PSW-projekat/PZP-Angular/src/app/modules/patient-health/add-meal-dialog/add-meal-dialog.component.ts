@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { DialogData } from '../diet-overview/diet-overview.component';
+import { AddMealDialogData } from '../diet-overview/diet-overview.component';
 import { MatFormField } from '@angular/material/form-field';
 import { MealAnswerDTO } from '../model/meal-answerDTO.model';
 import { MealService } from '../services/meal.service';
@@ -19,7 +19,7 @@ export class AddMealDialogComponent implements OnInit{
   constructor(
     private mealService: MealService,
     public dialogRef: MatDialogRef<AddMealDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    @Inject(MAT_DIALOG_DATA) public data: AddMealDialogData,
   ) {}
 
   ngOnInit(): void {

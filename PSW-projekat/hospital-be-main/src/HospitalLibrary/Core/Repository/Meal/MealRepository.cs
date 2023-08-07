@@ -39,6 +39,11 @@ namespace HospitalLibrary.Core.Repository
             return _context.Meals.Where(m => m.MealType == mealType);
         }
 
+        public Meal GetByDateAndType(DateTime dateTime, MealType mealType)
+        {
+            return _context.Meals.Where(m => m.DateOfMeal == dateTime && m.MealType == mealType).FirstOrDefault();
+        }
+
         public Meal GetById(int id)
         {
             return _context.Meals.Find(id);
