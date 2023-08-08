@@ -5,14 +5,14 @@ export class MealStatisticsDTO{
     lunchLabels: string[];
     dinnerScores: number[];
     dinnerLabels: string[];
-    waterScores: number[];
-    waterLabels: string[];
+    waterIntakeScores: number[];
+    waterIntakeLabels: string[];
 
     public constructor(
         breakfastScores: number[], breakfastLabels: string[], 
         lunchScores: number[], lunchLabels: string[],
         dinnerScores: number[], dinnerLabels: string[],
-        waterScores: number[], waterLabels: string[]
+        waterIntakeScores: number[], waterIntakeLabels: string[]
         ) 
     {
         this.breakfastScores = breakfastScores;
@@ -21,7 +21,7 @@ export class MealStatisticsDTO{
         this.lunchLabels = lunchLabels;
         this.dinnerScores = dinnerScores;
         this.dinnerLabels = dinnerLabels;
-        this.waterScores = waterScores;
-        this.waterLabels = waterLabels;
+        this.waterIntakeScores = waterIntakeScores;
+        this.waterIntakeLabels = waterIntakeLabels;
     }
 }

@@ -76,7 +76,7 @@ export class DietOverviewComponent implements OnInit {
         this.createBreakfastScoreChart(data.breakfastLabels, data.breakfastScores);
         this.createLunchScoreChart(data.lunchLabels, data.lunchScores);
         this.createDinnerScoreChart(data.dinnerLabels, data.dinnerScores);
-        this.createWaterScoreChart(data.waterLabels, data.waterScores);
+        this.createWaterScoreChart(data.waterIntakeLabels, data.waterIntakeScores);
       }
     );
   }
@@ -104,7 +104,7 @@ export class DietOverviewComponent implements OnInit {
           data: {mealTypeString: mealTypeString, mealTypeNumber: mealTypeNumber, mealQuestions: data, shouldEdit: shouldEdit},
         });
         dialogRef.afterClosed().subscribe(async () => {
-          await this.refreshPage()
+          await this.refreshPage();
         });
       },
       (error) => {
@@ -114,7 +114,7 @@ export class DietOverviewComponent implements OnInit {
   }
 
   async refreshPage() {
-    this.ngOnInit();
+    location.reload();
   }
 
   private createBreakfastScoreChart(breakfastLabels: string[], breakfastScores: number[]) {

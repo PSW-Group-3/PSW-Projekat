@@ -65,13 +65,13 @@ SET IDENTITY_INSERT [dbo].[Doctors] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Patients] ON 
 
-INSERT [dbo].[Patients] ([Id], [BloodType], [PersonId], [DoctorId], [Deleted]) VALUES (1, 0, 8, 1, 0)
-INSERT [dbo].[Patients] ([Id], [BloodType], [PersonId], [DoctorId], [Deleted]) VALUES (2, 0, 9, 1, 0)
-INSERT [dbo].[Patients] ([Id], [BloodType], [PersonId], [DoctorId], [Deleted]) VALUES (3, 0, 10, 2, 0)
-INSERT [dbo].[Patients] ([Id], [BloodType], [PersonId], [DoctorId], [Deleted]) VALUES (4, 1, 11, 1, 0)
-INSERT [dbo].[Patients] ([Id], [BloodType], [PersonId], [DoctorId], [Deleted]) VALUES (5, 2, 12, 1, 0)
-INSERT [dbo].[Patients] ([Id], [BloodType], [PersonId], [DoctorId], [Deleted]) VALUES (6, 3, 13, 2, 0)
-INSERT [dbo].[Patients] ([Id], [BloodType], [PersonId], [DoctorId], [Deleted]) VALUES (7, 0, 14, 2, 0)
+INSERT [dbo].[Patients] ([Id], [BloodType], [HealthScore], [PersonId], [DoctorId], [Deleted]) VALUES (1, 0, 80.0, 8, 1, 0)
+INSERT [dbo].[Patients] ([Id], [BloodType], [HealthScore], [PersonId], [DoctorId], [Deleted]) VALUES (2, 0, 80.0, 9, 1, 0)
+INSERT [dbo].[Patients] ([Id], [BloodType], [HealthScore], [PersonId], [DoctorId], [Deleted]) VALUES (3, 0, 80.0, 10, 2, 0)
+INSERT [dbo].[Patients] ([Id], [BloodType], [HealthScore], [PersonId], [DoctorId], [Deleted]) VALUES (4, 1, 80.0, 11, 1, 0)
+INSERT [dbo].[Patients] ([Id], [BloodType], [HealthScore], [PersonId], [DoctorId], [Deleted]) VALUES (5, 2, 80.0, 12, 1, 0)
+INSERT [dbo].[Patients] ([Id], [BloodType], [HealthScore], [PersonId], [DoctorId], [Deleted]) VALUES (6, 3, 80.0, 13, 2, 0)
+INSERT [dbo].[Patients] ([Id], [BloodType], [HealthScore], [PersonId], [DoctorId], [Deleted]) VALUES (7, 0, 80.0, 14, 2, 0)
 
 SET IDENTITY_INSERT [dbo].[Patients] OFF
 GO

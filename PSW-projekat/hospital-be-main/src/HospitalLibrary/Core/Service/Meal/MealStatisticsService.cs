@@ -21,12 +21,12 @@ namespace HospitalLibrary.Core.Service
 
 
 
-        public MealsStatisticsDTO GetMealStatistics(int patientId)
+        public MealsStatisticsDTO GetMealsStatistics(int patientId)
         {
-            MealStatisticsDTO breakfastStatisticsDTO = GetBreakfastStatistics(patientId);
-            MealStatisticsDTO lunchStatisticsDTO = GetLunchStatistics(patientId);
-            MealStatisticsDTO dinnerStatisticsDTO = GetDinnerStatistics(patientId);
-            MealStatisticsDTO waterIntakeStatisticsDTO = GetWaterIntakeStatistics(patientId);
+            MealStatisticsDTO breakfastStatisticsDTO = GetMealStatistics(patientId, MealType.breakfast);
+            MealStatisticsDTO lunchStatisticsDTO = GetMealStatistics(patientId, MealType.lunch);
+            MealStatisticsDTO dinnerStatisticsDTO = GetMealStatistics(patientId, MealType.dinner);
+            MealStatisticsDTO waterIntakeStatisticsDTO = GetMealStatistics(patientId, MealType.water);
 
             return new MealsStatisticsDTO(
                 breakfastStatisticsDTO.MealScores, breakfastStatisticsDTO.MealLabels,
@@ -36,9 +36,9 @@ namespace HospitalLibrary.Core.Service
                 );
         }
 
-        private MealStatisticsDTO GetBreakfastStatistics(int patientId)
+        private MealStatisticsDTO GetMealStatistics(int patientId, MealType mealType)
         {
-            List<Meal> meals = (List<Meal>)_mealRepository.GetMealsForPatientInLast30DaysByType(patientId, MealType.breakfast);
+            List<Meal> meals = (List<Meal>)_mealRepository.GetMealsForPatientInLast30DaysByType(patientId, mealType);
             List<float> breakfastScores = new List<float>();
             List<String> breakfastLabels = new List<String>();
             foreach (Meal meal in meals)
@@ -49,44 +49,7 @@ namespace HospitalLibrary.Core.Service
             return new MealStatisticsDTO(breakfastScores, breakfastLabels);
         }
 
-        private MealStatisticsDTO GetLunchStatistics(int patientId)
-        {
-            List<Meal> meals = (List<Meal>)_mealRepository.GetMealsForPatientInLast30DaysByType(patientId, MealType.lunch);
-            List<float> lunchScores = new List<float>();
-            List<String> lunchLabels = new List<String>();
-            foreach (Meal meal in meals)
-            {
-                lunchScores.Add(meal.Score);
-                lunchLabels.Add(meal.DateOfMeal.ToShortDateString());
-            }
-            return new MealStatisticsDTO(lunchScores, lunchLabels);
-        }
-
-        private MealStatisticsDTO GetDinnerStatistics(int patientId)
-        {
-            List<Meal> meals = (List<Meal>)_mealRepository.GetMealsForPatientInLast30DaysByType(patientId, MealType.dinner);
-            List<float> dinnerScores = new List<float>();
-            List<String> dinnerLabels = new List<String>();
-            foreach (Meal meal in meals)
-            {
-                dinnerScores.Add(meal.Score);
-                dinnerLabels.Add(meal.DateOfMeal.ToShortDateString());
-            }
-            return new MealStatisticsDTO(dinnerScores, dinnerLabels);
-        }
-
-        private MealStatisticsDTO GetWaterIntakeStatistics(int patientId)
-        {
-            List<Meal> meals = (List<Meal>)_mealRepository.GetMealsForPatientInLast30DaysByType(patientId, MealType.water);
-            List<float> waterIntakeScores = new List<float>();
-            List<String> waterIntakeLabels = new List<String>();
-            foreach (Meal meal in meals)
-            {
-                waterIntakeScores.Add(meal.Score);
-                waterIntakeLabels.Add(meal.DateOfMeal.ToShortDateString());
-            }
-            return new MealStatisticsDTO(waterIntakeScores, waterIntakeLabels);
-        }
+        
 
     }
 }

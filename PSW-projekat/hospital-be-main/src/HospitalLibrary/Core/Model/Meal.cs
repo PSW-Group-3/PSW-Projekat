@@ -16,7 +16,7 @@ namespace HospitalLibrary.Core.Model
 
         public Meal(List<MealAnswerDTO> answers, MealType mealType, Person person)
         {
-            if (!IsValid(answers, mealType)) throw new Exception("Meal invalid.");
+            if (!IsValid(answers, mealType)) throw new Exception("Meal invalid!");
             
             Score = CalculateScore(answers);
             DateOfMeal = DateTime.Today;

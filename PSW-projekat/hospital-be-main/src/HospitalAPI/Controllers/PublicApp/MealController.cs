@@ -61,7 +61,7 @@ namespace HospitalAPI.Controllers.PublicApp
         [HttpGet("statistics/{patientId}")]
         public ActionResult GetMealStatistics(int patientId)
         {
-            return Ok(_mealStatisticsService.GetMealStatistics(patientId));
+            return Ok(_mealStatisticsService.GetMealsStatistics(patientId));
         }
 
         //[Authorize]
