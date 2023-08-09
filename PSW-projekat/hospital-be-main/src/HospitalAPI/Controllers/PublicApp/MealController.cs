@@ -22,18 +22,17 @@ namespace HospitalAPI.Controllers.PublicApp
         private readonly IMealAnswerService _mealAnswerService;
         private readonly IMealQuestionService _mealQuestionService;
         private readonly IPersonService _personService;
-        private readonly IMapper _mapper;
+        private readonly IPatientService _patientService;
 
 
-        public MealController(IMealService mealService, MealStatisticsService mealStatisticsService, IMealAnswerService mealAnswerService, IMealQuestionService mealQuestionService, IPersonService personService, IMapper mapper)
+        public MealController(IMealService mealService, MealStatisticsService mealStatisticsService, IMealAnswerService mealAnswerService, IMealQuestionService mealQuestionService, IPersonService personService, IPatientService patientService)
         {
             _mealService = mealService;
             _mealStatisticsService = mealStatisticsService;
             _mealAnswerService = mealAnswerService;
             _mealQuestionService = mealQuestionService;
             _personService = personService;
-            _mapper = mapper;
-
+            _patientService = patientService;
         }
 
         //[Authorize]
@@ -83,7 +82,9 @@ namespace HospitalAPI.Controllers.PublicApp
                     MealAnswer mealAnswer = new MealAnswer(_mealQuestionService.GetById(answerDTO.QuestionId), meal, answerDTO.Answer);
                     _mealAnswerService.Create(mealAnswer);
                 }
-                /*_healthService.UpdateHealtScore(dto.PersonId) prebaciti ovaj poziv u mealService.*/
+                Patient patient = _patientService.getPatientByPersonId(person.Id);
+                patient.UpdateHealthScore(meal.Score);
+                _patientService.Update(patient);
                 return StatusCode(201);
             }
             catch(Exception e)
@@ -105,7 +106,8 @@ namespace HospitalAPI.Controllers.PublicApp
             try
             {
                 Meal meal = _mealService.GetByDateAndType(DateTime.Today, dto.MealType);
-                meal.Score = meal.CalculateScore(dto.Answers);
+                float currentScore = meal.Score;
+                meal.CalculateScore(dto.Answers);
                 _mealService.Update(meal);
                 foreach (MealAnswerDTO answerDTO in dto.Answers)
                 {
@@ -113,7 +115,12 @@ namespace HospitalAPI.Controllers.PublicApp
                     mealAnswer.Answer = answerDTO.Answer;
                     _mealAnswerService.Update(mealAnswer);
                 }
-                /*_healthService.UpdateHealtScore(dto.PersonId) prebaciti ovaj poziv u mealService.*/
+                if(currentScore != meal.Score)
+                {
+                    Patient patient = _patientService.getPatientByPersonId(person.Id);
+                    patient.UpdateHealthScore(meal.Score-currentScore);
+                    _patientService.Update(patient);
+                }
                 return StatusCode(201);
             }
             catch (Exception e)

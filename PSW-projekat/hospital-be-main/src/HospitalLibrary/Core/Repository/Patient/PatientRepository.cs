@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using HospitalLibrary.Core.Model;
 using HospitalLibrary.Settings;
+using Microsoft.EntityFrameworkCore;
 
 namespace HospitalLibrary.Core.Repository
 {
@@ -46,10 +47,20 @@ namespace HospitalLibrary.Core.Repository
 
         public void Update(Patient entity)
         {
-            throw new NotImplementedException();
+            _context.Entry(entity).State = EntityState.Modified;
+
+            try
+            {
+                _context.Update(entity);
+                _context.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                throw;
+            }
         }
 
-        public Patient RegisterPatient(Patient patient)
+            public Patient RegisterPatient(Patient patient)
         {
             _context.Patients.Add(patient);
             _context.SaveChanges();

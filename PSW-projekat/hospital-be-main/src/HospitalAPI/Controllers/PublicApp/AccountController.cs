@@ -223,12 +223,7 @@ namespace HospitalAPI.Controllers.PublicApp
             user = _personService.RegisterPerson(user);
             Doctor doctor = _doctorService.GetById(regUser.DoctorName.Id);
 
-            Patient patient = new Patient()
-            {
-                BloodType = regUser.BloodType,
-                Person = user,
-                Doctor = doctor
-            };
+            Patient patient = new Patient(regUser.BloodType, user, doctor);
 
             patient = _patientService.RegisterPatient(patient);
 

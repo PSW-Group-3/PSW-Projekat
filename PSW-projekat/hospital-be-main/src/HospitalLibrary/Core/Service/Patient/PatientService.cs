@@ -80,7 +80,7 @@ namespace HospitalLibrary.Core.Service
 
         public void Update(Patient entity)
         {
-            throw new NotImplementedException();
+            _patientRepository.Update(entity);
         }
 
         public void AddAllergyToPatient(Patient patient, List<Allergy> allergies)

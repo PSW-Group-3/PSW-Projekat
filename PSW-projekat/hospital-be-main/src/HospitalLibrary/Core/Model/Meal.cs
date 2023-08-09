@@ -18,7 +18,7 @@ namespace HospitalLibrary.Core.Model
         {
             if (!IsValid(answers, mealType)) throw new Exception("Meal invalid!");
             
-            Score = CalculateScore(answers);
+            CalculateScore(answers);
             DateOfMeal = DateTime.Today;
             MealType = mealType;
             Person = person;        
@@ -34,7 +34,7 @@ namespace HospitalLibrary.Core.Model
             return true;
         }
 
-        public float CalculateScore(List<MealAnswerDTO> answers)
+        public void CalculateScore(List<MealAnswerDTO> answers)
         {
             Score = 0;
             foreach (MealAnswerDTO answer in answers)
@@ -43,8 +43,6 @@ namespace HospitalLibrary.Core.Model
             }
 
             Score /= answers.Count;
-
-            return Score;
         }
     }
 }

@@ -52,5 +52,10 @@ namespace HospitalLibrary.Core.Model
 
             return true;
         }
+
+        public String GetFullName()
+        {
+            return Name + " " + Surname;
+        }
     }
 }

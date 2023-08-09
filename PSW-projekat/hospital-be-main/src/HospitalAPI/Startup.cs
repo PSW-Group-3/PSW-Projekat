@@ -165,6 +165,9 @@ namespace HospitalAPI
             services.AddScoped<IMealQuestionService, MealQuestionService>();
             services.AddScoped<IMealQuestionRepository, MealQuestionRepository>();
 
+            services.AddScoped<IPatientHealthInformationService, PatientHealthInformationService>();
+            services.AddScoped<IPatientHealthInformationRepository, PatientHealthInformationRepository>();
+
             services.AddScoped<ITrainingService, TrainingService>();
 
             services.AddScoped<SchedulingAppointmentEventsRepository>();

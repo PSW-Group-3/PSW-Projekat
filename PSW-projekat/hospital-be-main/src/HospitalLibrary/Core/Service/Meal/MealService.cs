@@ -22,12 +22,12 @@ namespace HospitalLibrary.Core.Service
 
         public void Delete(Meal entity)
         {
-            throw new NotImplementedException();
+            _mealRepository.Delete(entity);
         }
 
         public IEnumerable<Meal> GetAll()
         {
-            throw new NotImplementedException();
+            return _mealRepository.GetAll();
         }
 
         public IEnumerable<Meal> GetAllMealsByType(MealType mealType)
@@ -37,7 +37,7 @@ namespace HospitalLibrary.Core.Service
 
         public Meal GetById(int id)
         {
-            throw new NotImplementedException();
+            return _mealRepository.GetById(id);
         }
 
         public Meal GetByDateAndType(DateTime dateTime, MealType mealType)

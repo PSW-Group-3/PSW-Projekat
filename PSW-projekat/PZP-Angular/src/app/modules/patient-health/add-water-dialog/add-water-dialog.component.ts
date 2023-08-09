@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AddWaterDialogData } from '../diet-overview/diet-overview.component';
 import { MealAnswerDTO } from '../model/meal-answerDTO.model';
@@ -11,7 +11,8 @@ import { MealDTO } from '../model/mealDTO.model';
   styleUrls: ['./add-water-dialog.component.css']
 })
 export class AddWaterDialogComponent implements OnInit {
-
+  @Output() waterAdded: EventEmitter<void> = new EventEmitter<void>();
+  
   mealAnswers: MealAnswerDTO[] = [];
   titleText: string = 'Add'
   errorMessage: string = '';
@@ -37,7 +38,8 @@ export class AddWaterDialogComponent implements OnInit {
     } 
     else {
       let mealDTO: MealDTO = new MealDTO(this.mealAnswers, this.data.mealTypeNumber, parseInt(localStorage.getItem('currentUserId')!));
-      this.mealService.addWater(mealDTO).subscribe();      
+      this.mealService.addWater(mealDTO).subscribe();
+      this.waterAdded.emit();      
       this.dialogRef.close();
     }
   }
@@ -49,6 +51,7 @@ export class AddWaterDialogComponent implements OnInit {
     else {
       let mealDTO: MealDTO = new MealDTO(this.mealAnswers, this.data.mealTypeNumber, parseInt(localStorage.getItem('currentUserId')!));
       this.mealService.editWater(mealDTO).subscribe();
+      this.waterAdded.emit();      
       this.dialogRef.close();
     }
   }

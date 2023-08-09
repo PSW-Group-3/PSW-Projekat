@@ -1,8 +1,18 @@
+<app-patient-nav-bar></app-patient-nav-bar>
+
 <mat-grid-list cols="2" rowHeight="3rem" gutterSize="2rem">
     <mat-grid-tile><a mat-raised-button color="primary" href="/dietOverview">Diet</a>
     </mat-grid-tile>
     <mat-grid-tile><button mat-raised-button color="primary">Trainings</button></mat-grid-tile>
 </mat-grid-list >
-<div id="divChart">
-    <canvas id="healthScoreChart">{{ healthScoreChart }}</canvas>
+
+<div class="center">
+    <div class="left">
+        <h1>Health Score</h1>
+        <div class="chart-container"><canvas id="healthScoreChart" class="chart">{{ healthScoreChart }}</canvas></div>
+    </div>
+    <div class="right">
+        <h1>Patient: </h1>
+
+    </div>
 </div>

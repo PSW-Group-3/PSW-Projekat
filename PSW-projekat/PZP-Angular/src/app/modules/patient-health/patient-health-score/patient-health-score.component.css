@@ -1,5 +1,47 @@
-#divChart{
-    display: block;
-    width: 400px;
-    height: 400px;
+h1 {
+    line-height: 1.2;
+    font-size: 3.5rem;
+    font-weight: 600;
+    background-image: linear-gradient(to bottom right, #4451b3, #212529);
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+}
+.center {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+    margin: 0 auto; /* Center horizontally */
+  }
+  
+.left,
+.right {
+    width: 50%;
+    min-width: max(450px,30vw);
+    box-sizing: border-box; /* Include padding and border in the width */
+    display: flex;
+    flex-direction: column;
+    justify-content: top;
+    margin-bottom: 2rem;
+}
+
+.left {
+    align-items: center;
+}
+
+.right {
+    align-items: center;
+}
+
+.chart-container {
+    width: 100%; /* Ensure chart width is responsive */
+    height: max(450px, 28vw);
+}
+
+.chart {
+    background-color: whitesmoke;
+    border-radius: 3px;
+    box-shadow: gray 0px 0px 4px 0px;
+    padding: 1rem;
 }

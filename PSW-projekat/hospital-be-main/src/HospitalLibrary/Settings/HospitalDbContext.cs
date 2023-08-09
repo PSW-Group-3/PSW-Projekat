@@ -31,16 +31,18 @@ namespace HospitalLibrary.Settings
         public DbSet<Prescription> Prescriptions { get; set; }
         public DbSet<Examination> Examinations { get; set; }
         public DbSet<DoctorsCouncil> DoctorsCouncils { get; set; }
-        public DbSet<DoctorExamination> DoctorExaminations { get; set; }
 
         public DbSet<Meal> Meals { get; set; }
         public DbSet<MealAnswer> MealAnswers { get; set; }
         public DbSet<MealQuestion> MealQuestions { get; set; }
 
+        public DbSet<PatientHealthInformation> PatientHealthInformations { get; set; }
+
         public DbSet<Training> Trainings { get; set; }
 
-        
+        public DbSet<DoctorExamination> DoctorExaminations { get; set; }
         public DbSet<Core.AggregatDoctor.DomainEvent> DoctorExaminationEvents { get; set; }
+
         public DbSet<ScheduleAppointmentByPatient> ScheduleAppointmentByPatients { get; set; }
         public DbSet<Core.Model.Aggregate.DomainEvent> AppointmentSchedulingEvents { get; set; }
 
@@ -48,16 +50,6 @@ namespace HospitalLibrary.Settings
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            /*
-            modelBuilder.Entity<Room>().HasData(
-                new Room() { Id = 1, Number = "101A", RoomType = RoomType.rehabilitationRoom, Floor = 1, Deleted = false },
-                new Room() { Id = 2, Number = "204", RoomType = RoomType.rehabilitationRoom, Floor = 2, Deleted = false },
-                new Room() { Id = 3, Number = "305B", RoomType = RoomType.rehabilitationRoom, Floor = 3, Deleted = false },
-                new Room() { Id = 4, Number = "STORAGE", RoomType = RoomType.storage, Floor = 3, Deleted = false }
-
-            );
-            */
-
             modelBuilder.Entity<Doctor>().OwnsMany(
                 d => d.DoctorSchedules, ds =>
                 {
@@ -78,9 +70,7 @@ namespace HospitalLibrary.Settings
             modelBuilder.Entity<Doctor>(d => d.Navigation(d => d.DoctorSchedules));
 
             modelBuilder.Entity<Person>().OwnsOne(e => e.Email);
-
             modelBuilder.Entity<Person>().OwnsOne(e => e.Address);
-
             modelBuilder.Entity<Person>().OwnsOne(e => e.Jmbg);
 
             modelBuilder.Entity<DoctorSelectedSymptoms>();
@@ -97,7 +87,6 @@ namespace HospitalLibrary.Settings
             modelBuilder.Entity<BackToAppointentTimeSelection>();
             modelBuilder.Entity<BackToAppointmentDateSelection>();
             modelBuilder.Entity<PatientSelectedAppointmentDate>();
-
 
             base.OnModelCreating(modelBuilder);
         }

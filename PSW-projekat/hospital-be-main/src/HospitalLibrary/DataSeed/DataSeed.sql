@@ -1,7 +1,7 @@
 USE [HospitalDb]
+
 GO
 SET IDENTITY_INSERT [dbo].[Persons] ON 
-
 INSERT [dbo].[Persons] ([Id], [Name], [Surname], [Email_Adress], [Address_Street], [Address_Number], [Address_City], [Address_Township], [Address_PostCode], [Gender], [BirthDate], [Role], [Jmbg_Value], [Deleted]) VALUES (1, N'Pera', N'Peric', N'pera@gmail.com', N'A', N'1a', N'A', N'A', N'21000', 0, CAST(N'2000-01-01T00:00:00.0000000' AS DateTime2), 2, 1212000800012, 0)
 INSERT [dbo].[Persons] ([Id], [Name], [Surname], [Email_Adress], [Address_Street], [Address_Number], [Address_City], [Address_Township], [Address_PostCode], [Gender], [BirthDate], [Role], [Jmbg_Value], [Deleted]) VALUES (2, N'Marko', N'Markovic', N'marko@gmail.com', N'A', N'1a', N'A', N'A', N'21000', 0, CAST(N'2000-01-01T00:00:00.0000000' AS DateTime2), 0, 1212000800012, 0)
 INSERT [dbo].[Persons] ([Id], [Name], [Surname], [Email_Adress], [Address_Street], [Address_Number], [Address_City], [Address_Township], [Address_PostCode], [Gender], [BirthDate], [Role], [Jmbg_Value], [Deleted]) VALUES (3, N'Janko', N'Jankovic', N'janko@gmail.com', N'A', N'1a', N'A', N'A', N'21000', 0, CAST(N'2000-01-01T00:00:00.0000000' AS DateTime2), 0, 1212000800012, 0)
@@ -16,11 +16,10 @@ INSERT [dbo].[Persons] ([Id], [Name], [Surname], [Email_Adress], [Address_Street
 INSERT [dbo].[Persons] ([Id], [Name], [Surname], [Email_Adress], [Address_Street], [Address_Number], [Address_City], [Address_Township], [Address_PostCode], [Gender], [BirthDate], [Role], [Jmbg_Value], [Deleted]) VALUES (12, N'Mikica', N'Mikicovic', N'milicaisavic24@gmail.com', N'A', N'1a', N'A', N'A', N'21000', 0, CAST(N'2000-01-01T00:00:00.0000000' AS DateTime2), 1, 1212000800012, 0)
 INSERT [dbo].[Persons] ([Id], [Name], [Surname], [Email_Adress], [Address_Street], [Address_Number], [Address_City], [Address_Township], [Address_PostCode], [Gender], [BirthDate], [Role], [Jmbg_Value], [Deleted]) VALUES (13, N'Tara', N'Taric', N'tara@gmail.com', N'A', N'2', N'Aa', N'Aa', N'21000', 1, CAST(N'2022-08-09T00:00:00.0000000' AS DateTime2), 1, 1212000800012, 0)
 INSERT [dbo].[Persons] ([Id], [Name], [Surname], [Email_Adress], [Address_Street], [Address_Number], [Address_City], [Address_Township], [Address_PostCode], [Gender], [BirthDate], [Role], [Jmbg_Value], [Deleted]) VALUES (14, N'Novica', N'Novicic', N'novica@gmail.com', N'A', N'2', N'Aa', N'Aa', N'21000', 0, CAST(N'2022-08-09T00:00:00.0000000' AS DateTime2), 1, 1212000800012, 0)
-
 SET IDENTITY_INSERT [dbo].[Persons] OFF
+
 GO
 SET IDENTITY_INSERT [dbo].[Allergies] ON 
-
 INSERT [dbo].[Allergies] ([Id], [Name], [Deleted]) VALUES (1, N'Polen', 0)
 INSERT [dbo].[Allergies] ([Id], [Name], [Deleted]) VALUES (2, N'Dust', 0)
 INSERT [dbo].[Allergies] ([Id], [Name], [Deleted]) VALUES (3, N'Animal fur', 0)
@@ -38,7 +37,6 @@ SET IDENTITY_INSERT [dbo].[Allergies] OFF
 
 GO
 SET IDENTITY_INSERT [dbo].[PatientAllergies] ON 
-
 INSERT [dbo].[PatientAllergies] ([Id], [PatientId], [AllergyId], [Deleted]) VALUES (1, 8, 4, 0)
 INSERT [dbo].[PatientAllergies] ([Id], [PatientId], [AllergyId], [Deleted]) VALUES (2, 8, 5, 0)
 INSERT [dbo].[PatientAllergies] ([Id], [PatientId], [AllergyId], [Deleted]) VALUES (3, 8, 3, 0)
@@ -52,9 +50,9 @@ INSERT [dbo].[PatientAllergies] ([Id], [PatientId], [AllergyId], [Deleted]) VALU
 INSERT [dbo].[PatientAllergies] ([Id], [PatientId], [AllergyId], [Deleted]) VALUES (11, 13, 4, 0)
 INSERT [dbo].[PatientAllergies] ([Id], [PatientId], [AllergyId], [Deleted]) VALUES (12, 14, 3, 0)
 SET IDENTITY_INSERT [dbo].[PatientAllergies] OFF
+
 GO
 SET IDENTITY_INSERT [dbo].[Doctors] ON 
-
 INSERT [dbo].[Doctors] ([Id], [Specialization], [PersonId], [Deleted]) VALUES (1, 0, 2, 0)
 INSERT [dbo].[Doctors] ([Id], [Specialization], [PersonId], [Deleted]) VALUES (2, 1, 3, 0)
 INSERT [dbo].[Doctors] ([Id], [Specialization], [PersonId], [Deleted]) VALUES (3, 0, 4, 0)
@@ -62,9 +60,9 @@ INSERT [dbo].[Doctors] ([Id], [Specialization], [PersonId], [Deleted]) VALUES (4
 INSERT [dbo].[Doctors] ([Id], [Specialization], [PersonId], [Deleted]) VALUES (5, 0, 6, 0)
 INSERT [dbo].[Doctors] ([Id], [Specialization], [PersonId], [Deleted]) VALUES (6, 0, 7, 0)
 SET IDENTITY_INSERT [dbo].[Doctors] OFF
+
 GO
 SET IDENTITY_INSERT [dbo].[Patients] ON 
-
 INSERT [dbo].[Patients] ([Id], [BloodType], [HealthScore], [PersonId], [DoctorId], [Deleted]) VALUES (1, 0, 80.0, 8, 1, 0)
 INSERT [dbo].[Patients] ([Id], [BloodType], [HealthScore], [PersonId], [DoctorId], [Deleted]) VALUES (2, 0, 80.0, 9, 1, 0)
 INSERT [dbo].[Patients] ([Id], [BloodType], [HealthScore], [PersonId], [DoctorId], [Deleted]) VALUES (3, 0, 80.0, 10, 2, 0)
@@ -72,13 +70,14 @@ INSERT [dbo].[Patients] ([Id], [BloodType], [HealthScore], [PersonId], [DoctorId
 INSERT [dbo].[Patients] ([Id], [BloodType], [HealthScore], [PersonId], [DoctorId], [Deleted]) VALUES (5, 2, 80.0, 12, 1, 0)
 INSERT [dbo].[Patients] ([Id], [BloodType], [HealthScore], [PersonId], [DoctorId], [Deleted]) VALUES (6, 3, 80.0, 13, 2, 0)
 INSERT [dbo].[Patients] ([Id], [BloodType], [HealthScore], [PersonId], [DoctorId], [Deleted]) VALUES (7, 0, 80.0, 14, 2, 0)
-
 SET IDENTITY_INSERT [dbo].[Patients] OFF
+
 GO
 INSERT [dbo].[AspNetRoles] ([Id], [Name], [NormalizedName], [ConcurrencyStamp]) VALUES (N'58f7fb5f-09dc-4bee-813f-4e47940650c4', N'Manager', N'MANAGER', N'76feb459-393f-45d5-be10-46df582dd946')
 INSERT [dbo].[AspNetRoles] ([Id], [Name], [NormalizedName], [ConcurrencyStamp]) VALUES (N'93000374-46d9-44ef-ac96-6db416a28770', N'Doctor', N'DOCTOR', N'9a23c8cc-acc0-4b5a-a247-3f5298277b76')
 INSERT [dbo].[AspNetRoles] ([Id], [Name], [NormalizedName], [ConcurrencyStamp]) VALUES (N'd20bd231-b1fe-477b-be40-e4e38be41762', N'Patient', N'PATIENT', N'bb721e26-c59c-4ab5-be3e-63940807d492')
 INSERT [dbo].[AspNetRoles] ([Id], [Name], [NormalizedName], [ConcurrencyStamp]) VALUES (N'A8E3A800-3B37-4891-96E0-60664BF0167B', N'BloodBank', N'BLOODBANK', N'55AD6AD6-0AAD-4917-8F61-1B5599E50EAD')
+
 GO
 INSERT [dbo].[AspNetUsers] ([Id], [UserName], [NormalizedUserName], [Email], [NormalizedEmail], [EmailConfirmed], [PasswordHash], [SecurityStamp], [ConcurrencyStamp], [PhoneNumber], [PhoneNumberConfirmed], [TwoFactorEnabled], [LockoutEnd], [LockoutEnabled], [AccessFailedCount]) VALUES (N'16630510-68af-400b-918b-8d72e0a1fcab', N'milica', N'MILICA', N'milica@gmail.com', N'MILICA@GMAIL.COM', 1, N'AQAAAAEAACcQAAAAEOv41QzJaDJ5FjhdPJsX7H9tBw+6IuQyC6QOcfbOWzMQ4eq5sUKB1ycSBjWPMDj21A==', N'VCMAUXWI2NIUUED5XFA3BZSKI3PTEJFA', N'0deb28c5-88b3-4bcb-aa97-9d4be97c9f01', NULL, 0, 0, NULL, 1, 0)
 INSERT [dbo].[AspNetUsers] ([Id], [UserName], [NormalizedUserName], [Email], [NormalizedEmail], [EmailConfirmed], [PasswordHash], [SecurityStamp], [ConcurrencyStamp], [PhoneNumber], [PhoneNumberConfirmed], [TwoFactorEnabled], [LockoutEnd], [LockoutEnabled], [AccessFailedCount]) VALUES (N'28138a9e-fefc-49da-93d2-d71e02216e8c', N'dragana', N'DRAGANA', N'dragana@gmail.com', N'DRAGANA@GMAIL.COM', 1, N'AQAAAAEAACcQAAAAEPtgIoIqeWwde8LEfknpuKQ5wa5JGsEqkLIjHkuw1gMnTezpa4lELzXY/rfgViU7mA==', N'GWLENLN75TXBR2LHEXELFSM4G6LU6H3T', N'63493bcd-67c2-4f10-8369-84631fef0dc0', NULL, 0, 0, NULL, 1, 0)
@@ -93,6 +92,7 @@ INSERT [dbo].[AspNetUsers] ([Id], [UserName], [NormalizedUserName], [Email], [No
 INSERT [dbo].[AspNetUsers] ([Id], [UserName], [NormalizedUserName], [Email], [NormalizedEmail], [EmailConfirmed], [PasswordHash], [SecurityStamp], [ConcurrencyStamp], [PhoneNumber], [PhoneNumberConfirmed], [TwoFactorEnabled], [LockoutEnd], [LockoutEnabled], [AccessFailedCount]) VALUES (N'565A6BAB-A5FA-49B3-AD4B-E2D2F7E8D2D8', N'bloodymary@gmail.com', N'BLOODYMARY@GMAIL.COM', N'bloodymary@gmail.com', N'BLOODYMARY@GMAIL.COM', 1, N'AQAAAAEAACcQAAAAEOHFDR+mJDlGtm+fN/X/FJwko1DbDbckE+GJqagCFH+zrIN3XoIRfLvX0V6aCaqQlA==', N'ADQQLK2P5TFSHBNM7QC5DKLFJKX2IWFS', N'535055b8-396d-42d2-a933-6c212b6a5745', NULL, 0, 0, NULL, 1, 0)
 INSERT [dbo].[AspNetUsers] ([Id], [UserName], [NormalizedUserName], [Email], [NormalizedEmail], [EmailConfirmed], [PasswordHash], [SecurityStamp], [ConcurrencyStamp], [PhoneNumber], [PhoneNumberConfirmed], [TwoFactorEnabled], [LockoutEnd], [LockoutEnabled], [AccessFailedCount]) VALUES (N'E03E7D88-8D56-4C27-9859-EAE5F85ED989', N'bloodyhell@gmail.com', N'BLOODYHELL@GMAIL.COM', N'bloodyhell@gmail.com', N'BLOODYHELL@GMAIL.COM', 1, N'AQAAAAEAACcQAAAAEF3+Q2qD6z/xiyZZkAi9aSjmiypo+7a7PAx4jr2eY04j29WiVd8UwH05DlAM8cwIdw==', N'VIP5KHIORRRUZQOZ3UEKTEC3JBWMAADY', N'ebefa475-47e8-4dab-9089-43258ed0fc6d', NULL, 0, 0, NULL, 1, 0)
 INSERT [dbo].[AspNetUsers] ([Id], [UserName], [NormalizedUserName], [Email], [NormalizedEmail], [EmailConfirmed], [PasswordHash], [SecurityStamp], [ConcurrencyStamp], [PhoneNumber], [PhoneNumberConfirmed], [TwoFactorEnabled], [LockoutEnd], [LockoutEnabled], [AccessFailedCount]) VALUES (N'E801FB99-1373-40B1-B82B-A1FA734C524F', N'newlife@gmail.com', N'NEWLIFE@GMAIL.COM', N'newlife@gmail.com', N'NEWLIFE@GMAIL.COM', 1, N'AQAAAAEAACcQAAAAELh3K1zfEa6rqqlM2yH8nd1DPiRMh/dXiyg9nyQrnHxKfyj9vUIwMuOySoJkYVRzEw==', N'VLZGWZ7CWIZOUSF3UELHZUYPFYWAG6RP', N'd39dec01-e0b9-48d2-86c5-38a003e8f110', NULL, 0, 0, NULL, 1, 0)
+
 GO
 INSERT [dbo].[AspNetUserRoles] ([UserId], [RoleId]) VALUES (N'bcdd59c6-9ec3-42b3-a196-6ccdda4f06cc', N'58f7fb5f-09dc-4bee-813f-4e47940650c4')
 INSERT [dbo].[AspNetUserRoles] ([UserId], [RoleId]) VALUES (N'16630510-68af-400b-918b-8d72e0a1fcab', N'93000374-46d9-44ef-ac96-6db416a28770')
@@ -110,7 +110,6 @@ INSERT [dbo].[AspNetUserRoles] ([UserId], [RoleId]) VALUES (N'E801FB99-1373-40B1
 
 GO
 SET IDENTITY_INSERT [dbo].[AspNetUserClaims] ON 
-
 INSERT [dbo].[AspNetUserClaims] ([Id], [UserId], [ClaimType], [ClaimValue]) VALUES (1, N'bcdd59c6-9ec3-42b3-a196-6ccdda4f06cc', N'UserId', N'1')
 INSERT [dbo].[AspNetUserClaims] ([Id], [UserId], [ClaimType], [ClaimValue]) VALUES (2, N'e75222d6-a345-4d3f-a394-56fcab7a9eef', N'UserId', N'2')
 INSERT [dbo].[AspNetUserClaims] ([Id], [UserId], [ClaimType], [ClaimValue]) VALUES (3, N'364f540b-b357-4bbd-808f-7f429c76031f', N'UserId', N'3')
@@ -124,22 +123,21 @@ INSERT [dbo].[AspNetUserClaims] ([Id], [UserId], [ClaimType], [ClaimValue]) VALU
 INSERT [dbo].[AspNetUserClaims] ([Id], [UserId], [ClaimType], [ClaimValue]) VALUES (11, N'565A6BAB-A5FA-49B3-AD4B-E2D2F7E8D2D8', N'UserId', N'11')
 INSERT [dbo].[AspNetUserClaims] ([Id], [UserId], [ClaimType], [ClaimValue]) VALUES (12, N'E03E7D88-8D56-4C27-9859-EAE5F85ED989', N'UserId', N'12')
 INSERT [dbo].[AspNetUserClaims] ([Id], [UserId], [ClaimType], [ClaimValue]) VALUES (13, N'E801FB99-1373-40B1-B82B-A1FA734C524F', N'UserId', N'13')
-
 SET IDENTITY_INSERT [dbo].[AspNetUserClaims] OFF
+
 GO
 INSERT [dbo].[__EFMigrationsHistory] ([MigrationId], [ProductVersion]) VALUES (N'20221105154724_AddIdentity', N'5.0.17')
+
 GO
 SET IDENTITY_INSERT [dbo].[Rooms] ON 
-
 INSERT [dbo].[Rooms] ([Id], [Number_Name], [RoomType], [Floor_Floor], [Deleted]) VALUES (1, N'101A', 5,  1, 0)
 INSERT [dbo].[Rooms] ([Id], [Number_Name], [RoomType], [Floor_Floor], [Deleted]) VALUES (2, N'204C', 5, 2, 0)
 INSERT [dbo].[Rooms] ([Id], [Number_Name], [RoomType], [Floor_Floor], [Deleted]) VALUES (3, N'305B', 5, 3, 0)
 INSERT [dbo].[Rooms] ([Id], [Number_Name], [RoomType], [Floor_Floor], [Deleted]) VALUES (4, N'STORAGE', 0, 3, 0)
-
 SET IDENTITY_INSERT [dbo].[Rooms] OFF
+
 GO
 SET IDENTITY_INSERT [dbo].[Appointments] ON 
-
 INSERT [dbo].[Appointments] ([Id], [PatientId], [DoctorId], [DateTime], [CancelationDate], [Deleted]) VALUES (1, 2, 1, '2022-11-16 11:30:00', '2022-11-16 11:30:00', 0)
 INSERT [dbo].[Appointments] ([Id], [PatientId], [DoctorId], [DateTime], [CancelationDate], [Deleted]) VALUES (2, 3, 1, '2022-11-12 11:30:00', '2022-11-16 11:30:00', 0)
 INSERT [dbo].[Appointments] ([Id], [PatientId], [DoctorId], [DateTime], [CancelationDate], [Deleted]) VALUES (3, 4, 1, '2022-11-13 11:30:00', '2022-11-16 11:30:00', 0)
@@ -155,14 +153,13 @@ INSERT [dbo].[Appointments] ([Id], [PatientId], [DoctorId], [DateTime], [Cancela
 INSERT [dbo].[Appointments] ([Id], [PatientId], [DoctorId], [DateTime], [CancelationDate], [Deleted]) VALUES (13, 5, 1, '2023-02-28 15:00:00.0000000', '2022-12-19 10:20:00.0000000', 0)
 INSERT [dbo].[Appointments] ([Id], [PatientId], [DoctorId], [DateTime], [CancelationDate], [Deleted]) VALUES (14, 3, 1,	'2023-01-17 08:00:00.0000000', NULL, 0)
 SET IDENTITY_INSERT [dbo].[Appointments] OFF
+
 GO
 SET IDENTITY_INSERT [dbo].[Bloods] ON 
-
 INSERT [dbo].[Bloods] ([Id], [BloodType], [Quantity], [RoomId], [Deleted]) VALUES (1, 0, 11, 1, 0)
 INSERT [dbo].[Bloods] ([Id], [BloodType], [Quantity], [RoomId], [Deleted]) VALUES (2, 2, 3, 1, 0)
 INSERT [dbo].[Bloods] ([Id], [BloodType], [Quantity], [RoomId], [Deleted]) VALUES (3, 1, 10, 2, 0)
 INSERT [dbo].[Bloods] ([Id], [BloodType], [Quantity], [RoomId], [Deleted]) VALUES (4, 3, 5, 3, 0)
-
 INSERT [dbo].[Bloods] ([Id], [BloodType], [Quantity], [RoomId], [Deleted]) VALUES (5, 0, 1000, 4, 0)
 INSERT [dbo].[Bloods] ([Id], [BloodType], [Quantity], [RoomId], [Deleted]) VALUES (6, 1, 1000, 4, 0)
 INSERT [dbo].[Bloods] ([Id], [BloodType], [Quantity], [RoomId], [Deleted]) VALUES (7, 2, 1000, 4, 0)
@@ -171,11 +168,10 @@ INSERT [dbo].[Bloods] ([Id], [BloodType], [Quantity], [RoomId], [Deleted]) VALUE
 INSERT [dbo].[Bloods] ([Id], [BloodType], [Quantity], [RoomId], [Deleted]) VALUES (10, 5, 1000, 4, 0)
 INSERT [dbo].[Bloods] ([Id], [BloodType], [Quantity], [RoomId], [Deleted]) VALUES (11, 6, 1000, 4, 0)
 INSERT [dbo].[Bloods] ([Id], [BloodType], [Quantity], [RoomId], [Deleted]) VALUES (12, 7, 1000, 4, 0)
-
 SET IDENTITY_INSERT [dbo].[Bloods] OFF
+
 GO
 SET IDENTITY_INSERT [dbo].[Beds] ON 
-
 INSERT [dbo].[Beds] ([Id], [Name], [BedState], [PatientId], [Quantity], [RoomId], [Deleted]) VALUES (1, 'Dekubitalni', 1, NULL, 10, 1, 0)
 INSERT [dbo].[Beds] ([Id], [Name], [BedState], [PatientId], [Quantity], [RoomId], [Deleted]) VALUES (2, 'Dormeo', 0, 2, 5, 1, 0)
 INSERT [dbo].[Beds] ([Id], [Name], [BedState], [PatientId], [Quantity], [RoomId], [Deleted]) VALUES (3, 'Intenzivni', 1, NULL, 3, 1, 0)
@@ -186,11 +182,10 @@ INSERT [dbo].[Beds] ([Id], [Name], [BedState], [PatientId], [Quantity], [RoomId]
 INSERT [dbo].[Beds] ([Id], [Name], [BedState], [PatientId], [Quantity], [RoomId], [Deleted]) VALUES (8, 'Intenzivni', 1, NULL, 3, 3, 0)
 INSERT [dbo].[Beds] ([Id], [Name], [BedState], [PatientId], [Quantity], [RoomId], [Deleted]) VALUES (9, 'Poluintenzivni', 1, NULL, 6, 3, 0)
 INSERT [dbo].[Beds] ([Id], [Name], [BedState], [PatientId], [Quantity], [RoomId], [Deleted]) VALUES (10, 'Invalidski', 1, NULL, 8, 3, 0)
-
 SET IDENTITY_INSERT [dbo].[Beds] OFF
+
 GO
 SET IDENTITY_INSERT [dbo].[Examinations] ON 
-
 INSERT [dbo].[Examinations] ([Id], [AppointmentId], [Report], [Deleted]) VALUES (1, 1, 'Pacijent je stigao u vrlo losem stanju. Otvoreni prelom butne kosti sa pojacanim krvarenjem.', 0)
 INSERT [dbo].[Examinations] ([Id], [AppointmentId], [Report], [Deleted]) VALUES (2, 2, 'Pacijent je u vrlo lose. Prelom rebara.', 0)
 INSERT [dbo].[Examinations] ([Id], [AppointmentId], [Report], [Deleted]) VALUES (3, 3, 'Pacijent je u solidnom stanju. Napuknuta lakatna kost.', 0)
@@ -199,12 +194,10 @@ INSERT [dbo].[Examinations] ([Id], [AppointmentId], [Report], [Deleted]) VALUES 
 INSERT [dbo].[Examinations] ([Id], [AppointmentId], [Report], [Deleted]) VALUES (6, 5, 'Pacijent je nepokretan. Premesten u sobu za hitne slucajeve.', 0)
 INSERT [dbo].[Examinations] ([Id], [AppointmentId], [Report], [Deleted]) VALUES (7, 7, 'Pacijent je u bolovima sa dijagnostikovanim Enteritis salmonellosa.', 0)
 INSERT [dbo].[Examinations] ([Id], [AppointmentId], [Report], [Deleted]) VALUES (8, 8, 'Pacijent je u losem stanju. Uzrokovan Enteritis campylobacterialis, tj zapaljenjem creva.', 0)
-
-
 SET IDENTITY_INSERT [dbo].[Examinations] OFF
+
 GO
 SET IDENTITY_INSERT [dbo].[Symptoms] ON 
-
 INSERT [dbo].[Symptoms] ([Id], [Name], [ExaminationId], [Deleted]) VALUES (1, 'Headache', 1, 0)
 INSERT [dbo].[Symptoms] ([Id], [Name], [ExaminationId], [Deleted]) VALUES (2, 'Low pressure', 1, 0)
 INSERT [dbo].[Symptoms] ([Id], [Name], [ExaminationId], [Deleted]) VALUES (3, 'Nausea', NULL, 0)
@@ -220,40 +213,39 @@ INSERT [dbo].[Symptoms] ([Id], [Name], [ExaminationId], [Deleted]) VALUES (12, '
 INSERT [dbo].[Symptoms] ([Id], [Name], [ExaminationId], [Deleted]) VALUES (13, 'Tachycardia', NULL, 0)
 INSERT [dbo].[Symptoms] ([Id], [Name], [ExaminationId], [Deleted]) VALUES (14, 'Tiring', NULL, 0)
 INSERT [dbo].[Symptoms] ([Id], [Name], [ExaminationId], [Deleted]) VALUES (15, 'Night sweats', NULL, 0)
-
 SET IDENTITY_INSERT [dbo].[Symptoms] OFF
+
 GO
 SET IDENTITY_INSERT [dbo].[Prescriptions] ON 
-
 INSERT [dbo].[Prescriptions] ([Id], [Description], [ExaminationId], [Deleted]) VALUES (1, 'Svaki dan 3x na osam sati, posle obroka.', 1, 0)
 INSERT [dbo].[Prescriptions] ([Id], [Description], [ExaminationId], [Deleted]) VALUES (2, 'Svaki dan 1x na prazan stomak.', 2, 0)
 INSERT [dbo].[Prescriptions] ([Id], [Description], [ExaminationId], [Deleted]) VALUES (3, '3x na dan, na osam sati po dve tablete.', 3, 0)
 INSERT [dbo].[Prescriptions] ([Id], [Description], [ExaminationId], [Deleted]) VALUES (4, 'Svaki dan posle obroka.', 4, 0)
 SET IDENTITY_INSERT [dbo].[Prescriptions] OFF
+
 GO
 SET IDENTITY_INSERT [dbo].[Medicines] ON 
-
 INSERT [dbo].[Medicines] ([Id], [Name], [Quantity], [PrescriptionId], [RoomId], [Deleted]) VALUES (1, 'Brufen', 12, 1, 4, 0)
 INSERT [dbo].[Medicines] ([Id], [Name], [Quantity], [PrescriptionId], [RoomId], [Deleted]) VALUES (2, 'Aspirin', 20, 2, 4, 0)
 INSERT [dbo].[Medicines] ([Id], [Name], [Quantity], [PrescriptionId], [RoomId], [Deleted]) VALUES (3, 'Dexomen', 10, 3, 4, 0)
 INSERT [dbo].[Medicines] ([Id], [Name], [Quantity], [PrescriptionId], [RoomId], [Deleted]) VALUES (4, 'Robenan', 5, 4, 4, 0)
 INSERT [dbo].[Medicines] ([Id], [Name], [Quantity], [PrescriptionId], [RoomId], [Deleted]) VALUES (5, 'Fervex', 1, 1, 4, 0)
 SET IDENTITY_INSERT [dbo].[Medicines] OFF
+
 GO
 SET IDENTITY_INSERT [dbo].[Therapys] ON 
-
 INSERT [dbo].[Therapys] ([Id], [MedicineId], [BloodId], [QuantitytMedicine], [QuantityBlood], [Deleted]) VALUES (1, 2, 3, 2, 1, 0)
 INSERT [dbo].[Therapys] ([Id], [MedicineId], [BloodId], [QuantitytMedicine], [QuantityBlood], [Deleted]) VALUES (2, 3, 3, 2, 1, 0)
 SET IDENTITY_INSERT [dbo].[Therapys] OFF
+
 GO
 SET IDENTITY_INSERT [dbo].[Treatments] ON 
-
 INSERT [dbo].[Treatments] ([Id], [PatientId], [DateAdmission], [DateDischarge], [ReasonForAdmission], [ReasonForDischarge], [TreatmentState], [TherapyId], [RoomId], [Deleted]) VALUES (1, 2, '2022-11-16 11:30:00', '2022-11-16 13:00:00', 'Bol u grlu', '', 1, 1, 1, 0)
 INSERT [dbo].[Treatments] ([Id], [PatientId], [DateAdmission], [DateDischarge], [ReasonForAdmission], [ReasonForDischarge], [TreatmentState], [TherapyId], [RoomId], [Deleted]) VALUES (2, 3, '2022-11-17 12:30:00', '2022-11-17 16:00:00', 'Pojacano krvarenje', '', 1, 2, 2, 0)
 SET IDENTITY_INSERT [dbo].[Treatments] OFF
-GO
-SET IDENTITY_INSERT [dbo].[WorkingDays] ON 
 
+GO
+SET IDENTITY_INSERT [dbo].[WorkingDays] ON
 INSERT INTO [dbo].[WorkingDays]([Id], [Day],[StartTime],[EndTime],[DoctorId],[Deleted]) VALUES(1, 0,'2022-12-12 08:00:00.0000000','2022-12-12 18:00:00.0000000',1,0)
 INSERT INTO [dbo].[WorkingDays]([Id], [Day],[StartTime],[EndTime],[DoctorId],[Deleted]) VALUES(2, 1,'2022-12-12 08:00:00.0000000','2022-12-12 18:00:00.0000000',1,0)
 INSERT INTO [dbo].[WorkingDays]([Id], [Day],[StartTime],[EndTime],[DoctorId],[Deleted]) VALUES(3, 2,'2022-12-12 08:00:00.0000000','2022-12-12 18:00:00.0000000',1,0)
@@ -264,34 +256,29 @@ INSERT INTO [dbo].[WorkingDays]([Id], [Day],[StartTime],[EndTime],[DoctorId],[De
 INSERT INTO [dbo].[WorkingDays]([Id], [Day],[StartTime],[EndTime],[DoctorId],[Deleted]) VALUES(8, 1,'2022-12-12 08:00:00.0000000','2022-12-12 18:00:00.0000000',3,0)
 INSERT INTO [dbo].[WorkingDays]([Id], [Day],[StartTime],[EndTime],[DoctorId],[Deleted]) VALUES(9, 2,'2022-12-12 08:00:00.0000000','2022-12-12 18:00:00.0000000',3,0)
 SET IDENTITY_INSERT [dbo].[WorkingDays] OFF
+
 GO
 SET IDENTITY_INSERT [dbo].[DoctorsCouncils] ON 
-
 INSERT INTO [dbo].[DoctorsCouncils]([Id], [Topic], [Start], [End], [Duration], [Deleted]) VALUES(1, 'Godisnji odmori', '2022-11-16 11:30:00', '2022-11-16 13:30:00', 120, 0)
 INSERT INTO [dbo].[DoctorsCouncils]([Id], [Topic], [Start], [End], [Duration], [Deleted]) VALUES(2, 'Bozicni praznici', '2022-12-17 13:10:00', '2022-12-17 13:30:00', 20, 0)
 INSERT INTO [dbo].[DoctorsCouncils]([Id], [Topic], [Start], [End], [Duration], [Deleted]) VALUES(3, 'Bolovanje', '2022-10-18 10:30:00', '2022-10-18 11:00:00', 30, 0)
 INSERT INTO [dbo].[DoctorsCouncils]([Id], [Topic], [Start], [End], [Duration], [Deleted]) VALUES(4, 'Dogovori oko zamene smena', '2022-11-20 14:10:00', '2022-11-20 14:30:00', 20, 0)
-
 SET IDENTITY_INSERT [dbo].[DoctorsCouncils] OFF 
-GO
 
+GO
 INSERT INTO [dbo].[DoctorDoctorsCouncil]([CouncilsId], [DoctorsId]) VALUES(1, 2)
 INSERT INTO [dbo].[DoctorDoctorsCouncil]([CouncilsId], [DoctorsId]) VALUES(1, 1)
 INSERT INTO [dbo].[DoctorDoctorsCouncil]([CouncilsId], [DoctorsId]) VALUES(1, 3)
 INSERT INTO [dbo].[DoctorDoctorsCouncil]([CouncilsId], [DoctorsId]) VALUES(1, 4)
-
 INSERT INTO [dbo].[DoctorDoctorsCouncil]([CouncilsId], [DoctorsId]) VALUES(2, 2)
 INSERT INTO [dbo].[DoctorDoctorsCouncil]([CouncilsId], [DoctorsId]) VALUES(2, 1)
-
 INSERT INTO [dbo].[DoctorDoctorsCouncil]([CouncilsId], [DoctorsId]) VALUES(3, 1)
 INSERT INTO [dbo].[DoctorDoctorsCouncil]([CouncilsId], [DoctorsId]) VALUES(3, 4)
-
 INSERT INTO [dbo].[DoctorDoctorsCouncil]([CouncilsId], [DoctorsId]) VALUES(4, 3)
 INSERT INTO [dbo].[DoctorDoctorsCouncil]([CouncilsId], [DoctorsId]) VALUES(4, 1)
 
 GO
 SET IDENTITY_INSERT [dbo].[DoctorExaminations]ON 
-
 INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (1,4,1,'2023-01-11 16:43:56.6236649','0001-01-01 00:00:00.0000000',0	  )
 INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (2,6,1,'2023-01-11 16:45:06.4166103','0001-01-01 00:00:00.0000000',0	  )
 INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (3,3,1,'2023-01-11 16:54:36.9281546','0001-01-01 00:00:00.0000000',0	  )
@@ -335,9 +322,9 @@ INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime]
 INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (42,4,2,'2023-01-12 00:26:57.2954079','0001-01-01 00:00:00.0000000',0  )
 INSERT [dbo].[DoctorExaminations]([Id], [Stage],[DoctorId],[startTime],[endTime],[Deleted]) VALUES (43,7,2,'2023-01-12 00:27:08.6668811','2023-01-12 00:27:15.3059491',0  )
 SET IDENTITY_INSERT [dbo].[DoctorExaminations]OFF
+
 GO
 SET IDENTITY_INSERT [dbo].[DoctorExaminationEvents]ON 
-
 INSERT [dbo].[DoctorExaminationEvents] ([Id],[AggregateId],[phase],[selectionTime],[Discriminator],[Prescriptions],[Symptoms],[Report],[Deleted]) VALUES (1,1,1,'2023-01-11 16:44:23.0070270','DoctorSelectedSymptoms',NULL,'',NULL,0							  )
 INSERT [dbo].[DoctorExaminationEvents] ([Id],[AggregateId],[phase],[selectionTime],[Discriminator],[Prescriptions],[Symptoms],[Report],[Deleted]) VALUES (2,1,4,'2023-01-11 16:45:09.1264339','BackToSymptomsSelection',NULL,NULL,NULL,0					  )
 INSERT [dbo].[DoctorExaminationEvents] ([Id],[AggregateId],[phase],[selectionTime],[Discriminator],[Prescriptions],[Symptoms],[Report],[Deleted]) VALUES (3,2,1,'2023-01-11 16:46:06.3338992','DoctorSelectedSymptoms',NULL,'',NULL,0							  )
@@ -517,47 +504,105 @@ INSERT [dbo].[DoctorExaminationEvents] ([Id],[AggregateId],[phase],[selectionTim
 INSERT [dbo].[DoctorExaminationEvents] ([Id],[AggregateId],[phase],[selectionTime],[Discriminator],[Prescriptions],[Symptoms],[Report],[Deleted]) VALUES (177,43,1,'2023-01-12 00:27:11.1101822','DoctorSelectedSymptoms',NULL,'',NULL,0						  )
 INSERT [dbo].[DoctorExaminationEvents] ([Id],[AggregateId],[phase],[selectionTime],[Discriminator],[Prescriptions],[Symptoms],[Report],[Deleted]) VALUES (178,43,1,'2023-01-12 00:27:11.5174538','DoctorWriteReport',NULL,NULL,'',0							  )
 SET IDENTITY_INSERT [dbo].[DoctorExaminationEvents] OFF
+
 GO
 SET IDENTITY_INSERT [dbo].[DoctorSchedule] ON 
-
 INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (1, 1, 1, 8, 0, 12, 0)
 INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (1, 2, 2, 8, 0, 12, 0)
 INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (1, 3, 3, 8, 0, 12, 0)
 INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (1, 4, 4, 8, 0, 12, 0)
 INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (1, 5, 5, 8, 0, 12, 0)
-
 INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (2, 6, 1, 8, 0, 12, 0)
 INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (2, 7, 2, 8, 0, 12, 0)
 INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (2, 8, 3, 8, 0, 12, 0)
 INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (2, 9, 4, 8, 0, 12, 0)
 INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (2, 10, 5, 8, 0, 12, 0)
-
 INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (3, 11, 1, 8, 0, 12, 0)
 INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (3, 12, 2, 8, 0, 12, 0)
 INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (3, 13, 3, 8, 0, 12, 0)
 INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (3, 14, 4, 8, 0, 12, 0)
 INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (3, 15, 5, 8, 0, 12, 0)
-
 INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (4, 16, 1, 8, 0, 12, 0)
 INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (4, 17, 2, 8, 0, 12, 0)
 INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (4, 18, 3, 8, 0, 12, 0)
 INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (4, 19, 4, 8, 0, 12, 0)
 INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (4, 20, 5, 8, 0, 12, 0)
-
 INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (5, 21, 1, 8, 0, 12, 0)
 INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (5, 22, 2, 8, 0, 12, 0)
-
 INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (6, 23, 3, 8, 0, 12, 0)
 INSERT [dbo].[DoctorSchedule] ([DoctorId], [Id], [Day], [Shift_StartTime_Hour], [Shift_StartTime_Minute], [Shift_EndTime_Hour], [Shift_EndTime_Minute]) VALUES (6, 24, 4, 8, 0, 12, 0)
-
 SET IDENTITY_INSERT [dbo].[DoctorSchedule] OFF
 
 GO
 SET IDENTITY_INSERT [dbo].[Feedbacks] ON 
-
 INSERT [dbo].[Feedbacks] ([Id], [Description], [IsAnonimous], [IsPublic], [DateCreated], [UserId], [Status], [Deleted]) VALUES (1, 'Great experience', 0, 1, '2023-01-12 08:00:00.0000000', 9 ,1 ,0)
 INSERT [dbo].[Feedbacks] ([Id], [Description], [IsAnonimous], [IsPublic], [DateCreated], [UserId], [Status], [Deleted]) VALUES (2, 'Generally unpleasant experience during examination', 1, 1, '2022-12-12 08:00:00.0000000', 9 ,1 ,0)
 INSERT [dbo].[Feedbacks] ([Id], [Description], [IsAnonimous], [IsPublic], [DateCreated], [UserId], [Status], [Deleted]) VALUES (3, 'The atmosphere in the clinic was amazing', 0, 1, '2022-12-31 08:00:00.0000000', 8 ,1 ,0)
 INSERT [dbo].[Feedbacks] ([Id], [Description], [IsAnonimous], [IsPublic], [DateCreated], [UserId], [Status], [Deleted]) VALUES (4, 'I really enjoyed the christmas decoration', 0, 1, '2022-12-25 08:00:00.0000000', 10 ,1 ,0)
 INSERT [dbo].[Feedbacks] ([Id], [Description], [IsAnonimous], [IsPublic], [DateCreated], [UserId], [Status], [Deleted]) VALUES (5, 'Everything seemed alright', 1, 1, '2022-11-12 08:00:00.0000000', 9 ,1 ,0)
 SET IDENTITY_INSERT [dbo].[Feedbacks] OFF
+
+GO
+SET IDENTITY_INSERT [dbo].[MealQuestions] ON
+INSERT [dbo].[MealQuestions] ([Id], [QuestionText], [MealType], [Deleted]) VALUES (1, 'I avoided sugary or processed foods for breakfast.', 0, 0)
+INSERT [dbo].[MealQuestions] ([Id], [QuestionText], [MealType], [Deleted]) VALUES (2, 'I limited my intake of processed and packaged foods for breakfast.', 0, 0)
+INSERT [dbo].[MealQuestions] ([Id], [QuestionText], [MealType], [Deleted]) VALUES (3, 'I included healthy fats (e.g., avocado, nuts) in my breakfast.', 0, 0)
+INSERT [dbo].[MealQuestions] ([Id], [QuestionText], [MealType], [Deleted]) VALUES (4, 'My breakfast included complex carbohydrates (e.g., whole-grain bread).', 0, 0)
+INSERT [dbo].[MealQuestions] ([Id], [QuestionText], [MealType], [Deleted]) VALUES (5, 'I included fiber-rich foods (e.g., fruits, vegetables, nuts) in my breakfast.', 0, 0)
+INSERT [dbo].[MealQuestions] ([Id], [QuestionText], [MealType], [Deleted]) VALUES (6, 'I had protein in my breakfast.', 0, 0)
+INSERT [dbo].[MealQuestions] ([Id], [QuestionText], [MealType], [Deleted]) VALUES (7, 'My breakfast left me feeling full and satisfied and portion size was appropriate for my needs.', 0, 0)
+
+INSERT [dbo].[MealQuestions] ([Id], [QuestionText], [MealType], [Deleted]) VALUES (8, 'My lunch included a variety of fresh vegetables or a salad.', 1, 0)
+INSERT [dbo].[MealQuestions] ([Id], [QuestionText], [MealType], [Deleted]) VALUES (9, 'I included a lean protein source in my lunch, such as grilled chicken or tofu.', 1, 0)
+INSERT [dbo].[MealQuestions] ([Id], [QuestionText], [MealType], [Deleted]) VALUES (10, 'I avoided fried foods for lunch.', 1, 0)
+INSERT [dbo].[MealQuestions] ([Id], [QuestionText], [MealType], [Deleted]) VALUES (11, 'My lunch included a whole-grain option, such as whole-grain bread or crackers.', 1, 0)
+INSERT [dbo].[MealQuestions] ([Id], [QuestionText], [MealType], [Deleted]) VALUES (12, 'I avoided processed meats for lunch, such as deli meats or hot dogs.', 1, 0)
+INSERT [dbo].[MealQuestions] ([Id], [QuestionText], [MealType], [Deleted]) VALUES (13, 'My lunch included healthy fats, such as avocado, nuts, or seeds.', 1, 0)
+INSERT [dbo].[MealQuestions] ([Id], [QuestionText], [MealType], [Deleted]) VALUES (14, 'I avoided sugary drinks for lunch, such as soda or sweetened iced tea.', 1, 0)
+INSERT [dbo].[MealQuestions] ([Id], [QuestionText], [MealType], [Deleted]) VALUES (15, 'My lunch left me feeling full and satisfied and portion size was appropriate for my needs.', 1, 0)
+
+INSERT [dbo].[MealQuestions] ([Id], [QuestionText], [MealType], [Deleted]) VALUES (16, 'My dinner included a variety of fresh vegetables or a salad.', 2, 0)
+INSERT [dbo].[MealQuestions] ([Id], [QuestionText], [MealType], [Deleted]) VALUES (17, 'I included a lean protein source in my dinner, such as grilled chicken or tofu.', 2, 0)
+INSERT [dbo].[MealQuestions] ([Id], [QuestionText], [MealType], [Deleted]) VALUES (18, 'I avoided fried foods for dinner.', 2, 0)
+INSERT [dbo].[MealQuestions] ([Id], [QuestionText], [MealType], [Deleted]) VALUES (19, 'My dinner included a whole-grain option, such as whole-grain bread or crackers.', 2, 0)
+INSERT [dbo].[MealQuestions] ([Id], [QuestionText], [MealType], [Deleted]) VALUES (20, 'I avoided processed meats for dinner, such as deli meats or hot dogs.', 2, 0)
+INSERT [dbo].[MealQuestions] ([Id], [QuestionText], [MealType], [Deleted]) VALUES (21, 'My dinner included healthy fats, such as avocado, nuts, or seeds.', 2, 0)
+INSERT [dbo].[MealQuestions] ([Id], [QuestionText], [MealType], [Deleted]) VALUES (22, 'I avoided sugary drinks for dinner, such as soda or sweetened iced tea.', 2, 0)
+INSERT [dbo].[MealQuestions] ([Id], [QuestionText], [MealType], [Deleted]) VALUES (23, 'My dinner left me feeling full and satisfied and I avoided overeating.', 2, 0)
+
+INSERT [dbo].[MealQuestions] ([Id], [QuestionText], [MealType], [Deleted]) VALUES (24, 'How many glasses (8oz) of water have you had today?', 3, 0)
+SET IDENTITY_INSERT [dbo].[MealQuestions] OFF
+
+GO
+SET IDENTITY_INSERT [dbo].[Meals] ON
+INSERT [dbo].[Meals] ([Id], [Score], [DateOfMeal], [MealType], [PersonId], [Deleted]) VALUES (1, -0.5, '2023-07-01 00:00:00.0000000', 0, 8, 0)
+INSERT [dbo].[Meals] ([Id], [Score], [DateOfMeal], [MealType], [PersonId], [Deleted]) VALUES (2, -0.25, '2023-07-02 00:00:00.0000000', 0, 8, 0)
+INSERT [dbo].[Meals] ([Id], [Score], [DateOfMeal], [MealType], [PersonId], [Deleted]) VALUES (3, 0.65, '2023-07-03 00:00:00.0000000', 0, 8, 0)
+INSERT [dbo].[Meals] ([Id], [Score], [DateOfMeal], [MealType], [PersonId], [Deleted]) VALUES (4, 0.75, '2023-07-04 00:00:00.0000000', 0, 8, 0)
+INSERT [dbo].[Meals] ([Id], [Score], [DateOfMeal], [MealType], [PersonId], [Deleted]) VALUES (5, 0.8, '2023-07-05 00:00:00.0000000', 0, 8, 0)
+INSERT [dbo].[Meals] ([Id], [Score], [DateOfMeal], [MealType], [PersonId], [Deleted]) VALUES (6, 0.35, '2023-07-06 00:00:00.0000000', 0, 8, 0)
+INSERT [dbo].[Meals] ([Id], [Score], [DateOfMeal], [MealType], [PersonId], [Deleted]) VALUES (7, 0.5, '2023-07-07 00:00:00.0000000', 0, 8, 0)
+INSERT [dbo].[Meals] ([Id], [Score], [DateOfMeal], [MealType], [PersonId], [Deleted]) VALUES (8, 0.45, '2023-07-08 00:00:00.0000000', 0, 8, 0)
+INSERT [dbo].[Meals] ([Id], [Score], [DateOfMeal], [MealType], [PersonId], [Deleted]) VALUES (9, 0.2, '2023-07-09 00:00:00.0000000', 0, 8, 0)
+INSERT [dbo].[Meals] ([Id], [Score], [DateOfMeal], [MealType], [PersonId], [Deleted]) VALUES (10, 0.1, '2023-07-10 00:00:00.0000000', 0, 8, 0)
+INSERT [dbo].[Meals] ([Id], [Score], [DateOfMeal], [MealType], [PersonId], [Deleted]) VALUES (11, 0.0, '2023-07-11 00:00:00.0000000', 0, 8, 0)
+INSERT [dbo].[Meals] ([Id], [Score], [DateOfMeal], [MealType], [PersonId], [Deleted]) VALUES (12, -0.2, '2023-07-12 00:00:00.0000000', 0, 8, 0)
+INSERT [dbo].[Meals] ([Id], [Score], [DateOfMeal], [MealType], [PersonId], [Deleted]) VALUES (13, -0.3, '2023-07-13 00:00:00.0000000', 0, 8, 0)
+INSERT [dbo].[Meals] ([Id], [Score], [DateOfMeal], [MealType], [PersonId], [Deleted]) VALUES (14, -0.65, '2023-07-30 00:00:00.0000000', 0, 8, 0)
+INSERT [dbo].[Meals] ([Id], [Score], [DateOfMeal], [MealType], [PersonId], [Deleted]) VALUES (15, -0.89, '2023-07-14 00:00:00.0000000', 0, 8, 0)
+INSERT [dbo].[Meals] ([Id], [Score], [DateOfMeal], [MealType], [PersonId], [Deleted]) VALUES (16, -0.7, '2023-07-15 00:00:00.0000000', 0, 8, 0)
+INSERT [dbo].[Meals] ([Id], [Score], [DateOfMeal], [MealType], [PersonId], [Deleted]) VALUES (17, 0.125, '2023-07-16 00:00:00.0000000', 0, 8, 0)
+INSERT [dbo].[Meals] ([Id], [Score], [DateOfMeal], [MealType], [PersonId], [Deleted]) VALUES (18, 0.325, '2023-07-17 00:00:00.0000000', 0, 8, 0)
+INSERT [dbo].[Meals] ([Id], [Score], [DateOfMeal], [MealType], [PersonId], [Deleted]) VALUES (19, 0.5, '2023-07-18 00:00:00.0000000', 0, 8, 0)
+INSERT [dbo].[Meals] ([Id], [Score], [DateOfMeal], [MealType], [PersonId], [Deleted]) VALUES (20, 0.756, '2023-07-19 00:00:00.0000000', 0, 8, 0)
+INSERT [dbo].[Meals] ([Id], [Score], [DateOfMeal], [MealType], [PersonId], [Deleted]) VALUES (21, 0.3, '2023-07-20 00:00:00.0000000', 0, 8, 0)
+INSERT [dbo].[Meals] ([Id], [Score], [DateOfMeal], [MealType], [PersonId], [Deleted]) VALUES (22, 0.1, '2023-07-21 00:00:00.0000000', 0, 8, 0)
+INSERT [dbo].[Meals] ([Id], [Score], [DateOfMeal], [MealType], [PersonId], [Deleted]) VALUES (23, -0.1, '2023-07-22 00:00:00.0000000', 0, 8, 0)
+INSERT [dbo].[Meals] ([Id], [Score], [DateOfMeal], [MealType], [PersonId], [Deleted]) VALUES (24, -0.125, '2023-07-23 00:00:00.0000000', 0, 8, 0)
+INSERT [dbo].[Meals] ([Id], [Score], [DateOfMeal], [MealType], [PersonId], [Deleted]) VALUES (25, 0.1, '2023-07-24 00:00:00.0000000', 0, 8, 0)
+INSERT [dbo].[Meals] ([Id], [Score], [DateOfMeal], [MealType], [PersonId], [Deleted]) VALUES (26, 0.2, '2023-07-25 00:00:00.0000000', 0, 8, 0)
+INSERT [dbo].[Meals] ([Id], [Score], [DateOfMeal], [MealType], [PersonId], [Deleted]) VALUES (27, 0.452, '2023-07-26 00:00:00.0000000', 0, 8, 0)
+INSERT [dbo].[Meals] ([Id], [Score], [DateOfMeal], [MealType], [PersonId], [Deleted]) VALUES (28, 0.578, '2023-07-27 00:00:00.0000000', 0, 8, 0)
+INSERT [dbo].[Meals] ([Id], [Score], [DateOfMeal], [MealType], [PersonId], [Deleted]) VALUES (29, 0.125, '2023-07-28 00:00:00.0000000', 0, 8, 0)
+INSERT [dbo].[Meals] ([Id], [Score], [DateOfMeal], [MealType], [PersonId], [Deleted]) VALUES (30, -0.2, '2023-07-29 00:00:00.0000000', 0, 8, 0)
+SET IDENTITY_INSERT [dbo].[Meals] OFF

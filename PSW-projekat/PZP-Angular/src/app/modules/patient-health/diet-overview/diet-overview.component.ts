@@ -87,7 +87,7 @@ export class DietOverviewComponent implements OnInit {
         const dialogRef = this.dialog.open(AddMealDialogComponent, {
           data: {mealTypeString: mealTypeString, mealTypeNumber: mealTypeNumber, mealQuestions: data},
         });
-        dialogRef.afterClosed().subscribe(async () => {
+        dialogRef.componentInstance.mealAdded.subscribe(async () => {
           await this.refreshPage()
         });
       },
@@ -103,7 +103,7 @@ export class DietOverviewComponent implements OnInit {
         const dialogRef = this.dialog.open(AddWaterDialogComponent, {
           data: {mealTypeString: mealTypeString, mealTypeNumber: mealTypeNumber, mealQuestions: data, shouldEdit: shouldEdit},
         });
-        dialogRef.afterClosed().subscribe(async () => {
+        dialogRef.componentInstance.waterAdded.subscribe(async () => {
           await this.refreshPage();
         });
       },

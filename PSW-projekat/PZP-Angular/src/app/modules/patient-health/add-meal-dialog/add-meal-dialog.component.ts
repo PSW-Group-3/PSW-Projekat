@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AddMealDialogData } from '../diet-overview/diet-overview.component';
 import { MatFormField } from '@angular/material/form-field';
@@ -12,6 +12,7 @@ import { MealDTO } from '../model/mealDTO.model';
   styleUrls: ['./add-meal-dialog.component.css']
 })
 export class AddMealDialogComponent implements OnInit{
+  @Output() mealAdded: EventEmitter<void> = new EventEmitter<void>();
 
   mealAnswers: MealAnswerDTO[] = [];
   errorMessage: string = '';
@@ -35,6 +36,7 @@ export class AddMealDialogComponent implements OnInit{
     else {
       let mealDTO: MealDTO = new MealDTO(this.mealAnswers, this.data.mealTypeNumber, parseInt(localStorage.getItem('currentUserId')!));
       this.mealService.addMeal(mealDTO).subscribe();
+      this.mealAdded.emit();      
       this.dialogRef.close();
     }
   }
