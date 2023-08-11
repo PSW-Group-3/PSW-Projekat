@@ -130,12 +130,115 @@
 /**********SHAPES**********/
 
 .bg {
-
-    background-image: url("/assets/images/welcome.png");
     height: auto;
-    width: 99.1vw;
+    width: 100vw;
     object-fit: fill;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+}
+
+.welcomeContainer {
+    position: relative;
+    width: 100%;
+    max-height: calc(100vh - 70px);
+    background-image: url("/assets/images/welcomePage1.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  
+  .welcomeContainer::before {
+    content: "";
+    display: block;
+    padding-top: 50%; /* 1:1 aspect ratio (100% / 2) */
+  }
+  
+  .textContainer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    text-align: center;
+    color: #206abc;
+  }
+  
+.textContainer h1,
+.textContainer h2,
+.textContainer p {
+  font-size: 5rem;
+  font-weight: 700;
+  line-height: 1.1;
+  background-image: linear-gradient(to bottom right, #4451b3, #212529);
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+  transition: font-size 0.5s; /* Add a smooth transition for font size changes */
+}
+
+.textContainer h2 {
+  font-size: 3rem;
+}
+
+.textContainer p {
+  font-size: 1.5rem;
+}
+.textContainer button {
+    color: #ffffff;
+    background-color: #4851b1;
+    border-color: #4851b1;
+    margin-top: 10px;
+}
+
+
+@media (max-width: 1450px) {
+    .textContainer h1,
+    .textContainer h2,
+    .textContainer p {
+      font-size: 3.5rem; /* Adjust font size for smaller screens */
+    }
+  
+    .textContainer h2 {
+      font-size: 2rem; /* Adjust font size for smaller screens */
+    }
+  
+    .textContainer p {
+      font-size: 1rem; /* Adjust font size for smaller screens */
+    }
+  }
+
+  @media (max-width: 1000px) {
+    .textContainer h1,
+    .textContainer h2,
+    .textContainer p {
+      font-size: 2.5rem; /* Adjust font size for smaller screens */
+    }
+  
+    .textContainer h2 {
+      font-size: 1.75rem; /* Adjust font size for smaller screens */
+    }
+  
+    .textContainer p {
+      font-size: 0.75rem; /* Adjust font size for smaller screens */
+    }
+  }
+  @media (max-width: 760px) {
+    .textContainer h1,
+    .textContainer h2,
+    .textContainer p {
+      font-size: 1.85rem; /* Adjust font size for smaller screens */
+    }
+  
+    .textContainer h2 {
+      font-size: 1.15rem; /* Adjust font size for smaller screens */
+    }
+  
+    .textContainer p {
+      font-size: 0rem; /* Adjust font size for smaller screens */
+    }
   }

@@ -1,19 +1,30 @@
 h1 {
     line-height: 1.2;
-    font-size: 3.5rem;
+    font-size: 3.3rem;
     font-weight: 600;
     background-image: linear-gradient(to bottom right, #4451b3, #212529);
     color: transparent;
     background-clip: text;
     -webkit-background-clip: text;
 }
+
+h2 {
+    line-height: 1.2;
+    font-size: 2.3rem;
+    font-weight: 600;
+    background-image: linear-gradient(to bottom right, #4451b3, #212529);
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+}
+
 .center {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
     width: 100%;
     margin: 0 auto; /* Center horizontally */
-  }
+}
   
 .left,
 .right {
@@ -34,14 +45,32 @@ h1 {
     align-items: center;
 }
 
-.chart-container {
-    width: 100%; /* Ensure chart width is responsive */
-    height: max(450px, 28vw);
-}
-
-.chart {
-    background-color: whitesmoke;
+.chartBox {
+    height: 100%;
+    width: max(450px, 35vw);
+    padding: 30px;
     border-radius: 3px;
     box-shadow: gray 0px 0px 4px 0px;
-    padding: 1rem;
+    background: whitesmoke;
+}
+
+.card {
+    height: 100%;
+    width: max(450px, 35vw);
+    padding: 30px;
+    border-radius: 3px;
+    box-shadow: gray 0px 0px 4px 0px;
+    background: whitesmoke;
+}
+
+label {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.inputDiv {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.2rem;
 }

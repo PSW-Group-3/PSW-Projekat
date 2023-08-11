@@ -23,12 +23,12 @@ namespace HospitalLibrary.Core.Service
 
         public void Create(Patient entity)
         {
-            throw new NotImplementedException();
+            _patientRepository.Create(entity);
         }
 
         public void Delete(Patient entity)
         {
-            throw new NotImplementedException();
+            _patientRepository.Delete(entity);
         }
 
         public IEnumerable<Patient> GetAll()

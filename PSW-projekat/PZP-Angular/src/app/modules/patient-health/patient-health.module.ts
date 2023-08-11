@@ -8,7 +8,7 @@ import { DietOverviewComponent } from './diet-overview/diet-overview.component';
 import { NavBarsModule } from '../nav-bar/nav-bars.module';
 import { MaterialModule } from 'src/app/material/material.module';
 import { MatDialogModule} from '@angular/material/dialog';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { AddMealDialogComponent } from './add-meal-dialog/add-meal-dialog.component';
@@ -37,6 +37,7 @@ const routes: Routes = [
     MatDividerModule,
     MatGridListModule,
     FormsModule,
+    ReactiveFormsModule,
     MatInputModule,
     MatFormFieldModule,
     RouterModule.forChild(routes),

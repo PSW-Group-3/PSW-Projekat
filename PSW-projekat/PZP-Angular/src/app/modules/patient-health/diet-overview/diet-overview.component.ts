@@ -133,6 +133,8 @@ export class DietOverviewComponent implements OnInit {
         }]
       },
       options: {
+        responsive: true,
+        maintainAspectRatio: false,
         scales: {
           y: {
             
@@ -178,6 +180,8 @@ export class DietOverviewComponent implements OnInit {
         }]
       },
       options: {
+        responsive: true,
+        maintainAspectRatio: false,
         scales: {
           y: {
             min: -1,
@@ -213,6 +217,8 @@ export class DietOverviewComponent implements OnInit {
         }]
       },
       options: {
+        responsive: true,
+        maintainAspectRatio: false,
         scales: {
           y: {
             min: -1,
@@ -248,6 +254,8 @@ export class DietOverviewComponent implements OnInit {
         }]
       },
       options: {
+        responsive: true,
+        maintainAspectRatio: false,
         scales: {
           y: {
             min: -1,

@@ -1,4 +1,5 @@
 ﻿using HospitalAPI.Adapters;
+using HospitalLibrary.Core.DTOs;
 using HospitalLibrary.Core.Model;
 using HospitalLibrary.Core.Service;
 using Microsoft.AspNetCore.Cors;
@@ -17,25 +18,46 @@ namespace HospitalAPI.Controllers.PublicApp
     {
         private readonly IPatientHealthInformationService _patientHealthInformationService;
         private readonly IPatientService _patientService;
-        private readonly PatientHealthAdapter _patientHealthAdapter;
 
-        public PatientHealthController(IPatientHealthInformationService patientHealthInformationService, IPatientService patientService, PatientHealthAdapter patientHealthAdapter)
+        public PatientHealthController(IPatientHealthInformationService patientHealthInformationService, IPatientService patientService)
         {
             _patientHealthInformationService = patientHealthInformationService;
             _patientService = patientService;
-            _patientHealthAdapter = patientHealthAdapter;
         }
 
         //[Authorize]
-        [HttpGet("healthscore/{personId}")]
-        public ActionResult GetHealthScoreByPersonId(int personId)
+        [HttpGet("healthinfo/{personId}")]
+        public ActionResult GetPatientHealthInformationByPersonId(int personId)
         {
             Patient patient = _patientService.getPatientByPersonId(personId);
 
-            return Ok(_patientHealthAdapter.ToPatientInfoDTO(patient, _patientHealthInformationService.GetLatestByPatientId(patient.Id)));
+            return Ok(PatientHealthAdapter.ToPatientInfoDTO(patient, _patientHealthInformationService.GetLatestByPatientId(patient.Id)));
         }
 
+        //[Authorize]
+        [HttpGet("healthinfo/messages/{personId}")]
+        public ActionResult GetPatientHealthInformationMessagesByPersonId(int personId)
+        {
+            PatientHealthInformation patientHealthInformation = _patientHealthInformationService.GetLatestByPatientId(_patientService.getPatientByPersonId(personId).Id);
+            List<String> messages = patientHealthInformation.IsWithinNormalLimits();
 
+            return Ok(new PatientHealthInforamationMessagesDTO { BloodPressureMessage = messages[2], HeightMessage = messages[1], WeightMessage = messages[0] });
+        }
+        
 
+        //[Authorize]
+        [HttpPut("healthinfo/{personId}")]
+        public ActionResult UpdatePatientHealthInformationByPersonId(PatientInfoDTO patientInfoDTO, int personId)
+        {
+            Patient patient = _patientService.getPatientByPersonId(personId);
+            //TODO: pitaj profesora
+            PatientHealthInformation patientHealthInformation = PatientHealthAdapter.FromPatientInfoDTO(patientInfoDTO, patient);
+            patient.UpdateHealthScore(patientHealthInformation.HealthScoreDelta);
+
+            _patientHealthInformationService.Create(patientHealthInformation);
+            _patientService.Update(patient);
+
+            return Ok(PatientHealthAdapter.ToPatientInfoDTO(patient, patientHealthInformation));
+        }
     }
 }

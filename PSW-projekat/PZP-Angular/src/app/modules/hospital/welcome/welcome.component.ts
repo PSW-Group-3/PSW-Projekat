@@ -20,7 +20,6 @@ export class WelcomeComponent implements OnInit {
   constructor(private feedbackService: FeedbackService, private router: Router, private userService: UserService) { }
 
   ngOnInit(): void {
-
     this.feedbackCount = 1;
     this.feedbackService.getAllFeedbackPublicDtos().subscribe(res => {
       this.feedbacks = res;
@@ -40,12 +39,7 @@ export class WelcomeComponent implements OnInit {
     this.dataSourceFeedbacks = this.feedbacks.slice(0, this.feedbackCount);
   }
 
-  loginUser(){
-    this.router.navigate(['/login']);
+  login(){
+    this.router.navigate(['login']);
   }
-
-  registerPatient(){
-    this.router.navigate(['/register']);
-  }
-
 }

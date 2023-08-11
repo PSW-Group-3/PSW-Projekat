@@ -1,18 +1,59 @@
 <app-patient-nav-bar></app-patient-nav-bar>
-
-<mat-grid-list cols="2" rowHeight="3rem" gutterSize="2rem">
-    <mat-grid-tile><a mat-raised-button color="primary" href="/dietOverview">Diet</a>
-    </mat-grid-tile>
-    <mat-grid-tile><button mat-raised-button color="primary">Trainings</button></mat-grid-tile>
-</mat-grid-list >
-
 <div class="center">
     <div class="left">
         <h1>Health Score</h1>
-        <div class="chart-container"><canvas id="healthScoreChart" class="chart">{{ healthScoreChart }}</canvas></div>
+        <div class="chartBox">
+            <canvas id="healthScoreChart">{{ healthScoreChart }}</canvas>
+        </div>
     </div>
     <div class="right">
-        <h1>Patient: </h1>
+        <h1>Health Information</h1>
+        <div class="card">
+            <form [formGroup]="patientInfoForm">
+                <div class="inputDiv">
+                    <label for="weight" class="form-label">Weight (kg)</label>
+                    <input type="number" class="form-control" id="weight" formControlName="weight">
+                    <div *ngIf="patientInfoForm.get('weight').invalid && (patientInfoForm.get('weight').dirty || patientInfoForm.get('weight').touched)" class="text-danger mt-1">
+                        Please enter a weight.
+                    </div>
+                </div>
 
+                <div class="inputDiv">
+                    <label for="height" class="form-label">Height (cm)</label>
+                    <input type="number" class="form-control" id="height" formControlName="height">
+                    <div *ngIf="patientInfoForm.get('height').invalid && (patientInfoForm.get('height').dirty || patientInfoForm.get('height').touched)" class="text-danger mt-1">
+                        Please enter a height.
+                    </div>
+                </div>
+
+                <div class="inputDiv">
+                    <label for="bmi" class="form-label">Body Mass Index - BMI</label>
+                    <input type="number" class="form-control" id="bmi" formControlName="bmi">
+                    <div *ngIf="patientInfoForm.get('bmi').invalid && (patientInfoForm.get('bmi').dirty || patientInfoForm.get('bmi').touched)" class="text-danger mt-1">
+                        Please enter a bmi.
+                    </div>
+                </div>
+
+                <div class="inputDiv">
+                    <label for="bloodPressure" class="form-label">Blood Pressure</label>
+                    <input type="text" class="form-control" id="bloodPressure" formControlName="bloodPressure">
+                    <div *ngIf="patientInfoForm.get('bloodPressure').invalid && (patientInfoForm.get('bloodPressure').dirty || patientInfoForm.get('bloodPressure').touched)" class="text-danger mt-1">
+                        Please enter a blood pressure.
+                    </div>
+                </div>
+
+                <div class="inputDiv">
+                    <label for="heartRate" class="form-label">Heart Rate (bpm)</label>
+                    <input type="number" class="form-control" id="heartRate" formControlName="heartRate">
+                    <div *ngIf="patientInfoForm.get('heartRate').invalid && (patientInfoForm.get('heartRate').dirty || patientInfoForm.get('heartRate').touched)" class="text-danger mt-1">
+                        Please enter a heart rate.
+                    </div>
+                </div>
+                <div class="inputDiv">
+                    <label>Last updated: {{updateDate.toDateString()}}</label>
+                    <button mat-raised-button color="primary" [disabled]="patientInfoForm.invalid" (click)="updatePatientInfo()">Update information</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>

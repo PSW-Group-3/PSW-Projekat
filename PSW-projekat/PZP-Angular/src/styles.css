@@ -4,6 +4,21 @@ body {
     background-image: url("/assets/images/background.png");
     background-repeat: no-repeat;
     background-attachment: fixed;
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    padding-top: 70px;
 }
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+::-webkit-scrollbar {
+    width: 0px; /* Adjust this value as needed */
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0); /* Transparent background */
+    border-radius: 6px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background-color: rgba(0, 0, 0, 0); /* Transparent background */
+  }

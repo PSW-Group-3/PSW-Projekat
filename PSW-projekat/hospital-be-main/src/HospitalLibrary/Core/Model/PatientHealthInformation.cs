@@ -53,9 +53,39 @@ namespace HospitalLibrary.Core.Model
             return messages;
         }
 
+        public double CalculateBMI()
+        {
+            return ((double)Weight / ((double)Height / 100) / ((double)Height / 100));
+        }
+
+        public double GetHealthScoreOfBMI()
+        {
+            double BMI = CalculateBMI();
+            if (BMI < 18.5)
+            {
+                return -5;
+            }
+            else if (BMI >= 18.5 && BMI < 25)
+            {
+                return 0;
+            }
+            else if (BMI >= 25 && BMI < 30)
+            {
+                return -5;
+            }
+            else if (BMI >= 30)
+            {
+                return -10;
+            }
+            else
+            {
+                throw new Exception("Bad BMI");
+            }
+        }
+
         private String CheckWeight()
         {
-            double BMI = Weight / Math.Pow((Height / 100), 2);
+            double BMI = CalculateBMI();
             if (BMI < 18.5)
             {
                 return "Your BMI (Body Mass Index) is: " + BMI + "\nWhich stands for: Underweight.\nYou should eat more and consult with a nutricionist.";
@@ -74,7 +104,7 @@ namespace HospitalLibrary.Core.Model
             }
             else
             {
-                return "Unknown";
+                throw new Exception("Bad BMI");
             }
         }
 
@@ -101,9 +131,9 @@ namespace HospitalLibrary.Core.Model
 
             if (systolic < 90 && diastolic < 60)
                 return "Your blood pressure is low. Please consult a doctor.";
-            else if (90 <= systolic && systolic < 120 && 60 <= diastolic && diastolic < 80)
+            else if (90 <= systolic && systolic <= 120 && 60 <= diastolic && diastolic <= 80)
                 return "Your blood pressure is within the normal range.";
-            else if ((120 <= systolic && systolic < 130) && (60 <= diastolic && diastolic < 80))
+            else if ((120 < systolic && systolic < 130) && (60 <= diastolic && diastolic <= 80))
                 return "Your blood pressure is elevated. Consider lifestyle changes.";
             else if ((130 <= systolic && systolic < 140) || (80 <= diastolic && diastolic < 90))
                 return "You are in Hypertension Stage 1. Consult a doctor for advice.";

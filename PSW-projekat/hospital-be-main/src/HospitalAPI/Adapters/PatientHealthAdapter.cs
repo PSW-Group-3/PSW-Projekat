@@ -9,7 +9,7 @@ namespace HospitalAPI.Adapters
 {
     public class PatientHealthAdapter
     {
-        public PatientInfoDTO ToPatientInfoDTO(Patient patient, PatientHealthInformation patientHealthInformation)
+        public static PatientInfoDTO ToPatientInfoDTO(Patient patient, PatientHealthInformation patientHealthInformation)
         {
             return new PatientInfoDTO
             {
@@ -18,10 +18,28 @@ namespace HospitalAPI.Adapters
                 Height = patientHealthInformation.Height,
                 Weight = patientHealthInformation.Weight,
                 SelectedDate = patientHealthInformation.SelectedDate,
-
+                BMI = patientHealthInformation.CalculateBMI(),
                 HealthScore = patient.HealthScore,
                 FullName = patient.Person.GetFullName()
             };
+        }
+
+        public static PatientHealthInformation FromPatientInfoDTO(PatientInfoDTO patientInfoDTO, Patient patient)
+        {
+            PatientHealthInformation patientHealthInformation = new PatientHealthInformation
+            {
+                BloodPressure = patientInfoDTO.BloodPressure,
+                HeartRate = patientInfoDTO.HeartRate,
+                Height = patientInfoDTO.Height,
+                Weight = patientInfoDTO.Weight,
+                SelectedDate = patientInfoDTO.SelectedDate,
+                Patient = patient,
+                HealthScoreDelta = 0
+            };
+
+            patientHealthInformation.HealthScoreDelta = patientHealthInformation.GetHealthScoreOfBMI();
+
+            return patientHealthInformation;
         }
     }
 }
