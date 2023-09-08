@@ -46,9 +46,9 @@ namespace HospitalLibrary.Core.Model
         {
             List<String> messages = new();
 
-            messages.Add(CheckWeight());
-            messages.Add(CheckHeartRate());
-            messages.Add(CheckBloodPressure());
+            messages.Add(CheckWeight().Message);
+            messages.Add(CheckHeartRate().Message);
+            messages.Add(CheckBloodPressure().Message);
 
             return messages;
         }
@@ -58,24 +58,24 @@ namespace HospitalLibrary.Core.Model
             return ((double)Weight / ((double)Height / 100) / ((double)Height / 100));
         }
 
-        public double GetHealthScoreOfBMI()
+        private MessageAndScore CheckWeight()
         {
             double BMI = CalculateBMI();
             if (BMI < 18.5)
             {
-                return -5;
+                return new MessageAndScore("Your BMI (Body Mass Index) is: " + BMI + "\nWhich stands for: Underweight.\nYou should eat more and consult with a nutricionist.", -5.0);
             }
             else if (BMI >= 18.5 && BMI < 25)
             {
-                return 0;
+                return new MessageAndScore("Your BMI (Body Mass Index) is: " + BMI + "\nWhich stands for: Normal weight.\nKeep up the good eating habit!", 0.0);
             }
             else if (BMI >= 25 && BMI < 30)
             {
-                return -5;
+                return new MessageAndScore("Your BMI (Body Mass Index) is: " + BMI + "\nWhich stands for: Overweight.\nYou should eat less.", -5.0);
             }
             else if (BMI >= 30)
             {
-                return -10;
+                return new MessageAndScore("Your BMI (Body Mass Index) is: " + BMI + "\nWhich stands for: Obese.\nYou should eat less and consult with a nutricionist.",-10.0);
             }
             else
             {
@@ -83,67 +83,58 @@ namespace HospitalLibrary.Core.Model
             }
         }
 
-        private String CheckWeight()
-        {
-            double BMI = CalculateBMI();
-            if (BMI < 18.5)
-            {
-                return "Your BMI (Body Mass Index) is: " + BMI + "\nWhich stands for: Underweight.\nYou should eat more and consult with a nutricionist.";
-            }
-            else if (BMI >= 18.5 && BMI < 25)
-            {
-                return "Your BMI (Body Mass Index) is: " + BMI + "\nWhich stands for: Normal weight.\nKeep up the good eating habit!";
-            }
-            else if (BMI >= 25 && BMI < 30)
-            {
-                return "Your BMI (Body Mass Index) is: " + BMI + "\nWhich stands for: Overweight.\nYou should eat less.";
-            }
-            else if (BMI >= 30)
-            {
-                return "Your BMI (Body Mass Index) is: " + BMI + "\nWhich stands for: Obese.\nYou should eat less and consult with a nutricionist.";
-            }
-            else
-            {
-                throw new Exception("Bad BMI");
-            }
-        }
-
-        private String CheckHeartRate()
+        private MessageAndScore CheckHeartRate()
         {
             if (HeartRate < 40)
-                return "Your heart rate is too low. Please consult a doctor.";
+                return new MessageAndScore("Your heart rate is too low. Please consult a doctor.", 0.0);
             else if (40 <= HeartRate && HeartRate < 60)
-                return "Your heart rate is slightly decresed. Monitor it over time.";
+                return new MessageAndScore("Your heart rate is slightly decresed. Monitor it over time.", -5.0);
             else if (60 <= HeartRate && HeartRate <= 100)
-                return "Your heart rate is within the normal range.";
+                return new MessageAndScore("Your heart rate is within the normal range.", 5.0);
             else if (101 <= HeartRate && HeartRate <= 120)
-                return "Your heart rate is slightly elevated. Monitor it over time.";
+                return new MessageAndScore("Your heart rate is slightly elevated. Monitor it over time.", -5.0);
             else if (HeartRate > 120)
-                return "Your heart rate is elevated. Consult a doctor for advice.";
+                return new MessageAndScore("Your heart rate is elevated. Consult a doctor for advice.", 0.0);
             else
-                return "Unknown.";
+                return new MessageAndScore("Unknown.", 0.0);
         }
 
-        private String CheckBloodPressure()
+        private MessageAndScore CheckBloodPressure()
         {
             int systolic = int.Parse(BloodPressure.Split('/')[0]);
             int diastolic = int.Parse(BloodPressure.Split('/')[1]);
 
             if (systolic < 90 && diastolic < 60)
-                return "Your blood pressure is low. Please consult a doctor.";
+                return new MessageAndScore("Your blood pressure is low. Please consult a doctor.", 0.0);
             else if (90 <= systolic && systolic <= 120 && 60 <= diastolic && diastolic <= 80)
-                return "Your blood pressure is within the normal range.";
+                return new MessageAndScore("Your blood pressure is within the normal range.", 5.0);
             else if ((120 < systolic && systolic < 130) && (60 <= diastolic && diastolic <= 80))
-                return "Your blood pressure is elevated. Consider lifestyle changes.";
+                return new MessageAndScore("Your blood pressure is elevated. Consider lifestyle changes.", -5.0);
             else if ((130 <= systolic && systolic < 140) || (80 <= diastolic && diastolic < 90))
-                return "You are in Hypertension Stage 1. Consult a doctor for advice.";
+                return new MessageAndScore("You are in Hypertension Stage 1. Consult a doctor for advice.", -10.0);
             else if (systolic >= 140 || diastolic >= 90)
-                return "You are in Hypertension Stage 2. Consult a doctor for evaluation.";
+                return new MessageAndScore("You are in Hypertension Stage 2. Consult a doctor for evaluation.", -10.0);
             else if (systolic > 180 || diastolic > 120)
-                return "Your blood pressure is dangerously high. Seek medical attention immediately.";
+                return new MessageAndScore("Your blood pressure is dangerously high. Seek medical attention immediately.", 0.0);
             else
-                return "Unknown.";
+                return new MessageAndScore("Unknown.", 0.0);
         }
 
+        public double CalculateHealthScoreDelta()
+        {
+            return CheckWeight().HealthScore + CheckHeartRate().HealthScore + CheckBloodPressure().HealthScore;
+        }
+    }
+
+    internal struct MessageAndScore
+    {
+        public string Message { get; set; }
+        public double HealthScore { get; set; }
+
+        public MessageAndScore(string message, double healthScore)
+        {
+            Message = message;
+            HealthScore = healthScore;
+        }
     }
 }

@@ -37,7 +37,7 @@ namespace HospitalAPI.Adapters
                 HealthScoreDelta = 0
             };
 
-            patientHealthInformation.HealthScoreDelta = patientHealthInformation.GetHealthScoreOfBMI();
+            patientHealthInformation.HealthScoreDelta = patientHealthInformation.CalculateHealthScoreDelta();
 
             return patientHealthInformation;
         }

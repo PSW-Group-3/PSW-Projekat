@@ -35,6 +35,7 @@ namespace HospitalLibrary.Core.Model
             HealthScore += score;
 
             if (HealthScore >= 100) HealthScore = 100;
+            if (HealthScore <= 0) HealthScore = 0;
         }
     }
 }

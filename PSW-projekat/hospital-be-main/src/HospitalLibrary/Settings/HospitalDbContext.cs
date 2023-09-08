@@ -38,7 +38,10 @@ namespace HospitalLibrary.Settings
 
         public DbSet<PatientHealthInformation> PatientHealthInformations { get; set; }
 
-        public DbSet<Training> Trainings { get; set; }
+        public DbSet<Workout> Workouts { get; set; }
+        public DbSet<GymWorkout> GymWorkouts { get; set; }
+        public DbSet<Exercise> Exercises { get; set; }
+
 
         public DbSet<DoctorExamination> DoctorExaminations { get; set; }
         public DbSet<Core.AggregatDoctor.DomainEvent> DoctorExaminationEvents { get; set; }
@@ -87,6 +90,9 @@ namespace HospitalLibrary.Settings
             modelBuilder.Entity<BackToAppointentTimeSelection>();
             modelBuilder.Entity<BackToAppointmentDateSelection>();
             modelBuilder.Entity<PatientSelectedAppointmentDate>();
+
+            modelBuilder.Entity<GymWorkout>().OwnsMany(gw => gw.Exercises);
+            modelBuilder.Entity<GymWorkout>(gw => gw.Navigation(gw => gw.Exercises));
 
             base.OnModelCreating(modelBuilder);
         }

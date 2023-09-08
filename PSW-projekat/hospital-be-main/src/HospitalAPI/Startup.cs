@@ -168,7 +168,10 @@ namespace HospitalAPI
             services.AddScoped<IPatientHealthInformationService, PatientHealthInformationService>();
             services.AddScoped<IPatientHealthInformationRepository, PatientHealthInformationRepository>();
 
-            services.AddScoped<ITrainingService, TrainingService>();
+            services.AddScoped<IWorkoutService, WorkoutService>();
+            services.AddScoped<IWorkoutRepository, WorkoutRepository>();
+
+            services.AddScoped<IGymWorkoutRepository, GymWorkoutRepository>();
 
             services.AddScoped<SchedulingAppointmentEventsRepository>();
             services.AddScoped<SchedulingStatisticsService>();
