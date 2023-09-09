@@ -1,4 +1,5 @@
-﻿using HospitalAPI.DTO;
+﻿using HospitalAPI.Adapters;
+using HospitalAPI.DTO;
 using HospitalLibrary.Core.Model;
 using HospitalLibrary.Core.Service;
 using Microsoft.AspNetCore.Cors;
@@ -10,14 +11,14 @@ namespace HospitalAPI.Controllers.PublicApp
     [EnableCors]
     [Route("api/[controller]")]
     [ApiController]
-    public class WorkoutController : ControllerBase
+    public class GymWorkoutController : ControllerBase
     {
-        private readonly IWorkoutService _workoutService;
+        private readonly IGymWorkoutService _gymWorkoutService;
         private readonly IPatientService _patientService;
 
-        public WorkoutController(IWorkoutService workoutService, IPatientService patientService)
+        public GymWorkoutController(IGymWorkoutService workoutService, IPatientService patientService)
         {
-            _workoutService = workoutService;
+            _gymWorkoutService = workoutService;
             _patientService = patientService;
         }
 
@@ -25,12 +26,12 @@ namespace HospitalAPI.Controllers.PublicApp
         [HttpGet("all/{personId}")]
         public ActionResult GetAllForPatient(int patientId)
         {
-            return Ok(_workoutService.GetAllForPatient(patientId));
+            return Ok(_gymWorkoutService.GetAllForPatient(patientId));
         }
 
         //[Authorize]
         [HttpPost("add")]
-        public ActionResult AddWorkout(WorkoutDTO dto)
+        public ActionResult AddGymWorkout(GymWorkoutDTO dto)
         {
             Patient patient = _patientService.getPatientByPersonId(dto.PersonId);
             if (patient == null)
@@ -40,8 +41,8 @@ namespace HospitalAPI.Controllers.PublicApp
 
             try
             {
-                Workout workout = new(dto.Type, DateTime.Today, TimeSpan.FromMinutes(dto.Duration), dto.Description, patient);
-                _workoutService.Create(workout);
+                GymWorkout workout = WorkoutAdapter.FromGymWorkoutDTOtoGymWorkout(dto, patient);
+                _gymWorkoutService.Create(workout);
                 patient.UpdateHealthScore(workout.Score);
                 _patientService.Update(patient);
                 return StatusCode(201);

@@ -1,9 +1,5 @@
 ﻿using HospitalLibrary.Core.Model.Enums;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HospitalLibrary.Core.Model
 {
@@ -23,12 +19,12 @@ namespace HospitalLibrary.Core.Model
         {
             if (!IsValid(date, duration)) throw new Exception("Workout invalid!");
 
-            Score = CalculateScore(type);
             Type = type;
             Date = date;
             Duration = duration;
             Description = description;
             Patient = patient;
+            Score = CalculateScore();
         }
 
         protected bool IsValid(DateTime date, TimeSpan duration)
@@ -46,11 +42,11 @@ namespace HospitalLibrary.Core.Model
             return true;
         }
 
-        virtual protected double CalculateScore(WorkoutType type)
+        virtual protected double CalculateScore()
         {
-            double score = GetWorkoutScore(type);
+            double score = GetWorkoutScore(Type);
 
-            if (Duration.Minutes > 60)
+            if (Duration.TotalMinutes > 60)
             {
                 score *= Duration.TotalMinutes / 60;
             }

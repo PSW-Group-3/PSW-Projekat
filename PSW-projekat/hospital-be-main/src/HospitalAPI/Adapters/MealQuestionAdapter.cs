@@ -1,6 +1,5 @@
 ﻿using HospitalLibrary.Core.DTOs;
 using HospitalLibrary.Core.Model;
-using System;
 using System.Collections.Generic;
 
 namespace HospitalAPI.Adapters

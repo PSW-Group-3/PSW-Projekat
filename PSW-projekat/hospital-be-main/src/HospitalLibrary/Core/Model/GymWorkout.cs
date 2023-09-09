@@ -1,9 +1,6 @@
 ﻿using HospitalLibrary.Core.Model.Enums;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HospitalLibrary.Core.Model
 {
@@ -13,21 +10,22 @@ namespace HospitalLibrary.Core.Model
 
         public GymWorkout() { }
 
-        public GymWorkout(WorkoutType type, DateTime date, TimeSpan duration, string description, List<Exercise> exercises)
+        public GymWorkout(WorkoutType type, DateTime date, TimeSpan duration, string description, Patient patient, List<Exercise> exercises)
         {
             if (!IsValid(date, duration)) throw new Exception("GymWorkout invalid!");
 
-            Score = CalculateScore(type);
             Type = type;
             Date = date;
             Duration = duration;
             Description = description;
+            Patient = patient;
             Exercises = exercises;
+            Score = CalculateScore();
         }
 
-        protected override double CalculateScore(WorkoutType type)
+        protected override double CalculateScore()
         {
-            double score = GetWorkoutScore(type);
+            double score = GetWorkoutScore(Type);
             SetsAndReps setsAndReps = GetNumberOfSetsAndReps();
             double setsModifier = Exercises.Count * 3 / setsAndReps.Sets;
             double repsModifier = Exercises.Count * 3 * 10 / setsAndReps.Reps;
