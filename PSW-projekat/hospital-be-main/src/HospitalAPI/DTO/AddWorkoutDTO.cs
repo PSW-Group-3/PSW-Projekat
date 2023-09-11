@@ -1,9 +1,8 @@
 ﻿using HospitalLibrary.Core.Model.Enums;
-using System.Collections.Generic;
 
 namespace HospitalAPI.DTO
 {
-    public class GymWorkoutDTO
+    public class AddWorkoutDTO
     {
         public WorkoutType Type { get; set; }
         //TODO: Should patient be able to add workouts in past?
@@ -11,6 +10,5 @@ namespace HospitalAPI.DTO
         public int Duration { get; set; }
         public string Description { get; set; }
         public int PersonId { get; set; }
-        public List<ExerciseDTO> Exercises { get; set; }
     }
 }

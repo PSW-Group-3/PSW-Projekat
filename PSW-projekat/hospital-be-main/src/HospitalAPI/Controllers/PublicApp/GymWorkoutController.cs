@@ -34,13 +34,14 @@ namespace HospitalAPI.Controllers.PublicApp
             }
 
             List<GymWorkout> workouts = (List<GymWorkout>)_gymWorkoutService.GetAllForPatient(patient.Id);
+            List<GymWorkoutInfoDTO> dtos = WorkoutAdapter.FromGymWorkoutListToGymWorkoutInfoDTOList(workouts);
 
-            return Ok(workouts);
+            return Ok(dtos);
         }
 
         //[Authorize]
         [HttpPost("add")]
-        public ActionResult AddGymWorkout(GymWorkoutDTO dto)
+        public ActionResult AddGymWorkout(AddGymWorkoutDTO dto)
         {
             Patient patient = _patientService.getPatientByPersonId(dto.PersonId);
             if (patient == null)
@@ -50,7 +51,7 @@ namespace HospitalAPI.Controllers.PublicApp
 
             try
             {
-                GymWorkout workout = WorkoutAdapter.FromGymWorkoutDTOtoGymWorkout(dto, patient);
+                GymWorkout workout = WorkoutAdapter.FromAddGymWorkoutDTOtoGymWorkout(dto, patient);
                 _gymWorkoutService.Create(workout);
                 patient.UpdateHealthScore(workout.Score);
                 _patientService.Update(patient);

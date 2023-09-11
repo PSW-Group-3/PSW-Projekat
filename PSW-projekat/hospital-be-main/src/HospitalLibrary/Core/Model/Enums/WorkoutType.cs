@@ -4,4 +4,5 @@
     {
         walking, jogging, running, cardio, cycling, swimming, strenght, sports
     }
+
 }

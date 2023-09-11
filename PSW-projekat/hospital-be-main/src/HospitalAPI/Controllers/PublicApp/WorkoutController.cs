@@ -1,4 +1,5 @@
-﻿using HospitalAPI.DTO;
+﻿using HospitalAPI.Adapters;
+using HospitalAPI.DTO;
 using HospitalLibrary.Core.Model;
 using HospitalLibrary.Core.Service;
 using Microsoft.AspNetCore.Cors;
@@ -33,13 +34,14 @@ namespace HospitalAPI.Controllers.PublicApp
             }
 
             List<Workout> workouts = (List<Workout>)_workoutService.GetAllForPatient(patient.Id);
+            List<WorkoutInfoDTO> dtos = WorkoutAdapter.FromWorkoutListToWorkoutInfoDTOList(workouts);
 
-            return Ok(workouts);
+            return Ok(dtos);
         }
 
         //[Authorize]
         [HttpPost("add")]
-        public ActionResult AddWorkout(WorkoutDTO dto)
+        public ActionResult AddWorkout(AddWorkoutDTO dto)
         {
             Patient patient = _patientService.getPatientByPersonId(dto.PersonId);
             if (patient == null)
@@ -49,7 +51,7 @@ namespace HospitalAPI.Controllers.PublicApp
 
             try
             {
-                Workout workout = new(dto.Type, DateTime.Today, TimeSpan.FromMinutes(dto.Duration), dto.Description, patient);
+                Workout workout = WorkoutAdapter.FromAddWorkoutDTOtoWorkout(dto, patient);
                 _workoutService.Create(workout);
                 patient.UpdateHealthScore(workout.Score);
                 _patientService.Update(patient);

@@ -29,7 +29,7 @@ namespace HospitalLibrary.Core.Repository
 
         public IEnumerable<Workout> GetAll()
         {
-            return _context.Workouts;
+            return _context.Workouts.ToList();
         }
 
         public IEnumerable<Workout> GetAllForPatient(int patientId)

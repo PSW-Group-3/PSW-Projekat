@@ -27,7 +27,7 @@ namespace HospitalLibrary.Core.Model
             Score = CalculateScore();
         }
 
-        protected bool IsValid(DateTime date, TimeSpan duration)
+        private bool IsValid(DateTime date, TimeSpan duration)
         {
             if (date.Date != DateTime.Today)
             {
@@ -42,7 +42,7 @@ namespace HospitalLibrary.Core.Model
             return true;
         }
 
-        virtual protected double CalculateScore()
+        private double CalculateScore()
         {
             double score = GetWorkoutScore(Type);
 
@@ -54,7 +54,7 @@ namespace HospitalLibrary.Core.Model
             return score;
         }
 
-        public static int GetWorkoutScore(WorkoutType type)
+        private static int GetWorkoutScore(WorkoutType type)
         {
         int score = type switch
             {
