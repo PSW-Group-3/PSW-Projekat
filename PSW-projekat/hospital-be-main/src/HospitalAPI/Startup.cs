@@ -171,6 +171,7 @@ namespace HospitalAPI
             services.AddScoped<IWorkoutService, WorkoutService>();
             services.AddScoped<IWorkoutRepository, WorkoutRepository>();
 
+            services.AddScoped<IGymWorkoutService, GymWorkoutService>();
             services.AddScoped<IGymWorkoutRepository, GymWorkoutRepository>();
 
             services.AddScoped<SchedulingAppointmentEventsRepository>();

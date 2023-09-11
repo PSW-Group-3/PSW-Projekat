@@ -34,7 +34,7 @@ namespace HospitalLibrary.Core.Repository
 
         public IEnumerable<GymWorkout> GetAllForPatient(int patientId)
         {
-            return _context.GymWorkouts.Where(w => w.Patient.Id == patientId);
+            return _context.GymWorkouts.Where(w => w.Patient.Id == patientId).ToList();
         }
 
         public GymWorkout GetById(int id)

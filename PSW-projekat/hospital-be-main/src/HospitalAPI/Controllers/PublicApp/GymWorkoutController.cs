@@ -5,6 +5,7 @@ using HospitalLibrary.Core.Service;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 
 namespace HospitalAPI.Controllers.PublicApp
 {
@@ -24,9 +25,17 @@ namespace HospitalAPI.Controllers.PublicApp
 
         //[Authorize]
         [HttpGet("all/{personId}")]
-        public ActionResult GetAllForPatient(int patientId)
+        public ActionResult GetAllForPatient(int personId)
         {
-            return Ok(_gymWorkoutService.GetAllForPatient(patientId));
+            Patient patient = _patientService.getPatientByPersonId(personId);
+            if (patient == null)
+            {
+                return BadRequest("Patient not found.");
+            }
+
+            List<GymWorkout> workouts = (List<GymWorkout>)_gymWorkoutService.GetAllForPatient(patient.Id);
+
+            return Ok(workouts);
         }
 
         //[Authorize]

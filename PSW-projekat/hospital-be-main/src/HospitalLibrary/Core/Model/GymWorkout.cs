@@ -6,7 +6,7 @@ namespace HospitalLibrary.Core.Model
 {
     public class GymWorkout : Workout
     {
-        public List<Exercise> Exercises { get; set; }
+        public virtual List<Exercise> Exercises { get; set; }
 
         public GymWorkout() { }
 
@@ -27,8 +27,8 @@ namespace HospitalLibrary.Core.Model
         {
             double score = GetWorkoutScore(Type);
             SetsAndReps setsAndReps = GetNumberOfSetsAndReps();
-            double setsModifier = Exercises.Count * 3 / setsAndReps.Sets;
-            double repsModifier = Exercises.Count * 3 * 10 / setsAndReps.Reps;
+            double setsModifier =  (double)setsAndReps.Sets / (double)(Exercises.Count * 3);
+            double repsModifier = (double)setsAndReps.Reps / (double)(Exercises.Count * 3 * 10 );
 
             return score * setsModifier * repsModifier;
         }
