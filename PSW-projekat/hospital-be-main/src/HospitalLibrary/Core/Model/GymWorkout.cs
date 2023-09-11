@@ -31,7 +31,7 @@ namespace HospitalLibrary.Core.Model
 
         private bool IsValid(WorkoutType type, DateTime date, TimeSpan duration)
         {
-            if (type != WorkoutType.strenght)
+            if (type != WorkoutType.strength)
             {
                 return false;
             }

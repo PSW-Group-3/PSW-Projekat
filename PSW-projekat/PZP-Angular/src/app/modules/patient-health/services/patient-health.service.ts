@@ -1,7 +1,7 @@
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { PatientHealthInformationMessagesDTO, PatientInfoDTO } from '../model/patient-infoDTO.model';
+import { PatientHealthInformationMessagesDTO, PatientInfoDTO } from '../model/patient-info-dto.model';
 
 @Injectable({
   providedIn: 'root'

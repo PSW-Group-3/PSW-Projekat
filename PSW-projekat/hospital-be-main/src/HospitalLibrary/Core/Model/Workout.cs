@@ -65,7 +65,7 @@ namespace HospitalLibrary.Core.Model
                 WorkoutType.cardio => 3,
                 WorkoutType.running => 3,
                 WorkoutType.cycling => 3,
-                WorkoutType.strenght => 3,
+                WorkoutType.strength => 3,
                 _ => 0,
             };
 

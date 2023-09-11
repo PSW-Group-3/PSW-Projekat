@@ -14,11 +14,15 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { AddMealDialogComponent } from './add-meal-dialog/add-meal-dialog.component';
 import {MatDividerModule} from '@angular/material/divider';
 import { AddWaterDialogComponent } from './add-water-dialog/add-water-dialog.component';
+import { WorkoutsCalendarComponent } from './workouts-calendar/workouts-calendar.component';
+import { WorkoutsOverviewComponent } from './workouts-overview/workouts-overview.component';
 
 
 const routes: Routes = [
   { path: 'patientHealth', component: PatientHealthScoreComponent, canActivate: [ AuthGuard ] },
   { path: 'dietOverview', component: DietOverviewComponent, canActivate: [ AuthGuard ] },
+  { path: 'workoutsOverview', component: WorkoutsOverviewComponent, canActivate: [ AuthGuard ] },
+
 ]
 
 @NgModule({
@@ -27,6 +31,8 @@ const routes: Routes = [
     DietOverviewComponent,
     AddMealDialogComponent,
     AddWaterDialogComponent,
+    WorkoutsCalendarComponent,
+    WorkoutsOverviewComponent,
   ],
   exports: [RouterModule],
   providers: [AuthGuard],

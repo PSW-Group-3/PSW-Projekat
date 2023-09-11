@@ -1,0 +1,44 @@
+<div style="width: 100%">
+  <!-- Your form -->
+  <form [formGroup]="availabilityCalendarForm" (ngSubmit)="onSubmit()">
+    <!-- Month dropdown -->
+    <div class="lineContainer">
+      <div class="inputContainer">
+        <select formControlName="month">
+          <option *ngFor="let month of months" [value]="month">
+            {{ month }}
+          </option>
+        </select>
+        <label for="month">Month</label>
+      </div>
+      <!-- Year input -->
+      <div class="inputContainer">
+        <input type="number" formControlName="year" />
+        <label for="year">Year</label>
+      </div>
+      <!-- Change button -->
+      <button type="submit">Change</button>
+    </div>
+  </form>
+
+  <!-- Calendar grid -->
+  <div class="inlineGrid">
+    <div class="calendarContainer">
+      <div *ngFor="let weekDay of weekDays" class="calendarHeaderItem">
+        {{ weekDay }}
+      </div>
+      <div
+        *ngFor="let workoutDTO of workoutInfoDTOs"
+        class="calendarItem"
+        [style.backgroundColor]="setColor(workoutDTO.type)"
+      >
+        <div class="calendarItemDate">
+          {{ workoutDTO.date | date : "longDate" }}
+        </div>
+        <div class="calendarItemType" *ngIf="workoutDTO.type">
+          {{ getWorkoutTypeString(workoutDTO.type) }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

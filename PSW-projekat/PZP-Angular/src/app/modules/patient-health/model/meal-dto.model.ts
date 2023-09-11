@@ -1,4 +1,4 @@
-import { MealAnswerDTO } from "./meal-answerDTO.model";
+import { MealAnswerDTO } from "./meal-answer-dto.model";
 
 export class MealDTO{
     answers: MealAnswerDTO[];

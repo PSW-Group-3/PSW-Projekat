@@ -2,9 +2,9 @@ import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AddMealDialogData } from '../diet-overview/diet-overview.component';
 import { MatFormField } from '@angular/material/form-field';
-import { MealAnswerDTO } from '../model/meal-answerDTO.model';
+import { MealAnswerDTO } from '../model/meal-answer-dto.model';
 import { MealService } from '../services/meal.service';
-import { MealDTO } from '../model/mealDTO.model';
+import { MealDTO } from '../model/meal-dto.model';
 
 @Component({
   selector: 'app-add-meal-dialog',

@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { MealQuestionDTO } from '../model/meal-questionDTO.model';
+import { MealQuestionDTO } from '../model/meal-question-dto.model';
 import { MealService } from '../services/meal.service';
 import { AddMealDialogComponent } from '../add-meal-dialog/add-meal-dialog.component';
 import { AddWaterDialogComponent } from '../add-water-dialog/add-water-dialog.component';

@@ -2,8 +2,7 @@ import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Chart, registerables } from 'chart.js';
 import { PatientHealthService } from '../services/patient-health.service';
-import { PatientHealthInformationMessagesDTO, PatientInfoDTO } from '../model/patient-infoDTO.model';
-import { update } from '@grapecity/gcpdfviewer/typings/Articles';
+import { PatientHealthInformationMessagesDTO, PatientInfoDTO } from '../model/patient-info-dto.model';
 import { switchMap } from 'rxjs';
 Chart.register(...registerables);
 

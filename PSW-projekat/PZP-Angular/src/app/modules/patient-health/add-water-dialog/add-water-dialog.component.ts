@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AddWaterDialogData } from '../diet-overview/diet-overview.component';
-import { MealAnswerDTO } from '../model/meal-answerDTO.model';
+import { MealAnswerDTO } from '../model/meal-answer-dto.model';
 import { MealService } from '../services/meal.service';
-import { MealDTO } from '../model/mealDTO.model';
+import { MealDTO } from '../model/meal-dto.model';
 
 @Component({
   selector: 'app-add-water-dialog',
