@@ -40,14 +40,14 @@ namespace HospitalLibrary.Core.Service
             return _mealRepository.GetById(id);
         }
 
-        public Meal GetByDateAndType(DateTime dateTime, MealType mealType)
+        public Meal GetByDateAndTypeForPatient(DateTime dateTime, MealType mealType, int patientId)
         {
-            return _mealRepository.GetByDateAndType(dateTime, mealType);
+            return _mealRepository.GetByDateAndTypeForPatient(dateTime, mealType, patientId);
         }
 
-        public IEnumerable<Meal> GetMealsForPatientByDate(int patientId, DateTime dateTime)
+        public IEnumerable<Meal> GetAllForPatientByDate(int patientId, DateTime dateTime)
         {
-            return _mealRepository.GetMealsForPatientByDate(patientId, dateTime);
+            return _mealRepository.GetAllForPatientByDate(patientId, dateTime);
         }
 
         public void Update(Meal entity)

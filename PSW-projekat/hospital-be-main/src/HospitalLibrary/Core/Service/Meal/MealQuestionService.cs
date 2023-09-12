@@ -22,12 +22,12 @@ namespace HospitalLibrary.Core.Service
 
         public void Delete(MealQuestion entity)
         {
-            throw new NotImplementedException();
+            _mealQuestionRepository.Delete(entity);
         }
 
         public IEnumerable<MealQuestion> GetAll()
         {
-            throw new NotImplementedException();
+            return _mealQuestionRepository.GetAll();
         }
 
         public IEnumerable<MealQuestion> GetAllMealQuestionsByMealType(MealType mealType)
@@ -42,7 +42,7 @@ namespace HospitalLibrary.Core.Service
 
         public void Update(MealQuestion entity)
         {
-            throw new NotImplementedException();
+            _mealQuestionRepository.Update(entity);
         }
     }
 }

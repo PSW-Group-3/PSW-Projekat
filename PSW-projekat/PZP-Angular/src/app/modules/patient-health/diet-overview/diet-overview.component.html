@@ -12,14 +12,14 @@
         <mat-card-content >
             <p *ngIf="mealinfo.isAdded == true">
                 Your {{mealinfo.mealTypeString}} has been added for today.<br/>
-                Your meal was: {{mealinfo.mealScore}}
+                Your meal was: {{mealinfo.mealStatus}}
             </p>
             <p *ngIf="mealinfo.isAdded == false">
                 Please add {{mealinfo.mealTypeString}} for today.
             </p>
         </mat-card-content>
         <mat-card-actions align="end">
-          <button mat-raised-button color="primary" (click)="openMealDialog(mealinfo.mealTypeNumber, mealinfo.mealTypeString)" [disabled]="mealInfos[i].isAdded">Add {{mealinfo.mealTypeString}}</button>
+          <button mat-raised-button color="primary" (click)="openMealDialog(mealinfo.mealTypeNumber, mealinfo.mealTypeString, mealinfo.mealAnswers)" [disabled]="mealInfos[i].isAdded">Add {{mealinfo.mealTypeString}}</button>
         </mat-card-actions>
     </mat-card>
     <mat-card class="card">
@@ -30,7 +30,7 @@
         <mat-card-content >
             <p *ngIf="waterInfo.isAdded == true">
                 Your {{waterInfo.mealTypeString}} has been added for today.<br/>
-                Your water intake is: {{waterInfo.mealScore}}
+                Your water intake is: {{waterInfo.mealStatus}}
             </p>
             <p *ngIf="waterInfo.isAdded == false">
                 Please add {{waterInfo.mealTypeString}} for today.

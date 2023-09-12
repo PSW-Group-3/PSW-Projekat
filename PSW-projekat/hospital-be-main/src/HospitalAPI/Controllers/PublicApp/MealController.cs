@@ -20,25 +20,16 @@ namespace HospitalAPI.Controllers.PublicApp
         private readonly MealStatisticsService _mealStatisticsService;
         private readonly IMealAnswerService _mealAnswerService;
         private readonly IMealQuestionService _mealQuestionService;
-        private readonly IPersonService _personService;
         private readonly IPatientService _patientService;
 
 
-        public MealController(IMealService mealService, MealStatisticsService mealStatisticsService, IMealAnswerService mealAnswerService, IMealQuestionService mealQuestionService, IPersonService personService, IPatientService patientService)
+        public MealController(IMealService mealService, MealStatisticsService mealStatisticsService, IMealAnswerService mealAnswerService, IMealQuestionService mealQuestionService, IPatientService patientService)
         {
             _mealService = mealService;
             _mealStatisticsService = mealStatisticsService;
             _mealAnswerService = mealAnswerService;
             _mealQuestionService = mealQuestionService;
-            _personService = personService;
             _patientService = patientService;
-        }
-
-        //[Authorize]
-        [HttpGet("all/{mealType}")]
-        public ActionResult GetAllMealsByType(MealType mealType)
-        {
-            return Ok(_mealService.GetAllMealsByType(mealType));
         }
 
         //[Authorize]
@@ -49,41 +40,56 @@ namespace HospitalAPI.Controllers.PublicApp
         }
 
         //[Authorize]
-        [HttpGet("patient/{patientId}/{dateTime}")]
-        public ActionResult GetMealsForPatientByDate(int patientId, DateTime dateTime)
+        [HttpGet("patient/{personId}/{dateTime}")]
+        public ActionResult GetAllForPatientByDate(int personId, DateTime dateTime)
         {
-            return Ok(MealAdapter.ToListInfoDTO((List<Meal>)_mealService.GetMealsForPatientByDate(patientId, dateTime)));
+            Patient patient = _patientService.getPatientByPersonId(personId);
+            if (patient == null)
+            {
+                return BadRequest("Patient not found.");
+            }
+
+            return Ok(MealAdapter.FromMealListToMealInfoDTOList((List<Meal>)_mealService.GetAllForPatientByDate(patient.Id, dateTime)));
         }
 
         //[Authorize]
-        [HttpGet("statistics/{patientId}")]
-        public ActionResult GetMealStatistics(int patientId)
+        [HttpGet("statistics/{personId}")]
+        public ActionResult GetMealStatistics(int personId)
         {
-            return Ok(_mealStatisticsService.GetMealsStatistics(patientId));
+            Patient patient = _patientService.getPatientByPersonId(personId);
+            if (patient == null)
+            {
+                return BadRequest("Patient not found.");
+            }
+
+            return Ok(_mealStatisticsService.GetMealsStatistics(patient.Id));
         }
 
         //[Authorize]
         [HttpPost("add")]
-        public ActionResult AddMeal(MealDTO dto)
+        public ActionResult AddMeal(CreateMealDTO dto)
         {
-            Person person = _personService.GetById(dto.PersonId);
-            if (person == null)
+            Patient patient = _patientService.getPatientByPersonId(dto.PersonId);
+            if (patient == null)
             {
-                return BadRequest("Person not found.");
+                return BadRequest("Patient not found.");
             }
 
             try
             {
-                Meal meal = new Meal(dto.Answers, dto.MealType, person);
-                _mealService.Create(meal);
+                List<MealAnswer> answers = new();
                 foreach (MealAnswerDTO answerDTO in dto.Answers)
                 {
-                    MealAnswer mealAnswer = new MealAnswer(_mealQuestionService.GetById(answerDTO.QuestionId), meal, answerDTO.Answer);
-                    _mealAnswerService.Create(mealAnswer);
+                    MealAnswer mealAnswer = new(_mealQuestionService.GetById(answerDTO.QuestionId), answerDTO.Answer);
+                    answers.Add(mealAnswer);
                 }
-                Patient patient = _patientService.getPatientByPersonId(person.Id);
+
+                Meal meal = new(answers, dto.MealType, patient);
+                _mealService.Create(meal);
+                
                 patient.UpdateHealthScore(meal.Score);
                 _patientService.Update(patient);
+
                 return StatusCode(201);
             }
             catch(Exception e)
@@ -94,29 +100,34 @@ namespace HospitalAPI.Controllers.PublicApp
 
         //[Authorize]
         [HttpPut("edit")]
-        public ActionResult EditMeal(MealDTO dto)
+        public ActionResult EditMeal(CreateMealDTO dto)
         {
-            Person person = _personService.GetById(dto.PersonId);
-            if (person == null)
+            Patient patient = _patientService.getPatientByPersonId(dto.PersonId);
+            if (patient == null)
             {
-                return BadRequest("Person not found.");
+                return BadRequest("Patient not found.");
             }
 
             try
             {
-                Meal meal = _mealService.GetByDateAndType(DateTime.Today, dto.MealType);
+                Meal meal = _mealService.GetByDateAndTypeForPatient(DateTime.Today, dto.MealType, patient.Id);
                 float currentScore = meal.Score;
-                meal.CalculateScore(dto.Answers);
-                _mealService.Update(meal);
+
+                List<MealAnswer> answers = new();
                 foreach (MealAnswerDTO answerDTO in dto.Answers)
                 {
-                    MealAnswer mealAnswer = _mealAnswerService.GetMealAnswerForMealByQuestionId(meal, answerDTO.QuestionId);
+                    MealAnswer mealAnswer = _mealAnswerService.GetById(answerDTO.AnswerId);
                     mealAnswer.Answer = answerDTO.Answer;
                     _mealAnswerService.Update(mealAnswer);
+                    answers.Add(mealAnswer);
                 }
-                if(currentScore != meal.Score)
+
+                meal.CalculateScore(answers);
+                meal.Answers = answers;
+                _mealService.Update(meal);
+
+                if (currentScore != meal.Score)
                 {
-                    Patient patient = _patientService.getPatientByPersonId(person.Id);
                     patient.UpdateHealthScore(meal.Score-currentScore);
                     _patientService.Update(patient);
                 }

@@ -30,10 +30,10 @@ namespace HospitalAPI.Adapters
                 Weight = patientInfoDTO.Weight,
                 SelectedDate = patientInfoDTO.SelectedDate,
                 Patient = patient,
-                HealthScoreDelta = 0
+                Score = 0
             };
 
-            patientHealthInformation.HealthScoreDelta = patientHealthInformation.CalculateHealthScoreDelta();
+            patientHealthInformation.Score = patientHealthInformation.CalculateHealthScoreDelta();
 
             return patientHealthInformation;
         }

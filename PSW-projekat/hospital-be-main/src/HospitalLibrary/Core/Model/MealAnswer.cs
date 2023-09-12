@@ -1,21 +1,21 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace HospitalLibrary.Core.Model
 {
+    [Owned]
     public class MealAnswer : BaseModel
     {
         public virtual MealQuestion MealQuestion { get; set; }
-        public virtual Meal Meal { get; set; }
         public float Answer { get; set; }
 
         public MealAnswer() { }
 
-        public MealAnswer(MealQuestion mealQuestion, Meal meal, float answer)
+        public MealAnswer(MealQuestion mealQuestion, float answer)
         {
             if (!IsValid(answer)) throw new Exception("Answer invalid.");
 
             MealQuestion = mealQuestion;
-            Meal = meal;
             Answer = answer;
         }
 

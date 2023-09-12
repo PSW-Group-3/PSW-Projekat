@@ -1,23 +1,13 @@
 import { MealAnswerDTO } from "./meal-answer-dto.model";
 
-export class MealDTO{
+export interface CreateMealDTO{
     answers: MealAnswerDTO[];
     mealType: number;
     personId: number;
-
-    public constructor(answers: MealAnswerDTO[], mealType: number, personId: number) {
-        this.answers = answers;
-        this.mealType = mealType;
-        this.personId = personId;
-    }
 }
 
-export class MealInfoDTO{
-    mealScore: string;
+export interface MealInfoDTO{
+    mealStatus: string;
     mealType: number;
-
-    public constructor(mealScore: string, mealType: number) {
-        this.mealScore = mealScore;
-        this.mealType = mealType;
-    }
+    answers: MealAnswerDTO[];
 }

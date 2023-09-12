@@ -8,7 +8,7 @@ namespace HospitalLibrary.Core.Model
     {
         public virtual Patient Patient { get; set; }
         public DateTime SelectedDate { get; set; }
-        public double HealthScoreDelta { get; set; }
+        public double Score { get; set; }
 
         public float Weight { get; set; }
         public int Height { get; set; }

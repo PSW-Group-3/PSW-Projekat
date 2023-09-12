@@ -1,9 +1,6 @@
-export class MealAnswerDTO{
-    answer: number|null;
+export interface MealAnswerDTO{
+    answer: number|undefined;
+    answerId: number|undefined;
     questionId: number;
 
-    public constructor(answer: number|null, questionId: number) {
-        this.answer = answer;
-        this.questionId = questionId;
-    }
 }

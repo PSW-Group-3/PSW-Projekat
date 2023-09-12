@@ -50,7 +50,7 @@ namespace HospitalAPI.Controllers.PublicApp
             Patient patient = _patientService.getPatientByPersonId(personId);
             //TODO: pitaj profesora, da li uzmimati u obzir prethodno stanje? Kako se ponasati u ekstremnim situacijama?
             PatientHealthInformation patientHealthInformation = PatientHealthAdapter.FromPatientInfoDTO(patientInfoDTO, patient);
-            patient.UpdateHealthScore(patientHealthInformation.HealthScoreDelta);
+            patient.UpdateHealthScore(patientHealthInformation.Score);
 
             _patientHealthInformationService.Create(patientHealthInformation);
             _patientService.Update(patient);

@@ -10,39 +10,38 @@ namespace HospitalLibrary.Core.Model
         public float Score { get; set; }
         public DateTime DateOfMeal { get; set; }
         public MealType MealType { get; set; }
-        public virtual Person Person { get; set; }
+        public virtual List<MealAnswer> Answers {get; set;}
+        public virtual Patient Patient { get; set; }
 
         public Meal() { }
 
-        public Meal(List<MealAnswerDTO> answers, MealType mealType, Person person)
+        public Meal(List<MealAnswer> answers, MealType mealType, Patient patient)
         {
-            if (!IsValid(answers, mealType)) throw new Exception("Meal invalid!");
+            if (!IsValid()) throw new Exception("Meal invalid!");
             
-            CalculateScore(answers);
+            Score = CalculateScore(answers);
             DateOfMeal = DateTime.Today;
             MealType = mealType;
-            Person = person;        
+            Patient = patient;
+            Answers = answers;
         }
         
-        private bool IsValid(List<MealAnswerDTO> answers, MealType mealType)
+        private bool IsValid()
         {
-            foreach(MealAnswerDTO answer in answers)
-            {
-                if (answer.Answer < -1 || answer.Answer > 1) return false;
-            }
-
             return true;
         }
 
-        public void CalculateScore(List<MealAnswerDTO> answers)
+        public float CalculateScore(List<MealAnswer> answers)
         {
-            Score = 0;
-            foreach (MealAnswerDTO answer in answers)
+            float score = 0;
+            foreach (MealAnswer answer in answers)
             {
-                Score += answer.Answer;
+                score += answer.Answer;
             }
 
-            Score /= answers.Count;
+            score /= answers.Count;
+
+            return score;
         }
     }
 }

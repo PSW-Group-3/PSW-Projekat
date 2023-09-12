@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace HospitalAPI.DTO
 {
-    public class MealDTO
+    public class CreateMealDTO
     {
         public List<MealAnswerDTO> Answers { get; set; }
         public MealType MealType { get; set; }

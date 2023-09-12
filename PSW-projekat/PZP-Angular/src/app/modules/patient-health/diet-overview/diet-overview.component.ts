@@ -6,6 +6,7 @@ import { AddMealDialogComponent } from '../add-meal-dialog/add-meal-dialog.compo
 import { AddWaterDialogComponent } from '../add-water-dialog/add-water-dialog.component';
 import { Chart, registerables } from 'chart.js';
 import { MealStatisticsService } from '../services/meal-statistics.service';
+import { MealAnswerDTO } from '../model/meal-answer-dto.model';
 Chart.register(...registerables);
 
 
@@ -13,20 +14,23 @@ export interface AddMealDialogData {
   mealTypeString: string;
   mealTypeNumber: number;
   mealQuestions: MealQuestionDTO[];
+  mealAnswers: MealAnswerDTO[];
 }
 
 export interface AddWaterDialogData {
   mealTypeString: string;
   mealTypeNumber: number;
   mealQuestions: MealQuestionDTO[];
+  mealAnswers: MealAnswerDTO[];
   shouldEdit: boolean;
 }
 
 export interface MealInfo {
   mealTypeString: string;
   mealTypeNumber: number;
-  mealScore: string;
+  mealStatus: string;
   isAdded: boolean;
+  mealAnswers: MealAnswerDTO[];
 }
 
 
@@ -38,10 +42,10 @@ export interface MealInfo {
 export class DietOverviewComponent implements OnInit {
 
   todayDate: Date = new Date();
-  breakfastInfo: MealInfo = {mealTypeString: 'Breakfast', mealTypeNumber: 0, isAdded: false, mealScore: ''};
-  lunchInfo: MealInfo = {mealTypeString: 'Lunch', mealTypeNumber: 1, isAdded: false, mealScore: ''};
-  dinnerInfo: MealInfo = {mealTypeString: 'Dinner', mealTypeNumber: 2, isAdded: false, mealScore: ''};
-  waterInfo: MealInfo = {mealTypeString: 'Water intake', mealTypeNumber: 3, isAdded: false, mealScore: ''};
+  breakfastInfo: MealInfo = {mealTypeString: 'Breakfast', mealTypeNumber: 0, isAdded: false, mealStatus: '', mealAnswers: []};
+  lunchInfo: MealInfo = {mealTypeString: 'Lunch', mealTypeNumber: 1, isAdded: false, mealStatus: '', mealAnswers: []};
+  dinnerInfo: MealInfo = {mealTypeString: 'Dinner', mealTypeNumber: 2, isAdded: false, mealStatus: '', mealAnswers: []};
+  waterInfo: MealInfo = {mealTypeString: 'Water intake', mealTypeNumber: 3, isAdded: false, mealStatus: '', mealAnswers: []};
   mealInfos: MealInfo[] = [this.breakfastInfo, this.lunchInfo, this.dinnerInfo];
   
   breakfastScoreChart: any;
@@ -57,16 +61,20 @@ export class DietOverviewComponent implements OnInit {
         data.forEach(element => {
           if (element.mealType == 0) {
             this.breakfastInfo.isAdded = true;
-            this.breakfastInfo.mealScore = element.mealScore;
+            this.breakfastInfo.mealStatus = element.mealStatus;
+            this.breakfastInfo.mealAnswers = element.answers; 
           } else if (element.mealType == 1) {
             this.lunchInfo.isAdded = true;
-            this.lunchInfo.mealScore = element.mealScore;
+            this.lunchInfo.mealStatus = element.mealStatus;
+            this.lunchInfo.mealAnswers = element.answers;
           } else if (element.mealType == 2) {
             this.dinnerInfo.isAdded = true;
-            this.dinnerInfo.mealScore = element.mealScore;
+            this.dinnerInfo.mealStatus = element.mealStatus;
+            this.dinnerInfo.mealAnswers = element.answers;
           } else if (element.mealType == 3) {
             this.waterInfo.isAdded = true;
-            this.waterInfo.mealScore = element.mealScore;
+            this.waterInfo.mealStatus = element.mealStatus;
+            this.waterInfo.mealAnswers = element.answers;
           }
         });
       }
@@ -81,11 +89,11 @@ export class DietOverviewComponent implements OnInit {
     );
   }
 
-  async openMealDialog(mealTypeNumber: number, mealTypeString: string): Promise<void> {
+  async openMealDialog(mealTypeNumber: number, mealTypeString: string, answers: MealAnswerDTO[]): Promise<void> {
     this.mealService.getQuestionsForMeal(mealTypeNumber).subscribe(
       (data) => {
         const dialogRef = this.dialog.open(AddMealDialogComponent, {
-          data: {mealTypeString: mealTypeString, mealTypeNumber: mealTypeNumber, mealQuestions: data},
+          data: {mealTypeString: mealTypeString, mealTypeNumber: mealTypeNumber, mealQuestions: data, answers: answers},
         });
         dialogRef.componentInstance.mealAdded.subscribe(async () => {
           await this.refreshPage()
@@ -101,7 +109,7 @@ export class DietOverviewComponent implements OnInit {
     this.mealService.getQuestionsForMeal(mealTypeNumber).subscribe(
       (data) => {
         const dialogRef = this.dialog.open(AddWaterDialogComponent, {
-          data: {mealTypeString: mealTypeString, mealTypeNumber: mealTypeNumber, mealQuestions: data, shouldEdit: shouldEdit},
+          data: {mealTypeString: mealTypeString, mealTypeNumber: mealTypeNumber, mealQuestions: data, shouldEdit: shouldEdit, answers: this.waterInfo.mealAnswers},
         });
         dialogRef.componentInstance.waterAdded.subscribe(async () => {
           await this.refreshPage();

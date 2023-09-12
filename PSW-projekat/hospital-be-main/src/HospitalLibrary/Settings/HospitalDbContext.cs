@@ -91,6 +91,9 @@ namespace HospitalLibrary.Settings
             modelBuilder.Entity<BackToAppointmentDateSelection>();
             modelBuilder.Entity<PatientSelectedAppointmentDate>();
 
+            modelBuilder.Entity<Meal>().OwnsMany(meal => meal.Answers);
+            modelBuilder.Entity<Meal>(meal => meal.Navigation(meal => meal.Answers));
+
             modelBuilder.Entity<GymWorkout>().OwnsMany(gw => gw.Exercises);
             modelBuilder.Entity<GymWorkout>(gw => gw.Navigation(gw => gw.Exercises));
 

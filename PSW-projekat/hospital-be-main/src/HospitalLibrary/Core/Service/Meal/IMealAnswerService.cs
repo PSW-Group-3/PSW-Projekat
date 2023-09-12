@@ -6,7 +6,5 @@ namespace HospitalLibrary.Core.Service
 {
     public interface IMealAnswerService : IService<MealAnswer>
     {
-        IEnumerable<MealAnswer> GetAllMealAnswersByMealType(MealType mealType);
-        MealAnswer GetMealAnswerForMealByQuestionId(Meal meal, int mealQuestionId);
     }
 }

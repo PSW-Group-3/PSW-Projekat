@@ -2,7 +2,7 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MealQuestionDTO } from '../model/meal-question-dto.model';
 import { Observable } from 'rxjs';
-import { MealDTO, MealInfoDTO } from '../model/meal-dto.model';
+import { CreateMealDTO, MealInfoDTO } from '../model/meal-dto.model';
 
 @Injectable({
   providedIn: 'root'
@@ -22,15 +22,15 @@ export class MealService {
     return this.http.get<[]>('api/Meal/patient/' + patientId + "/" + dateTime.toDateString(), { headers: this.headers });
   }
 
-  addMeal(mealDTO: MealDTO): Observable<MealDTO> {
-    return this.http.post<MealDTO>('api/Meal/add', mealDTO, { headers: this.headers });
+  addMeal(mealDTO: CreateMealDTO): Observable<CreateMealDTO> {
+    return this.http.post<CreateMealDTO>('api/Meal/add', mealDTO, { headers: this.headers });
   }
 
-  addWater(mealDTO: MealDTO): Observable<MealDTO> {
-    return this.http.post<MealDTO>('api/Meal/add', mealDTO, { headers: this.headers });
+  addWater(mealDTO: CreateMealDTO): Observable<CreateMealDTO> {
+    return this.http.post<CreateMealDTO>('api/Meal/add', mealDTO, { headers: this.headers });
   }
-  editWater(mealDTO: MealDTO): Observable<MealDTO> {
-    return this.http.put<MealDTO>('api/Meal/edit', mealDTO, { headers: this.headers });
+  editWater(mealDTO: CreateMealDTO): Observable<CreateMealDTO> {
+    return this.http.put<CreateMealDTO>('api/Meal/edit', mealDTO, { headers: this.headers });
   }
 
 }

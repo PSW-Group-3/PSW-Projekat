@@ -3,7 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AddWaterDialogData } from '../diet-overview/diet-overview.component';
 import { MealAnswerDTO } from '../model/meal-answer-dto.model';
 import { MealService } from '../services/meal.service';
-import { MealDTO } from '../model/meal-dto.model';
+import { CreateMealDTO } from '../model/meal-dto.model';
 
 @Component({
   selector: 'app-add-water-dialog',
@@ -25,10 +25,11 @@ export class AddWaterDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.data.mealQuestions.forEach(element => {
-      this.mealAnswers.push(new MealAnswerDTO(null, element.questionId));
+      this.mealAnswers.push({answer: undefined, answerId: undefined, questionId: element.questionId});
     });
     if(this.data.shouldEdit){
       this.titleText = 'Edit';
+      this.mealAnswers = this.data.mealAnswers;
     }
   }
 
@@ -37,7 +38,7 @@ export class AddWaterDialogComponent implements OnInit {
       this.errorMessage = 'Please answer all questions!';
     } 
     else {
-      let mealDTO: MealDTO = new MealDTO(this.mealAnswers, this.data.mealTypeNumber, parseInt(localStorage.getItem('currentUserId')!));
+      let mealDTO: CreateMealDTO = { answers: this.mealAnswers, mealType: this.data.mealTypeNumber, personId: parseInt(localStorage.getItem('currentUserId')!) };
       this.mealService.addWater(mealDTO).subscribe();
       this.waterAdded.emit();      
       this.dialogRef.close();
@@ -49,7 +50,7 @@ export class AddWaterDialogComponent implements OnInit {
       this.errorMessage = 'Please answer all questions!';
     }
     else {
-      let mealDTO: MealDTO = new MealDTO(this.mealAnswers, this.data.mealTypeNumber, parseInt(localStorage.getItem('currentUserId')!));
+      let mealDTO: CreateMealDTO = { answers: this.mealAnswers, mealType: this.data.mealTypeNumber, personId: parseInt(localStorage.getItem('currentUserId')!) };
       this.mealService.editWater(mealDTO).subscribe();
       this.waterAdded.emit();      
       this.dialogRef.close();

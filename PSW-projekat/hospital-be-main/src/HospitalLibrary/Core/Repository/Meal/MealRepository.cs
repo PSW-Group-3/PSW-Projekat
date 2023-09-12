@@ -39,9 +39,9 @@ namespace HospitalLibrary.Core.Repository
             return _context.Meals.Where(m => m.MealType == mealType);
         }
 
-        public Meal GetByDateAndType(DateTime dateTime, MealType mealType)
+        public Meal GetByDateAndTypeForPatient(DateTime dateTime, MealType mealType, int patientId)
         {
-            return _context.Meals.Where(m => m.DateOfMeal == dateTime && m.MealType == mealType).FirstOrDefault();
+            return _context.Meals.Where(m => m.DateOfMeal == dateTime && m.MealType == mealType && m.Patient.Id == patientId).FirstOrDefault();
         }
 
         public Meal GetById(int id)
@@ -49,14 +49,14 @@ namespace HospitalLibrary.Core.Repository
             return _context.Meals.Find(id);
         }
 
-        public IEnumerable<Meal> GetMealsForPatientByDate(int patientId, DateTime dateTime)
+        public IEnumerable<Meal> GetAllForPatientByDate(int patientId, DateTime dateTime)
         {
-            return _context.Meals.Where(m => m.Person.Id == patientId && m.DateOfMeal == dateTime).ToList();
+            return _context.Meals.Where(m => m.Patient.Id == patientId && m.DateOfMeal == dateTime).ToList();
         }
 
         public IEnumerable<Meal> GetMealsForPatientInLast30DaysByType(int patientId, MealType mealType)
         {
-            return _context.Meals.Where(m => m.Person.Id == patientId && m.DateOfMeal >= DateTime.Today.AddDays(-30) && m.DateOfMeal <= DateTime.Today && m.MealType == mealType).OrderBy(m => m.DateOfMeal).ToList();
+            return _context.Meals.Where(m => m.Patient.Id == patientId && m.DateOfMeal >= DateTime.Today.AddDays(-30) && m.DateOfMeal <= DateTime.Today && m.MealType == mealType).OrderBy(m => m.DateOfMeal).ToList();
         }
 
         public void Update(Meal entity)

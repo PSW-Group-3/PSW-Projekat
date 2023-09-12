@@ -22,27 +22,17 @@ namespace HospitalLibrary.Core.Service
 
         public void Delete(MealAnswer entity)
         {
-            throw new NotImplementedException();
+            _mealAnswerRepository.Delete(entity);
         }
 
         public IEnumerable<MealAnswer> GetAll()
         {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<MealAnswer> GetAllMealAnswersByMealType(MealType mealType)
-        {
-            return _mealAnswerRepository.GetAllMealAnswersByMealType(mealType);
+            return _mealAnswerRepository.GetAll();
         }
 
         public MealAnswer GetById(int id)
         {
-            throw new NotImplementedException();
-        }
-
-        public MealAnswer GetMealAnswerForMealByQuestionId(Meal meal, int mealQuestionId)
-        {
-            return _mealAnswerRepository.GetMealAnswerForMealByQuestionId(meal, mealQuestionId);
+            return _mealAnswerRepository.GetById(id);
         }
 
         public void Update(MealAnswer entity)

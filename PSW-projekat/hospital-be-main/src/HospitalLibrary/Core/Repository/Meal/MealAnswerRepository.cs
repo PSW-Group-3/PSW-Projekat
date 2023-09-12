@@ -33,19 +33,9 @@ namespace HospitalLibrary.Core.Repository
             return _context.MealAnswers;
         }
 
-        public IEnumerable<MealAnswer> GetAllMealAnswersByMealType(MealType mealType)
-        {
-            return _context.MealAnswers.Where(m => m.Meal.MealType == mealType);
-        }
-
         public MealAnswer GetById(int id)
         {
             return _context.MealAnswers.Find(id);
-        }
-
-        public MealAnswer GetMealAnswerForMealByQuestionId(Meal meal, int mealQuestionId)
-        {
-            return _context.MealAnswers.Where(m => m.Meal.Id == meal.Id && m.MealQuestion.Id == mealQuestionId).FirstOrDefault();
         }
 
         public void Update(MealAnswer entity)
