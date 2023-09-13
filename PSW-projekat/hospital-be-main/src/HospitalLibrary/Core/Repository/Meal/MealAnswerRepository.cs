@@ -35,7 +35,7 @@ namespace HospitalLibrary.Core.Repository
 
         public MealAnswer GetById(int id)
         {
-            return _context.MealAnswers.Find(id);
+            return _context.MealAnswers.FirstOrDefault(m => m.Id == id);
         }
 
         public void Update(MealAnswer entity)

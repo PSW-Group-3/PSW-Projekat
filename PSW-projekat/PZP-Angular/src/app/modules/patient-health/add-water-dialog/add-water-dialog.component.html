@@ -2,11 +2,11 @@
 <div mat-dialog-content>
     <div *ngFor="let question of data.mealQuestions; let i = index">
         <div class="columns">
-            <h3>Question {{i+1}}:</h3>
             <p>{{question.questionText}}</p>
         </div>
         <mat-form-field style="width: 100%;">
-            <mat-select [(value)]="mealAnswers[i].answer">
+            <mat-select  [(ngModel)]="mealAnswers[i].answer">
+                {{log(mealAnswers[i].answer)}}
                 <mat-option value="-1">None</mat-option>
                 <mat-option value="-0.5">1 to 2 glasses (250ml to 500ml)</mat-option>
                 <mat-option value="0">3 to 4 glasses (750ml to 1l)</mat-option>

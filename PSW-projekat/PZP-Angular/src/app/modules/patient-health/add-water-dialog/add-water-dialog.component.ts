@@ -17,6 +17,8 @@ export class AddWaterDialogComponent implements OnInit {
   titleText: string = 'Add'
   errorMessage: string = '';
 
+  log(x: any) { console.log(x); }
+
   constructor(
     private mealService: MealService,
     public dialogRef: MatDialogRef<AddWaterDialogComponent>,
@@ -29,7 +31,8 @@ export class AddWaterDialogComponent implements OnInit {
     });
     if(this.data.shouldEdit){
       this.titleText = 'Edit';
-      this.mealAnswers = this.data.mealAnswers;
+      this.mealAnswers = [];
+      this.mealAnswers = this.data.answers;
     }
   }
 
@@ -38,7 +41,7 @@ export class AddWaterDialogComponent implements OnInit {
       this.errorMessage = 'Please answer all questions!';
     } 
     else {
-      let mealDTO: CreateMealDTO = { answers: this.mealAnswers, mealType: this.data.mealTypeNumber, personId: parseInt(localStorage.getItem('currentUserId')!) };
+      let mealDTO: CreateMealDTO = { answers: this.mealAnswers, mealType: this.data.mealType, personId: parseInt(localStorage.getItem('currentUserId')!) };
       this.mealService.addWater(mealDTO).subscribe();
       this.waterAdded.emit();      
       this.dialogRef.close();
@@ -50,7 +53,7 @@ export class AddWaterDialogComponent implements OnInit {
       this.errorMessage = 'Please answer all questions!';
     }
     else {
-      let mealDTO: CreateMealDTO = { answers: this.mealAnswers, mealType: this.data.mealTypeNumber, personId: parseInt(localStorage.getItem('currentUserId')!) };
+      let mealDTO: CreateMealDTO = { answers: this.mealAnswers, mealType: this.data.mealType, personId: parseInt(localStorage.getItem('currentUserId')!) };
       this.mealService.editWater(mealDTO).subscribe();
       this.waterAdded.emit();      
       this.dialogRef.close();

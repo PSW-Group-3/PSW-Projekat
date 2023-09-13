@@ -5,6 +5,7 @@ import { MatFormField } from '@angular/material/form-field';
 import { MealAnswerDTO } from '../model/meal-answer-dto.model';
 import { MealService } from '../services/meal.service';
 import { CreateMealDTO } from '../model/meal-dto.model';
+import { MealType, GetMealTypeString } from '../model/enums/meal-type.enum';
 
 @Component({
   selector: 'app-add-meal-dialog',
@@ -17,6 +18,10 @@ export class AddMealDialogComponent implements OnInit{
   mealAnswers: MealAnswerDTO[] = [];
   errorMessage: string = '';
 
+  getMealTypeString(type: MealType): string {
+    return GetMealTypeString(type);
+  }
+  
   constructor(
     private mealService: MealService,
     public dialogRef: MatDialogRef<AddMealDialogComponent>,
@@ -34,7 +39,7 @@ export class AddMealDialogComponent implements OnInit{
       this.errorMessage = 'Please answer all questions!';
     }
     else {
-      let mealDTO: CreateMealDTO = { answers: this.mealAnswers, mealType: this.data.mealTypeNumber, personId: parseInt(localStorage.getItem('currentUserId')!) };
+      let mealDTO: CreateMealDTO = { answers: this.mealAnswers, mealType: this.data.mealType, personId: parseInt(localStorage.getItem('currentUserId')!) };
       this.mealService.addMeal(mealDTO).subscribe();
       this.mealAdded.emit();      
       this.dialogRef.close();

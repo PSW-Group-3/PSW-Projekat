@@ -7,32 +7,29 @@ import { AddWaterDialogComponent } from '../add-water-dialog/add-water-dialog.co
 import { Chart, registerables } from 'chart.js';
 import { MealStatisticsService } from '../services/meal-statistics.service';
 import { MealAnswerDTO } from '../model/meal-answer-dto.model';
+import { MealType, GetMealTypeString } from '../model/enums/meal-type.enum';
 Chart.register(...registerables);
 
 
 export interface AddMealDialogData {
-  mealTypeString: string;
-  mealTypeNumber: number;
+  mealType: MealType;
   mealQuestions: MealQuestionDTO[];
   mealAnswers: MealAnswerDTO[];
 }
 
 export interface AddWaterDialogData {
-  mealTypeString: string;
-  mealTypeNumber: number;
+  mealType: MealType;
   mealQuestions: MealQuestionDTO[];
-  mealAnswers: MealAnswerDTO[];
+  answers: MealAnswerDTO[];
   shouldEdit: boolean;
 }
 
 export interface MealInfo {
-  mealTypeString: string;
-  mealTypeNumber: number;
+  mealType: MealType;
   mealStatus: string;
   isAdded: boolean;
   mealAnswers: MealAnswerDTO[];
 }
-
 
 @Component({
   selector: 'app-diet-overview',
@@ -40,18 +37,16 @@ export interface MealInfo {
   styleUrls: ['./diet-overview.component.css']
 })
 export class DietOverviewComponent implements OnInit {
-
   todayDate: Date = new Date();
-  breakfastInfo: MealInfo = {mealTypeString: 'Breakfast', mealTypeNumber: 0, isAdded: false, mealStatus: '', mealAnswers: []};
-  lunchInfo: MealInfo = {mealTypeString: 'Lunch', mealTypeNumber: 1, isAdded: false, mealStatus: '', mealAnswers: []};
-  dinnerInfo: MealInfo = {mealTypeString: 'Dinner', mealTypeNumber: 2, isAdded: false, mealStatus: '', mealAnswers: []};
-  waterInfo: MealInfo = {mealTypeString: 'Water intake', mealTypeNumber: 3, isAdded: false, mealStatus: '', mealAnswers: []};
+  breakfastInfo: MealInfo = {mealType: 0, isAdded: false, mealStatus: '', mealAnswers: []};
+  lunchInfo: MealInfo = {mealType: 1, isAdded: false, mealStatus: '', mealAnswers: []};
+  dinnerInfo: MealInfo = {mealType: 2, isAdded: false, mealStatus: '', mealAnswers: []};
+  waterInfo: MealInfo = {mealType: 3, isAdded: false, mealStatus: '', mealAnswers: []};
   mealInfos: MealInfo[] = [this.breakfastInfo, this.lunchInfo, this.dinnerInfo];
-  
-  breakfastScoreChart: any;
-  lunchScoreChart: any;
-  dinnerScoreChart: any;
-  waterScoreChart: any;
+
+  getMealTypeString(type: MealType): string {
+    return GetMealTypeString(type);
+  }
 
   constructor(public dialog: MatDialog, private mealService: MealService, private mealStatisticsService: MealStatisticsService) { }
 
@@ -79,21 +74,13 @@ export class DietOverviewComponent implements OnInit {
         });
       }
     );
-    this.mealStatisticsService.getMealStatisticsForPatient().subscribe(
-      (data) => {
-        this.createBreakfastScoreChart(data.breakfastLabels, data.breakfastScores);
-        this.createLunchScoreChart(data.lunchLabels, data.lunchScores);
-        this.createDinnerScoreChart(data.dinnerLabels, data.dinnerScores);
-        this.createWaterScoreChart(data.waterIntakeLabels, data.waterIntakeScores);
-      }
-    );
   }
 
-  async openMealDialog(mealTypeNumber: number, mealTypeString: string, answers: MealAnswerDTO[]): Promise<void> {
-    this.mealService.getQuestionsForMeal(mealTypeNumber).subscribe(
+  async openMealDialog(mealType: MealType, answers: MealAnswerDTO[]): Promise<void> {
+    this.mealService.getQuestionsForMeal(mealType).subscribe(
       (data) => {
         const dialogRef = this.dialog.open(AddMealDialogComponent, {
-          data: {mealTypeString: mealTypeString, mealTypeNumber: mealTypeNumber, mealQuestions: data, answers: answers},
+          data: {mealType: mealType, mealQuestions: data, answers: answers},
         });
         dialogRef.componentInstance.mealAdded.subscribe(async () => {
           await this.refreshPage()
@@ -105,11 +92,11 @@ export class DietOverviewComponent implements OnInit {
     );
   }
 
-  async openWaterDialog(mealTypeNumber: number, mealTypeString: string, shouldEdit: boolean): Promise<void> {
-    this.mealService.getQuestionsForMeal(mealTypeNumber).subscribe(
+  async openWaterDialog(mealType: MealType, shouldEdit: boolean): Promise<void> {
+    this.mealService.getQuestionsForMeal(mealType).subscribe(
       (data) => {
         const dialogRef = this.dialog.open(AddWaterDialogComponent, {
-          data: {mealTypeString: mealTypeString, mealTypeNumber: mealTypeNumber, mealQuestions: data, shouldEdit: shouldEdit, answers: this.waterInfo.mealAnswers},
+          data: {mealType: mealType, mealQuestions: data, shouldEdit: shouldEdit, answers: this.waterInfo.mealAnswers},
         });
         dialogRef.componentInstance.waterAdded.subscribe(async () => {
           await this.refreshPage();
@@ -123,164 +110,6 @@ export class DietOverviewComponent implements OnInit {
 
   async refreshPage() {
     location.reload();
-  }
-
-  private createBreakfastScoreChart(breakfastLabels: string[], breakfastScores: number[]) {
-    this.breakfastScoreChart = new Chart("breakfastScoreChart", {
-      type: 'line',
-      data: {
-        labels: breakfastLabels,
-        datasets: [{
-          label: 'Breakfast score',
-          data: breakfastScores,
-          borderColor: 'rgb(33, 37, 41)',
-          pointBackgroundColor: 'rgb(33, 37, 41)',
-          backgroundColor: 'rgba(68, 81, 179, 0.5)',
-          tension: 0.25,
-          fill: true
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        scales: {
-          y: {
-            
-            min: -1,
-            max: 1
-          },
-          x: {
-            title: {
-              display: true,
-              text: 'Dates',
-              font: {
-                size: 14
-              }
-            }
-          }
-        },
-        plugins: {
-          title: {
-            display: true,
-            text: 'Breakfast scores in the last 30 days',
-            font: {
-                size: 16
-            }
-          }
-        }
-      }
-    });
-  }
-
-  private createLunchScoreChart(lunchLabels: string[], lunchScores: number[]) {
-    this.lunchScoreChart = new Chart("lunchScoreChart", {
-      type: 'line',
-      data: {
-        labels: lunchLabels,
-        datasets: [{
-          label: 'Lunch score',
-          data: lunchScores,
-          borderColor: 'rgb(33, 37, 41)',
-          pointBackgroundColor: 'rgb(33, 37, 41)',
-          backgroundColor: 'rgba(68, 81, 179, 0.5)',
-          tension: 0.25,
-          fill: true
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        scales: {
-          y: {
-            min: -1,
-            max: 1
-          }
-        },
-        plugins: {
-          title: {
-            display: true,
-            text: 'Lunch scores in the last 30 days',
-            font: {
-                size: 16
-            }
-          }
-        }
-      }
-    });
-  }
-
-  private createDinnerScoreChart(dinnerLabels: string[], dinnerScores: number[]) {
-    this.dinnerScoreChart = new Chart("dinnerScoreChart", {
-      type: 'line',
-      data: {
-        labels: dinnerLabels,
-        datasets: [{
-          label: 'Dinner score',
-          data: dinnerScores,
-          borderColor: 'rgb(33, 37, 41)',
-          pointBackgroundColor: 'rgb(33, 37, 41)',
-          backgroundColor: 'rgba(68, 81, 179, 0.5)',
-          tension: 0.25,
-          fill: true
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        scales: {
-          y: {
-            min: -1,
-            max: 1
-          }
-        },
-        plugins: {
-          title: {
-            display: true,
-            text: 'Dinner scores in the last 30 days',
-            font: {
-                size: 16
-            }
-          }
-        }
-      }
-    });
-  }
-
-  private createWaterScoreChart(waterLabels: string[], waterScores: number[]) {
-    this.waterScoreChart = new Chart("waterScoreChart", {
-      type: 'line',
-      data: {
-        labels: waterLabels,
-        datasets: [{
-          label: 'Water score',
-          data: waterScores,
-          borderColor: 'rgb(33, 37, 41)',
-          pointBackgroundColor: 'rgb(33, 37, 41)',
-          backgroundColor: 'rgba(68, 81, 179, 0.5)',
-          tension: 0.25,
-          fill: true
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        scales: {
-          y: {
-            min: -1,
-            max: 1
-          }
-        },
-        plugins: {
-          title: {
-            display: true,
-            text: 'Water scores in the last 30 days',
-            font: {
-                size: 16
-            }
-          }
-        }
-      }
-    });
   }
 
 }

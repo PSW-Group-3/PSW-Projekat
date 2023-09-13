@@ -3,23 +3,23 @@
 <div class="center">
     <h1>Today's diet</h1>
 </div>
-<div class="cards-center">
+<div class="card-grid">
     <mat-card class="card" *ngFor="let mealinfo of mealInfos; let i = index">
         <mat-card-header>
-          <mat-card-title>{{mealinfo.mealTypeString}}</mat-card-title>
+          <mat-card-title>{{getMealTypeString(mealinfo.mealType)}}</mat-card-title>
           <mat-card-subtitle>For day: {{todayDate.toDateString()}}</mat-card-subtitle>
         </mat-card-header>
         <mat-card-content >
             <p *ngIf="mealinfo.isAdded == true">
-                Your {{mealinfo.mealTypeString}} has been added for today.<br/>
+                Your {{getMealTypeString(mealinfo.mealType)}} has been added for today.<br/>
                 Your meal was: {{mealinfo.mealStatus}}
             </p>
             <p *ngIf="mealinfo.isAdded == false">
-                Please add {{mealinfo.mealTypeString}} for today.
+                Please add {{getMealTypeString(mealinfo.mealType)}} for today.
             </p>
         </mat-card-content>
         <mat-card-actions align="end">
-          <button mat-raised-button color="primary" (click)="openMealDialog(mealinfo.mealTypeNumber, mealinfo.mealTypeString, mealinfo.mealAnswers)" [disabled]="mealInfos[i].isAdded">Add {{mealinfo.mealTypeString}}</button>
+          <button mat-raised-button color="primary" (click)="openMealDialog(mealinfo.mealType, mealinfo.mealAnswers)" [disabled]="mealInfos[i].isAdded">Add {{getMealTypeString(mealinfo.mealType)}}</button>
         </mat-card-actions>
     </mat-card>
     <mat-card class="card">
@@ -29,34 +29,18 @@
         </mat-card-header>
         <mat-card-content >
             <p *ngIf="waterInfo.isAdded == true">
-                Your {{waterInfo.mealTypeString}} has been added for today.<br/>
+                Your {{getMealTypeString(waterInfo.mealType)}} has been added for today.<br/>
                 Your water intake is: {{waterInfo.mealStatus}}
             </p>
             <p *ngIf="waterInfo.isAdded == false">
-                Please add {{waterInfo.mealTypeString}} for today.
+                Please add {{getMealTypeString(waterInfo.mealType)}} for today.
             </p>
         </mat-card-content>
         <mat-card-actions align="end">
-            <button mat-raised-button color="primary" (click)="openWaterDialog(waterInfo.mealTypeNumber, waterInfo.mealTypeString, waterInfo.isAdded)" *ngIf="waterInfo.isAdded==false">Add Water intake</button>
-            <button mat-raised-button color="primary" (click)="openWaterDialog(waterInfo.mealTypeNumber, waterInfo.mealTypeString, waterInfo.isAdded)" *ngIf="waterInfo.isAdded==true">Edit Water intake</button>
+            <button mat-raised-button color="primary" (click)="openWaterDialog(waterInfo.mealType, waterInfo.isAdded)" *ngIf="waterInfo.isAdded==false">Add Water intake</button>
+            <button mat-raised-button color="primary" (click)="openWaterDialog(waterInfo.mealType, waterInfo.isAdded)" *ngIf="waterInfo.isAdded==true">Edit Water intake</button>
         </mat-card-actions>
     </mat-card>
 </div>
 
-<div class="center">
-    <h1>Diet Statistics</h1>
-</div>
-<div class="charts">
-    <div class="chart">
-        <canvas id="breakfastScoreChart">{{ breakfastScoreChart }}</canvas>
-    </div>
-    <div class="chart">
-        <canvas id="lunchScoreChart">{{ lunchScoreChart }}</canvas>
-    </div>
-    <div class="chart">
-        <canvas id="dinnerScoreChart">{{ dinnerScoreChart }}</canvas>
-    </div>
-    <div class="chart">
-        <canvas id="waterScoreChart">{{ waterScoreChart }}</canvas>
-    </div>
-</div>
+<app-meal-statistics></app-meal-statistics>

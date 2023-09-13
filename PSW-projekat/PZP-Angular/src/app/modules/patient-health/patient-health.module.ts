@@ -16,6 +16,7 @@ import {MatDividerModule} from '@angular/material/divider';
 import { AddWaterDialogComponent } from './add-water-dialog/add-water-dialog.component';
 import { WorkoutsCalendarComponent } from './workouts-calendar/workouts-calendar.component';
 import { WorkoutsOverviewComponent } from './workouts-overview/workouts-overview.component';
+import { MealStatisticsComponent } from './meal-statistics/meal-statistics.component';
 
 
 const routes: Routes = [
@@ -33,6 +34,7 @@ const routes: Routes = [
     AddWaterDialogComponent,
     WorkoutsCalendarComponent,
     WorkoutsOverviewComponent,
+    MealStatisticsComponent,
   ],
   exports: [RouterModule],
   providers: [AuthGuard],

@@ -113,17 +113,19 @@ namespace HospitalAPI.Controllers.PublicApp
                 Meal meal = _mealService.GetByDateAndTypeForPatient(DateTime.Today, dto.MealType, patient.Id);
                 float currentScore = meal.Score;
 
-                List<MealAnswer> answers = new();
-                foreach (MealAnswerDTO answerDTO in dto.Answers)
+                foreach(MealAnswer answer in meal.Answers)
                 {
-                    MealAnswer mealAnswer = _mealAnswerService.GetById(answerDTO.AnswerId);
-                    mealAnswer.Answer = answerDTO.Answer;
-                    _mealAnswerService.Update(mealAnswer);
-                    answers.Add(mealAnswer);
+                    foreach(MealAnswerDTO answerDto in dto.Answers)
+                    {
+                        if(answerDto.AnswerId == answer.Id)
+                        {
+                            answer.Answer = answerDto.Answer;
+                            break;
+                        }
+                    }
                 }
 
-                meal.CalculateScore(answers);
-                meal.Answers = answers;
+                meal.Score = meal.CalculateScore(meal.Answers);
                 _mealService.Update(meal);
 
                 if (currentScore != meal.Score)
