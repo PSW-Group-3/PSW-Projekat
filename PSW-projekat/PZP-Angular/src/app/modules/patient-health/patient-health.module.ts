@@ -17,6 +17,7 @@ import { AddWaterDialogComponent } from './add-water-dialog/add-water-dialog.com
 import { WorkoutsCalendarComponent } from './workouts-calendar/workouts-calendar.component';
 import { WorkoutsOverviewComponent } from './workouts-overview/workouts-overview.component';
 import { MealStatisticsComponent } from './meal-statistics/meal-statistics.component';
+import { AddWorkoutDialogComponent } from './add-workout-dialog/add-workout-dialog.component';
 
 
 const routes: Routes = [
@@ -35,6 +36,7 @@ const routes: Routes = [
     WorkoutsCalendarComponent,
     WorkoutsOverviewComponent,
     MealStatisticsComponent,
+    AddWorkoutDialogComponent,
   ],
   exports: [RouterModule],
   providers: [AuthGuard],

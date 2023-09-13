@@ -28,8 +28,14 @@ namespace HospitalAPI.Controllers.PublicApp
         public ActionResult GetPatientHealthInformationByPersonId(int personId)
         {
             Patient patient = _patientService.getPatientByPersonId(personId);
+            PatientHealthInformation patientHealthInformation = _patientHealthInformationService.GetLatestByPatientId(patient.Id);
 
-            return Ok(PatientHealthAdapter.ToPatientInfoDTO(patient, _patientHealthInformationService.GetLatestByPatientId(patient.Id)));
+            if(patientHealthInformation == null)
+            {
+                return Ok(PatientHealthAdapter.ToPatientInfoDTO(patient));
+            }
+
+            return Ok(PatientHealthAdapter.ToPatientInfoDTO(patient, patientHealthInformation));
         }
 
         //[Authorize]
@@ -44,7 +50,7 @@ namespace HospitalAPI.Controllers.PublicApp
         
 
         //[Authorize]
-        [HttpPut("healthinfo/{personId}")]
+        [HttpPost("healthinfo/{personId}")]
         public ActionResult UpdatePatientHealthInformationByPersonId(PatientInfoDTO patientInfoDTO, int personId)
         {
             Patient patient = _patientService.getPatientByPersonId(personId);

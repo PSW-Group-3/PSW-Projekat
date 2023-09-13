@@ -13,7 +13,7 @@ Chart.register(...registerables);
 })
 export class PatientHealthScoreComponent implements OnInit {
   
-  patientInfo: PatientInfoDTO | any;
+  patientInfo: PatientInfoDTO = {} as PatientInfoDTO;
   patientHealthInformationMessages: PatientHealthInformationMessagesDTO | any;
 
   updateDate: Date = new Date();
@@ -28,7 +28,9 @@ export class PatientHealthScoreComponent implements OnInit {
 
   ngOnInit(): void {
     this.patientHealthService.getPatientInformation().subscribe(res => {
+      if (res != null) {
       this.patientInfo = res;
+      }
       this.updateDate = new Date(this.patientInfo.selectedDate);
 
       this.patientInfoForm = this.fb.group({
@@ -76,29 +78,6 @@ export class PatientHealthScoreComponent implements OnInit {
         console.log(this.patientHealthInformationMessages);
       });
   }
-
-  /*updatePatientInfo() {
-    this.patientInfo.weight = this.patientInfoForm.value.weight;
-    this.patientInfo.height = this.patientInfoForm.value.height;
-    this.patientInfo.bloodPressure = this.patientInfoForm.value.bloodPressure;
-    this.patientInfo.heartRate = this.patientInfoForm.value.heartRate;
-    this.patientInfo.selectedDate = new Date();
-
-    this.patientHealthService.updatePatientInformation(this.patientInfo).subscribe(res => {
-      this.patientInfo = res;
-      this.patientInfoForm.reset();
-      this.patientInfoForm.patchValue({
-        weight: this.patientInfo.weight,
-        height: this.patientInfo.height,
-        bmi: this.patientInfo.bmi,
-        bloodPressure: this.patientInfo.bloodPressure,
-        heartRate: this.patientInfo.heartRate
-      });
-      this.updateDate = new Date(this.patientInfo.selectedDate);
-      this.healthChartData.datasets[0].healthScore = this.patientInfo.healthScore;
-      this.healthScoreChart.update();
-    });
-  }*/
 
   createHealthScoreChart() {
     this.healthScoreChart = new Chart("healthScoreChart", {

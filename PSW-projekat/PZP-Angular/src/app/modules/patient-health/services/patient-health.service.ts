@@ -21,6 +21,6 @@ export class PatientHealthService {
   }
 
   updatePatientInformation(patientInfo: PatientInfoDTO): Observable<PatientInfoDTO> {
-    return this.http.put<PatientInfoDTO>('api/PatientHealth/healthinfo/' + parseInt(localStorage.getItem('currentUserId')!), patientInfo, { headers: this.headers });
+    return this.http.post<PatientInfoDTO>('api/PatientHealth/healthinfo/' + parseInt(localStorage.getItem('currentUserId')!), patientInfo, { headers: this.headers });
   }
 }

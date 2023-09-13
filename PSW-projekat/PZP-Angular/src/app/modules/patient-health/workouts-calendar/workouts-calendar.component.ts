@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { WorkoutInfoDTO } from '../model/workout-info-dto.model';
 import { getWorkoutTypeString, WorkoutType } from '../model/enums/workout-type.enum';
+import { MatDialog } from '@angular/material/dialog';
+import { AddWaterDialogComponent } from '../add-water-dialog/add-water-dialog.component';
+import { AddWorkoutDialogComponent } from '../add-workout-dialog/add-workout-dialog.component';
 
 @Component({
   selector: 'app-workouts-calendar',
@@ -43,7 +46,7 @@ export class WorkoutsCalendarComponent implements OnInit {
 
   availabilityCalendarForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, public dialog: MatDialog,) {
     this.availabilityCalendarForm = this.formBuilder.group({
       month: [this.month, Validators.required],
       year: [
@@ -158,4 +161,16 @@ export class WorkoutsCalendarComponent implements OnInit {
     this.year = formData.year;
     this.renderCalendar();
   }
+
+  openAddWorkoutDialog(){
+    const dialogRef = this.dialog.open(AddWorkoutDialogComponent);
+    dialogRef.componentInstance.workoutAdded.subscribe(async () => {
+      await this.refreshPage();
+    });
+  }
+
+  async refreshPage() {
+    location.reload();
+  }
+
 }

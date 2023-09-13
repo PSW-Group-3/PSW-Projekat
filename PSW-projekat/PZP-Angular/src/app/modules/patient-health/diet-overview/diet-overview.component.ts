@@ -1,11 +1,10 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MealQuestionDTO } from '../model/meal-question-dto.model';
 import { MealService } from '../services/meal.service';
 import { AddMealDialogComponent } from '../add-meal-dialog/add-meal-dialog.component';
 import { AddWaterDialogComponent } from '../add-water-dialog/add-water-dialog.component';
 import { Chart, registerables } from 'chart.js';
-import { MealStatisticsService } from '../services/meal-statistics.service';
 import { MealAnswerDTO } from '../model/meal-answer-dto.model';
 import { MealType, GetMealTypeString } from '../model/enums/meal-type.enum';
 Chart.register(...registerables);
@@ -49,7 +48,7 @@ export class DietOverviewComponent implements OnInit {
     return GetMealTypeString(type);
   }
 
-  constructor(public dialog: MatDialog, private mealService: MealService, private mealStatisticsService: MealStatisticsService) { }
+  constructor(public dialog: MatDialog, private mealService: MealService) { }
 
   ngOnInit(): void {
     this.mealService.getMealsForPatientByDate(parseInt(localStorage.getItem('currentUserId')!), this.todayDate).subscribe(
