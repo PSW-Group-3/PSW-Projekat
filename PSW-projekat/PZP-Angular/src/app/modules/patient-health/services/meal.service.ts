@@ -25,6 +25,9 @@ export class MealService {
   addMeal(mealDTO: CreateMealDTO): Observable<CreateMealDTO> {
     return this.http.post<CreateMealDTO>('api/Meal/add', mealDTO, { headers: this.headers });
   }
+  editMeal(mealDTO: CreateMealDTO): Observable<CreateMealDTO> {
+    return this.http.put<CreateMealDTO>('api/Meal/edit', mealDTO, { headers: this.headers });
+  }
 
   addWater(mealDTO: CreateMealDTO): Observable<CreateMealDTO> {
     return this.http.post<CreateMealDTO>('api/Meal/add', mealDTO, { headers: this.headers });

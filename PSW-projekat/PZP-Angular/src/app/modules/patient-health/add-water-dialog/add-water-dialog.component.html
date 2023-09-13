@@ -1,24 +1,20 @@
-<h1 mat-dialog-title style="font-size: 1.6rem; font-weight: 500;">{{titleText}} Water intake</h1>
+<h1 mat-dialog-title style="font-size: 1.6rem; font-weight: 500">{{ titleText }} Water intake</h1>
 <div mat-dialog-content>
-    <div *ngFor="let question of data.mealQuestions; let i = index">
-        <div class="columns">
-            <p>{{question.questionText}}</p>
-        </div>
-        <mat-form-field style="width: 100%;">
-            <mat-select  [(ngModel)]="mealAnswers[i].answer">
-                {{log(mealAnswers[i].answer)}}
-                <mat-option value="-1">None</mat-option>
-                <mat-option value="-0.5">1 to 2 glasses (250ml to 500ml)</mat-option>
-                <mat-option value="0">3 to 4 glasses (750ml to 1l)</mat-option>
-                <mat-option value="0.5">5 to 6 glasses (1.25l to 1.5l)</mat-option>
-                <mat-option value="1">7 or more glasses (1.75l or more)</mat-option>
-            </mat-select>
-        </mat-form-field>
+  <div *ngFor="let question of data.mealQuestions; let i = index">
+    <div class="columns">
+      <p>{{ question.questionText }}</p>
     </div>
+    <select class="custom-select" [(ngModel)]="mealAnswers[i].answer">
+      <option value="-1">None</option>
+      <option value="-0.5">1 to 2 glasses (250ml to 500ml)</option>
+      <option value="0">3 to 4 glasses (750ml to 1l)</option>
+      <option value="0.5">5 to 6 glasses (1.25l to 1.5l)</option>
+      <option value="1">7 or more glasses (1.75l or more)</option>
+    </select>
+  </div>
 </div>
 <div mat-dialog-actions>
-    <h3 class="errorMessage">{{errorMessage}}</h3>
-    <button mat-raised-button color="secondary" (click)="onNoClick()">Cancel</button>
-    <button mat-raised-button color="primary" (click)="onAddWaterClick()" *ngIf="data.shouldEdit == false">Add</button>
-    <button mat-raised-button color="primary" (click)="onEditWaterClick()" *ngIf="data.shouldEdit == true">Edit</button>
+  <h3 class="errorMessage">{{ errorMessage }}</h3>
+  <button mat-raised-button color="secondary" (click)="onNoClick()">Cancel</button>
+  <button mat-raised-button color="primary" (click)="onAddWaterClick()">{{titleText}}</button>
 </div>

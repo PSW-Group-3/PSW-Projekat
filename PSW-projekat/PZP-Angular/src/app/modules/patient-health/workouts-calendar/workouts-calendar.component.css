@@ -1,53 +1,69 @@
+/* Style the <select> element */
+select.custom-select,
+.custom-input {
+  height: 48px;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  border-bottom: 2px solid #ccc;
+  background-color: #fff;
+  width: 100%;
+}
+
+select.custom-select:focus,
+.custom-input:focus {
+  border: none;
+  outline: none;
+  border-bottom: 3px solid #4851b1;
+}
+
+/* Style the <option> elements */
+select.custom-select option {
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  outline: none;
+}
+
+/* Style the dropdown arrow (if supported by the browser) */
+select.custom-select::-ms-expand {
+  display: none;
+}
+
+/* Style the dropdown arrow (for modern browsers) */
+select.custom-select::after {
+  content: '\25BC';
+  background-color: #4851b1;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.custom-button{
+  height: 48px;
+  background-color: #4851b1;
+  color: #fff;
+  border: none;
+  outline: none;
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 4px;
+  min-width: 150px;
+  transition: background-color 0.3s;
+}
+
+.custom-button:hover,
+.custom-button:focus {
+  background-color: #6774fd; 
+}
+
 .inputContainer {
   position: relative;
-  margin-bottom: 2rem;
   display: flex;
   flex-grow: 1;
-  min-width: 250px;
-}
-
-.label {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 16px;
-  display: flex;
-  align-items: center;
-  pointer-events: none;
-}
-
-input,
-.label .text {
-  font-family: "Segoe UI";
-  font-size: 16px;
-}
-
-.label .text {
-  transition: all 0.15s ease-out;
-  color: grey;
-}
-
-input:focus + .label .text,
-:not(input[value=""]) + .label .text {
-  font-size: 12px;
-  transform: translate(0, -150%);
-  background-color: white;
-  padding-left: 4px;
-  padding-right: 4px;
-}
-
-input:focus + .label .text {
-  color: black;
-}
-
-.errorLabel {
-  position: absolute;
-  top: 50px;
-  left: 16px;
-  display: flex;
-  align-items: center;
-  pointer-events: none;
-  color: red;
+  min-width: 200px;
 }
 
 .lineContainer {
@@ -55,8 +71,10 @@ input:focus + .label .text {
   flex-direction: row;
   flex-wrap: wrap;
   gap: 2rem;
-  row-gap: 0.125rem;
-  margin-bottom: 2rem;
+  row-gap: 2rem;
+  margin-left: 2rem;
+  margin-right: 2rem;
+  padding-top: 2rem;
 }
 
 .inlineGrid {
@@ -68,7 +86,7 @@ input:focus + .label .text {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 1.5rem;
-  padding: 1.5rem;
+  padding: 2rem;
 }
 
 .calendarHeaderItem {

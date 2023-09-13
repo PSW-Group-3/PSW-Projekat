@@ -14,7 +14,8 @@ Chart.register(...registerables);
 export interface AddMealDialogData {
   mealType: MealType;
   mealQuestions: MealQuestionDTO[];
-  mealAnswers: MealAnswerDTO[];
+  answers: MealAnswerDTO[];
+  shouldEdit: boolean;
 }
 
 export interface AddWaterDialogData {
@@ -76,11 +77,11 @@ export class DietOverviewComponent implements OnInit {
     );
   }
 
-  async openMealDialog(mealType: MealType, answers: MealAnswerDTO[]): Promise<void> {
+  async openMealDialog(mealType: MealType,shouldEdit: boolean, answers: MealAnswerDTO[]): Promise<void> {
     this.mealService.getQuestionsForMeal(mealType).subscribe(
       (data) => {
         const dialogRef = this.dialog.open(AddMealDialogComponent, {
-          data: {mealType: mealType, mealQuestions: data, answers: answers},
+          data: {mealType: mealType, mealQuestions: data, answers: answers, shouldEdit:shouldEdit },
         });
         dialogRef.componentInstance.mealAdded.subscribe(async () => {
           await this.refreshPage()

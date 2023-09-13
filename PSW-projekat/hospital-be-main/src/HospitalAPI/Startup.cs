@@ -158,10 +158,6 @@ namespace HospitalAPI
             services.AddScoped<IMealRepository, MealRepository>();
             services.AddScoped<MealStatisticsService>();
 
-
-            services.AddScoped<IMealAnswerService, MealAnswerService>();
-            services.AddScoped<IMealAnswerRepository, MealAnswerRepository>();
-
             services.AddScoped<IMealQuestionService, MealQuestionService>();
             services.AddScoped<IMealQuestionRepository, MealQuestionRepository>();
 

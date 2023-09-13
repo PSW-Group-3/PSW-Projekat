@@ -18,16 +18,14 @@ namespace HospitalAPI.Controllers.PublicApp
     {
         private readonly IMealService _mealService;
         private readonly MealStatisticsService _mealStatisticsService;
-        private readonly IMealAnswerService _mealAnswerService;
         private readonly IMealQuestionService _mealQuestionService;
         private readonly IPatientService _patientService;
 
 
-        public MealController(IMealService mealService, MealStatisticsService mealStatisticsService, IMealAnswerService mealAnswerService, IMealQuestionService mealQuestionService, IPatientService patientService)
+        public MealController(IMealService mealService, MealStatisticsService mealStatisticsService, IMealQuestionService mealQuestionService, IPatientService patientService)
         {
             _mealService = mealService;
             _mealStatisticsService = mealStatisticsService;
-            _mealAnswerService = mealAnswerService;
             _mealQuestionService = mealQuestionService;
             _patientService = patientService;
         }

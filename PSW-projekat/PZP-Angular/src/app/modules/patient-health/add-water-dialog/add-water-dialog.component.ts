@@ -8,16 +8,14 @@ import { CreateMealDTO } from '../model/meal-dto.model';
 @Component({
   selector: 'app-add-water-dialog',
   templateUrl: './add-water-dialog.component.html',
-  styleUrls: ['./add-water-dialog.component.css']
+  styleUrls: ['./add-water-dialog.component.css'],
 })
 export class AddWaterDialogComponent implements OnInit {
   @Output() waterAdded: EventEmitter<void> = new EventEmitter<void>();
-  
-  mealAnswers: MealAnswerDTO[] = [];
-  titleText: string = 'Add'
-  errorMessage: string = '';
 
-  log(x: any) { console.log(x); }
+  mealAnswers: MealAnswerDTO[] = [];
+  titleText: string = 'Add';
+  errorMessage: string = '';
 
   constructor(
     private mealService: MealService,
@@ -26,42 +24,33 @@ export class AddWaterDialogComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.data.mealQuestions.forEach(element => {
-      this.mealAnswers.push({answer: undefined, answerId: undefined, questionId: element.questionId});
+    this.data.mealQuestions.forEach((element) => {
+      this.mealAnswers.push({ answer: undefined, answerId: undefined, questionId: element.questionId });
     });
-    if(this.data.shouldEdit){
+    if (this.data.shouldEdit) {
       this.titleText = 'Edit';
-      this.mealAnswers = [];
       this.mealAnswers = this.data.answers;
     }
   }
 
   onAddWaterClick(): void {
-    if (this.mealAnswers.some(answer => answer.answer === null)) {
+    if (this.mealAnswers.some((answer) => answer.answer === undefined)) {
       this.errorMessage = 'Please answer all questions!';
-    } 
-    else {
+    } else {
       let mealDTO: CreateMealDTO = { answers: this.mealAnswers, mealType: this.data.mealType, personId: parseInt(localStorage.getItem('currentUserId')!) };
-      this.mealService.addWater(mealDTO).subscribe();
-      this.waterAdded.emit();      
-      this.dialogRef.close();
-    }
-  }
-
-  onEditWaterClick(): void {
-    if (this.mealAnswers.some(answer => answer.answer === null)) {
-      this.errorMessage = 'Please answer all questions!';
-    }
-    else {
-      let mealDTO: CreateMealDTO = { answers: this.mealAnswers, mealType: this.data.mealType, personId: parseInt(localStorage.getItem('currentUserId')!) };
-      this.mealService.editWater(mealDTO).subscribe();
-      this.waterAdded.emit();      
-      this.dialogRef.close();
+      if (this.data.shouldEdit == false) {
+        this.mealService.addWater(mealDTO).subscribe();
+        this.waterAdded.emit();
+        this.dialogRef.close();
+      } else {
+        this.mealService.editWater(mealDTO).subscribe();
+        this.waterAdded.emit();
+        this.dialogRef.close();
+      }
     }
   }
 
   onNoClick(): void {
     this.dialogRef.close();
   }
-
 }

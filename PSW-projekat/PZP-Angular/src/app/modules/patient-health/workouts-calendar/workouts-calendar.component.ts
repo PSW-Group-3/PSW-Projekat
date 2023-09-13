@@ -59,6 +59,7 @@ export class WorkoutsCalendarComponent implements OnInit {
   }
 
   renderCalendar(): void {
+    this.workoutInfoDTOs = [];
     const numberOfDaysInMonth = this.getNumberOfDaysInMonth(this.month, this.year);
 
     const firstDayOfMonth = new Date(this.year, this.months.indexOf(this.month), 0).getDay();
