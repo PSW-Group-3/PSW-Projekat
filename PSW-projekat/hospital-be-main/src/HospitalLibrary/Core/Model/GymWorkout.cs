@@ -16,7 +16,7 @@ namespace HospitalLibrary.Core.Model
 
         public GymWorkout() { }
 
-        public GymWorkout(WorkoutType type, DateTime date, TimeSpan duration, string description, Patient patient, List<Exercise> exercises)
+        public GymWorkout(double score, WorkoutType type, DateTime date, TimeSpan duration, string description, Patient patient, List<Exercise> exercises)
         {
             if (!IsValid(type, date, duration)) throw new Exception("GymWorkout invalid!");
 
@@ -26,7 +26,7 @@ namespace HospitalLibrary.Core.Model
             Description = description;
             Patient = patient;
             Exercises = exercises;
-            Score = CalculateScore();
+            Score = score;
         }
 
         private bool IsValid(WorkoutType type, DateTime date, TimeSpan duration)
@@ -49,17 +49,7 @@ namespace HospitalLibrary.Core.Model
             return true;
         }
 
-        private double CalculateScore()
-        {
-            double score = 3.0;
-            SetsAndReps setsAndReps = GetNumberOfSetsAndReps();
-            double setsModifier =  (double)setsAndReps.Sets / (double)(Exercises.Count * 3);
-            double repsModifier = (double)setsAndReps.Reps / (double)(Exercises.Count * 3 * 10 );
-
-            return score * setsModifier * repsModifier;
-        }
-
-        private SetsAndReps GetNumberOfSetsAndReps()
+        public SetsAndReps GetNumberOfSetsAndReps()
         {
             SetsAndReps setsAndReps = new(0, 0);
             foreach (Exercise exercise in Exercises)
@@ -71,7 +61,7 @@ namespace HospitalLibrary.Core.Model
         }
     }
 
-    internal struct SetsAndReps
+    public struct SetsAndReps
     {
         public int Sets { get; set; }
         public int Reps { get; set; }

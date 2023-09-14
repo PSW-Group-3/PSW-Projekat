@@ -22,6 +22,9 @@ using Microsoft.OpenApi.Models;
 using System.Text;
 using HospitalLibrary.Core.AggregatDoctor;
 using HospitalLibrary.Core.Model.Aggregate;
+using HospitalLibrary.Core.DomainService.Interface;
+using HospitalLibrary.Core.DomainService;
+using HospitalAPI.Converters;
 
 namespace HospitalAPI
 {
@@ -82,7 +85,11 @@ namespace HospitalAPI
                 };
             });
 
-            services.AddControllers();
+            services.AddControllers().AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.Converters.Add(new DateTimeConverter());
+            });
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "GraphicalEditor", Version = "v1" });
@@ -157,6 +164,8 @@ namespace HospitalAPI
             services.AddScoped<IMealService, MealService>();
             services.AddScoped<IMealRepository, MealRepository>();
             services.AddScoped<MealStatisticsService>();
+            services.AddScoped<IMealScoreService,  MealScoreService>();
+
 
             services.AddScoped<IMealQuestionService, MealQuestionService>();
             services.AddScoped<IMealQuestionRepository, MealQuestionRepository>();
@@ -166,9 +175,9 @@ namespace HospitalAPI
 
             services.AddScoped<IWorkoutService, WorkoutService>();
             services.AddScoped<IWorkoutRepository, WorkoutRepository>();
-
             services.AddScoped<IGymWorkoutService, GymWorkoutService>();
             services.AddScoped<IGymWorkoutRepository, GymWorkoutRepository>();
+            services.AddScoped<IWorkoutScoreService, WorkoutScoreService>();
 
             services.AddScoped<SchedulingAppointmentEventsRepository>();
             services.AddScoped<SchedulingStatisticsService>();

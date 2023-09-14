@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HospitalLibrary.Core.Model.Enums;
+using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
@@ -27,6 +28,7 @@ namespace HospitalLibrary.Core.Model
             Height = height;
             BloodPressure = bloodPressure;
             HeartRate = heartRate;
+            Score = CalculateHealthScoreDelta();
         }
 
         private bool IsValid(float weight, int height, string bloodPressure, int heartRate)
@@ -39,13 +41,13 @@ namespace HospitalLibrary.Core.Model
             return true;
         }
 
-        public List<String> IsWithinNormalLimits()
+        public List<HealthStatus> IsWithinNormalLimits()
         {
-            List<String> messages = new();
+            List<HealthStatus> messages = new();
 
-            messages.Add(CheckWeight().Message);
-            messages.Add(CheckHeartRate().Message);
-            messages.Add(CheckBloodPressure().Message);
+            messages.Add(CheckWeight().Status);
+            messages.Add(CheckHeartRate().Status);
+            messages.Add(CheckBloodPressure().Status);
 
             return messages;
         }
@@ -55,24 +57,24 @@ namespace HospitalLibrary.Core.Model
             return ((double)Weight / ((double)Height / 100) / ((double)Height / 100));
         }
 
-        private MessageAndScore CheckWeight()
+        private StatusAndScore CheckWeight()
         {
             double BMI = CalculateBMI();
             if (BMI < 18.5)
             {
-                return new MessageAndScore("Your BMI (Body Mass Index) is: " + BMI + "\nWhich stands for: Underweight.\nYou should eat more and consult with a nutricionist.", -5.0);
+                return new StatusAndScore(HealthStatus.underweight, -5.0);
             }
             else if (BMI >= 18.5 && BMI < 25)
             {
-                return new MessageAndScore("Your BMI (Body Mass Index) is: " + BMI + "\nWhich stands for: Normal weight.\nKeep up the good eating habit!", 0.0);
+                return new StatusAndScore(HealthStatus.normalweight, 0.0);
             }
             else if (BMI >= 25 && BMI < 30)
             {
-                return new MessageAndScore("Your BMI (Body Mass Index) is: " + BMI + "\nWhich stands for: Overweight.\nYou should eat less.", -5.0);
+                return new StatusAndScore(HealthStatus.overweight, -5.0);
             }
             else if (BMI >= 30)
             {
-                return new MessageAndScore("Your BMI (Body Mass Index) is: " + BMI + "\nWhich stands for: Obese.\nYou should eat less and consult with a nutricionist.",-10.0);
+                return new StatusAndScore(HealthStatus.obese, -10.0);
             }
             else
             {
@@ -80,41 +82,41 @@ namespace HospitalLibrary.Core.Model
             }
         }
 
-        private MessageAndScore CheckHeartRate()
+        private StatusAndScore CheckHeartRate()
         {
             if (HeartRate < 40)
-                return new MessageAndScore("Your heart rate is too low. Please consult a doctor.", 0.0);
+                return new StatusAndScore(HealthStatus.criticaly_lowered_hr, 0.0);
             else if (40 <= HeartRate && HeartRate < 60)
-                return new MessageAndScore("Your heart rate is slightly decresed. Monitor it over time.", -5.0);
+                return new StatusAndScore(HealthStatus.slightly_lowered_hr, -5.0);
             else if (60 <= HeartRate && HeartRate <= 100)
-                return new MessageAndScore("Your heart rate is within the normal range.", 5.0);
+                return new StatusAndScore(HealthStatus.normal_hr, 5.0);
             else if (101 <= HeartRate && HeartRate <= 120)
-                return new MessageAndScore("Your heart rate is slightly elevated. Monitor it over time.", -5.0);
+                return new StatusAndScore(HealthStatus.slightly_elevated_hr, -5.0);
             else if (HeartRate > 120)
-                return new MessageAndScore("Your heart rate is elevated. Consult a doctor for advice.", 0.0);
+                return new StatusAndScore(HealthStatus.criticaly_elevated_hr, 0.0);
             else
-                return new MessageAndScore("Unknown.", 0.0);
+                throw new Exception("Bad hearth rate");
         }
 
-        private MessageAndScore CheckBloodPressure()
+        private StatusAndScore CheckBloodPressure()
         {
             int systolic = int.Parse(BloodPressure.Split('/')[0]);
             int diastolic = int.Parse(BloodPressure.Split('/')[1]);
 
             if (systolic < 90 && diastolic < 60)
-                return new MessageAndScore("Your blood pressure is low. Please consult a doctor.", 0.0);
+                return new StatusAndScore(HealthStatus.lowered_bp, 0.0);
             else if (90 <= systolic && systolic <= 120 && 60 <= diastolic && diastolic <= 80)
-                return new MessageAndScore("Your blood pressure is within the normal range.", 5.0);
+                return new StatusAndScore(HealthStatus.normal_bp, 5.0);
             else if ((120 < systolic && systolic < 130) && (60 <= diastolic && diastolic <= 80))
-                return new MessageAndScore("Your blood pressure is elevated. Consider lifestyle changes.", -5.0);
+                return new StatusAndScore(HealthStatus.elevated_bp, -5.0);
             else if ((130 <= systolic && systolic < 140) || (80 <= diastolic && diastolic < 90))
-                return new MessageAndScore("You are in Hypertension Stage 1. Consult a doctor for advice.", -10.0);
+                return new StatusAndScore(HealthStatus.hypertension_1, -10.0);
             else if (systolic >= 140 || diastolic >= 90)
-                return new MessageAndScore("You are in Hypertension Stage 2. Consult a doctor for evaluation.", -10.0);
+                return new StatusAndScore(HealthStatus.hypertension_2, -10.0);
             else if (systolic > 180 || diastolic > 120)
-                return new MessageAndScore("Your blood pressure is dangerously high. Seek medical attention immediately.", 0.0);
+                return new StatusAndScore(HealthStatus.criticaly_elevated_bp, 0.0);
             else
-                return new MessageAndScore("Unknown.", 0.0);
+                throw new Exception("Bad bloodpressure");
         }
 
         public double CalculateHealthScoreDelta()
@@ -123,14 +125,14 @@ namespace HospitalLibrary.Core.Model
         }
     }
 
-    internal struct MessageAndScore
+    internal struct StatusAndScore
     {
-        public string Message { get; set; }
+        public HealthStatus Status { get; set; }
         public double HealthScore { get; set; }
 
-        public MessageAndScore(string message, double healthScore)
+        public StatusAndScore(HealthStatus status, double healthScore)
         {
-            Message = message;
+            Status = status;
             HealthScore = healthScore;
         }
     }

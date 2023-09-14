@@ -1,5 +1,6 @@
 ﻿using HospitalLibrary.Core.Model;
 using HospitalLibrary.Core.Repository;
+using System;
 using System.Collections.Generic;
 
 namespace HospitalLibrary.Core.Service
@@ -28,9 +29,9 @@ namespace HospitalLibrary.Core.Service
             return _workoutRepository.GetAll();
         }
 
-        public IEnumerable<Workout> GetAllForPatient(int patientId)
+        public IEnumerable<Workout> GetAllForPatientInsideDateRange(int patientId, DateTime fromDate, DateTime untilDate)
         {
-            return _workoutRepository.GetAllForPatient(patientId);
+            return _workoutRepository.GetAllForPatientInsideDateRange(patientId, fromDate, untilDate);
         }
 
         public Workout GetById(int id)

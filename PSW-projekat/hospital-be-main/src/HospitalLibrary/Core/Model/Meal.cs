@@ -15,11 +15,11 @@ namespace HospitalLibrary.Core.Model
 
         public Meal() { }
 
-        public Meal(List<MealAnswer> answers, MealType mealType, Patient patient)
+        public Meal(List<MealAnswer> answers, float score, MealType mealType, Patient patient)
         {
             if (!IsValid()) throw new Exception("Meal invalid!");
-            
-            Score = CalculateScore(answers);
+
+            Score = score;
             DateOfMeal = DateTime.Today;
             MealType = mealType;
             Patient = patient;
@@ -29,19 +29,6 @@ namespace HospitalLibrary.Core.Model
         private bool IsValid()
         {
             return true;
-        }
-
-        public float CalculateScore(List<MealAnswer> answers)
-        {
-            float score = 0;
-            foreach (MealAnswer answer in answers)
-            {
-                score += answer.Answer;
-            }
-
-            score /= answers.Count;
-
-            return score;
         }
     }
 }

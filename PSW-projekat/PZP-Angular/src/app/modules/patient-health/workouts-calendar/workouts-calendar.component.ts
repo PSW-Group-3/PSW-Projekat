@@ -5,6 +5,7 @@ import { getWorkoutTypeString, WorkoutType } from '../model/enums/workout-type.e
 import { MatDialog } from '@angular/material/dialog';
 import { AddWaterDialogComponent } from '../add-water-dialog/add-water-dialog.component';
 import { AddWorkoutDialogComponent } from '../add-workout-dialog/add-workout-dialog.component';
+import { WorkoutService } from '../services/workout.service';
 
 @Component({
   selector: 'app-workouts-calendar',
@@ -13,93 +14,88 @@ import { AddWorkoutDialogComponent } from '../add-workout-dialog/add-workout-dia
 })
 export class WorkoutsCalendarComponent implements OnInit {
   workoutInfoDTOs: WorkoutInfoDTO[] = [];
+  patientsWorkouts: WorkoutInfoDTO[] = [];
+  numberOfDaysInMonth: number = 0;
+  firstDayOfMonth: number = 0;
+  startOfCalendar: Date = new Date();
+  endOfCalendar: Date = new Date();
+
   getWorkoutTypeString(type: WorkoutType): string {
     return getWorkoutTypeString(type);
   }
-  
+
   month: string = new Date().toLocaleString('default', { month: 'long' });
   year: number = new Date().getFullYear();
 
-  months: string[] = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
-  ];
-  weekDays: string[] = [
-    'Sunday',
-    'Monday',
-    'Tuesday',
-    'Wednesday',
-    'Thursday',
-    'Friday',
-    'Saturday',
-  ];
+  months: string[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  weekDays: string[] = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
   availabilityCalendarForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, public dialog: MatDialog,) {
+  constructor(
+    private formBuilder: FormBuilder,
+    public dialog: MatDialog,
+    private workoutService: WorkoutService,
+  ) {
     this.availabilityCalendarForm = this.formBuilder.group({
       month: [this.month, Validators.required],
-      year: [
-        this.year,
-        [Validators.required, Validators.min(2000), Validators.max(2500)],
-      ],
+      year: [this.year, [Validators.required, Validators.min(2000), Validators.max(2500)]],
     });
   }
 
   ngOnInit(): void {
     // Initialize data and fetch availability dates
-    this.renderCalendar();
+    this.initCalendar();
+    this.getPatientWorkouts();
   }
 
-  renderCalendar(): void {
-    this.workoutInfoDTOs = [];
-    const numberOfDaysInMonth = this.getNumberOfDaysInMonth(this.month, this.year);
+  initCalendar(): void {
+    this.numberOfDaysInMonth = this.getNumberOfDaysInMonth(this.month, this.year);
 
-    const firstDayOfMonth = new Date(this.year, this.months.indexOf(this.month), 0).getDay();
+    this.firstDayOfMonth = new Date(this.year, this.months.indexOf(this.month), 0).getDay();
 
-    const startOfCalendar = new Date(
+    this.startOfCalendar = new Date(
       this.year,
       this.months.indexOf(this.month) - 1,
-      this.getNumberOfDaysInMonth(this.months[this.months.indexOf(this.month) - 1], this.year) - firstDayOfMonth
+      this.getNumberOfDaysInMonth(this.months[this.months.indexOf(this.month) - 1], this.year) - this.firstDayOfMonth,
     );
-    const endOfCalendar = new Date(
+    this.endOfCalendar = new Date(
       this.year,
       this.months.indexOf(this.month) + 1,
-      7 - new Date(this.year, this.months.indexOf(this.month), numberOfDaysInMonth).getDay()
+      7 - new Date(this.year, this.months.indexOf(this.month), this.numberOfDaysInMonth).getDay(),
     );
+  }
 
-    const patientsWorkouts: WorkoutInfoDTO[] = new Array<WorkoutInfoDTO>();
-    const res: any = null/*= await GetAvailableDatesForAccommodation({
-      accommodationId: selectedAccommodation.id,
-      dateFrom: startOfCalendar,
-      dateTo: endOfCalendar,
-    });*/
-
-    if (res) {
-      res.availabilityDates?.forEach((availabilityDate: any) => {
-        patientsWorkouts.push(/*add workout */);
+  async getPatientWorkouts(): Promise<void> {
+    try {
+      const data = await (await this.workoutService.getWorkoutInfoDTOs(
+        parseInt(localStorage.getItem('currentUserId')!),
+        this.startOfCalendar,
+        this.endOfCalendar
+      )).toPromise();
+  
+      data?.forEach((element) => {
+        element.date = new Date(element.date);
+        this.patientsWorkouts.push(element);
       });
+  
+      this.renderCalendar(); // Call renderCalendar after fetching patientsWorkouts
+    } catch (error) {
+      console.error('Error fetching patient workouts:', error);
     }
+  }
 
+  renderCalendar(): void {  
     let i = 0;
-    while (startOfCalendar < endOfCalendar) {
-      const tempDate = new Date(startOfCalendar);
-      if (
-        patientsWorkouts[i]?.date?.toDateString() ===
-        tempDate.toDateString()
-      ) {
-        this.workoutInfoDTOs.push(patientsWorkouts[i]);
-        i++;
+    while (this.startOfCalendar < this.endOfCalendar) {
+      const tempDate = new Date(this.startOfCalendar);
+
+      if (this.patientsWorkouts[i]?.date?.toDateString() === tempDate.toDateString()) {
+        let j = i;
+        while (this.patientsWorkouts[j]?.date?.toDateString() === tempDate.toDateString()) {
+          this.workoutInfoDTOs.push(this.patientsWorkouts[i]);
+          j++;
+        }
       } else {
         this.workoutInfoDTOs.push({
           date: tempDate,
@@ -109,7 +105,7 @@ export class WorkoutsCalendarComponent implements OnInit {
           personId: parseInt(localStorage.getItem('personId')!),
         });
       }
-      startOfCalendar.setDate(startOfCalendar.getDate() + 1);
+      this.startOfCalendar.setDate(this.startOfCalendar.getDate() + 1);
     }
   }
 
@@ -144,12 +140,7 @@ export class WorkoutsCalendarComponent implements OnInit {
         return 28;
       }
     }
-    if (
-      month === 'April' ||
-      month === 'June' ||
-      month === 'September' ||
-      month === 'November'
-    ) {
+    if (month === 'April' || month === 'June' || month === 'September' || month === 'November') {
       return 30;
     }
     return 31;
@@ -162,7 +153,7 @@ export class WorkoutsCalendarComponent implements OnInit {
     this.renderCalendar();
   }
 
-  openAddWorkoutDialog(){
+  openAddWorkoutDialog() {
     const dialogRef = this.dialog.open(AddWorkoutDialogComponent);
     dialogRef.componentInstance.workoutAdded.subscribe(async () => {
       await this.refreshPage();
@@ -172,5 +163,4 @@ export class WorkoutsCalendarComponent implements OnInit {
   async refreshPage() {
     location.reload();
   }
-
 }

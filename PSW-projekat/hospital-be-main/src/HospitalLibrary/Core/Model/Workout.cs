@@ -15,16 +15,16 @@ namespace HospitalLibrary.Core.Model
 
         public Workout() { }
 
-        public Workout(WorkoutType type, DateTime date, TimeSpan duration, string description, Patient patient)
+        public Workout(double score, WorkoutType type, DateTime date, TimeSpan duration, string description, Patient patient)
         {
             if (!IsValid(date, duration)) throw new Exception("Workout invalid!");
 
+            Score = score;
             Type = type;
             Date = date;
             Duration = duration;
             Description = description;
             Patient = patient;
-            Score = CalculateScore();
         }
 
         private bool IsValid(DateTime date, TimeSpan duration)
@@ -40,36 +40,6 @@ namespace HospitalLibrary.Core.Model
             }
 
             return true;
-        }
-
-        private double CalculateScore()
-        {
-            double score = GetWorkoutScore(Type);
-
-            if (Duration.TotalMinutes > 60)
-            {
-                score *= Duration.TotalMinutes / 60;
-            }
-
-            return score;
-        }
-
-        private static int GetWorkoutScore(WorkoutType type)
-        {
-        int score = type switch
-            {
-                WorkoutType.walking => 1,
-                WorkoutType.jogging => 2,
-                WorkoutType.swimming => 2,
-                WorkoutType.sports => 2,
-                WorkoutType.cardio => 3,
-                WorkoutType.running => 3,
-                WorkoutType.cycling => 3,
-                WorkoutType.strength => 3,
-                _ => 0,
-            };
-
-            return score;
-        }
+        }  
     }
 }

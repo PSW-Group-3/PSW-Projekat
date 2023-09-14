@@ -1,5 +1,6 @@
 ﻿using HospitalAPI.Adapters;
 using HospitalAPI.DTO;
+using HospitalLibrary.Core.DomainService.Interface;
 using HospitalLibrary.Core.Model;
 using HospitalLibrary.Core.Service;
 using Microsoft.AspNetCore.Cors;
@@ -16,16 +17,18 @@ namespace HospitalAPI.Controllers.PublicApp
     {
         private readonly IWorkoutService _workoutService;
         private readonly IPatientService _patientService;
+        private readonly IWorkoutScoreService _workoutScoreService;
 
-        public WorkoutController(IWorkoutService workoutService, IPatientService patientService)
+        public WorkoutController(IWorkoutService workoutService, IPatientService patientService, IWorkoutScoreService workoutScoreService)
         {
             _workoutService = workoutService;
             _patientService = patientService;
+            _workoutScoreService = workoutScoreService;
         }
 
         //[Authorize]
-        [HttpGet("all/{personId}")]
-        public ActionResult GetAllForPatient(int personId)
+        [HttpPut("all/{personId}")]
+        public ActionResult GetAllForPatient(int personId, DateRangeDTO dto)
         {
             Patient patient = _patientService.getPatientByPersonId(personId);
             if (patient == null)
@@ -33,7 +36,12 @@ namespace HospitalAPI.Controllers.PublicApp
                 return BadRequest("Patient not found.");
             }
 
-            List<Workout> workouts = (List<Workout>)_workoutService.GetAllForPatient(patient.Id);
+            if (!dto.DateFrom.HasValue || !dto.DateUntil.HasValue)
+            {
+                return BadRequest("From and until dates are required!");
+            }
+
+            List<Workout> workouts = (List<Workout>)_workoutService.GetAllForPatientInsideDateRange(patient.Id, dto.DateFrom.Value, dto.DateFrom.Value);
             List<WorkoutInfoDTO> dtos = WorkoutAdapter.FromWorkoutListToWorkoutInfoDTOList(workouts);
 
             return Ok(dtos);
@@ -51,8 +59,10 @@ namespace HospitalAPI.Controllers.PublicApp
 
             try
             {
-                Workout workout = WorkoutAdapter.FromAddWorkoutDTOtoWorkout(dto, patient);
+                double score = _workoutScoreService.CalculateWorkoutScore(dto.Duration, dto.Type);
+                Workout workout = WorkoutAdapter.FromAddWorkoutDTOtoWorkout(dto, score, patient);
                 _workoutService.Create(workout);
+
                 patient.UpdateHealthScore(workout.Score);
                 _patientService.Update(patient);
                 return StatusCode(201);

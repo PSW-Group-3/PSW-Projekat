@@ -2,10 +2,9 @@
 using HospitalLibrary.Core.DTOs;
 using HospitalLibrary.Core.Model;
 using HospitalLibrary.Core.Service;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
 
 namespace HospitalAPI.Controllers.PublicApp
 {
@@ -23,8 +22,8 @@ namespace HospitalAPI.Controllers.PublicApp
             _patientService = patientService;
         }
 
-        //[Authorize]
-        [HttpGet("healthinfo/{personId}")]
+        [Authorize]
+        [HttpGet("{personId}")]
         public ActionResult GetPatientHealthInformationByPersonId(int personId)
         {
             Patient patient = _patientService.getPatientByPersonId(personId);
@@ -38,23 +37,20 @@ namespace HospitalAPI.Controllers.PublicApp
             return Ok(PatientHealthAdapter.ToPatientInfoDTO(patient, patientHealthInformation));
         }
 
-        //[Authorize]
-        [HttpGet("healthinfo/messages/{personId}")]
+        [Authorize]
+        [HttpGet("messages/{personId}")]
         public ActionResult GetPatientHealthInformationMessagesByPersonId(int personId)
         {
             PatientHealthInformation patientHealthInformation = _patientHealthInformationService.GetLatestByPatientId(_patientService.getPatientByPersonId(personId).Id);
-            List<String> messages = patientHealthInformation.IsWithinNormalLimits();
-
-            return Ok(new PatientHealthInforamationMessagesDTO { BloodPressureMessage = messages[2], HeightMessage = messages[1], WeightMessage = messages[0] });
+            return Ok(patientHealthInformation.IsWithinNormalLimits());
         }
         
 
-        //[Authorize]
-        [HttpPost("healthinfo/{personId}")]
+        [Authorize]
+        [HttpPost("{personId}")]
         public ActionResult UpdatePatientHealthInformationByPersonId(PatientInfoDTO patientInfoDTO, int personId)
         {
             Patient patient = _patientService.getPatientByPersonId(personId);
-            //TODO: pitaj profesora, da li uzmimati u obzir prethodno stanje? Kako se ponasati u ekstremnim situacijama?
             PatientHealthInformation patientHealthInformation = PatientHealthAdapter.FromPatientInfoDTO(patientInfoDTO, patient);
             patient.UpdateHealthScore(patientHealthInformation.Score);
 
