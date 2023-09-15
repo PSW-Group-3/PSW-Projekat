@@ -41,7 +41,7 @@ namespace HospitalAPI.Controllers.PublicApp
                 return BadRequest("From and until dates are required!");
             }
 
-            List<Workout> workouts = (List<Workout>)_workoutService.GetAllForPatientInsideDateRange(patient.Id, dto.DateFrom.Value, dto.DateFrom.Value);
+            List<Workout> workouts = (List<Workout>)_workoutService.GetAllForPatientInsideDateRange(patient.Id, dto.DateFrom.Value, dto.DateUntil.Value);
             List<WorkoutInfoDTO> dtos = WorkoutAdapter.FromWorkoutListToWorkoutInfoDTOList(workouts);
 
             return Ok(dtos);

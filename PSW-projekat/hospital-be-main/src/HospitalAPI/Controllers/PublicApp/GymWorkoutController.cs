@@ -27,8 +27,8 @@ namespace HospitalAPI.Controllers.PublicApp
         }
 
         //[Authorize]
-        [HttpGet("all/{personId}")]
-        public ActionResult GetAllForPatient(int personId)
+        [HttpPut("all/{personId}")]
+        public ActionResult GetAllForPatient(int personId, DateRangeDTO dto)
         {
             Patient patient = _patientService.getPatientByPersonId(personId);
             if (patient == null)
@@ -36,7 +36,12 @@ namespace HospitalAPI.Controllers.PublicApp
                 return BadRequest("Patient not found.");
             }
 
-            List<GymWorkout> workouts = (List<GymWorkout>)_gymWorkoutService.GetAllForPatient(patient.Id);
+            if (!dto.DateFrom.HasValue || !dto.DateUntil.HasValue)
+            {
+                return BadRequest("From and until dates are required!");
+            }
+
+            List<GymWorkout> workouts = (List<GymWorkout>)_gymWorkoutService.GetAllForPatientInsideDateRange(patient.Id, dto.DateFrom.Value, dto.DateUntil.Value);
             List<GymWorkoutInfoDTO> dtos = WorkoutAdapter.FromGymWorkoutListToGymWorkoutInfoDTOList(workouts);
 
             return Ok(dtos);

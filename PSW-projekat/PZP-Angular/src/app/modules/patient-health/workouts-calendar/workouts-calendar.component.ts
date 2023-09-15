@@ -3,7 +3,6 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { WorkoutInfoDTO } from '../model/workout-info-dto.model';
 import { getWorkoutTypeString, WorkoutType } from '../model/enums/workout-type.enum';
 import { MatDialog } from '@angular/material/dialog';
-import { AddWaterDialogComponent } from '../add-water-dialog/add-water-dialog.component';
 import { AddWorkoutDialogComponent } from '../add-workout-dialog/add-workout-dialog.component';
 import { WorkoutService } from '../services/workout.service';
 
@@ -13,8 +12,9 @@ import { WorkoutService } from '../services/workout.service';
   styleUrls: ['./workouts-calendar.component.css'],
 })
 export class WorkoutsCalendarComponent implements OnInit {
-  workoutInfoDTOs: WorkoutInfoDTO[] = [];
+  workoutInfoDTOs: WorkoutInfoDTO[][] = [];
   patientsWorkouts: WorkoutInfoDTO[] = [];
+  patientsGymWorkouts: WorkoutInfoDTO[] = [];
   numberOfDaysInMonth: number = 0;
   firstDayOfMonth: number = 0;
   startOfCalendar: Date = new Date();
@@ -78,6 +78,17 @@ export class WorkoutsCalendarComponent implements OnInit {
         element.date = new Date(element.date);
         this.patientsWorkouts.push(element);
       });
+
+      const gymWorkouts = await (await this.workoutService.getGymWorkoutInfoDTOs(
+        parseInt(localStorage.getItem('currentUserId')!),
+        this.startOfCalendar,
+        this.endOfCalendar
+      )).toPromise();
+
+      gymWorkouts?.forEach((element) => {
+        element.date = new Date(element.date);
+        this.patientsGymWorkouts.push(element);
+      });
   
       this.renderCalendar(); // Call renderCalendar after fetching patientsWorkouts
     } catch (error) {
@@ -86,18 +97,23 @@ export class WorkoutsCalendarComponent implements OnInit {
   }
 
   renderCalendar(): void {  
-    let i = 0;
+    let patientsWorkoutsIndex = 0;
+    let workoutInfoDTOsIndex = 0;
+    let startOfCalendarTemp = this.startOfCalendar
     while (this.startOfCalendar < this.endOfCalendar) {
       const tempDate = new Date(this.startOfCalendar);
 
-      if (this.patientsWorkouts[i]?.date?.toDateString() === tempDate.toDateString()) {
-        let j = i;
+      if (this.patientsWorkouts[patientsWorkoutsIndex]?.date?.toDateString() === tempDate.toDateString()) {
+        let j = patientsWorkoutsIndex;
+        this.workoutInfoDTOs.push([]);
         while (this.patientsWorkouts[j]?.date?.toDateString() === tempDate.toDateString()) {
-          this.workoutInfoDTOs.push(this.patientsWorkouts[i]);
+          this.workoutInfoDTOs[workoutInfoDTOsIndex].push(this.patientsWorkouts[j]);
           j++;
         }
+        patientsWorkoutsIndex = j;
       } else {
-        this.workoutInfoDTOs.push({
+        this.workoutInfoDTOs.push([]);
+        this.workoutInfoDTOs[workoutInfoDTOsIndex].push({
           date: tempDate,
           type: WorkoutType.undefined,
           duration: 0,
@@ -105,7 +121,34 @@ export class WorkoutsCalendarComponent implements OnInit {
           personId: parseInt(localStorage.getItem('personId')!),
         });
       }
+      workoutInfoDTOsIndex++;
       this.startOfCalendar.setDate(this.startOfCalendar.getDate() + 1);
+    }
+    patientsWorkoutsIndex = 0;
+    workoutInfoDTOsIndex = 0;
+    while (startOfCalendarTemp < this.endOfCalendar) {
+      const tempDate = new Date(startOfCalendarTemp);
+
+      if (this.patientsGymWorkouts[patientsWorkoutsIndex]?.date?.toDateString() === tempDate.toDateString()) {
+        let j = patientsWorkoutsIndex;
+        this.workoutInfoDTOs.push([]);
+        while (this.patientsGymWorkouts[j]?.date?.toDateString() === tempDate.toDateString()) {
+          this.workoutInfoDTOs[workoutInfoDTOsIndex].push(this.patientsGymWorkouts[j]);
+          j++;
+        }
+        patientsWorkoutsIndex = j;
+      } else {
+        this.workoutInfoDTOs.push([]);
+        this.workoutInfoDTOs[workoutInfoDTOsIndex].push({
+          date: tempDate,
+          type: WorkoutType.undefined,
+          duration: 0,
+          description: '',
+          personId: parseInt(localStorage.getItem('personId')!),
+        });
+      }
+      workoutInfoDTOsIndex++;
+      startOfCalendarTemp.setDate(startOfCalendarTemp.getDate() + 1);
     }
   }
 
@@ -116,7 +159,7 @@ export class WorkoutsCalendarComponent implements OnInit {
       case WorkoutType.jogging:
         return 'yellow';
       case WorkoutType.running:
-        return 'lightorange';
+        return '#FFD700';
       case WorkoutType.cardio:
         return 'orange';
       case WorkoutType.cycling:

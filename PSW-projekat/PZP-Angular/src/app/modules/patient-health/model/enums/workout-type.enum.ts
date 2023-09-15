@@ -34,3 +34,10 @@ export function getWorkoutTypeString(type: WorkoutType): string {
       return 'Unknown';
   }
 }
+
+export function getAllWorkoutTypes(): WorkoutType[] {
+  return Object.keys(WorkoutType)
+    .filter(key => !isNaN(Number(WorkoutType[key as any])))
+    .map(key => Number(WorkoutType[key as any])) as WorkoutType[];
+}
+

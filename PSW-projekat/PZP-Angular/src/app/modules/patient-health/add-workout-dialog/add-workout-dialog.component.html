@@ -1,1 +1,40 @@
-<p>add-workout-dialog works!</p>
+<form [formGroup]="workoutForm" (ngSubmit)="onSubmit()">
+  <h3 mat-dialog-title>Add Workout</h3>
+  <h4 matCardSubtitle>Date: {{currentDate}}</h4>
+
+  <div mat-dialog-content>
+    <div class="inputContainer">
+      <label for="type">Workout Type</label>
+      <select class="custom-select" id="type" formControlName="type">
+        <option *ngFor="let workoutType of workoutTypes" [value]="workoutType">{{ getWorkoutTypeString(workoutType) }}</option>
+      </select>
+      <div *ngIf="workoutForm.get('type').invalid && (workoutForm.get('type').dirty || workoutForm.get('type').touched)" class="text-danger mt-1">
+        Please select a workout type.
+      </div>
+    </div>
+
+    <div class="inputContainer">
+      <label for="duration">Duration (minutes)</label>
+      <input type="number" class="custom-input" id="duration" formControlName="duration" />
+      <div *ngIf="workoutForm.get('duration').invalid && (workoutForm.get('duration').dirty || workoutForm.get('duration').touched)" class="text-danger mt-1">
+        Please enter a duration (in minutes).
+      </div>
+    </div>
+
+    <div class="inputContainer">
+      <label for="description">Description</label>
+      <textarea class="custom-textarea" id="description" formControlName="description"></textarea>
+      <div
+        *ngIf="workoutForm.get('description').invalid && (workoutForm.get('description').dirty || workoutForm.get('description').touched)"
+        class="text-danger mt-1"
+      >
+        Description cannot exceed 255 characters.
+      </div>
+    </div>
+  </div>
+
+  <div mat-dialog-actions>
+    <button mat-raised-button color="secondary" (click)="onNoClick()">Cancel</button>
+    <button mat-raised-button color="primary" [disabled]="workoutForm.invalid" type="submit">Save</button>
+  </div>
+</form>

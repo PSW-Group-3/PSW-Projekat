@@ -1,6 +1,7 @@
 ﻿using HospitalLibrary.Core.Model;
 using HospitalLibrary.Settings;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -32,9 +33,9 @@ namespace HospitalLibrary.Core.Repository
             return _context.GymWorkouts;
         }
 
-        public IEnumerable<GymWorkout> GetAllForPatient(int patientId)
+        public IEnumerable<GymWorkout> GetAllForPatientInsideDateRange(int patientId, DateTime fromDate, DateTime untilDate)
         {
-            return _context.GymWorkouts.Where(w => w.Patient.Id == patientId).ToList();
+            return _context.GymWorkouts.Where(w => w.Patient.Id == patientId && w.Date.Date >= fromDate.Date && w.Date.Date <= untilDate.Date).OrderBy(w => w.Date).ToList();
         }
 
         public GymWorkout GetById(int id)
