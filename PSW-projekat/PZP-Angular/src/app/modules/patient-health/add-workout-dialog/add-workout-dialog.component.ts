@@ -30,6 +30,7 @@ export class AddWorkoutDialogComponent implements OnInit {
       description: ['', Validators.maxLength(255)],
     });
     this.workoutTypes.pop();
+    this.workoutTypes.pop();
   }
 
   ngOnInit(): void {

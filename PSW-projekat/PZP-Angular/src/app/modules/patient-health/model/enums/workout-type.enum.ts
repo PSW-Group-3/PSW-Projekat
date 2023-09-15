@@ -5,8 +5,8 @@ export enum WorkoutType {
   cardio,
   cycling,
   swimming,
-  strength,
   sports,
+  strength,
   undefined,
 }
 

@@ -2,7 +2,7 @@
 {
     public enum WorkoutType
     {
-        walking, jogging, running, cardio, cycling, swimming, strength, sports
+        walking, jogging, running, cardio, cycling, swimming, sports, strength
     }
 
 }

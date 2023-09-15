@@ -5,6 +5,7 @@ import { getWorkoutTypeString, WorkoutType } from '../model/enums/workout-type.e
 import { MatDialog } from '@angular/material/dialog';
 import { AddWorkoutDialogComponent } from '../add-workout-dialog/add-workout-dialog.component';
 import { WorkoutService } from '../services/workout.service';
+import { AddGymworkoutDialogComponent } from '../add-gymworkout-dialog/add-gymworkout-dialog.component';
 
 @Component({
   selector: 'app-workouts-calendar',
@@ -18,6 +19,7 @@ export class WorkoutsCalendarComponent implements OnInit {
   numberOfDaysInMonth: number = 0;
   firstDayOfMonth: number = 0;
   startOfCalendar: Date = new Date();
+  startOfCalendar2: Date = new Date();
   endOfCalendar: Date = new Date();
 
   getWorkoutTypeString(type: WorkoutType): string {
@@ -44,7 +46,6 @@ export class WorkoutsCalendarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // Initialize data and fetch availability dates
     this.initCalendar();
     this.getPatientWorkouts();
   }
@@ -59,6 +60,13 @@ export class WorkoutsCalendarComponent implements OnInit {
       this.months.indexOf(this.month) - 1,
       this.getNumberOfDaysInMonth(this.months[this.months.indexOf(this.month) - 1], this.year) - this.firstDayOfMonth,
     );
+
+    this.startOfCalendar2 = new Date(
+      this.year,
+      this.months.indexOf(this.month) - 1,
+      this.getNumberOfDaysInMonth(this.months[this.months.indexOf(this.month) - 1], this.year) - this.firstDayOfMonth,
+    );
+
     this.endOfCalendar = new Date(
       this.year,
       this.months.indexOf(this.month) + 1,
@@ -68,38 +76,33 @@ export class WorkoutsCalendarComponent implements OnInit {
 
   async getPatientWorkouts(): Promise<void> {
     try {
-      const data = await (await this.workoutService.getWorkoutInfoDTOs(
-        parseInt(localStorage.getItem('currentUserId')!),
-        this.startOfCalendar,
-        this.endOfCalendar
-      )).toPromise();
-  
+      const data = await (
+        await this.workoutService.getWorkoutInfoDTOs(parseInt(localStorage.getItem('currentUserId')!), this.startOfCalendar, this.endOfCalendar)
+      ).toPromise();
+
       data?.forEach((element) => {
         element.date = new Date(element.date);
         this.patientsWorkouts.push(element);
       });
 
-      const gymWorkouts = await (await this.workoutService.getGymWorkoutInfoDTOs(
-        parseInt(localStorage.getItem('currentUserId')!),
-        this.startOfCalendar,
-        this.endOfCalendar
-      )).toPromise();
+      const gymWorkouts = await (
+        await this.workoutService.getGymWorkoutInfoDTOs(parseInt(localStorage.getItem('currentUserId')!), this.startOfCalendar, this.endOfCalendar)
+      ).toPromise();
 
       gymWorkouts?.forEach((element) => {
         element.date = new Date(element.date);
         this.patientsGymWorkouts.push(element);
       });
-  
+
       this.renderCalendar(); // Call renderCalendar after fetching patientsWorkouts
     } catch (error) {
       console.error('Error fetching patient workouts:', error);
     }
   }
 
-  renderCalendar(): void {  
+  renderCalendar(): void {
     let patientsWorkoutsIndex = 0;
     let workoutInfoDTOsIndex = 0;
-    let startOfCalendarTemp = this.startOfCalendar
     while (this.startOfCalendar < this.endOfCalendar) {
       const tempDate = new Date(this.startOfCalendar);
 
@@ -126,29 +129,23 @@ export class WorkoutsCalendarComponent implements OnInit {
     }
     patientsWorkoutsIndex = 0;
     workoutInfoDTOsIndex = 0;
-    while (startOfCalendarTemp < this.endOfCalendar) {
-      const tempDate = new Date(startOfCalendarTemp);
+    while (this.startOfCalendar2 < this.endOfCalendar) {
+      const tempDate = new Date(this.startOfCalendar2);
 
       if (this.patientsGymWorkouts[patientsWorkoutsIndex]?.date?.toDateString() === tempDate.toDateString()) {
         let j = patientsWorkoutsIndex;
         this.workoutInfoDTOs.push([]);
         while (this.patientsGymWorkouts[j]?.date?.toDateString() === tempDate.toDateString()) {
+          if (this.workoutInfoDTOs[workoutInfoDTOsIndex][0].type == WorkoutType.undefined) {
+            this.workoutInfoDTOs[workoutInfoDTOsIndex].pop();
+          }
           this.workoutInfoDTOs[workoutInfoDTOsIndex].push(this.patientsGymWorkouts[j]);
           j++;
         }
         patientsWorkoutsIndex = j;
-      } else {
-        this.workoutInfoDTOs.push([]);
-        this.workoutInfoDTOs[workoutInfoDTOsIndex].push({
-          date: tempDate,
-          type: WorkoutType.undefined,
-          duration: 0,
-          description: '',
-          personId: parseInt(localStorage.getItem('personId')!),
-        });
       }
       workoutInfoDTOsIndex++;
-      startOfCalendarTemp.setDate(startOfCalendarTemp.getDate() + 1);
+      this.startOfCalendar2.setDate(this.startOfCalendar2.getDate() + 1);
     }
   }
 
@@ -198,6 +195,13 @@ export class WorkoutsCalendarComponent implements OnInit {
 
   openAddWorkoutDialog() {
     const dialogRef = this.dialog.open(AddWorkoutDialogComponent);
+    dialogRef.componentInstance.workoutAdded.subscribe(async () => {
+      await this.refreshPage();
+    });
+  }
+
+  openAddGymWorkoutDialog() {
+    const dialogRef = this.dialog.open(AddGymworkoutDialogComponent);
     dialogRef.componentInstance.workoutAdded.subscribe(async () => {
       await this.refreshPage();
     });
