@@ -19,13 +19,13 @@ namespace HospitalAPI.Controllers.PublicApp
     public class MealController : ControllerBase
     {
         private readonly IMealService _mealService;
-        private readonly MealStatisticsService _mealStatisticsService;
+        private readonly IMealStatisticsService _mealStatisticsService;
         private readonly IMealQuestionService _mealQuestionService;
         private readonly IPatientService _patientService;
         private readonly IMealScoreService _mealScoreService;
 
 
-        public MealController(IMealService mealService, MealStatisticsService mealStatisticsService, IMealQuestionService mealQuestionService, IPatientService patientService, IMealScoreService mealScoreService)
+        public MealController(IMealService mealService, IMealStatisticsService mealStatisticsService, IMealQuestionService mealQuestionService, IPatientService patientService, IMealScoreService mealScoreService)
         {
             _mealService = mealService;
             _mealStatisticsService = mealStatisticsService;

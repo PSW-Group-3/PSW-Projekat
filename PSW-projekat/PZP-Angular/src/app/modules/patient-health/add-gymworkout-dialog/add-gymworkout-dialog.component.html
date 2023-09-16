@@ -58,8 +58,8 @@
 
       <button mat-raised-button color="primary" [disabled]="exerciseForm.invalid" type="submit">Add Exercise</button>
     </form>
-    <div *ngFor="let exerciseDTO of exercises" class="allExercises">
-        <div class="exerciseTile">
+    <div *ngFor="let exerciseDTO of exercises" class="all-exercises">
+        <div class="exercise-tile">
             {{ exerciseDTO.name }}
         </div>
     </div>

@@ -163,7 +163,7 @@ namespace HospitalAPI
 
             services.AddScoped<IMealService, MealService>();
             services.AddScoped<IMealRepository, MealRepository>();
-            services.AddScoped<MealStatisticsService>();
+            services.AddScoped<IMealStatisticsService, MealStatisticsService>();
             services.AddScoped<IMealScoreService,  MealScoreService>();
 
 
@@ -178,6 +178,7 @@ namespace HospitalAPI
             services.AddScoped<IGymWorkoutService, GymWorkoutService>();
             services.AddScoped<IGymWorkoutRepository, GymWorkoutRepository>();
             services.AddScoped<IWorkoutScoreService, WorkoutScoreService>();
+            services.AddScoped<IWorkoutStatisticsService, WorkoutStatisticsService>();
 
             services.AddScoped<SchedulingAppointmentEventsRepository>();
             services.AddScoped<SchedulingStatisticsService>();

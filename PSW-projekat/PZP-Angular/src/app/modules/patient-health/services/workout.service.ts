@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { GymWorkoutInfoDTO, WorkoutInfoDTO } from '../model/workout-info-dto.model';
 import { AddGymWorkoutDTO, AddWorkoutDTO } from '../model/add-workout-dto.model';
+import { AllWorkoutsStatistics } from '../model/workout-statistics-dto.model';
 
 @Injectable({
   providedIn: 'root',
@@ -55,5 +56,9 @@ export class WorkoutService {
 
   addGymWorkout(dto: AddWorkoutDTO): Observable<AddGymWorkoutDTO> {
     return this.http.post<AddGymWorkoutDTO>(this.apiUrlGymWorkout + 'add', dto, { headers: this.headers });
+  }
+
+  getMealStatisticsForPatient(): Observable<AllWorkoutsStatistics> {
+    return this.http.get<AllWorkoutsStatistics>(this.apiUrlWorkout + 'statistics/' + parseInt(localStorage.getItem('currentUserId')!), {headers: this.headers});
   }
 }

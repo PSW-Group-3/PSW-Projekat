@@ -69,7 +69,7 @@ h3 {
     pointer-events: none;
   }
 
-  .allExercises {
+  .all-exercises {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -80,13 +80,12 @@ h3 {
     margin-bottom: 1rem;
   }
 
-  .exerciseTile {
+  .exercise-tile {
     width: fit-content;
     font-weight: 500;
     font-size: 1.1rem;
     padding: 1.2rem;
     background-color: lightgray;
-    border: 1px solid gray;
     border-radius: 5px;
 }
   

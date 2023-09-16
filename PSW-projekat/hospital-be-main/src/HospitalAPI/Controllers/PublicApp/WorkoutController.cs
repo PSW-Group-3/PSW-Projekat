@@ -18,12 +18,14 @@ namespace HospitalAPI.Controllers.PublicApp
         private readonly IWorkoutService _workoutService;
         private readonly IPatientService _patientService;
         private readonly IWorkoutScoreService _workoutScoreService;
+        private readonly IWorkoutStatisticsService _workoutStatisticsService;
 
-        public WorkoutController(IWorkoutService workoutService, IPatientService patientService, IWorkoutScoreService workoutScoreService)
+        public WorkoutController(IWorkoutService workoutService, IPatientService patientService, IWorkoutScoreService workoutScoreService, IWorkoutStatisticsService workoutStatisticsService)
         {
             _workoutService = workoutService;
             _patientService = patientService;
             _workoutScoreService = workoutScoreService;
+            _workoutStatisticsService = workoutStatisticsService;
         }
 
         //[Authorize]
@@ -45,6 +47,19 @@ namespace HospitalAPI.Controllers.PublicApp
             List<WorkoutInfoDTO> dtos = WorkoutAdapter.FromWorkoutListToWorkoutInfoDTOList(workouts);
 
             return Ok(dtos);
+        }
+
+        //[Authorize]
+        [HttpGet("statistics/{personId}")]
+        public ActionResult GetWorkoutStatistics(int personId)
+        {
+            Patient patient = _patientService.getPatientByPersonId(personId);
+            if (patient == null)
+            {
+                return BadRequest("Patient not found.");
+            }
+            
+            return Ok(_workoutStatisticsService.GetAllWorkoutsStatistics(patient.Id));
         }
 
         //[Authorize]

@@ -1,4 +1,5 @@
 ﻿using HospitalLibrary.Core.Model;
+using HospitalLibrary.Core.Model.Enums;
 using HospitalLibrary.Settings;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -36,6 +37,11 @@ namespace HospitalLibrary.Core.Repository
         public IEnumerable<GymWorkout> GetAllForPatientInsideDateRange(int patientId, DateTime fromDate, DateTime untilDate)
         {
             return _context.GymWorkouts.Where(w => w.Patient.Id == patientId && w.Date.Date >= fromDate.Date && w.Date.Date <= untilDate.Date).OrderBy(w => w.Date).ToList();
+        }
+
+        public IEnumerable<GymWorkout> GetAllForPatientInsideDateRangeByType(int patientId, DateTime fromDate, DateTime untilDate, WorkoutType workoutType)
+        {
+            return _context.GymWorkouts.Where(w => w.Patient.Id == patientId && w.Date.Date >= fromDate.Date && w.Date.Date <= untilDate.Date && w.Type == workoutType).ToList();
         }
 
         public GymWorkout GetById(int id)

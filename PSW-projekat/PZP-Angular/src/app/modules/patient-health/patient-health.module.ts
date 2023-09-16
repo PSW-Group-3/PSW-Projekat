@@ -19,6 +19,7 @@ import { WorkoutsOverviewComponent } from './workouts-overview/workouts-overview
 import { MealStatisticsComponent } from './meal-statistics/meal-statistics.component';
 import { AddWorkoutDialogComponent } from './add-workout-dialog/add-workout-dialog.component';
 import { AddGymworkoutDialogComponent } from './add-gymworkout-dialog/add-gymworkout-dialog.component';
+import { WorkoutsStatisticsComponent } from './workouts-statistics/workouts-statistics.component';
 
 
 const routes: Routes = [
@@ -39,6 +40,7 @@ const routes: Routes = [
     MealStatisticsComponent,
     AddWorkoutDialogComponent,
     AddGymworkoutDialogComponent,
+    WorkoutsStatisticsComponent,
   ],
   exports: [RouterModule],
   providers: [AuthGuard],

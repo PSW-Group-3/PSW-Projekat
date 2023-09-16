@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace HospitalLibrary.Core.DTOs
 {
-    public class MealsStatisticsDTO
+    public class MealsStatistics
     {
         public List<float> BreakfastScores { get; }
         public List<String> BreakfastLabels { get; }
@@ -14,7 +14,7 @@ namespace HospitalLibrary.Core.DTOs
         public List<float> WaterIntakeScores { get; }
         public List<String> WaterIntakeLabels { get; }
 
-        public MealsStatisticsDTO(
+        public MealsStatistics(
             List<float> breakfastScores, List<String> breakfastLabels,
             List<float> lunchScores, List<String> lunchLabels,
             List<float> dinnerScores, List<String> dinnerLabels,

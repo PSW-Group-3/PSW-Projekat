@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace HospitalLibrary.Core.Service
 {
-    public class MealStatisticsService
+    public class MealStatisticsService : IMealStatisticsService
     {
         private readonly IMealRepository _mealRepository;
 
@@ -16,16 +16,14 @@ namespace HospitalLibrary.Core.Service
             _mealRepository = mealRepository;
         }
 
-
-
-        public MealsStatisticsDTO GetMealsStatistics(int patientId)
+        public MealsStatistics GetMealsStatistics(int patientId)
         {
-            MealStatisticsDTO breakfastStatisticsDTO = GetMealStatistics(patientId, MealType.breakfast);
-            MealStatisticsDTO lunchStatisticsDTO = GetMealStatistics(patientId, MealType.lunch);
-            MealStatisticsDTO dinnerStatisticsDTO = GetMealStatistics(patientId, MealType.dinner);
-            MealStatisticsDTO waterIntakeStatisticsDTO = GetMealStatistics(patientId, MealType.water);
+            MealStatistics breakfastStatisticsDTO = GetMealStatistics(patientId, MealType.breakfast);
+            MealStatistics lunchStatisticsDTO = GetMealStatistics(patientId, MealType.lunch);
+            MealStatistics dinnerStatisticsDTO = GetMealStatistics(patientId, MealType.dinner);
+            MealStatistics waterIntakeStatisticsDTO = GetMealStatistics(patientId, MealType.water);
 
-            return new MealsStatisticsDTO(
+            return new MealsStatistics(
                 breakfastStatisticsDTO.MealScores, breakfastStatisticsDTO.MealLabels,
                 lunchStatisticsDTO.MealScores, lunchStatisticsDTO.MealLabels,
                 dinnerStatisticsDTO.MealScores, dinnerStatisticsDTO.MealLabels,
@@ -33,7 +31,7 @@ namespace HospitalLibrary.Core.Service
                 );
         }
 
-        private MealStatisticsDTO GetMealStatistics(int patientId, MealType mealType)
+        public MealStatistics GetMealStatistics(int patientId, MealType mealType)
         {
             List<Meal> meals = (List<Meal>)_mealRepository.GetMealsForPatientInLast30DaysByType(patientId, mealType);
             List<float> breakfastScores = new List<float>();
@@ -43,10 +41,7 @@ namespace HospitalLibrary.Core.Service
                 breakfastScores.Add(meal.Score);
                 breakfastLabels.Add(meal.DateOfMeal.ToShortDateString());
             }
-            return new MealStatisticsDTO(breakfastScores, breakfastLabels);
+            return new MealStatistics(breakfastScores, breakfastLabels);
         }
-
-        
-
     }
 }
