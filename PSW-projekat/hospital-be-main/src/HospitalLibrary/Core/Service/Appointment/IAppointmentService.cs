@@ -3,13 +3,13 @@ using HospitalLibrary.Core.DTOs.CreatingAppointmentsDTOs;
 using HospitalLibrary.Core.Model;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace HospitalLibrary.Core.Service
 {
     public interface IAppointmentService : IService<Appointment>
     {
         IEnumerable<AppointmentDto> GetAllByDoctor(int doctorId);
-        void Update(AppointmentDto appointmentDto);
         void SentEmail(Appointment appointment);
         IEnumerable<Appointment> GetAllAppointmentsForPatient(int patientId);
         IEnumerable<Patient> GetAllMaliciousPatients();
@@ -20,5 +20,7 @@ namespace HospitalLibrary.Core.Service
         void ScheduleAppointment(Appointment appointment);
         List<string> GetFreeAppointmentsForDoctor(int doctorId, DateTime scheduledDate);
         bool CreateCustomAppointment(CustomAppointmentForCreatingDto checkAppointment);
+
+        Task<bool> CheckIfPatientHadAppointmentInPastXMonths(int patientId, int months);
     }
 }

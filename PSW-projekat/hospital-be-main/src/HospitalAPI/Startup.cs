@@ -25,6 +25,9 @@ using HospitalLibrary.Core.Model.Aggregate;
 using HospitalLibrary.Core.DomainService.Interface;
 using HospitalLibrary.Core.DomainService;
 using HospitalAPI.Converters;
+using Quartz;
+using Quartz.Impl;
+using HospitalAPI.Utils;
 
 namespace HospitalAPI
 {
@@ -153,7 +156,7 @@ namespace HospitalAPI
 
             services.AddScoped<ISymptomService, SymptomService>();
             services.AddScoped<ISymptomRepository, SymptomRepository>();
-            
+
             services.AddScoped<IExaminationService, ExaminationService>();
             services.AddScoped<IExaminationRepository, ExaminationRepository>();
 
@@ -164,7 +167,7 @@ namespace HospitalAPI
             services.AddScoped<IMealService, MealService>();
             services.AddScoped<IMealRepository, MealRepository>();
             services.AddScoped<IMealStatisticsService, MealStatisticsService>();
-            services.AddScoped<IMealScoreService,  MealScoreService>();
+            services.AddScoped<IMealScoreService, MealScoreService>();
 
 
             services.AddScoped<IMealQuestionService, MealQuestionService>();
@@ -185,7 +188,7 @@ namespace HospitalAPI
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, HospitalDbContext hospitalDbContext, AuthenticationDbContext authenticationDbContext)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, HospitalDbContext hospitalDbContext, AuthenticationDbContext authenticationDbContext, IPatientRepository patientRepository)
         {
             //authenticationDbContext.Database.EnsureCreated();
             hospitalDbContext.Database.EnsureCreated();
@@ -216,6 +219,31 @@ namespace HospitalAPI
             {
                 endpoints.MapControllers();
             });
+
+            var patientIds = patientRepository.GetAllPatientIDs();
+
+            // Configure Quartz.NET
+            ISchedulerFactory schedulerFactory = new StdSchedulerFactory();
+            IScheduler scheduler = schedulerFactory.GetScheduler().Result;
+            scheduler.Start().Wait();
+
+            // Create and schedule the job with patient IDs
+            IJobDetail job = JobBuilder.Create<CheckIfPatientHadAppointmentInPastXMonthsJob>()
+                .WithIdentity("checkPatientAppointmentsJob", "patientGroup")
+                .UsingJobData(new JobDataMap { { "patientIDs", patientIds }, { "months", 2 } }) // Pass the patient IDs and months
+                .Build();
+
+            ITrigger trigger = TriggerBuilder.Create()
+                .WithIdentity("atMidnightTrigger", "patientGroup")
+                .StartNow()
+                .WithDailyTimeIntervalSchedule(s =>
+                    s.WithIntervalInMinutes(2)
+                    .OnEveryDay()
+                    .StartingDailyAt(TimeOfDay.HourAndMinuteOfDay(0, 0))
+                )
+                .Build();
+
+            scheduler.ScheduleJob(job, trigger).Wait();
         }
     }
 }

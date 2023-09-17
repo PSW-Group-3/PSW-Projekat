@@ -1,6 +1,7 @@
 ﻿using HospitalLibrary.Core.Model;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace HospitalLibrary.Core.Repository
 {
@@ -10,6 +11,8 @@ namespace HospitalLibrary.Core.Repository
         IEnumerable<DateTime> GetAllFreeByDoctor(int doctorId,DateTime start, DateTime end);
         IEnumerable<DateTime> GetAllFree(ICollection<Doctor> doctors, DateTime start, DateTime end);
         IEnumerable<Appointment> GetAllForPatient(int patientId);
+        Task<bool> CheckIfPatientHadAppointmentInPastXMonths(int patientId, int months);
+
         IEnumerable<Patient> GetAllMaliciousPatients();
         IEnumerable<Appointment> GetAllByDoctorInDateRange(
             int doctorId,

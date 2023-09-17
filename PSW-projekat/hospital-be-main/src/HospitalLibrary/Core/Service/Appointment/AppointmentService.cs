@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
+using System.Threading.Tasks;
 
 namespace HospitalLibrary.Core.Service
 {
@@ -143,11 +144,6 @@ namespace HospitalLibrary.Core.Service
             }
             return appointmentsDtos;
             
-        }
-
-        public void Update(AppointmentDto appointmentDto)
-        {
-            throw new NotImplementedException();
         }
 
         public IEnumerable<Appointment> GetAllAppointmentsForPatient(int patientId)
@@ -465,6 +461,11 @@ namespace HospitalLibrary.Core.Service
                 return true;
             }
             return false;
+        }
+
+        public async Task<bool> CheckIfPatientHadAppointmentInPastXMonths(int patientId, int months)
+        {
+            return await _appointmentRepository.CheckIfPatientHadAppointmentInPastXMonths(patientId, months);
         }
     }
 }

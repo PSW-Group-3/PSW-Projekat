@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace HospitalLibrary.Core.Repository
 {
@@ -96,6 +97,18 @@ namespace HospitalLibrary.Core.Repository
         public IEnumerable<Appointment> GetAllForPatient(int patientId)
         {
             return _context.Appointments.Where(p => p.Patient.Id == patientId).ToList();
+        }
+
+        async public Task<bool> CheckIfPatientHadAppointmentInPastXMonths(int patientId, int months)
+        {
+            DateTime compareDate = DateTime.Today.AddMonths(-months);
+            int count = await _context.Appointments.Where(a => a.Patient.Id == patientId && a.DateTime >= compareDate).CountAsync();
+            if(count > 0)
+            {
+                return true;
+            } else {
+                return false;
+            }
         }
 
         public IEnumerable<Patient> GetAllMaliciousPatients()

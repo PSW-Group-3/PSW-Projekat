@@ -120,5 +120,10 @@ namespace HospitalLibrary.Core.Repository
             var allergies = _context.Allergies.Where(a => allergiesIds.Contains(a.Id));
             return allergies;
         }
+
+        public IEnumerable<int> GetAllPatientIDs()
+        {
+            return _context.Patients.Select(p => p.Id).ToList();
+        }
     }
 }
