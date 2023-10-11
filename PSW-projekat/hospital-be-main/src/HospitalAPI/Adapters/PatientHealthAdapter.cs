@@ -13,7 +13,7 @@ namespace HospitalAPI.Adapters
                 HeartRate = patientHealthInformation.HeartRate,
                 Height = patientHealthInformation.Height,
                 Weight = patientHealthInformation.Weight,
-                SelectedDate = patientHealthInformation.SelectedDate,
+                SelectedDate = patientHealthInformation.Date,
                 BMI = patientHealthInformation.CalculateBMI(),
                 HealthScore = patient.HealthScore,
                 FullName = patient.Person.GetFullName()
@@ -37,10 +37,7 @@ namespace HospitalAPI.Adapters
 
         public static PatientHealthInformation FromPatientInfoDTO(PatientInfoDTO patientInfoDTO, Patient patient)
         {
-            PatientHealthInformation patientHealthInformation = new(patient, patientInfoDTO.Weight, patientInfoDTO.Height, patientInfoDTO.BloodPressure, patientInfoDTO.HeartRate);
-
-            patientHealthInformation.Score = patientHealthInformation.CalculateHealthScoreDelta();
-
+            PatientHealthInformation patientHealthInformation = new(patient, patientInfoDTO.Weight, patientInfoDTO.Height, patientInfoDTO.BloodPressure, patientInfoDTO.HeartRate, 0);
             return patientHealthInformation;
         }
     }

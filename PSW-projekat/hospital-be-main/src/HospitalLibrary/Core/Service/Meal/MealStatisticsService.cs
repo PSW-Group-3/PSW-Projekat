@@ -39,7 +39,7 @@ namespace HospitalLibrary.Core.Service
             foreach (Meal meal in meals)
             {
                 breakfastScores.Add(meal.Score);
-                breakfastLabels.Add(meal.DateOfMeal.ToShortDateString());
+                breakfastLabels.Add(meal.Date.ToShortDateString());
             }
             return new MealStatistics(breakfastScores, breakfastLabels);
         }

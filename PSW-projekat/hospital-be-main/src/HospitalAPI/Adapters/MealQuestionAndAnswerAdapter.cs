@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 namespace HospitalAPI.Adapters
 {
-    public class MealQuestionAdapter
+    public class MealQuestionAndAnswerAdapter
     {
-        public static MealQuestion FromDTO(MealQuestionDTO entity)
+        public static MealQuestion FromMealQuestionDTOtoMealQuestion(MealQuestionDTO entity)
         {
             return new MealQuestion()
             {
@@ -17,7 +17,7 @@ namespace HospitalAPI.Adapters
             };
         }
 
-        public static MealQuestionDTO ToDTO(MealQuestion entity)
+        public static MealQuestionDTO FromMealQuestionToMealQuestionDTO(MealQuestion entity)
         {
             return new MealQuestionDTO()
             {
@@ -26,16 +26,21 @@ namespace HospitalAPI.Adapters
             };
         }
 
-        public static List<MealQuestionDTO> ToListDTO(List<MealQuestion> entities)
+        public static List<MealQuestionDTO> FromMealQuestionListToMealQuestionDTOList(List<MealQuestion> entities)
         {
             List<MealQuestionDTO> dtos = new();
 
             foreach (MealQuestion mealQuestion in entities)
             {
-                dtos.Add(ToDTO(mealQuestion));
+                dtos.Add(FromMealQuestionToMealQuestionDTO(mealQuestion));
             }
 
             return dtos;
+        }
+
+        public static MealAnswer FromMealAnswerDTOtoMealAnswer(MealQuestion mealQuestion, float answer)
+        {
+            return new(mealQuestion, answer);
         }
     }
 }

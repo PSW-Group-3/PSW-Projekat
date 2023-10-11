@@ -11,7 +11,7 @@ namespace HospitalAPI.Adapters
         public static List<MealAnswerDTO> FromMealAnswerListToMealAnswerDTOList(List<MealAnswer> answers)
         {
             List<MealAnswerDTO> dtos = new();
-            foreach(MealAnswer answer in answers)
+            foreach (MealAnswer answer in answers)
             {
                 dtos.Add(new(answer.MealQuestion.Id, answer.Id, answer.Answer));
             }

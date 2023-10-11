@@ -45,7 +45,7 @@ namespace HospitalAPI.Adapters
         }
         public static GymWorkoutInfoDTO FromGymWorkoutToGymWorkoutInfoDTO(GymWorkout workout)
         {
-            return new(workout.Type, workout.Date, (int)workout.Duration.TotalMinutes, workout.Description, workout.Patient.Person.Id, FromExerciseListToExerciseDTOList(workout.Exercises));
+            return new(workout.WorkoutType, workout.Date, (int)workout.Duration.TotalMinutes, workout.Description, workout.Patient.Person.Id, FromExerciseListToExerciseDTOList(workout.Exercises));
         }
         public static List<GymWorkoutInfoDTO> FromGymWorkoutListToGymWorkoutInfoDTOList(List<GymWorkout> workouts)
         {
@@ -65,7 +65,7 @@ namespace HospitalAPI.Adapters
         }
         public static WorkoutInfoDTO FromWorkoutToWorkoutInfoDTO(Workout workout)
         {
-            return new(workout.Type, workout.Date, (int)workout.Duration.TotalMinutes, workout.Description, workout.Patient.Person.Id);
+            return new(workout.WorkoutType, workout.Date, (int)workout.Duration.TotalMinutes, workout.Description, workout.Patient.Person.Id);
         }
         public static List<WorkoutInfoDTO> FromWorkoutListToWorkoutInfoDTOList(List<Workout> workouts)
         {

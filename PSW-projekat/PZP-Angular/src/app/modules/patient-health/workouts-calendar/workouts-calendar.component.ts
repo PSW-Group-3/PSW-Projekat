@@ -75,6 +75,8 @@ export class WorkoutsCalendarComponent implements OnInit {
   }
 
   async getPatientWorkouts(): Promise<void> {
+    this.patientsWorkouts = []
+    this.patientsGymWorkouts = []
     try {
       const data = await (
         await this.workoutService.getWorkoutInfoDTOs(parseInt(localStorage.getItem('currentUserId')!), this.startOfCalendar, this.endOfCalendar)
@@ -103,6 +105,8 @@ export class WorkoutsCalendarComponent implements OnInit {
   renderCalendar(): void {
     let patientsWorkoutsIndex = 0;
     let workoutInfoDTOsIndex = 0;
+    this.workoutInfoDTOs = [];
+
     while (this.startOfCalendar < this.endOfCalendar) {
       const tempDate = new Date(this.startOfCalendar);
 
@@ -160,7 +164,7 @@ export class WorkoutsCalendarComponent implements OnInit {
       case WorkoutType.cardio:
         return 'orange';
       case WorkoutType.cycling:
-        return 'lightred';
+        return 'red';
       case WorkoutType.swimming:
         return 'blue';
       case WorkoutType.strength:
@@ -190,7 +194,8 @@ export class WorkoutsCalendarComponent implements OnInit {
     const formData = this.availabilityCalendarForm.value;
     this.month = formData.month;
     this.year = formData.year;
-    this.renderCalendar();
+    this.initCalendar();
+    this.getPatientWorkouts();
   }
 
   openAddWorkoutDialog() {

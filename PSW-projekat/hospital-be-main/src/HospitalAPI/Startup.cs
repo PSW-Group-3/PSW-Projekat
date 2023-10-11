@@ -3,7 +3,6 @@ using HospitalLibrary.Core.Repository;
 using HospitalLibrary.Core.Repository.CouncilOfDoctors;
 using HospitalLibrary.Core.Service;
 using HospitalLibrary.Core.Service.CouncilOfDoctors;
-
 using HospitalLibrary.Core.Repository.Notification;
 using HospitalLibrary.Core.Service.Notification;
 using HospitalLibrary.Identity;
@@ -26,7 +25,6 @@ using HospitalLibrary.Core.DomainService.Interface;
 using HospitalLibrary.Core.DomainService;
 using HospitalAPI.Converters;
 using Quartz;
-using Quartz.Impl;
 using HospitalAPI.Utils;
 
 namespace HospitalAPI
@@ -169,12 +167,13 @@ namespace HospitalAPI
             services.AddScoped<IMealStatisticsService, MealStatisticsService>();
             services.AddScoped<IMealScoreService, MealScoreService>();
 
-
             services.AddScoped<IMealQuestionService, MealQuestionService>();
             services.AddScoped<IMealQuestionRepository, MealQuestionRepository>();
 
             services.AddScoped<IPatientHealthInformationService, PatientHealthInformationService>();
             services.AddScoped<IPatientHealthInformationRepository, PatientHealthInformationRepository>();
+            services.AddScoped<IPatientHealthInformationScoreService, PatientHealthInformationScoreService>();
+            services.AddScoped<IPatientScoreService, PatientScoreService>();
 
             services.AddScoped<IWorkoutService, WorkoutService>();
             services.AddScoped<IWorkoutRepository, WorkoutRepository>();
@@ -185,10 +184,24 @@ namespace HospitalAPI
 
             services.AddScoped<SchedulingAppointmentEventsRepository>();
             services.AddScoped<SchedulingStatisticsService>();
+
+            services.AddQuartz(options =>
+            {
+                options.UseMicrosoftDependencyInjectionJobFactory();
+                var jobKey = new JobKey(nameof(CheckIfPatientHadAppointmentInPastXMonthsJob));
+                options.AddJob<CheckIfPatientHadAppointmentInPastXMonthsJob>(options => options.WithIdentity(jobKey));
+                options.AddTrigger(options => options.ForJob(jobKey)
+                    .WithIdentity("CheckIfPatientHadAppointmentInPastXMonthsJob_Trigger")
+                    .WithSimpleSchedule(
+                        schedule => schedule.WithIntervalInHours(24).RepeatForever()
+                    )
+                );
+            });
+            services.AddQuartzHostedService(q => q.WaitForJobsToComplete = true);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, HospitalDbContext hospitalDbContext, AuthenticationDbContext authenticationDbContext, IPatientRepository patientRepository)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, HospitalDbContext hospitalDbContext, AuthenticationDbContext authenticationDbContext)
         {
             //authenticationDbContext.Database.EnsureCreated();
             hospitalDbContext.Database.EnsureCreated();
@@ -219,31 +232,6 @@ namespace HospitalAPI
             {
                 endpoints.MapControllers();
             });
-
-            var patientIds = patientRepository.GetAllPatientIDs();
-
-            // Configure Quartz.NET
-            ISchedulerFactory schedulerFactory = new StdSchedulerFactory();
-            IScheduler scheduler = schedulerFactory.GetScheduler().Result;
-            scheduler.Start().Wait();
-
-            // Create and schedule the job with patient IDs
-            IJobDetail job = JobBuilder.Create<CheckIfPatientHadAppointmentInPastXMonthsJob>()
-                .WithIdentity("checkPatientAppointmentsJob", "patientGroup")
-                .UsingJobData(new JobDataMap { { "patientIDs", patientIds }, { "months", 2 } }) // Pass the patient IDs and months
-                .Build();
-
-            ITrigger trigger = TriggerBuilder.Create()
-                .WithIdentity("atMidnightTrigger", "patientGroup")
-                .StartNow()
-                .WithDailyTimeIntervalSchedule(s =>
-                    s.WithIntervalInMinutes(2)
-                    .OnEveryDay()
-                    .StartingDailyAt(TimeOfDay.HourAndMinuteOfDay(0, 0))
-                )
-                .Build();
-
-            scheduler.ScheduleJob(job, trigger).Wait();
         }
     }
 }

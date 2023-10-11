@@ -5,6 +5,8 @@ using HospitalLibrary.Core.Model.Aggregate;
 using HospitalLibrary.Core.Model.Aggregate.Events;
 using HospitalLibrary.Core.Model.Enums;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace HospitalLibrary.Settings
 {
@@ -40,8 +42,6 @@ namespace HospitalLibrary.Settings
 
         public DbSet<Workout> Workouts { get; set; }
         public DbSet<GymWorkout> GymWorkouts { get; set; }
-        public DbSet<Exercise> Exercises { get; set; }
-
 
         public DbSet<DoctorExamination> DoctorExaminations { get; set; }
         public DbSet<Core.AggregatDoctor.DomainEvent> DoctorExaminationEvents { get; set; }
@@ -94,8 +94,14 @@ namespace HospitalLibrary.Settings
             modelBuilder.Entity<Meal>().OwnsMany(meal => meal.Answers);
             modelBuilder.Entity<Meal>(meal => meal.Navigation(meal => meal.Answers));
 
-            modelBuilder.Entity<GymWorkout>().OwnsMany(gw => gw.Exercises);
-            modelBuilder.Entity<GymWorkout>(gw => gw.Navigation(gw => gw.Exercises));
+            modelBuilder.Entity<GymWorkout>()
+            .Property(e => e.Exercises)
+            .HasColumnName("Exercises") // Specify the column name in the database
+            .HasConversion(
+                v => JsonConvert.SerializeObject(v), // Serialize List<Exercise> to JSON string
+                v => JsonConvert.DeserializeObject<List<Exercise>>(v) // Deserialize JSON string to List<Exercise>
+            )
+            .HasColumnType("nvarchar(max)");
 
             base.OnModelCreating(modelBuilder);
         }

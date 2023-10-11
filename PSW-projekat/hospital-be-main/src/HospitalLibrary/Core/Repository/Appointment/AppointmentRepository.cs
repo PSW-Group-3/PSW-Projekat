@@ -99,7 +99,7 @@ namespace HospitalLibrary.Core.Repository
             return _context.Appointments.Where(p => p.Patient.Id == patientId).ToList();
         }
 
-        async public Task<bool> CheckIfPatientHadAppointmentInPastXMonths(int patientId, int months)
+        public async Task<bool> CheckIfPatientHadAppointmentInPastXMonths(int patientId, int months)
         {
             DateTime compareDate = DateTime.Today.AddMonths(-months);
             int count = await _context.Appointments.Where(a => a.Patient.Id == patientId && a.DateTime >= compareDate).CountAsync();

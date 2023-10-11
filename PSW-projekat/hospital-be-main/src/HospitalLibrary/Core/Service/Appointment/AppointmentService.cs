@@ -462,10 +462,5 @@ namespace HospitalLibrary.Core.Service
             }
             return false;
         }
-
-        public async Task<bool> CheckIfPatientHadAppointmentInPastXMonths(int patientId, int months)
-        {
-            return await _appointmentRepository.CheckIfPatientHadAppointmentInPastXMonths(patientId, months);
-        }
     }
 }

@@ -3,6 +3,7 @@ using HospitalAPI.DTO;
 using HospitalLibrary.Core.DomainService.Interface;
 using HospitalLibrary.Core.Model;
 using HospitalLibrary.Core.Service;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -16,19 +17,23 @@ namespace HospitalAPI.Controllers.PublicApp
     public class WorkoutController : ControllerBase
     {
         private readonly IWorkoutService _workoutService;
-        private readonly IPatientService _patientService;
         private readonly IWorkoutScoreService _workoutScoreService;
         private readonly IWorkoutStatisticsService _workoutStatisticsService;
 
-        public WorkoutController(IWorkoutService workoutService, IPatientService patientService, IWorkoutScoreService workoutScoreService, IWorkoutStatisticsService workoutStatisticsService)
+        private readonly IPatientService _patientService;
+        private readonly IPatientScoreService _patientScoreService;
+
+
+        public WorkoutController(IWorkoutService workoutService, IPatientService patientService, IWorkoutScoreService workoutScoreService, IWorkoutStatisticsService workoutStatisticsService, IPatientScoreService patientScoreService)
         {
             _workoutService = workoutService;
             _patientService = patientService;
             _workoutScoreService = workoutScoreService;
             _workoutStatisticsService = workoutStatisticsService;
+            _patientScoreService = patientScoreService;
         }
 
-        //[Authorize]
+        [Authorize(Roles = "Patient")]
         [HttpPut("all/{personId}")]
         public ActionResult GetAllForPatient(int personId, DateRangeDTO dto)
         {
@@ -43,13 +48,12 @@ namespace HospitalAPI.Controllers.PublicApp
                 return BadRequest("From and until dates are required!");
             }
 
-            List<Workout> workouts = (List<Workout>)_workoutService.GetAllForPatientInsideDateRange(patient.Id, dto.DateFrom.Value, dto.DateUntil.Value);
-            List<WorkoutInfoDTO> dtos = WorkoutAdapter.FromWorkoutListToWorkoutInfoDTOList(workouts);
+            List<Workout> workouts = _workoutService.GetAllForPatientInsideDateRange(patient.Id, dto.DateFrom.Value, dto.DateUntil.Value) as List<Workout>;
 
-            return Ok(dtos);
+            return Ok(WorkoutAdapter.FromWorkoutListToWorkoutInfoDTOList(workouts));
         }
 
-        //[Authorize]
+        [Authorize(Roles = "Patient")]
         [HttpGet("statistics/{personId}")]
         public ActionResult GetWorkoutStatistics(int personId)
         {
@@ -62,7 +66,7 @@ namespace HospitalAPI.Controllers.PublicApp
             return Ok(_workoutStatisticsService.GetAllWorkoutsStatistics(patient.Id));
         }
 
-        //[Authorize]
+        [Authorize(Roles = "Patient")]
         [HttpPost("add")]
         public ActionResult AddWorkout(AddWorkoutDTO dto)
         {
@@ -78,8 +82,8 @@ namespace HospitalAPI.Controllers.PublicApp
                 Workout workout = WorkoutAdapter.FromAddWorkoutDTOtoWorkout(dto, score, patient);
                 _workoutService.Create(workout);
 
-                patient.UpdateHealthScore(workout.Score);
-                _patientService.Update(patient);
+                _patientService.Update(_patientScoreService.UpdatePatientHealtScore(patient, workout.Score));
+
                 return StatusCode(201);
             }
             catch (Exception e)

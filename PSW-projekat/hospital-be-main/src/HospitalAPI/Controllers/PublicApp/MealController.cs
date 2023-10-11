@@ -21,27 +21,29 @@ namespace HospitalAPI.Controllers.PublicApp
         private readonly IMealService _mealService;
         private readonly IMealStatisticsService _mealStatisticsService;
         private readonly IMealQuestionService _mealQuestionService;
-        private readonly IPatientService _patientService;
         private readonly IMealScoreService _mealScoreService;
 
+        private readonly IPatientService _patientService;
+        private readonly IPatientScoreService _patientScoreService;
 
-        public MealController(IMealService mealService, IMealStatisticsService mealStatisticsService, IMealQuestionService mealQuestionService, IPatientService patientService, IMealScoreService mealScoreService)
+        public MealController(IMealService mealService, IMealStatisticsService mealStatisticsService, IMealQuestionService mealQuestionService, IPatientService patientService, IMealScoreService mealScoreService, IPatientScoreService patientScoreService)
         {
             _mealService = mealService;
             _mealStatisticsService = mealStatisticsService;
             _mealQuestionService = mealQuestionService;
-            _patientService = patientService;
             _mealScoreService = mealScoreService;
+            _patientService = patientService;
+            _patientScoreService = patientScoreService;
         }
 
-        [Authorize]
+        [Authorize(Roles = "Patient")]
         [HttpGet("mealquestions/{mealType}")]
         public ActionResult GetAllMealQuestionsByType(MealType mealType)
         {
-            return Ok(MealQuestionAdapter.ToListDTO((List<MealQuestion>)_mealQuestionService.GetAllMealQuestionsByMealType(mealType)));
+            return Ok(MealQuestionAndAnswerAdapter.FromMealQuestionListToMealQuestionDTOList(_mealQuestionService.GetAllMealQuestionsByMealType(mealType) as List<MealQuestion>));
         }
 
-        [Authorize]
+        [Authorize(Roles = "Patient")]
         [HttpGet("patient/{personId}/{dateTime}")]
         public ActionResult GetAllForPatientByDate(int personId, DateTime dateTime)
         {
@@ -54,7 +56,7 @@ namespace HospitalAPI.Controllers.PublicApp
             return Ok(MealAdapter.FromMealListToMealInfoDTOList((List<Meal>)_mealService.GetAllForPatientByDate(patient.Id, dateTime)));
         }
 
-        [Authorize]
+        [Authorize(Roles = "Patient")]
         [HttpGet("statistics/{personId}")]
         public ActionResult GetMealStatistics(int personId)
         {
@@ -67,7 +69,7 @@ namespace HospitalAPI.Controllers.PublicApp
             return Ok(_mealStatisticsService.GetMealsStatistics(patient.Id));
         }
 
-        [Authorize]
+        [Authorize(Roles = "Patient")]
         [HttpPost("add")]
         public ActionResult AddMeal(CreateMealDTO dto)
         {
@@ -82,17 +84,14 @@ namespace HospitalAPI.Controllers.PublicApp
                 List<MealAnswer> answers = new();
                 foreach (MealAnswerDTO answerDTO in dto.Answers)
                 {
-                    MealAnswer mealAnswer = new(_mealQuestionService.GetById(answerDTO.QuestionId), answerDTO.Answer);
-                    answers.Add(mealAnswer);
+                    answers.Add(MealQuestionAndAnswerAdapter.FromMealAnswerDTOtoMealAnswer(_mealQuestionService.GetById(answerDTO.QuestionId), answerDTO.Answer));
                 }
 
                 float score = _mealScoreService.CalculateMealScore(answers);
 
-                Meal meal = new(answers, score, dto.MealType, patient);
-                _mealService.Create(meal);
+                _mealService.Create(new(answers, score, dto.MealType, patient));
                 
-                patient.UpdateHealthScore(score);
-                _patientService.Update(patient);
+                _patientService.Update(_patientScoreService.UpdatePatientHealtScore(patient, score));
 
                 return StatusCode(201);
             }
@@ -102,7 +101,7 @@ namespace HospitalAPI.Controllers.PublicApp
             }
         }
 
-        [Authorize]
+        [Authorize(Roles = "Patient")]
         [HttpPut("edit")]
         public ActionResult EditMeal(CreateMealDTO dto)
         {
@@ -122,8 +121,7 @@ namespace HospitalAPI.Controllers.PublicApp
 
                 if (currentScore != meal.Score)
                 {
-                    patient.UpdateHealthScore(meal.Score-currentScore);
-                    _patientService.Update(patient);
+                    _patientService.Update(_patientScoreService.UpdatePatientHealtScore(patient, meal.Score - currentScore));
                 }
 
                 return StatusCode(201);

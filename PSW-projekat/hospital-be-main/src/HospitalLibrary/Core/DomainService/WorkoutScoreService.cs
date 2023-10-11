@@ -17,7 +17,7 @@ namespace HospitalLibrary.Core.DomainService
         {
             double score = GetWorkoutScoreByType(type);
             double setsModifier = (double)setsAndReps.Sets / (double)(exercisesCount * 3);
-            double repsModifier = (double)setsAndReps.Reps / (double)(exercisesCount * 3 * 10);
+            double repsModifier = (double)setsAndReps.Reps / (double)(exercisesCount * 30);
 
             return score * setsModifier * repsModifier;
         }

@@ -1,4 +1,6 @@
 ﻿using HospitalAPI.Adapters;
+using HospitalLibrary.Core.DomainService;
+using HospitalLibrary.Core.DomainService.Interface;
 using HospitalLibrary.Core.DTOs;
 using HospitalLibrary.Core.Model;
 using HospitalLibrary.Core.Service;
@@ -14,21 +16,29 @@ namespace HospitalAPI.Controllers.PublicApp
     public class PatientHealthController : ControllerBase
     {
         private readonly IPatientHealthInformationService _patientHealthInformationService;
+        private readonly IPatientHealthInformationScoreService _patientHealthInformationScoreService;
         private readonly IPatientService _patientService;
+        private readonly IPatientScoreService _patientScoreService;
 
-        public PatientHealthController(IPatientHealthInformationService patientHealthInformationService, IPatientService patientService)
+        public PatientHealthController(IPatientHealthInformationService patientHealthInformationService, IPatientHealthInformationScoreService patientHealthInformationScoreService, IPatientService patientService, IPatientScoreService patientScoreService)
         {
             _patientHealthInformationService = patientHealthInformationService;
+            _patientHealthInformationScoreService = patientHealthInformationScoreService;
             _patientService = patientService;
+            _patientScoreService = patientScoreService;
         }
 
-        [Authorize]
+        [Authorize(Roles = "Patient")]
         [HttpGet("{personId}")]
         public ActionResult GetPatientHealthInformationByPersonId(int personId)
         {
             Patient patient = _patientService.getPatientByPersonId(personId);
-            PatientHealthInformation patientHealthInformation = _patientHealthInformationService.GetLatestByPatientId(patient.Id);
+            if (patient == null)
+            {
+                return BadRequest("Patient not found.");
+            }
 
+            PatientHealthInformation patientHealthInformation = _patientHealthInformationService.GetLatestByPatientId(patient.Id);
             if(patientHealthInformation == null)
             {
                 return Ok(PatientHealthAdapter.ToPatientInfoDTO(patient));
@@ -37,7 +47,7 @@ namespace HospitalAPI.Controllers.PublicApp
             return Ok(PatientHealthAdapter.ToPatientInfoDTO(patient, patientHealthInformation));
         }
 
-        [Authorize]
+        [Authorize(Roles = "Patient")]
         [HttpGet("messages/{personId}")]
         public ActionResult GetPatientHealthInformationMessagesByPersonId(int personId)
         {
@@ -46,16 +56,21 @@ namespace HospitalAPI.Controllers.PublicApp
         }
         
 
-        [Authorize]
+        [Authorize(Roles = "Patient")]
         [HttpPost("{personId}")]
         public ActionResult UpdatePatientHealthInformationByPersonId(PatientInfoDTO patientInfoDTO, int personId)
         {
             Patient patient = _patientService.getPatientByPersonId(personId);
-            PatientHealthInformation patientHealthInformation = PatientHealthAdapter.FromPatientInfoDTO(patientInfoDTO, patient);
-            patient.UpdateHealthScore(patientHealthInformation.Score);
+            if (patient == null)
+            {
+                return BadRequest("Patient not found.");
+            }
 
+            PatientHealthInformation patientHealthInformation = PatientHealthAdapter.FromPatientInfoDTO(patientInfoDTO, patient);
+            patientHealthInformation.Score = _patientHealthInformationScoreService.CalculatePatientHealthInforamtionScore(patientHealthInformation);
             _patientHealthInformationService.Create(patientHealthInformation);
-            _patientService.Update(patient);
+
+            _patientService.Update(_patientScoreService.UpdatePatientHealtScore(patient, patientHealthInformation.Score));
 
             return Ok(PatientHealthAdapter.ToPatientInfoDTO(patient, patientHealthInformation));
         }

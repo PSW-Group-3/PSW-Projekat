@@ -20,7 +20,5 @@ namespace HospitalLibrary.Core.Service
         void ScheduleAppointment(Appointment appointment);
         List<string> GetFreeAppointmentsForDoctor(int doctorId, DateTime scheduledDate);
         bool CreateCustomAppointment(CustomAppointmentForCreatingDto checkAppointment);
-
-        Task<bool> CheckIfPatientHadAppointmentInPastXMonths(int patientId, int months);
     }
 }

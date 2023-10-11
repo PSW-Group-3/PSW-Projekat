@@ -29,13 +29,5 @@ namespace HospitalLibrary.Core.Model
 
             return true;
         }
-
-        public void UpdateHealthScore(double score)
-        {
-            HealthScore += score;
-
-            if (HealthScore >= 100) HealthScore = 100;
-            if (HealthScore <= 0) HealthScore = 0;
-        }
     }
 }

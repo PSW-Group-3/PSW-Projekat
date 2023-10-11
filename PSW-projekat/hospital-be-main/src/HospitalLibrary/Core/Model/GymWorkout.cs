@@ -1,13 +1,14 @@
 ﻿using HospitalLibrary.Core.Model.Enums;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HospitalLibrary.Core.Model
 {
     public class GymWorkout : BaseModel
     {
         public double Score { get; set; }
-        public WorkoutType Type { get; set; }
+        public WorkoutType WorkoutType { get; set; }
         public DateTime Date { get; set; }
         public TimeSpan Duration { get; set; }
         public string Description { get; set; }
@@ -20,7 +21,7 @@ namespace HospitalLibrary.Core.Model
         {
             if (!IsValid(type, date, duration)) throw new Exception("GymWorkout invalid!");
 
-            Type = type;
+            WorkoutType = type;
             Date = date;
             Duration = duration;
             Description = description;

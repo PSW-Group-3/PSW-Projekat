@@ -427,13 +427,17 @@ namespace HospitalLibrary.Migrations
                     b.Property<TimeSpan>("Duration")
                         .HasColumnType("time");
 
+                    b.Property<string>("Exercises")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Exercises");
+
                     b.Property<int?>("PatientId")
                         .HasColumnType("int");
 
                     b.Property<double>("Score")
                         .HasColumnType("float");
 
-                    b.Property<int>("Type")
+                    b.Property<int>("WorkoutType")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -877,7 +881,7 @@ namespace HospitalLibrary.Migrations
                     b.Property<double>("Score")
                         .HasColumnType("float");
 
-                    b.Property<int>("Type")
+                    b.Property<int>("WorkoutType")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -1224,41 +1228,6 @@ namespace HospitalLibrary.Migrations
                     b.HasOne("HospitalLibrary.Core.Model.Patient", "Patient")
                         .WithMany()
                         .HasForeignKey("PatientId");
-
-                    b.OwnsMany("HospitalLibrary.Core.Model.Exercise", "Exercises", b1 =>
-                        {
-                            b1.Property<int>("GymWorkoutId")
-                                .HasColumnType("int");
-
-                            b1.Property<int>("Id")
-                                .ValueGeneratedOnAdd()
-                                .HasColumnType("int")
-                                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                            b1.Property<string>("Description")
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.Property<string>("Name")
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.Property<int>("Reps")
-                                .HasColumnType("int");
-
-                            b1.Property<int>("Sets")
-                                .HasColumnType("int");
-
-                            b1.Property<double>("WeightLifted")
-                                .HasColumnType("float");
-
-                            b1.HasKey("GymWorkoutId", "Id");
-
-                            b1.ToTable("Exercises");
-
-                            b1.WithOwner()
-                                .HasForeignKey("GymWorkoutId");
-                        });
-
-                    b.Navigation("Exercises");
 
                     b.Navigation("Patient");
                 });

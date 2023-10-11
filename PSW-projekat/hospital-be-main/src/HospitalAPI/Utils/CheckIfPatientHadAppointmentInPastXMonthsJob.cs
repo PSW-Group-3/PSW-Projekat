@@ -1,4 +1,6 @@
-﻿using HospitalLibrary.Core.Service;
+﻿using HospitalLibrary.Core.DomainService.Interface;
+using HospitalLibrary.Core.Model;
+using HospitalLibrary.Core.Repository;
 using Microsoft.Extensions.Logging;
 using Quartz;
 using System;
@@ -8,35 +10,39 @@ using System.Threading.Tasks;
 
 namespace HospitalAPI.Utils
 {
+    [DisallowConcurrentExecution]
     public class CheckIfPatientHadAppointmentInPastXMonthsJob : IJob
     {
-        private readonly IAppointmentService _appointmentService;
+        private readonly IAppointmentRepository _appointmentRepository;
+        private readonly IPatientRepository _patientRepository;
+        private readonly IPatientScoreService _patientScoreService;
         private readonly ILogger<CheckIfPatientHadAppointmentInPastXMonthsJob> _logger;
-        private IEnumerable<int> _patientIDs;
-        private int _months;
+        private readonly int _months;
 
-        public CheckIfPatientHadAppointmentInPastXMonthsJob(IAppointmentService appointmentService, ILogger<CheckIfPatientHadAppointmentInPastXMonthsJob> logger)
+        public CheckIfPatientHadAppointmentInPastXMonthsJob(IAppointmentRepository appointmentRepository, IPatientRepository patientRepository, IPatientScoreService patientScoreService, ILogger<CheckIfPatientHadAppointmentInPastXMonthsJob> logger)
         {
-            _appointmentService = appointmentService;
+            _appointmentRepository = appointmentRepository;
+            _patientRepository = patientRepository;
+            _patientScoreService = patientScoreService;
             _logger = logger;
+            _months = 2;
         }
 
         public async Task Execute(IJobExecutionContext context)
         {
-            JobDataMap dataMap = context.MergedJobDataMap;
-            _patientIDs = (IEnumerable<int>)dataMap.Get("patientIDs");
-            _months = dataMap.GetInt("months");
+            IEnumerable<int> patientIDs = _patientRepository.GetAllPatientIDs();
 
-            foreach (int id in _patientIDs)
+            foreach (int id in patientIDs)
             {
-                var hadAppointment = await _appointmentService.CheckIfPatientHadAppointmentInPastXMonths(id, _months);
+                var hadAppointment = await _appointmentRepository.CheckIfPatientHadAppointmentInPastXMonths(id, _months);
 
-                // Log job execution details
+                // Log job execution details, TODO: can be removed if not necessary 
                 _logger.LogInformation($"Job executed for patient ID: {id}, Had Appointment: {hadAppointment}");
 
                 if (!hadAppointment)
                 {
-                    // Update score or perform other actions as needed
+                    Patient patient = _patientRepository.GetById(id);
+                    _patientRepository.Update(_patientScoreService.UpdatePatientHealtScore(patient, -patient.HealthScore/2));
                 }
             }
         }

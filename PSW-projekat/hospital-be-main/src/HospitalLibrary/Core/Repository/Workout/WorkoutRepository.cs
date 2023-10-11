@@ -41,7 +41,7 @@ namespace HospitalLibrary.Core.Repository
 
         public IEnumerable<Workout> GetAllForPatientInsideDateRangeByType(int patientId, DateTime fromDate, DateTime untilDate, WorkoutType workoutType)
         {
-            return _context.Workouts.Where(w => w.Patient.Id == patientId && w.Date.Date >= fromDate.Date && w.Date.Date <= untilDate.Date && w.Type == workoutType).ToList();
+            return _context.Workouts.Where(w => w.Patient.Id == patientId && w.Date.Date >= fromDate.Date && w.Date.Date <= untilDate.Date && w.WorkoutType == workoutType).ToList();
         }
 
         public Workout GetById(int id)

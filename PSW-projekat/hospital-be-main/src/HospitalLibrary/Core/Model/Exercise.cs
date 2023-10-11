@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 namespace HospitalLibrary.Core.Model
 {
-    [Owned]
     public class Exercise : ValueObject
     {
         public string Name { get; set; }
@@ -37,6 +36,11 @@ namespace HospitalLibrary.Core.Model
 
         private bool IsValid()
         {
+            if (string.IsNullOrEmpty(Name))
+            {
+                return false;
+            }   
+
             if (Sets < 0 || Reps < 0 || WeightLifted < 0)
             {
                 return false;

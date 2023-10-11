@@ -6,7 +6,7 @@ namespace HospitalLibrary.Core.Model
     public class Workout : BaseModel
     {
         public double Score { get; set; }
-        public WorkoutType Type { get; set; }
+        public WorkoutType WorkoutType { get; set; }
         public DateTime Date { get; set; }
         public TimeSpan Duration { get; set; }
         public string Description { get; set; }
@@ -20,7 +20,7 @@ namespace HospitalLibrary.Core.Model
             if (!IsValid(date, duration)) throw new Exception("Workout invalid!");
 
             Score = score;
-            Type = type;
+            WorkoutType = type;
             Date = date;
             Duration = duration;
             Description = description;

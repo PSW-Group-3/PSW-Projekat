@@ -39,7 +39,7 @@ namespace HospitalLibrary.Core.Repository
 
         public PatientHealthInformation GetLatestByPatientId(int id)
         {
-            return _context.PatientHealthInformations.Where(p => p.Patient.Id == id).OrderByDescending(p => p.SelectedDate).FirstOrDefault();
+            return _context.PatientHealthInformations.Where(p => p.Patient.Id == id).OrderByDescending(p => p.Date).FirstOrDefault();
         }
 
         public void Update(PatientHealthInformation entity)
